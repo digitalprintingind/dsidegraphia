@@ -184,7 +184,7 @@
             <label for="progressNotes">Catatan Progress:</label>
             <input type="text" id="progressNotes" name="progressNotes">
         </div>
-        <button type="button" onclick="addData()">Add Data</button>
+        <button type="button" onclick="sendToGoogleSheets()">Add Data</button>
     </form>
 
     <h2>Preview</h2>
@@ -198,7 +198,7 @@
         </table>
     </div>
 
-    <button id="saveButton sendToGoogleSheets" onclick="sendToGoogleSheets()">Send to Google Sheets</button>
+    <button id="saveButton" onclick="saveToExcel()">Send to Google Sheets</button>
 
     <script>
         const data = [];
