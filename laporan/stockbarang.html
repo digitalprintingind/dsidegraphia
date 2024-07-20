@@ -3,250 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Stock</title>
+    <title>Document</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            background-color: #f4f4f9;
         }
-
         h1, h2 {
             text-align: center;
             color: #333;
         }
-
-        form {
-            max-width: 600px;
-            margin: 0 auto;
+        form, table {
+            max-width: 800px;
+            margin: 20px auto;
             padding: 20px;
-            background: #fff;
-            border-radius: 8px;
+            background-color: #fff;
+            border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
-        form label {
+        label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
+            color: #555;
         }
-
-        form input, form select {
-            width: calc(100% - 20px);
-            padding: 8px 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        form button {
-            display: block;
+        input[type="text"], input[type="date"], input[type="number"], select, textarea {
             width: 100%;
             padding: 10px;
-            background-color: #28a745;
-            color: white;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        button[type="submit"], button {
+            background-color: #007bff;
+            color: #fff;
             border: none;
-            border-radius: 4px;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
-
-        form button:hover {
-            background-color: #218838;
+        button[type="submit"]:hover, button:hover {
+            background-color: #0056b3;
         }
-
-        #preview {
-            max-width: 800px;
-            margin: 20px auto;
-            overflow-x: auto;
-        }
-
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
-            background: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
         }
-
-        table thead {
-            background-color: #007bff;
-            color: white;
+        table, th, td {
+            border: 1px solid #ddd;
         }
-
-        table th, table td {
+        th, td {
             padding: 10px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
         }
-
-        table tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .action-buttons button {
-            margin-right: 5px;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .edit-button {
-            background-color: #ffc107;
-            color: white;
-        }
-
-        .edit-button:hover {
-            background-color: #e0a800;
-        }
-
-        .delete-button {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .delete-button:hover {
-            background-color: #c82333;
-        }
-
-        #saveButton {
-            display: block;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 10px;
+        th {
             background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
+            color: #fff;
         }
-
-        #saveButton:hover {
-            background-color: #0056b3;
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .hidden {
+            display: none;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 5px;
         }
     </style>
 </head>
 <body>
-    <h1>LAPORAN STOCK BARANG</h1>
-    <form id="dataForm">
-        <label for="division">Pilih Laporan:</label>
-        <select id="division" name="division" required onchange="updateForm()">
-            <option value="">-- Pilih Divisi --</option>
-            <option value="INDOOR">INDOOR</option>
-            <option value="OUTDOOR">OUTDOOR</option>
-            <option value="PRODUKSI">PRODUKSI</option>
-            <option value="GUDANG">GUDANG</option>
-            <option value="PURCHASE ORDER">PURCHASE ORDER</option>
-            <option value="DAILY JOB">DAILY JOB</option>
-            <option value="ORDER PERMINTAAN BARANG">ORDER PERMINTAAN BARANG</option>
-        </select>
-        <div id="commonFields">
-            <label for="date">Tanggal:</label>
-            <input type="date" id="date" name="date">
-            <label for="itemName">Nama Barang:</label>
-            <div id="itemNameContainer">
-                <select id="itemNameSelect" name="itemName">
-                    <!-- Options will be populated based on division selection -->
-                </select>
-                <input type="text" id="itemNameInput" name="itemName" style="display: none;">
-            </div>
-            <label for="type">Jenis:</label>
-            <select id="type" name="type">
-                <option value="Material Masuk">Material Masuk</option>
-                <option value="Material Terpakai">Material Terpakai</option>
-                <option value="Material Reject">Material Reject</option>
-                <option value="Potongan Reject">Potongan Reject</option>
+    <h1>Formulir Input Data</h1>
+    <form onsubmit="addData(); return false;">
+        <fieldset>
+            <legend>Informasi Umum</legend>
+            <label for="division">Division</label>
+            <select id="division" onchange="updateForm(); updateTableHeader();">
+                <option value="INDOOR">INDOOR</option>
+                <option value="OUTDOOR">OUTDOOR</option>
+                <option value="PRODUKSI">PRODUKSI</option>
+                <option value="GUDANG">GUDANG</option>
+                <option value="PURCHASE ORDER">PURCHASE ORDER</option>
+                <option value="DAILY JOB">DAILY JOB</option>
+                <option value="ORDER PERMINTAAN BARANG">ORDER PERMINTAAN BARANG</option>
             </select>
-            <label for="quantity">Banyaknya:</label>
-            <input type="number" id="quantity" name="quantity">
-            <label for="notes">Catatan:</label>
-            <input type="text" id="notes" name="notes">
-        </div>
-        <div id="dailyJobFields" style="display: none;">
-            <label for="activity">Kegiatan:</label>
-            <input type="text" id="activity" name="activity">
-            <label for="startDate">Start Date:</label>
-            <input type="date" id="startDate" name="startDate">
-            <label for="targetDate">Target Date:</label>
-            <input type="date" id="targetDate" name="targetDate">
-            <label for="finishDate">Finish Date:</label>
-            <input type="date" id="finishDate" name="finishDate">
-            <label for="progressNotes">Catatan Progress:</label>
-            <input type="text" id="progressNotes" name="progressNotes">
-        </div>
-        <div id="orderPermintaanBarangFields" style="display: none;">
-            <label for="opbItemName">Nama Barang:</label>
-            <input type="text" id="opbItemName" name="opbItemName">
-            <label for="opbDate">Tanggal:</label>
-            <input type="date" id="opbDate" name="opbDate">
-            <label for="opbQuantity">Banyaknya:</label>
-            <input type="number" id="opbQuantity" name="opbQuantity">
-            <label for="opbStatus">Status Proses:</label>
-            <select id="opbStatus" name="opbStatus">
-                <option value="Diajukan">Diajukan</option>
-                <option value="Diproses">Diproses</option>
-                <option value="Selesai">Selesai</option>
-            </select>
-        </div>
-        <button type="button" onclick="addData()">Add Data</button>
+        </fieldset>
+
+        <!-- Fields for other divisions -->
+        <fieldset id="generalFields">
+            <legend>Informasi Detail</legend>
+            <label for="date">Tanggal</label>
+            <input type="date" id="date" required><br>
+
+            <label for="itemNameSelect">Nama Barang</label>
+            <select id="itemNameSelect"></select>
+            <input type="text" id="itemNameInput" class="hidden"><br>
+
+            <label for="type">Jenis</label>
+            <input type="text" id="type" required><br>
+
+            <label for="quantity">Banyaknya</label>
+            <input type="number" id="quantity" required><br>
+
+            <label for="notes">Catatan</label>
+            <textarea id="notes"></textarea><br>
+        </fieldset>
+
+        <!-- Fields for DAILY JOB -->
+        <fieldset id="dailyJobFields" class="hidden">
+            <legend>Informasi Daily Job</legend>
+            <label for="activity">Kegiatan</label>
+            <input type="text" id="activity" required><br>
+
+            <label for="startDate">Start Date</label>
+            <input type="date" id="startDate" required><br>
+
+            <label for="targetDate">Target Date</label>
+            <input type="date" id="targetDate" required><br>
+
+            <label for="finishDate">Finish Date</label>
+            <input type="date" id="finishDate" required><br>
+
+            <label for="progressNotes">Catatan Progress</label>
+            <textarea id="progressNotes"></textarea><br>
+        </fieldset>
+
+        <!-- Fields for ORDER PERMINTAAN BARANG -->
+        <fieldset id="orderPermintaanBarangFields" class="hidden">
+            <legend>Informasi Order Permintaan Barang</legend>
+            <label for="opbItemName">Nama Barang</label>
+            <input type="text" id="opbItemName" required><br>
+
+            <label for="opbDate">Tanggal</label>
+            <input type="date" id="opbDate" required><br>
+
+            <label for="opbQuantity">Banyaknya</label>
+            <input type="number" id="opbQuantity" required><br>
+
+            <label for="opbStatus">Status Proses</label>
+            <input type="text" id="opbStatus" required><br>
+        </fieldset>
+
+        <button type="submit">Add</button>
     </form>
 
-    <h2>Tampilan Tabel Data</h2>
-    <div id="preview">
-        <table>
-            <thead id="tableHead">
-                <!-- Table headers will be populated based on division selection -->
-            </thead>
-            <tbody id="tableBody">
-                <!-- Table rows will be populated dynamically -->
-            </tbody>
-        </table>
-    </div>
+    <table>
+        <thead id="tableHead"></thead>
+        <tbody id="tableBody"></tbody>
+    </table>
 
-    <button id="saveButton" onclick="saveToExcel()">Save to Excel</button>
+    <button onclick="saveToExcel()">Save to Excel</button>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.1/xlsx.full.min.js"></script>
     <script>
         const data = [];
 
         function updateForm() {
             const division = document.getElementById('division').value;
-            const commonFields = document.getElementById('commonFields');
+            const generalFields = document.getElementById('generalFields');
             const dailyJobFields = document.getElementById('dailyJobFields');
             const orderPermintaanBarangFields = document.getElementById('orderPermintaanBarangFields');
-            const itemNameSelect = document.getElementById('itemNameSelect');
-            const itemNameInput = document.getElementById('itemNameInput');
+
+            generalFields.classList.add('hidden');
+            dailyJobFields.classList.add('hidden');
+            orderPermintaanBarangFields.classList.add('hidden');
 
             if (division === 'DAILY JOB') {
-                commonFields.style.display = 'none';
-                dailyJobFields.style.display = 'block';
-                orderPermintaanBarangFields.style.display = 'none';
-                itemNameInput.required = false;
-                itemNameSelect.required = false;
+                dailyJobFields.classList.remove('hidden');
             } else if (division === 'ORDER PERMINTAAN BARANG') {
-                commonFields.style.display = 'none';
-                dailyJobFields.style.display = 'none';
-                orderPermintaanBarangFields.style.display = 'block';
+                orderPermintaanBarangFields.classList.remove('hidden');
             } else {
-                commonFields.style.display = 'block';
-                dailyJobFields.style.display = 'none';
-                orderPermintaanBarangFields.style.display = 'none';
-                itemNameInput.required = true;
-                itemNameSelect.required = true;
-                updateItemNames();
+                generalFields.classList.remove('hidden');
             }
 
-            updateTableHeader();
-        }
-
-        function updateItemNames() {
-            const division = document.getElementById('division').value;
             const itemNameSelect = document.getElementById('itemNameSelect');
             const itemNameInput = document.getElementById('itemNameInput');
+
+            itemNameSelect.innerHTML = '';
+            itemNameInput.value = '';
 
             if (division === 'DAILY JOB' || division === 'ORDER PERMINTAAN BARANG') {
                 itemNameSelect.style.display = 'none';
@@ -259,13 +201,13 @@
                 if (division === 'INDOOR') {
                     items = ['KERTAS ART CARTON 210 GR', 'KERTAS ART CARTON 230 GR', 'KERTAS ART CARTON 260 GR', 'KERTAS ART CARTON 310 GR', 'KERTAS ART PAPER 100 GR', 'KERTAS ART PAPER 120 GR', 'KERTAS BLUES WHITE 80 GR', 'KERTAS CORRUGATED', 'KERTAS HVS 70 GR', 'KERTAS HVS 80 GR', 'KERTAS HVS F4 PUTIH', 'KERTAS MATT PAPER A3+', 'KERTAS SAMSON 70 GR', 'LAMINASI DINGIN KILAP 310', 'LAMINASI DINGIN KILAP 43', 'LAMINASI DINGIN KILAP 60', 'LAMINASI DINGIN KILAP 90', 'LAMINASI DINGIN KILAP 125', 'LAMINASI DINGIN LUSTRE 31', 'LAMINASI DINGIN LUSTRE 43', 'LAMINASI DINGIN LUSTRE 60', 'LAMINASI DINGIN LUSTRE 90', 'LAMINASI DINGIN LUSTRE 125', 'LAMINASI DINGIN LUSTRE 310', 'LAMINASI PANAS GLOSSY 250', 'LAMINASI PANAS MATT 250', 'STIKER COKLAT A3+', 'STIKER DOFF A3+', 'STIKER GLOSSY A3+'];
                 } else if (division === 'OUTDOOR') {
-                    items = ['FLEXI CINA 340 GR', 'FLEXI JERMAN 340 GR', 'FLEXI KOREA 440 GR', 'LAMINASI FLOOR', 'LAMINASI GLOSSY', 'LAMINASI STICKER', 'LAMINASI UV', 'MESH', 'ONEWAY VISION', 'STIKER CINA', 'STIKER ORACAL'];
+                    items = ['FLEXI CINA 340 GR', 'FLEXI CINA 440 GR', 'FLEXI CINA 510 GR', 'FLEXI CINA 610 GR', 'FLEXI KOREA 280 GR', 'FLEXI KOREA 320 GR', 'FLEXI KOREA 340 GR', 'FLEXI KOREA 440 GR', 'FLEXI KOREA 510 GR', 'FLEXI KOREA 610 GR', 'FLEXI KOREA 650 GR', 'FLEXI KOREA 730 GR', 'ONE WAY VISION', 'STIKER VINYL GLOSSY', 'STIKER VINYL LAMINASI', 'STIKER VINYL MATT'];
                 } else if (division === 'PRODUKSI') {
-                    items = ['AVERY DANNISON', 'FLEXI CINA 340 GR', 'FLEXI CINA 440 GR', 'FLEXI JERMAN 440 GR', 'FLEXI KOREA 440 GR', 'LAMINASI DINGIN', 'LAMINASI PANAS', 'MESH', 'ONWAY VISION', 'STIKER ORACAL'];
+                    items = ['ALUMUNIUM 0.2', 'ALUMUNIUM 0.3', 'ALUMUNIUM 0.4', 'ALUMUNIUM 0.5', 'ALUMUNIUM 0.8', 'ALUMUNIUM 1.0', 'ALUMUNIUM 2.0', 'ALUMUNIUM 3.0', 'STAINLESS 0.2', 'STAINLESS 0.3', 'STAINLESS 0.4', 'STAINLESS 0.5', 'STAINLESS 0.8', 'STAINLESS 1.0', 'STAINLESS 2.0', 'STAINLESS 3.0', 'STAINLESS 5.0', 'STAINLESS 6.0', 'STAINLESS 8.0', 'STAINLESS 10.0', 'PLAT BESI 0.2', 'PLAT BESI 0.3', 'PLAT BESI 0.4', 'PLAT BESI 0.5', 'PLAT BESI 0.8', 'PLAT BESI 1.0', 'PLAT BESi 2.0', 'PLAT BESI 3.0', 'PLAT BESI 5.0', 'PLAT BESI 6.0', 'PLAT BESI 8.0', 'PLAT BESI 10.0', 'PLAT BESI 12.0', 'PLAT BESI 15.0', 'PLAT BESI 20.0', 'PLAT BESI 25.0'];
                 } else if (division === 'GUDANG') {
-                    items = ['BANNER', 'FLEXI CINA', 'FLEXI JERMAN', 'FLEXI KOREA', 'LAMINASI DINGIN', 'LAMINASI PANAS', 'MESH', 'ONWAY VISION', 'STIKER CINA', 'STIKER ORACAL'];
+                    items = ['LAMPIRAN FOTO'];
                 } else if (division === 'PURCHASE ORDER') {
-                    items = ['BANNER', 'FLEXI CINA', 'FLEXI JERMAN', 'FLEXI KOREA', 'LAMINASI DINGIN', 'LAMINASI PANAS', 'MESH', 'ONWAY VISION', 'STIKER CINA', 'STIKER ORACAL'];
+                    items = ['PAPER A3', 'PAPER A4', 'PAPER A5', 'PAPER B1', 'PAPER B2'];
                 }
 
                 items.forEach(item => {
@@ -280,19 +222,18 @@
         function updateTableHeader() {
             const division = document.getElementById('division').value;
             const tableHead = document.getElementById('tableHead');
-            let headers = '';
 
+            let headers = '';
             if (division === 'DAILY JOB') {
                 headers = `
                     <tr>
                         <th>No</th>
-                        <th>Tanggal</th>
                         <th>Kegiatan</th>
                         <th>Start Date</th>
                         <th>Target Date</th>
                         <th>Finish Date</th>
                         <th>Catatan Progress</th>
-                        <th>Actions</th>
+                        <th>Action</th>
                     </tr>`;
             } else if (division === 'ORDER PERMINTAAN BARANG') {
                 headers = `
@@ -302,7 +243,7 @@
                         <th>Tanggal</th>
                         <th>Banyaknya</th>
                         <th>Status Proses</th>
-                        <th>Actions</th>
+                        <th>Action</th>
                     </tr>`;
             } else {
                 headers = `
@@ -313,7 +254,7 @@
                         <th>Jenis</th>
                         <th>Banyaknya</th>
                         <th>Catatan</th>
-                        <th>Actions</th>
+                        <th>Action</th>
                     </tr>`;
             }
 
@@ -326,8 +267,6 @@
 
             if (division === 'DAILY JOB') {
                 row = {
-                    no: data.length + 1,
-                    date: document.getElementById('date').value,
                     activity: document.getElementById('activity').value,
                     startDate: document.getElementById('startDate').value,
                     targetDate: document.getElementById('targetDate').value,
@@ -336,7 +275,6 @@
                 };
             } else if (division === 'ORDER PERMINTAAN BARANG') {
                 row = {
-                    no: data.length + 1,
                     itemName: document.getElementById('opbItemName').value,
                     date: document.getElementById('opbDate').value,
                     quantity: document.getElementById('opbQuantity').value,
@@ -344,9 +282,8 @@
                 };
             } else {
                 row = {
-                    no: data.length + 1,
                     date: document.getElementById('date').value,
-                    itemName: document.getElementById('itemNameSelect').value,
+                    itemName: document.getElementById('itemNameSelect').value || document.getElementById('itemNameInput').value,
                     type: document.getElementById('type').value,
                     quantity: document.getElementById('quantity').value,
                     notes: document.getElementById('notes').value
@@ -358,57 +295,28 @@
         }
 
         function updateTable() {
-            const division = document.getElementById('division').value;
             const tableBody = document.getElementById('tableBody');
-            let rows = '';
+            tableBody.innerHTML = '';
 
             data.forEach((row, index) => {
-                if (division === 'DAILY JOB') {
-                    rows += `
-                        <tr>
-                            <td>${index + 1}</td>
-                            <td>${row.date}</td>
-                            <td>${row.activity}</td>
-                            <td>${row.startDate}</td>
-                            <td>${row.targetDate}</td>
-                            <td>${row.finishDate}</td>
-                            <td>${row.progressNotes}</td>
-                            <td class="action-buttons">
-                                <button class="edit-button" onclick="editData(${index})">Edit</button>
-                                <button class="delete-button" onclick="deleteData(${index})">Delete</button>
-                            </td>
-                        </tr>`;
-                } else if (division === 'ORDER PERMINTAAN BARANG') {
-                    rows += `
-                        <tr>
-                            <td>${index + 1}</td>
-                            <td>${row.itemName}</td>
-                            <td>${row.date}</td>
-                            <td>${row.quantity}</td>
-                            <td>${row.status}</td>
-                            <td class="action-buttons">
-                                <button class="edit-button" onclick="editData(${index})">Edit</button>
-                                <button class="delete-button" onclick="deleteData(${index})">Delete</button>
-                            </td>
-                        </tr>`;
-                } else {
-                    rows += `
-                        <tr>
-                            <td>${index + 1}</td>
-                            <td>${row.date}</td>
-                            <td>${row.itemName}</td>
-                            <td>${row.type}</td>
-                            <td>${row.quantity}</td>
-                            <td>${row.notes}</td>
-                            <td class="action-buttons">
-                                <button class="edit-button" onclick="editData(${index})">Edit</button>
-                                <button class="delete-button" onclick="deleteData(${index})">Delete</button>
-                            </td>
-                        </tr>`;
-                }
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${row.date || ''}</td>
+                    <td>${row.itemName || row.activity || ''}</td>
+                    <td>${row.type || row.startDate || ''}</td>
+                    <td>${row.quantity || row.targetDate || ''}</td>
+                    <td>${row.notes || row.finishDate || ''}</td>
+                    <td>${row.status || row.progressNotes || ''}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button onclick="editData(${index})">Edit</button>
+                            <button onclick="deleteData(${index})">Delete</button>
+                        </div>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
             });
-
-            tableBody.innerHTML = rows;
         }
 
         function editData(index) {
@@ -416,7 +324,6 @@
             const division = document.getElementById('division').value;
 
             if (division === 'DAILY JOB') {
-                document.getElementById('date').value = row.date;
                 document.getElementById('activity').value = row.activity;
                 document.getElementById('startDate').value = row.startDate;
                 document.getElementById('targetDate').value = row.targetDate;
