@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Save to Excel Example</title>
+    <title>Laporan Stock</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -137,9 +137,9 @@
     </style>
 </head>
 <body>
-    <h1>Input Data</h1>
+    <h1>LAPORAN STOCK BARANG</h1>
     <form id="dataForm">
-        <label for="division">Divisi:</label>
+        <label for="division">Pilih Laporan:</label>
         <select id="division" name="division" required onchange="updateForm()">
             <option value="">-- Pilih Divisi --</option>
             <option value="INDOOR">INDOOR</option>
@@ -151,7 +151,7 @@
             <option value="ORDER PERMINTAAN BARANG">ORDER PERMINTAAN BARANG</option>
         </select>
         <div id="commonFields">
-            <label for="date">Date:</label>
+            <label for="date">Tanggal:</label>
             <input type="date" id="date" name="date">
             <label for="itemName">Nama Barang:</label>
             <div id="itemNameContainer">
@@ -187,7 +187,7 @@
         <button type="button" onclick="addData()">Add Data</button>
     </form>
 
-    <h2>Preview</h2>
+    <h2>Tampilan Tabel Data</h2>
     <div id="preview">
         <table>
             <thead id="tableHead">
