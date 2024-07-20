@@ -82,11 +82,6 @@
             border-bottom: 1px solid #ddd;
         }
 
-        table th {
-            background-color: #007bff;
-            color: white;
-        }
-
         table tr:hover {
             background-color: #f1f1f1;
         }
@@ -184,6 +179,20 @@
             <label for="progressNotes">Catatan Progress:</label>
             <input type="text" id="progressNotes" name="progressNotes">
         </div>
+        <div id="orderPermintaanBarangFields" style="display: none;">
+            <label for="opbItemName">Nama Barang:</label>
+            <input type="text" id="opbItemName" name="opbItemName">
+            <label for="opbDate">Tanggal:</label>
+            <input type="date" id="opbDate" name="opbDate">
+            <label for="opbQuantity">Banyaknya:</label>
+            <input type="number" id="opbQuantity" name="opbQuantity">
+            <label for="opbStatus">Status Proses:</label>
+            <select id="opbStatus" name="opbStatus">
+                <option value="Diajukan">Diajukan</option>
+                <option value="Diproses">Diproses</option>
+                <option value="Selesai">Selesai</option>
+            </select>
+        </div>
         <button type="button" onclick="addData()">Add Data</button>
     </form>
 
@@ -193,7 +202,8 @@
             <thead id="tableHead">
                 <!-- Table headers will be populated based on division selection -->
             </thead>
-            <tbody>
+            <tbody id="tableBody">
+                <!-- Table rows will be populated dynamically -->
             </tbody>
         </table>
     </div>
@@ -207,17 +217,24 @@
             const division = document.getElementById('division').value;
             const commonFields = document.getElementById('commonFields');
             const dailyJobFields = document.getElementById('dailyJobFields');
+            const orderPermintaanBarangFields = document.getElementById('orderPermintaanBarangFields');
             const itemNameSelect = document.getElementById('itemNameSelect');
             const itemNameInput = document.getElementById('itemNameInput');
 
             if (division === 'DAILY JOB') {
                 commonFields.style.display = 'none';
                 dailyJobFields.style.display = 'block';
+                orderPermintaanBarangFields.style.display = 'none';
                 itemNameInput.required = false;
                 itemNameSelect.required = false;
+            } else if (division === 'ORDER PERMINTAAN BARANG') {
+                commonFields.style.display = 'none';
+                dailyJobFields.style.display = 'none';
+                orderPermintaanBarangFields.style.display = 'block';
             } else {
                 commonFields.style.display = 'block';
                 dailyJobFields.style.display = 'none';
+                orderPermintaanBarangFields.style.display = 'none';
                 itemNameInput.required = true;
                 itemNameSelect.required = true;
                 updateItemNames();
@@ -230,28 +247,26 @@
             const division = document.getElementById('division').value;
             const itemNameSelect = document.getElementById('itemNameSelect');
             const itemNameInput = document.getElementById('itemNameInput');
-            
-            if (division === 'DAILY JOB') {
+
+            if (division === 'DAILY JOB' || division === 'ORDER PERMINTAAN BARANG') {
                 itemNameSelect.style.display = 'none';
                 itemNameInput.style.display = 'block';
             } else {
                 itemNameSelect.style.display = 'block';
                 itemNameInput.style.display = 'none';
-                itemNameSelect.innerHTML = '<option value="">-- Pilih Nama Barang --</option>';
+
                 let items = [];
-				if (division === 'INDOOR') {
-					items = ['DOKU TONER BLACK', 'DOKU TONER CYAN', 'DOKU TONER MAGENTA', 'DOKU TONER YELLOW', 'KERTAS ARTCARTON / BW A3+', 'KERTAS ARTPAPER A3+', 'KERTAS BRIEF CARD / BC F4', 'KERTAS BUFALO BIRU', 'KERTAS BUFALO HIJAU', 'KERTAS BUFALO KUNING', 'KERTAS BUFALO MERAH', 'KERTAS BUFALO ORANGE', 'KERTAS BUFALO PINK', 'KERTAS BUFALO PUTIH', 'KERTAS BUFALO SKY BLUE', 'KERTAS BUFALO UNGU', 'KERTAS FOTO', 'KERTAS HVS A3 PUTIH', 'KERTAS HVS A3+ PUTIH', 'KERTAS HVS A4 PUTIH', 'KERTAS HVS F4 BIRU', 'KERTAS HVS F4 HIJAU', 'KERTAS HVS F4 KUNING', 'KERTAS HVS F4 MERAH', 'KERTAS HVS F4 PUTIH', 'KERTAS INJECT', 'KERTAS KALKIR', 'KERTAS LINEN A3', 'KERTAS LINEN A4', 'KERTAS NCR BIRU', 'KERTAS NCR HIJAU', 'KERTAS NCR KUNING', 'KERTAS NCR MERAH', 'KERTAS NCR PUTIH', 'KERTAS SUBLIME A4', 'MASKING STIKER 10 CM', 'MASKING STIKER 15 CM', 'PVC ID CARD', 'STIKER CROMO A3+', 'STIKER HOLOGRAM A3+', 'STIKER POLIFLEX GOLD', 'STIKER POLIFLEX HITAM', 'STIKER POLIFLEX PUTIH', 'STIKER SKOTLET BIRU', 'STIKER SKOTLET GOLD', 'STIKER SKOTLET HIJAU', 'STIKER SKOTLET HITAM', 'STIKER SKOTLET KUNING', 'STIKER SKOTLET MERAH', 'STIKER SKOTLET ORANGE', 'STIKER SKOTLET PUTIH', 'STIKER SKOTLET SILVER', 'STIKER TRANSPARANT A3+', 'STIKER VINYL A3+', 'TINTA DIAMOND ART BIRU', 'TINTA DIAMOND ART HITAM', 'TINTA DIAMOND ART KUNING', 'TINTA DIAMOND ART MERAH', 'TRANSFER PAPER / OPACK'];
-				} else if (division === 'OUTDOOR') {
-					items = ['ECO SOLVEN', 'FLEXY CHINA 300 GR', 'FLEXY CHINA 340 GR', 'KOREA CHINA 440 GR', 'LEM HANDSOME', 'MATIK', 'STAND ROLL UP BANNER', 'STAND Y-BANNER', 'STIKER ONE WAY', 'STIKER TRANSPARANT', 'STIKER VINYL METER', 'TINTA BLACK / HITAM', 'TINTA CYAN / BIRU', 'TINTA RED / MERAH', 'TINTA YELLOW / KUNING', 'TISU KEPING', 'Y BANNER MINI A3', 'FLEXY CHINA 280 GR'];
-				} else if (division === 'PRODUKSI') {
-					items = ['CAT KARUNG HIJAU', 'CAT KARUNG HITAM', 'CAT KARUNG KUNING', 'CAT KARUNG MERAH', 'Cat Plastisol Hitam', 'CAT PLASTISOL KUNING', 'Cat Plastisol Merah', 'CAT PLASTISOL PUTIH', 'kain asahi', 'Kain Milano Hitam', 'Kain Milano Putih', 'Karung Mulyana Polos 25 Kg', 'Karung Mulyana Polos 50 Kg', 'M4', 'PLASTIK JERSEY', 'PLASTIK KAOS', 'SUMO 50 Kg Transparant', 'SUMO 25 Kg Transparant', 'HOKI 50 Kg Doff Putih', 'HOKI 25 Kg Doff Putih', 'PILOT 50 Kg Transparant', 'PILOT 25 Kg Transparant', 'PILOT 10 Kg Transparant', 'KEPALA SINGA 50 Kg Transparant', 'KTI 50 Kg Transparant', 'KTI 25 Kg Transparant', 'MERCUSUAR 50 Doff Putih', 'MERCURUAS 25 Doff Putih', 'KARUNG 110x150 Doff Putih Garis Biru'];
-				} else if (division === 'GUDANG') {
-					items = ['Akrilik Name Tag', 'Box Kartu Nama', 'CUTTING MAT A3', 'CUTTING MAT A4', 'DUS MUG', 'GANCI PIN 44mm', 'GANCI PIN 58mm', 'GUNTING', 'Hanger', 'KANTONG PELASTIK BESAR', 'KANTONG PELASTIK SEDANG', 'Karet Stempel Flash', 'KARTON', 'KATER', 'Kawat Spiral 03 = 4 - 6 Lembar', 'Kawat Spiral 04 = 7 - 10 Lembar', 'Kawat Spiral 05 = 11 - 20 Lembar', 'Kawat Spiral 06 = 21 - 35 Lembar', 'Kawat Spiral 07 = 36 - 60 Lembar', 'Kawat Spiral 08 = 61 - 90 Lembar', 'Kawat Spiral 09 = 91 - 125 Lembar', 'Kawat Spiral 10 = 126 - 150 Lembar', 'Kawat Spiral 11 = 151 -175 Lembar', 'Kawat Spiral 12 = 176 - 225 Lembar', 'KERTAS SAMSON', 'Klem Kalender', 'LAKBAN KERTAS', 'LAKBAN UK.1 CM', 'LAKBAN UK.2,5 cm', 'LAKBAN UK.5 CM', 'Laminasy Doff A3', 'Laminasy Glossy A3', 'Laminatin A4', 'Laminatin F4', 'Lanyard', 'MASKER', 'MIKA', 'MUG', 'PENGHAPUS PUTIH', 'Peniti Name Tag', 'PIN 44mm', 'PIN 58mm', 'PIN Magnet 44mm', 'PIN Magnet 58mm', 'PLASTIK SLONGSONG 11 CM', 'Sempel CBO45', 'Stampel IT6018', 'Stempel CB0V35', 'Stempel CB0V45', 'Stempel CB0V51', 'Stempel CB1035', 'STEMPEL CB1340', 'Stempel CB1755', 'Stempel CB2255', 'Stempel CB2755', 'Stempel CB4040', 'Stempel CB4355', 'Stempel CB4367', 'Stempel CB4378', 'Stempel CBO17', 'Stempel CBO25', 'Stempel CBO28', 'Stempel CBO32', 'Stempel CBO35', 'Stempel CBO40', 'Stempel CBO45', 'Stempel IT3313', 'Stempel IT4515', 'Stiker Yupo', 'TALI RAPIAH ', 'Tinta Stampel Biru', 'Tinta Stampel Hijau', 'Tinta Stampel Hitam', 'Tinta Stampel Kuning', 'Tinta Stampel Merah', 'Tinta Stampel Orange', 'Tinta Stampel Ungu', 'TISU', 'Yoyo ID Card', 'MENDALI BULAT,SEGITIGA'];
-                		} else if (division === 'PURCHASE ORDER') {
-                  			items = ['Form Logo ISA Uk. A4', 'Form Logo ISA Uk. A5', 'Form Izin Keluar', 'Form Delivery Note A5', 'Form Delivery Note A4', 'Form Cuti A5', 'Form DRF A5', 'Form Of Cash Advance Realisation', 'Form Bukti Kas Keluar', 'Form Tanda Terima', 'Form Penyimpanan Limbah B3', 'Formulir Tamu A5', 'Form Permohonan Kas Bon', 'Form Kunjungan Klinik', 'Form Die Trial Schedule Slip', 'Form Surat Perintah Lembur', 'Tanda Terima', 'Bukti Kas Keluar', 'Permohonan Kas Bon', 'Bon Permintaan & Pemakaian Barang', 'Berita Acara Penerimaan Barang', 'KOP SURAT', 'Form Perpanjangan Jam Kerja', 'Formulir Tamu', 'Kartu Hasil Shearing', 'Laporan Kerja Harian Welding', 'Bukti BANK Keluar', 'KWITANSI', 'Kartu Ijin Khusus / Keluar', 'TAG OK "F"', 'TAG OK "W"', 'TAG OK "S"', 'TAG "NC"', 'TAG "NG"', 'TAG "UNFINISH PROCESS"', 'Form Data Reject', 'Bukti Kas Masuk', 'Kartu Inventory', 'Inventory Card', 'Form Laporan Troubel Quality', 'SKIN >PET< BOARD >PP<', 'X1', 'X2', '58410-BZ340-C0', '58410-BZ290-C0', '74102 - A1011 - D ( M )', '74101 - A1018 - F ( M1 )', '74101 - A1017 - F ( M2 )', '74101 - A1014 - F ( M5 )', '74102 - A1041', '74102 - A1042', '74102 - A1012 ( M )', '74101 - A1061 ( 290 )', 'LI-RAD40-STIC-010', 'LI-RAD40-STIC-020', 'LI-RAD40-STIC-030', 'LI-RAD40-STIC-020A', 'LI-RAD40-STIC-030A', '74511 - X7U58', '74511 - X7U59', '74511 - X7U60', '74511 - X7U61', '74511 - X7U62', '71405-A1044', '71405-A1045', '71405-A1046', '71405-A1047', '74103-A1011', '74103-A1012', '74103-A1013', '74103-A1014', '74103-A1015', '74103-A1016', '74103-A1017', '74103-A1018', 'LI-3ARAD40-STIC-040'];
-                		} else if (division === 'ORDER PERMINTAAN BARANG') {
-                    			items = ['Stampel', 'Mug', 'Pin'];
-                		}
+                if (division === 'INDOOR') {
+                    items = ['KERTAS ART CARTON 210 GR', 'KERTAS ART CARTON 230 GR', 'KERTAS ART CARTON 260 GR', 'KERTAS ART CARTON 310 GR', 'KERTAS ART PAPER 100 GR', 'KERTAS ART PAPER 120 GR', 'KERTAS BLUES WHITE 80 GR', 'KERTAS CORRUGATED', 'KERTAS HVS 70 GR', 'KERTAS HVS 80 GR', 'KERTAS HVS F4 PUTIH', 'KERTAS MATT PAPER A3+', 'KERTAS SAMSON 70 GR', 'LAMINASI DINGIN KILAP 310', 'LAMINASI DINGIN KILAP 43', 'LAMINASI DINGIN KILAP 60', 'LAMINASI DINGIN KILAP 90', 'LAMINASI DINGIN KILAP 125', 'LAMINASI DINGIN LUSTRE 31', 'LAMINASI DINGIN LUSTRE 43', 'LAMINASI DINGIN LUSTRE 60', 'LAMINASI DINGIN LUSTRE 90', 'LAMINASI DINGIN LUSTRE 125', 'LAMINASI DINGIN LUSTRE 310', 'LAMINASI PANAS GLOSSY 250', 'LAMINASI PANAS MATT 250', 'STIKER COKLAT A3+', 'STIKER DOFF A3+', 'STIKER GLOSSY A3+'];
+                } else if (division === 'OUTDOOR') {
+                    items = ['FLEXI CINA 340 GR', 'FLEXI JERMAN 340 GR', 'FLEXI KOREA 440 GR', 'LAMINASI FLOOR', 'LAMINASI GLOSSY', 'LAMINASI STICKER', 'LAMINASI UV', 'MESH', 'ONEWAY VISION', 'STIKER CINA', 'STIKER ORACAL'];
+                } else if (division === 'PRODUKSI') {
+                    items = ['AVERY DANNISON', 'FLEXI CINA 340 GR', 'FLEXI CINA 440 GR', 'FLEXI JERMAN 440 GR', 'FLEXI KOREA 440 GR', 'LAMINASI DINGIN', 'LAMINASI PANAS', 'MESH', 'ONWAY VISION', 'STIKER ORACAL'];
+                } else if (division === 'GUDANG') {
+                    items = ['BANNER', 'FLEXI CINA', 'FLEXI JERMAN', 'FLEXI KOREA', 'LAMINASI DINGIN', 'LAMINASI PANAS', 'MESH', 'ONWAY VISION', 'STIKER CINA', 'STIKER ORACAL'];
+                } else if (division === 'PURCHASE ORDER') {
+                    items = ['BANNER', 'FLEXI CINA', 'FLEXI JERMAN', 'FLEXI KOREA', 'LAMINASI DINGIN', 'LAMINASI PANAS', 'MESH', 'ONWAY VISION', 'STIKER CINA', 'STIKER ORACAL'];
+                }
 
                 items.forEach(item => {
                     const option = document.createElement('option');
@@ -263,166 +278,164 @@
         }
 
         function updateTableHeader() {
-            const tableHead = document.getElementById('tableHead');
             const division = document.getElementById('division').value;
+            const tableHead = document.getElementById('tableHead');
+            let headers = '';
 
             if (division === 'DAILY JOB') {
-                tableHead.innerHTML = `
+                headers = `
                     <tr>
+                        <th>No</th>
+                        <th>Tanggal</th>
                         <th>Kegiatan</th>
                         <th>Start Date</th>
                         <th>Target Date</th>
                         <th>Finish Date</th>
                         <th>Catatan Progress</th>
                         <th>Actions</th>
-                    </tr>
-                `;
-            } else {
-                tableHead.innerHTML = `
+                    </tr>`;
+            } else if (division === 'ORDER PERMINTAAN BARANG') {
+                headers = `
                     <tr>
-                        <th>Date</th>
+                        <th>No</th>
+                        <th>Nama Barang</th>
+                        <th>Tanggal</th>
+                        <th>Banyaknya</th>
+                        <th>Status Proses</th>
+                        <th>Actions</th>
+                    </tr>`;
+            } else {
+                headers = `
+                    <tr>
+                        <th>No</th>
+                        <th>Tanggal</th>
                         <th>Nama Barang</th>
                         <th>Jenis</th>
                         <th>Banyaknya</th>
                         <th>Catatan</th>
                         <th>Actions</th>
-                    </tr>
-                `;
+                    </tr>`;
             }
-        }
 
-        function validateInput() {
-            const division = document.getElementById('division').value;
-            if (!division) return false;
-
-            if (division === 'DAILY JOB') {
-                const activity = document.getElementById('activity').value;
-                const startDate = document.getElementById('startDate').value;
-                const targetDate = document.getElementById('targetDate').value;
-                const finishDate = document.getElementById('finishDate').value;
-
-                return activity && startDate && targetDate && finishDate;
-            } else {
-                const date = document.getElementById('date').value;
-                const itemName = document.getElementById('itemNameSelect').value || document.getElementById('itemNameInput').value;
-                const type = document.getElementById('type').value;
-                const quantity = document.getElementById('quantity').value;
-
-                return date && itemName && type && quantity;
-            }
+            tableHead.innerHTML = headers;
         }
 
         function addData() {
-            if (!validateInput()) {
-                alert('Harap isi semua input yang diperlukan.');
-                return;
-            }
-
             const division = document.getElementById('division').value;
+            let row = {};
+
             if (division === 'DAILY JOB') {
-                const activity = document.getElementById('activity').value;
-                const startDate = document.getElementById('startDate').value;
-                const targetDate = document.getElementById('targetDate').value;
-                const finishDate = document.getElementById('finishDate').value;
-                const progressNotes = document.getElementById('progressNotes').value;
-
-                data.push({
-                    division,
-                    activity,
-                    startDate,
-                    targetDate,
-                    finishDate,
-                    progressNotes
-                });
+                row = {
+                    no: data.length + 1,
+                    date: document.getElementById('date').value,
+                    activity: document.getElementById('activity').value,
+                    startDate: document.getElementById('startDate').value,
+                    targetDate: document.getElementById('targetDate').value,
+                    finishDate: document.getElementById('finishDate').value,
+                    progressNotes: document.getElementById('progressNotes').value
+                };
+            } else if (division === 'ORDER PERMINTAAN BARANG') {
+                row = {
+                    no: data.length + 1,
+                    itemName: document.getElementById('opbItemName').value,
+                    date: document.getElementById('opbDate').value,
+                    quantity: document.getElementById('opbQuantity').value,
+                    status: document.getElementById('opbStatus').value
+                };
             } else {
-                const date = document.getElementById('date').value;
-                const itemName = document.getElementById('itemNameSelect').value || document.getElementById('itemNameInput').value;
-                const type = document.getElementById('type').value;
-                const quantity = document.getElementById('quantity').value;
-                const notes = document.getElementById('notes').value;
-
-                data.push({
-                    division,
-                    date,
-                    itemName,
-                    type,
-                    quantity,
-                    notes
-                });
+                row = {
+                    no: data.length + 1,
+                    date: document.getElementById('date').value,
+                    itemName: document.getElementById('itemNameSelect').value,
+                    type: document.getElementById('type').value,
+                    quantity: document.getElementById('quantity').value,
+                    notes: document.getElementById('notes').value
+                };
             }
 
+            data.push(row);
             updateTable();
-            clearForm();
         }
 
         function updateTable() {
-            const tableBody = document.querySelector('#preview tbody');
-            tableBody.innerHTML = ''; // Clear previous data
+            const division = document.getElementById('division').value;
+            const tableBody = document.getElementById('tableBody');
+            let rows = '';
 
             data.forEach((row, index) => {
-                const tr = document.createElement('tr');
-
-                if (row.division === 'DAILY JOB') {
-                    tr.innerHTML = `
-                        <td>${row.activity}</td>
-                        <td>${row.startDate}</td>
-                        <td>${row.targetDate}</td>
-                        <td>${row.finishDate}</td>
-                        <td>${row.progressNotes}</td>
-                        <td class="action-buttons">
-                            <button class="edit-button" onclick="editData(${index})">Edit</button>
-                            <button class="delete-button" onclick="deleteData(${index})">Delete</button>
-                        </td>
-                    `;
+                if (division === 'DAILY JOB') {
+                    rows += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${row.date}</td>
+                            <td>${row.activity}</td>
+                            <td>${row.startDate}</td>
+                            <td>${row.targetDate}</td>
+                            <td>${row.finishDate}</td>
+                            <td>${row.progressNotes}</td>
+                            <td class="action-buttons">
+                                <button class="edit-button" onclick="editData(${index})">Edit</button>
+                                <button class="delete-button" onclick="deleteData(${index})">Delete</button>
+                            </td>
+                        </tr>`;
+                } else if (division === 'ORDER PERMINTAAN BARANG') {
+                    rows += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${row.itemName}</td>
+                            <td>${row.date}</td>
+                            <td>${row.quantity}</td>
+                            <td>${row.status}</td>
+                            <td class="action-buttons">
+                                <button class="edit-button" onclick="editData(${index})">Edit</button>
+                                <button class="delete-button" onclick="deleteData(${index})">Delete</button>
+                            </td>
+                        </tr>`;
                 } else {
-                    tr.innerHTML = `
-                        <td>${row.date}</td>
-                        <td>${row.itemName}</td>
-                        <td>${row.type}</td>
-                        <td>${row.quantity}</td>
-                        <td>${row.notes}</td>
-                        <td class="action-buttons">
-                            <button class="edit-button" onclick="editData(${index})">Edit</button>
-                            <button class="delete-button" onclick="deleteData(${index})">Delete</button>
-                        </td>
-                    `;
+                    rows += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${row.date}</td>
+                            <td>${row.itemName}</td>
+                            <td>${row.type}</td>
+                            <td>${row.quantity}</td>
+                            <td>${row.notes}</td>
+                            <td class="action-buttons">
+                                <button class="edit-button" onclick="editData(${index})">Edit</button>
+                                <button class="delete-button" onclick="deleteData(${index})">Delete</button>
+                            </td>
+                        </tr>`;
                 }
-
-                tableBody.appendChild(tr);
             });
-        }
 
-        function clearForm() {
-            document.getElementById('dataForm').reset();
-            updateForm();
+            tableBody.innerHTML = rows;
         }
 
         function editData(index) {
             const row = data[index];
-            const division = document.getElementById('division');
-            division.value = row.division;
-            updateForm();
+            const division = document.getElementById('division').value;
 
-            if (row.division === 'DAILY JOB') {
+            if (division === 'DAILY JOB') {
+                document.getElementById('date').value = row.date;
                 document.getElementById('activity').value = row.activity;
                 document.getElementById('startDate').value = row.startDate;
                 document.getElementById('targetDate').value = row.targetDate;
                 document.getElementById('finishDate').value = row.finishDate;
                 document.getElementById('progressNotes').value = row.progressNotes;
+            } else if (division === 'ORDER PERMINTAAN BARANG') {
+                document.getElementById('opbItemName').value = row.itemName;
+                document.getElementById('opbDate').value = row.date;
+                document.getElementById('opbQuantity').value = row.quantity;
+                document.getElementById('opbStatus').value = row.status;
             } else {
                 document.getElementById('date').value = row.date;
-                if (row.division === 'INDOOR' || row.division === 'OUTDOOR' || row.division === 'PRODUKSI' || row.division === 'GUDANG' || row.division === 'PURCHASE ORDER' || row.division === 'ORDER PERMINTAAN BARANG') {
-                    document.getElementById('itemNameSelect').value = row.itemName;
-                } else {
-                    document.getElementById('itemNameInput').value = row.itemName;
-                }
+                document.getElementById('itemNameSelect').value = row.itemName;
                 document.getElementById('type').value = row.type;
                 document.getElementById('quantity').value = row.quantity;
                 document.getElementById('notes').value = row.notes;
             }
 
-            data.splice(index, 1);
-            updateTable();
+            deleteData(index);
         }
 
         function deleteData(index) {
@@ -431,25 +444,14 @@
         }
 
         function saveToExcel() {
-            const filteredData = data.map(row => {
-                const { division, ...rest } = row; // Spread operator to exclude 'division'
-                return rest;
-            });
-
-            const wb = XLSX.utils.book_new();
-            const ws = XLSX.utils.json_to_sheet(filteredData, { header: Object.keys(filteredData[0]) });
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-            
-            const currentDate = new Date().toISOString().split('T')[0];
-            const fileName = `${currentDate}.xlsx`;
-            
-            XLSX.writeFile(wb, fileName);
+            const table = document.querySelector('table');
+            const wb = XLSX.utils.table_to_book(table, {sheet: 'Sheet1'});
+            XLSX.writeFile(wb, 'data.xlsx');
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            updateForm(); // Initialize form fields based on initial division value
+        document.addEventListener('DOMContentLoaded', function () {
+            updateForm();
         });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
 </body>
 </html>
