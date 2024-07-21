@@ -197,15 +197,6 @@
         .action-buttons button.remove:hover {
             background-color: #cc0000;
         }
-        #cetakNota{
-            background-color: #0062cc;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
     </style>
 </head>
 <body>
@@ -237,6 +228,7 @@
                 </div>
                 <div class="form-group">
                     <button type="submit">Tambah Pembelian</button>
+                    <button type="button" id="cetakNota">Cetak Nota</button>
                 </div>
             </form>
         </div>
@@ -248,7 +240,6 @@
                 <span>ID Transaksi: <span id="transaction-id">TRK0001</span></span>
             </div>
             </h2>
-            <button type="button" id="cetakNota">Cetak Nota</button>
             <table id="pembelianTable">
                 <thead>
                     <tr>
