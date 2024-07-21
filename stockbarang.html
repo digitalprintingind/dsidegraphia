@@ -233,6 +233,7 @@
                         <th>No</th>
                         <th>ID Transaksi</th>
                         <th>Nama Barang</th>
+                        <th>Harga</th>
                         <th>Jumlah</th>
                         <th>Aksi</th>
                     </tr>
@@ -299,9 +300,9 @@
             const barangSelect = document.getElementById('barang');
             const searchInput = document.getElementById('searchInput');
 
-            let itemCounter = 0;
-            let transactionCounter = 0;
-            let editIndex = -0;
+            let itemCounter = 1;
+            let transactionCounter = 1;
+            let editIndex = -1;
 
             // Load data from localStorage
             function loadBarangData() {
@@ -395,11 +396,15 @@
                 const selectedBarangId = document.getElementById('barang').value;
                 const jumlahPembelian = document.getElementById('jumlah-pembelian').value;
 
+                const selectedOption = barangSelect.options[barangSelect.selectedIndex];
+                const selectedHarga = selectedOption.getAttribute('data-harga');
+
                 const row = pembelianTableBody.insertRow();
                 row.innerHTML = `
                     <td>${pembelianTableBody.rows.length + 1}</td>
                     <td>${generateIDTransaksi()}</td>
-                    <td>${barangSelect.options[barangSelect.selectedIndex].text}</td>
+                    <td>${selectedOption.text}</td>
+                    <td>${selectedHarga}</td>
                     <td>${jumlahPembelian}</td>
                     <td><button class="action-buttons remove">Hapus</button></td>
                 `;
