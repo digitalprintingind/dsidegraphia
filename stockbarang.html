@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Barang dan Pembelian</title>
     <style>
-
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -190,7 +189,6 @@
         .action-buttons button.remove:hover {
             background-color: #cc0000;
         }
-
     </style>
 </head>
 <body>
@@ -300,205 +298,99 @@
             const pembelianTableBody = document.querySelector('#pembelianTable tbody');
             const barangSelect = document.getElementById('barang');
             const searchInput = document.getElementById('searchInput');
-            let itemCounter = 0;
-            let editingRow = null;
 
-            const loadItemsFromLocalStorage = () => {
-                const items = JSON.parse(localStorage.getItem('barangItems')) || [];
-                items.forEach(item => {
-                    addItemToTable(item);
-                    addOptionToSelect(item);
-                });
-            };
+            let itemCounter = 1;
+            let transactionCounter = 1;
 
-            const saveItemsToLocalStorage = (items) => {
-                localStorage.setItem('barangItems', JSON.stringify(items));
-            };
+            function generateIDTransaksi() {
+                const paddedCounter = String(transactionCounter++).padStart(4, '0');
+                return `TRK${paddedCounter}`;
+            }
 
-            const getItemsFromLocalStorage = () => {
-                return JSON.parse(localStorage.getItem('barangItems')) || [];
-            };
-
-            const addItemToTable = (item) => {
-                const newRow = document.createElement('tr');
-                newRow.innerHTML = `
-                    <td>${item.no}</td>
-                    <td>${item.idBarang}</td>
-                    <td>${item.namaBarang}</td>
-                    <td>${item.harga}</td>
-                    <td>${item.jumlah}</td>
-                    <td><span class="status-toggle">${item.status}</span></td>
-                    <td><button class="edit">Edit</button></td>
-                    <td><button class="delete">Hapus</button></td>
-                `;
-                barangTableBody.appendChild(newRow);
-            };
-
-            const addOptionToSelect = (item) => {
-                const option = document.createElement('option');
-                option.value = item.idBarang;
-                option.textContent = `${item.namaBarang} - ${item.harga}`;
-                barangSelect.appendChild(option);
-            };
-
-            const addItem = (namaBarang, harga, jumlah) => {
-                itemCounter++;
-                const idBarang = `BRG${itemCounter.toString().padStart(4, '0')}`;
-                const item = {
-                    no: itemCounter,
-                    idBarang,
-                    namaBarang,
-                    harga,
-                    jumlah,
-                    status: 'On'
-                };
-                const items = getItemsFromLocalStorage();
-                items.push(item);
-                saveItemsToLocalStorage(items);
-                addItemToTable(item);
-                addOptionToSelect(item);
-            };
-
-            const updateItem = (row, namaBarang, harga, jumlah) => {
-                const cells = row.querySelectorAll('td');
-                cells[2].textContent = namaBarang;
-                cells[3].textContent = harga;
-                cells[4].textContent = jumlah;
-
-                const idBarang = cells[1].textContent;
-                const items = getItemsFromLocalStorage();
-                const itemIndex = items.findIndex(item => item.idBarang === idBarang);
-                if (itemIndex > -1) {
-                    items[itemIndex].namaBarang = namaBarang;
-                    items[itemIndex].harga = harga;
-                    items[itemIndex].jumlah = jumlah;
-                    saveItemsToLocalStorage(items);
-                }
-            };
-
-            const deleteItem = (row) => {
-                const idBarang = row.querySelectorAll('td')[1].textContent;
-                const items = getItemsFromLocalStorage();
-                const updatedItems = items.filter(item => item.idBarang !== idBarang);
-                saveItemsToLocalStorage(updatedItems);
-                row.remove();
-                barangSelect.querySelector(`option[value="${idBarang}"]`).remove();
-            };
-
-            const toggleStatus = (row) => {
-                const statusCell = row.querySelector('.status-toggle');
-                const newStatus = statusCell.textContent === 'On' ? 'Off' : 'On';
-                statusCell.textContent = newStatus;
-
-                const idBarang = row.querySelectorAll('td')[1].textContent;
-                const items = getItemsFromLocalStorage();
-                const itemIndex = items.findIndex(item => item.idBarang === idBarang);
-                if (itemIndex > -1) {
-                    items[itemIndex].status = newStatus;
-                    saveItemsToLocalStorage(items);
-                }
-            };
-
-            const addPembelianToTable = (idTransaksi, namaBarang, jumlah) => {
-                const newRow = document.createElement('tr');
-                newRow.innerHTML = `
-                    <td>${pembelianTableBody.children.length + 1}</td>
-                    <td>${idTransaksi}</td>
-                    <td>${namaBarang}</td>
-                    <td>${jumlah}</td>
-                    <td><button class="remove">Hapus</button></td>
-                `;
-                pembelianTableBody.appendChild(newRow);
-            };
-
-            const removePembelian = (row) => {
-                row.remove();
-            };
-
-            const searchItems = (query) => {
-                const rows = barangTableBody.querySelectorAll('tr');
-                rows.forEach(row => {
-                    const cells = row.querySelectorAll('td');
-                    const namaBarang = cells[2].textContent.toLowerCase();
-                    const matches = namaBarang.includes(query.toLowerCase());
-                    row.style.display = matches ? '' : 'none';
-                });
-            };
-
-            const printNota = () => {
-                const printWindow = window.open('', '', 'height=600,width=800');
-                const tableHtml = pembelianTableBody.innerHTML;
-                printWindow.document.write('<html><head><title>Nota Pembelian</title>');
-                printWindow.document.write('<style>table { width: 100%; border-collapse: collapse; } th, td { padding: 8px; border: 1px solid #ddd; } th { background-color: #f4f4f4; }</style>');
-                printWindow.document.write('</head><body >');
-                printWindow.document.write('<h1>Nota Pembelian</h1>');
-                printWindow.document.write('<table>');
-                printWindow.document.write('<thead><tr><th>No</th><th>ID Transaksi</th><th>Nama Barang</th><th>Jumlah</th></tr></thead>');
-                printWindow.document.write('<tbody>' + tableHtml + '</tbody>');
-                printWindow.document.write('</table>');
-                printWindow.document.write('</body></html>');
-                printWindow.document.close();
-                printWindow.print();
-            };
-
-            barangForm.addEventListener('submit', (e) => {
+            function addBarang(e) {
                 e.preventDefault();
                 const namaBarang = document.getElementById('nama-barang').value;
                 const harga = document.getElementById('harga').value;
                 const jumlah = document.getElementById('jumlah').value;
 
-                if (editingRow) {
-                    updateItem(editingRow, namaBarang, harga, jumlah);
-                    editingRow = null;
-                } else {
-                    addItem(namaBarang, harga, jumlah);
-                }
+                const idBarang = `B${itemCounter++}`;
+                const row = barangTableBody.insertRow();
+                row.innerHTML = `
+                    <td>${barangTableBody.rows.length}</td>
+                    <td>${idBarang}</td>
+                    <td>${namaBarang}</td>
+                    <td>${harga}</td>
+                    <td>${jumlah}</td>
+                    <td><span class="status-toggle">Aktif</span></td>
+                    <td><button class="action-buttons edit">Edit</button></td>
+                    <td><button class="action-buttons delete">Hapus</button></td>
+                `;
+
+                const option = document.createElement('option');
+                option.value = idBarang;
+                option.textContent = namaBarang;
+                barangSelect.appendChild(option);
 
                 barangForm.reset();
-            });
+            }
 
-            pembelianForm.addEventListener('submit', (e) => {
+            function addPembelian(e) {
                 e.preventDefault();
-                const idBarang = document.getElementById('barang').value;
-                const jumlah = document.getElementById('jumlah-pembelian').value;
-                const barang = getItemsFromLocalStorage().find(item => item.idBarang === idBarang);
+                const selectedBarangId = document.getElementById('barang').value;
+                const jumlahPembelian = document.getElementById('jumlah-pembelian').value;
 
-                if (barang) {
-                    addPembelianToTable(barang.idBarang, barang.namaBarang, jumlah);
-                }
+                const row = pembelianTableBody.insertRow();
+                row.innerHTML = `
+                    <td>${pembelianTableBody.rows.length + 1}</td>
+                    <td>${generateIDTransaksi()}</td>
+                    <td>${barangSelect.options[barangSelect.selectedIndex].text}</td>
+                    <td>${jumlahPembelian}</td>
+                    <td><button class="action-buttons remove">Hapus</button></td>
+                `;
+
                 pembelianForm.reset();
+            }
+
+            function searchBarang() {
+                const query = searchInput.value.toLowerCase();
+                const rows = barangTableBody.getElementsByTagName('tr');
+
+                for (let i = 0; i < rows.length; i++) {
+                    const cells = rows[i].getElementsByTagName('td');
+                    let found = false;
+
+                    for (let j = 2; j < cells.length - 2; j++) {
+                        if (cells[j].textContent.toLowerCase().indexOf(query) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    rows[i].style.display = found ? '' : 'none';
+                }
+            }
+
+            barangForm.addEventListener('submit', addBarang);
+            pembelianForm.addEventListener('submit', addPembelian);
+            searchInput.addEventListener('input', searchBarang);
+
+            document.getElementById('cetakNota').addEventListener('click', () => {
+                alert('Nota akan dicetak');
             });
 
             barangTableBody.addEventListener('click', (e) => {
-                const row = e.target.closest('tr');
-                if (e.target.classList.contains('edit')) {
-                    const cells = row.querySelectorAll('td');
-                    document.getElementById('nama-barang').value = cells[2].textContent;
-                    document.getElementById('harga').value = cells[3].textContent;
-                    document.getElementById('jumlah').value = cells[4].textContent;
-                    editingRow = row;
-                } else if (e.target.classList.contains('delete')) {
-                    deleteItem(row);
-                } else if (e.target.classList.contains('status-toggle')) {
-                    toggleStatus(row);
+                if (e.target.classList.contains('delete')) {
+                    e.target.closest('tr').remove();
+                } else if (e.target.classList.contains('edit')) {
+                    alert('Edit fitur belum tersedia');
                 }
             });
 
             pembelianTableBody.addEventListener('click', (e) => {
                 if (e.target.classList.contains('remove')) {
-                    const row = e.target.closest('tr');
-                    removePembelian(row);
+                    e.target.closest('tr').remove();
                 }
             });
-
-            searchInput.addEventListener('input', (e) => {
-                const query = e.target.value;
-                searchItems(query);
-            });
-
-            document.getElementById('cetakNota').addEventListener('click', printNota);
-
-            loadItemsFromLocalStorage();
         });
     </script>
 </body>
