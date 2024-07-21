@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Barang dan Pembelian</title>
+    <title>D'SIDE GRAPHIA</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,6 +20,15 @@
             top: 0;
             width: 100%;
             z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-title {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
         }
 
         .navbar-menu {
@@ -27,7 +36,6 @@
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
         }
 
         .navbar-menu li {
@@ -189,33 +197,20 @@
         .action-buttons button.remove:hover {
             background-color: #cc0000;
         }
-        .header-left {
-    flex: 1;
-    padding: -50px 5px;
-}
-
-.header-right {
-    flex: 1;
-    text-align: right;
-}
-
-#cetakNota {
-    background-color: #0062cc;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-#cetakNota:hover {
-    background-color: #004085;
-}
+        #cetakNota{
+            background-color: #0062cc;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
     <nav class="navbar">
+        <div class="navbar-title">D'SIDE GRAPHIA</div>
         <ul class="navbar-menu">
             <li><a href="#aplikasi-kasir" class="active">Aplikasi Kasir</a></li>
             <li><a href="#daftar-barang">Daftar Barang</a></li>
@@ -248,8 +243,12 @@
 
         <!-- Preview Tabel Pembelian Customer -->
         <div class="table-container">
-            <h2><span>ID Transaksi: <span id="transaction-id">TRK0001</span></span></h2>
-            <button class="header-left" type="button" id="cetakNota">Cetak Nota</button>
+            <h2>
+            <div id="transaction-id-container">
+                <span>ID Transaksi: <span id="transaction-id">TRK0001</span></span>
+            </div>
+            </h2>
+            <button type="button" id="cetakNota">Cetak Nota</button>
             <table id="pembelianTable">
                 <thead>
                     <tr>
@@ -311,10 +310,49 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Riwayat Pembelian -->
+        <div class="table-container" id="riwayat-pembelian">
+            <h2>Riwayat Pembelian</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>ID Transaksi</th>
+                        <th>Tanggal</th>
+                        <th>Nama Barang</th>
+                        <th>Jumlah</th>
+                        <th>Total Harga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data Riwayat Pembelian akan muncul di sini -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Rekap Laporan -->
+        <div class="table-container" id="rekap-laporan">
+            <h2>Rekap Laporan</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Periode</th>
+                        <th>Total Penjualan</th>
+                        <th>Total Pembelian</th>
+                        <th>Keuntungan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data Rekap Laporan akan muncul di sini -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', function() {
             const barangForm = document.getElementById('barangForm');
             const pembelianForm = document.getElementById('pembelianForm');
             const barangTableBody = document.getElementById('barangTable').getElementsByTagName('tbody')[0];
