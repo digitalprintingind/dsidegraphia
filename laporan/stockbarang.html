@@ -160,7 +160,7 @@
                 </select>
                 <input type="text" id="itemNameInput" name="itemName" style="display: none;">
             </div>
-            <label for="type">Jenis:</label>
+            <label for="type" id="typeLabel">Jenis:</label>
             <select id="type" name="type">
                 <option value="Material Masuk">Material Masuk</option>
                 <option value="Material Terpakai">Material Terpakai</option>
@@ -214,17 +214,23 @@
             const orderPermintaanBarangFields = document.getElementById('orderPermintaanBarangFields');
             const itemNameSelect = document.getElementById('itemNameSelect');
             const itemNameInput = document.getElementById('itemNameInput');
+            const typeField = document.getElementById('type');
+            const typeLabel = document.getElementById('typeLabel');
 
             if (division === 'DAILY JOB') {
                 commonFields.style.display = 'none';
                 dailyJobFields.style.display = 'block';
                 orderPermintaanBarangFields.style.display = 'none';
+                typeField.style.display = 'none';
+                typeLabel.style.display = 'none';
                 itemNameInput.required = false;
                 itemNameSelect.required = false;
             } else if (division === 'ORDER PERMINTAAN BARANG') {
                 commonFields.style.display = 'block';
                 dailyJobFields.style.display = 'none';
                 orderPermintaanBarangFields.style.display = 'block';
+                typeField.style.display = 'none';
+                typeLabel.style.display = 'none';
                 itemNameInput.required = true;
                 itemNameSelect.required = false;
                 itemNameSelect.style.display = 'none';
@@ -233,6 +239,8 @@
                 commonFields.style.display = 'block';
                 dailyJobFields.style.display = 'none';
                 orderPermintaanBarangFields.style.display = 'none';
+                typeField.style.display = 'block';
+                typeLabel.style.display = 'block';
                 itemNameInput.required = true;
                 itemNameSelect.required = true;
                 itemNameInput.style.display = 'none';
@@ -247,24 +255,20 @@
             const division = document.getElementById('division').value;
             const itemNameSelect = document.getElementById('itemNameSelect');
             const itemNameInput = document.getElementById('itemNameInput');
-            
-            if (division !== 'ORDER PERMINTAAN BARANG') {
-                itemNameSelect.style.display = 'block';
-                itemNameInput.style.display = 'none';
-                itemNameSelect.innerHTML = '<option value="">-- Pilih Nama Barang --</option>';
-                let items = [];
-                if (division === 'INDOOR') {
-                    items = ['DOKU TONER BLACK', 'DOKU TONER CYAN', 'DOKU TONER MAGENTA', 'DOKU TONER YELLOW'];
-                } else if (division === 'OUTDOOR') {
-                    items = ['DOKU PINK 500ML', 'DOKU CYAN 500ML'];
-                }
-                items.forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item;
-                    option.textContent = item;
-                    itemNameSelect.appendChild(option);
-                });
+            itemNameSelect.innerHTML = '';
+
+            let items = [];
+            if (division === 'INDOOR') {
+                items = ['DOKU TONER CYAN', 'DOKU TONER MAGENTA', 'DOKU TONER YELLOW'];
+            } else if (division === 'OUTDOOR') {
+                items = ['DOKU PINK 500ML', 'DOKU CYAN 500ML'];
             }
+            items.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item;
+                option.textContent = item;
+                itemNameSelect.appendChild(option);
+            });
         }
 
         function updateTableHeader() {
