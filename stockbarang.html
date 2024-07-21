@@ -266,8 +266,12 @@
                     <input type="text" id="nama-barang" name="nama-barang" placeholder="Masukkan Nama Barang" required>
                 </div>
                 <div class="form-group">
-                    <label for="harga">Harga</label>
-                    <input type="number" id="harga" name="harga" placeholder="Masukkan Harga" required>
+                    <label for="harga-modal">Harga Modal</label>
+                    <input type="number" id="harga-modal" name="harga-modal" placeholder="Masukkan Harga Modal" required>
+                </div>
+                <div class="form-group">
+                    <label for="harga-jual">Harga Jual</label>
+                    <input type="number" id="harga-jual" name="harga-jual" placeholder="Masukkan Harga Jual" required>
                 </div>
                 <div class="form-group">
                     <label for="jumlah">Jumlah</label>
@@ -290,7 +294,8 @@
                         <th>No</th>
                         <th>ID Barang</th>
                         <th>Nama Barang</th>
-                        <th>Harga</th>
+                        <th>Harga Modal</th>
+                        <th>Harga Jual</th>
                         <th>Qty</th>
                         <th>Aksi</th>
                     </tr>
@@ -350,8 +355,8 @@
     <script>
         // Simulasi data barang
         let barangData = [
-            { id: 'BRG001', nama: 'Barang 1', harga: 10000, jumlah: 50 },
-            { id: 'BRG002', nama: 'Barang 2', harga: 20000, jumlah: 30 },
+            { id: 'BRG001', nama: 'Barang 1', hargaModal: 8000, hargaJual: 10000, jumlah: 50 },
+            { id: 'BRG002', nama: 'Barang 2', hargaModal: 15000, hargaJual: 20000, jumlah: 30 },
             // Tambahkan data barang lainnya jika perlu
         ];
 
@@ -373,14 +378,17 @@
                 row.insertCell(0).textContent = index + 1;
                 row.insertCell(1).textContent = barang.id;
                 row.insertCell(2).textContent = barang.nama;
-                row.insertCell(3).textContent = barang.harga;
-                row.insertCell(4).textContent = barang.jumlah;
+                row.insertCell(3).textContent = barang.hargaModal;
+                row.insertCell(4).textContent = barang.hargaJual;
+                row.insertCell(5).textContent = barang.jumlah;
 
                 // Edit dan Hapus tombol
-                const actionCell = row.insertCell(5);
+                const actionCell = row.insertCell(6);
                 actionCell.innerHTML = `
-                    <button class="edit">Edit</button>
-                    <button class="delete">Hapus</button>
+                    <div class="action-buttons">
+                        <button class="edit">Edit</button>
+                        <button class="delete">Hapus</button>
+                    </div>
                 `;
             });
         }
@@ -410,34 +418,10 @@
                 // Aksi tombol
                 const actionCell = row.insertCell(7);
                 actionCell.innerHTML = `
-                    <button class="remove">Hapus</button>
+                    <div class="action-buttons">
+                        <button class="remove">Hapus</button>
+                    </div>
                 `;
-            });
-        }
-
-        // Fungsi untuk memuat data rekap laporan
-        function loadRekapData() {
-            const rekapTable = document.getElementById('rekapTable').getElementsByTagName('tbody')[0];
-            rekapTable.innerHTML = ''; // Bersihkan tabel sebelum memuat data
-
-            // Simulasi data rekap laporan
-            const rekapData = [
-                { bulanTahun: 'Juli 2024', namaBarang: 'Barang 1', barangMasuk: 100, barangTerjual: 50, sisaBarang: 50, hargaModal: 5000, hargaJual: 10000, keuntungan: 5000 },
-                { bulanTahun: 'Juli 2024', namaBarang: 'Barang 2', barangMasuk: 50, barangTerjual: 20, sisaBarang: 30, hargaModal: 15000, hargaJual: 20000, keuntungan: 5000 },
-                // Tambahkan data rekap laporan lainnya jika perlu
-            ];
-
-            rekapData.forEach((item, index) => {
-                const row = rekapTable.insertRow();
-                row.insertCell(0).textContent = index + 1;
-                row.insertCell(1).textContent = item.bulanTahun;
-                row.insertCell(2).textContent = item.namaBarang;
-                row.insertCell(3).textContent = item.barangMasuk;
-                row.insertCell(4).textContent = item.barangTerjual;
-                row.insertCell(5).textContent = item.sisaBarang;
-                row.insertCell(6).textContent = item.hargaModal;
-                row.insertCell(7).textContent = item.hargaJual;
-                row.insertCell(8).textContent = item.keuntungan;
             });
         }
 
@@ -450,14 +434,17 @@
             row.insertCell(0).textContent = index + 1;
             row.insertCell(1).textContent = data.id;
             row.insertCell(2).textContent = data.nama;
-            row.insertCell(3).textContent = data.harga;
-            row.insertCell(4).textContent = data.jumlah;
+            row.insertCell(3).textContent = data.hargaModal;
+            row.insertCell(4).textContent = data.hargaJual;
+            row.insertCell(5).textContent = data.jumlah;
 
             // Edit dan Hapus tombol
-            const actionCell = row.insertCell(5);
+            const actionCell = row.insertCell(6);
             actionCell.innerHTML = `
-                <button class="edit">Edit</button>
-                <button class="delete">Hapus</button>
+                <div class="action-buttons">
+                    <button class="edit">Edit</button>
+                    <button class="delete">Hapus</button>
+                </div>
             `;
         }
 
@@ -465,13 +452,15 @@
         document.getElementById('barangForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const nama = document.getElementById('nama-barang').value;
-            const harga = document.getElementById('harga').value;
+            const hargaModal = document.getElementById('harga-modal').value;
+            const hargaJual = document.getElementById('harga-jual').value;
             const jumlah = document.getElementById('jumlah').value;
 
             const newBarang = {
                 id: `BRG${String(barangData.length + 1).padStart(3, '0')}`,
                 nama,
-                harga,
+                hargaModal,
+                hargaJual,
                 jumlah
             };
 
@@ -516,16 +505,15 @@
         document.getElementById('riwayatTable').addEventListener('click', (e) => {
             if (e.target.classList.contains('remove')) {
                 const row = e.target.closest('tr');
-                row.remove();
+                row.remove(); // Hapus baris dari tabel
             }
         });
 
-        // Muat data saat halaman dimuat
-        document.addEventListener('DOMContentLoaded', () => {
+        // Load data barang dan riwayat saat halaman dimuat
+        window.onload = () => {
             loadBarangData();
             loadRiwayatData();
-            loadRekapData();
-        });
+        };
     </script>
 </body>
 </html>
