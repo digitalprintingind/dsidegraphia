@@ -291,9 +291,8 @@
                         <th>ID Barang</th>
                         <th>Nama Barang</th>
                         <th>Harga</th>
-                        <th>Jumlah</th>
-                        <th>Edit</th>
-                        <th>Hapus</th>
+                        <th>Qty</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -310,11 +309,12 @@
                     <tr>
                         <th>No</th>
                         <th>ID Transaksi</th>
-                        <th>Nama Barang</th>
-                        <th>Jumlah</th>
                         <th>Tanggal</th>
+                        <th>Nama Barang</th>
                         <th>Harga</th>
+                        <th>Qty</th>
                         <th>Total</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -330,9 +330,14 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Bulan</th>
-                        <th>Jumlah Transaksi</th>
-                        <th>Total Pendapatan</th>
+                        <th>Bulan Tahun</th>
+                        <th>Nama Barang</th>
+                        <th>Barang Masuk</th>
+                        <th>Barang Terjual</th>
+                        <th>Sisa Barang</th>
+                        <th>Harga Modal</th>
+                        <th>Harga Jual</th>
+                        <th>Keuntungan</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -345,8 +350,8 @@
     <script>
         // Simulasi data barang
         let barangData = [
-            { id: 'BRG001', nama: 'Barang 1', harga: 10000, jumlah: 50, status: 'Aktif' },
-            { id: 'BRG002', nama: 'Barang 2', harga: 20000, jumlah: 30, status: 'Aktif' },
+            { id: 'BRG001', nama: 'Barang 1', harga: 10000, jumlah: 50 },
+            { id: 'BRG002', nama: 'Barang 2', harga: 20000, jumlah: 30 },
             // Tambahkan data barang lainnya jika perlu
         ];
 
@@ -377,6 +382,62 @@
                     <button class="edit">Edit</button>
                     <button class="delete">Hapus</button>
                 `;
+            });
+        }
+
+        // Fungsi untuk memuat data riwayat pembelian
+        function loadRiwayatData() {
+            const riwayatTable = document.getElementById('riwayatTable').getElementsByTagName('tbody')[0];
+            riwayatTable.innerHTML = ''; // Bersihkan tabel sebelum memuat data
+
+            // Simulasi data riwayat pembelian
+            const riwayatData = [
+                { id: 'TRX001', tanggal: '2024-07-20', nama: 'Barang 1', harga: 10000, qty: 2, total: 20000 },
+                { id: 'TRX002', tanggal: '2024-07-21', nama: 'Barang 2', harga: 20000, qty: 1, total: 20000 },
+                // Tambahkan data riwayat pembelian lainnya jika perlu
+            ];
+
+            riwayatData.forEach((item, index) => {
+                const row = riwayatTable.insertRow();
+                row.insertCell(0).textContent = index + 1;
+                row.insertCell(1).textContent = item.id;
+                row.insertCell(2).textContent = item.tanggal;
+                row.insertCell(3).textContent = item.nama;
+                row.insertCell(4).textContent = item.harga;
+                row.insertCell(5).textContent = item.qty;
+                row.insertCell(6).textContent = item.total;
+
+                // Aksi tombol
+                const actionCell = row.insertCell(7);
+                actionCell.innerHTML = `
+                    <button class="remove">Hapus</button>
+                `;
+            });
+        }
+
+        // Fungsi untuk memuat data rekap laporan
+        function loadRekapData() {
+            const rekapTable = document.getElementById('rekapTable').getElementsByTagName('tbody')[0];
+            rekapTable.innerHTML = ''; // Bersihkan tabel sebelum memuat data
+
+            // Simulasi data rekap laporan
+            const rekapData = [
+                { bulanTahun: 'Juli 2024', namaBarang: 'Barang 1', barangMasuk: 100, barangTerjual: 50, sisaBarang: 50, hargaModal: 5000, hargaJual: 10000, keuntungan: 5000 },
+                { bulanTahun: 'Juli 2024', namaBarang: 'Barang 2', barangMasuk: 50, barangTerjual: 20, sisaBarang: 30, hargaModal: 15000, hargaJual: 20000, keuntungan: 5000 },
+                // Tambahkan data rekap laporan lainnya jika perlu
+            ];
+
+            rekapData.forEach((item, index) => {
+                const row = rekapTable.insertRow();
+                row.insertCell(0).textContent = index + 1;
+                row.insertCell(1).textContent = item.bulanTahun;
+                row.insertCell(2).textContent = item.namaBarang;
+                row.insertCell(3).textContent = item.barangMasuk;
+                row.insertCell(4).textContent = item.barangTerjual;
+                row.insertCell(5).textContent = item.sisaBarang;
+                row.insertCell(6).textContent = item.hargaModal;
+                row.insertCell(7).textContent = item.hargaJual;
+                row.insertCell(8).textContent = item.keuntungan;
             });
         }
 
@@ -411,8 +472,7 @@
                 id: `BRG${String(barangData.length + 1).padStart(3, '0')}`,
                 nama,
                 harga,
-                jumlah,
-                status: 'Aktif'
+                jumlah
             };
 
             barangData.push(newBarang);
@@ -439,13 +499,6 @@
             }
         });
 
-        // Fungsi untuk mengubah status barang
-        function toggleStatus(id) {
-            const barang = barangData.find(b => b.id === id);
-            barang.status = barang.status === 'Aktif' ? 'Non Aktif' : 'Aktif';
-            loadBarangData();
-        }
-
         // Event listener untuk tombol Edit dan Hapus
         document.getElementById('barangTable').addEventListener('click', (e) => {
             if (e.target.classList.contains('edit')) {
@@ -459,8 +512,20 @@
             }
         });
 
-        // Load data barang saat halaman dimuat
-        window.onload = loadBarangData;
+        // Event listener untuk tombol Hapus di Riwayat Pembelian
+        document.getElementById('riwayatTable').addEventListener('click', (e) => {
+            if (e.target.classList.contains('remove')) {
+                const row = e.target.closest('tr');
+                row.remove();
+            }
+        });
+
+        // Muat data saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            loadBarangData();
+            loadRiwayatData();
+            loadRekapData();
+        });
     </script>
 </body>
 </html>
