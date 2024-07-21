@@ -151,17 +151,24 @@
 <body>
     <div class="navbar">
         <ul>
+            <li><a href="#" id="navHome">Aplikasi Kasir</a></li>
             <li><a href="#" id="navItems">Daftar Barang</a></li>
-            <li><a href="#" id="navAddItem">Tambah Barang</a></li>
-            <li><a href="#" id="navReceipt">Nota Pembelian</a></li>
+            <li><a href="#" id="navHistory">Riwayat Pembelian Barang</a></li>
+            <li><a href="#" id="navReports">Rekap Data Laporan</a></li>
         </ul>
     </div>
 
     <div class="container">
         <h1>Aplikasi Kasir</h1>
 
+        <!-- Home Section -->
+        <div id="homeSection" class="section active">
+            <h2>Selamat Datang di Aplikasi Kasir</h2>
+            <p>Gunakan menu navigasi di atas untuk mengakses berbagai fitur aplikasi kasir.</p>
+        </div>
+
         <!-- Form Input Barang -->
-        <form id="itemForm" class="active">
+        <form id="itemForm" class="section">
             <h2>Tambah Barang</h2>
             <label for="itemName">Nama Barang:</label>
             <input type="text" id="itemName" required>
@@ -197,6 +204,18 @@
             <p>Total Harga: <span id="totalPrice">0</span></p>
         </div>
 
+        <!-- Riwayat Pembelian Barang -->
+        <div id="historySection" class="section">
+            <h2>Riwayat Pembelian Barang</h2>
+            <p>Riwayat pembelian barang akan ditampilkan di sini.</p>
+        </div>
+
+        <!-- Rekap Data Laporan -->
+        <div id="reportsSection" class="section">
+            <h2>Rekap Data Laporan</h2>
+            <p>Rekap data laporan akan ditampilkan di sini.</p>
+        </div>
+
         <!-- Nota Pembelian -->
         <div id="receiptSection" class="section">
             <h2>Nota Pembelian</h2>
@@ -221,10 +240,14 @@
             const receiptPreview = document.getElementById('receiptPreview');
             const receiptContent = document.getElementById('receiptContent');
             const printReceiptButton = document.getElementById('printReceipt');
+            const navHome = document.getElementById('navHome');
             const navItems = document.getElementById('navItems');
-            const navAddItem = document.getElementById('navAddItem');
-            const navReceipt = document.getElementById('navReceipt');
+            const navHistory = document.getElementById('navHistory');
+            const navReports = document.getElementById('navReports');
+            const homeSection = document.getElementById('homeSection');
             const itemSection = document.getElementById('itemSection');
+            const historySection = document.getElementById('historySection');
+            const reportsSection = document.getElementById('reportsSection');
             const receiptSection = document.getElementById('receiptSection');
 
             function loadItems() {
@@ -340,35 +363,48 @@
             }
 
             function showSection(sectionId) {
-                form.classList.remove('active');
+                homeSection.classList.remove('active');
                 itemSection.classList.remove('active');
+                historySection.classList.remove('active');
+                reportsSection.classList.remove('active');
                 receiptSection.classList.remove('active');
                 document.querySelectorAll('.navbar a').forEach(link => link.classList.remove('active'));
-                if (sectionId === 'itemForm') {
-                    form.classList.add('active');
-                    document.getElementById('navAddItem').classList.add('active');
+                if (sectionId === 'homeSection') {
+                    homeSection.classList.add('active');
+                    document.getElementById('navHome').classList.add('active');
                 } else if (sectionId === 'itemSection') {
                     itemSection.classList.add('active');
                     document.getElementById('navItems').classList.add('active');
+                } else if (sectionId === 'historySection') {
+                    historySection.classList.add('active');
+                    document.getElementById('navHistory').classList.add('active');
+                } else if (sectionId === 'reportsSection') {
+                    reportsSection.classList.add('active');
+                    document.getElementById('navReports').classList.add('active');
                 } else if (sectionId === 'receiptSection') {
                     receiptSection.classList.add('active');
                     document.getElementById('navReceipt').classList.add('active');
                 }
             }
 
+            navHome.addEventListener('click', (e) => {
+                e.preventDefault();
+                showSection('homeSection');
+            });
+
             navItems.addEventListener('click', (e) => {
                 e.preventDefault();
                 showSection('itemSection');
             });
 
-            navAddItem.addEventListener('click', (e) => {
+            navHistory.addEventListener('click', (e) => {
                 e.preventDefault();
-                showSection('itemForm');
+                showSection('historySection');
             });
 
-            navReceipt.addEventListener('click', (e) => {
+            navReports.addEventListener('click', (e) => {
                 e.preventDefault();
-                showSection('receiptSection');
+                showSection('reportsSection');
             });
 
             form.addEventListener('submit', handleAddItem);
