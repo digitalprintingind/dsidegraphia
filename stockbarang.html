@@ -6,73 +6,84 @@
     <title>Shopping Cart</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #e0f7fa;
             margin: 0;
             padding: 0;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px;
             padding: 20px;
             background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
-            color: #007bff;
-            font-size: 2em;
+            color: #00796b;
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         .product, .cart-item {
-            border: 1px solid #ddd;
+            border: 2px solid #00796b;
             padding: 15px;
             margin: 10px 0;
-            border-radius: 8px;
-            background: #fafafa;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            background: #b2dfdb;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            transition: background-color 0.3s;
+        }
+
+        .product:hover, .cart-item:hover {
+            background: #80cbc4;
         }
 
         .product button, .cart-item button {
-            padding: 10px 15px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             color: #fff;
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
         .product button {
-            background-color: #28a745;
+            background-color: #004d40;
+            font-weight: bold;
         }
 
         .product button:hover {
-            background-color: #218838;
+            background-color: #00332b;
         }
 
         .cart-item button {
-            background-color: #007bff;
+            background-color: #00796b;
             margin-left: 5px;
         }
 
         .cart-item button:hover {
-            background-color: #0056b3;
+            background-color: #004d40;
         }
 
         .cart-item button.remove {
-            background-color: #dc3545;
+            background-color: #d32f2f;
         }
 
         .cart-item button.remove:hover {
-            background-color: #c82333;
+            background-color: #b71c1c;
         }
 
         #cart {
@@ -83,46 +94,57 @@
 
         .button-group {
             margin-top: 20px;
+            text-align: center;
         }
 
         .button-group button {
-            padding: 10px 20px;
+            padding: 15px 30px;
             border: none;
-            border-radius: 5px;
+            border-radius: 12px;
             color: #fff;
-            background-color: #007bff;
+            background-color: #004d40;
             cursor: pointer;
             transition: background-color 0.3s;
+            font-size: 1.2em;
         }
 
         .button-group button:hover {
-            background-color: #0056b3;
+            background-color: #00332b;
         }
 
         form {
             margin-top: 20px;
             padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: #c1f0f6;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         form label {
             display: block;
             margin-top: 10px;
+            font-weight: bold;
         }
 
         form input {
             width: calc(100% - 22px);
             padding: 10px;
             margin-top: 5px;
-            border-radius: 5px;
-            border: 1px solid #ced4da;
+            border-radius: 8px;
+            border: 2px solid #00796b;
             box-sizing: border-box;
         }
 
         form button {
             margin-top: 10px;
+            background-color: #004d40;
+            border: none;
+            color: #fff;
+            font-size: 1em;
+        }
+
+        form button:hover {
+            background-color: #00332b;
         }
 
         @media (max-width: 768px) {
@@ -135,24 +157,21 @@
                 width: 100%;
                 margin-top: 10px;
             }
-
-            .cart-item button {
-                margin-left: 0;
-            }
         }
 
         @media (max-width: 480px) {
             .container {
                 width: 95%;
+                padding: 10px;
             }
 
             h1 {
-                font-size: 1.5em;
+                font-size: 2em;
             }
 
             .product, .cart-item {
                 padding: 10px;
-                font-size: 0.9em;
+                font-size: 1em;
             }
         }
     </style>
@@ -191,10 +210,14 @@
     </div>
 
     <script>
-        let cart = [];
+        let cart = {};
 
         function addToCart(product) {
-            cart.push(product);
+            if (cart[product]) {
+                cart[product]++;
+            } else {
+                cart[product] = 1;
+            }
             displayCart();
             alert(product + ' telah ditambahkan ke keranjang!');
         }
@@ -202,68 +225,71 @@
         function displayCart() {
             const cartElement = document.getElementById('cart');
             cartElement.innerHTML = '';
-            cart.forEach((product, index) => {
+            for (const product in cart) {
                 const li = document.createElement('li');
                 li.className = 'cart-item';
-                li.textContent = product;
+                li.textContent = `${product} (x${cart[product]})`;
                 
                 const editButton = document.createElement('button');
                 editButton.textContent = 'Edit';
-                editButton.onclick = () => editProduct(index);
+                editButton.onclick = () => editProduct(product);
 
                 const removeButton = document.createElement('button');
                 removeButton.textContent = 'Remove';
                 removeButton.className = 'remove';
-                removeButton.onclick = () => removeProduct(index);
+                removeButton.onclick = () => removeProduct(product);
                 
                 li.appendChild(editButton);
                 li.appendChild(removeButton);
                 cartElement.appendChild(li);
-            });
+            }
         }
 
-        function editProduct(index) {
-            if (index >= 0 && index < cart.length) {
+        function editProduct(product) {
+            const index = Array.from(document.querySelectorAll('#cart .cart-item')).findIndex(item => item.textContent.startsWith(product));
+            if (index !== -1) {
                 document.getElementById('edit-index').value = index;
-                document.getElementById('edit-product').value = cart[index];
+                document.getElementById('edit-product').value = product;
             } else {
-                alert('Index tidak valid');
+                alert('Produk tidak ditemukan');
             }
         }
 
         function editCart() {
             const index = parseInt(document.getElementById('edit-index').value);
             const newProduct = document.getElementById('edit-product').value;
-            if (index >= 0 && index < cart.length) {
-                cart[index] = newProduct;
+            const oldProduct = Object.keys(cart)[index];
+            if (oldProduct && newProduct) {
+                cart[newProduct] = (cart[newProduct] || 0) + cart[oldProduct];
+                delete cart[oldProduct];
                 displayCart();
                 alert('Produk diubah menjadi ' + newProduct);
             } else {
-                alert('Index tidak valid');
+                alert('Index tidak valid atau nama produk kosong');
             }
         }
 
         function addProduct() {
             const newProduct = document.getElementById('edit-product').value;
             if (newProduct) {
-                cart.push(newProduct);
+                cart[newProduct] = (cart[newProduct] || 0) + 1;
                 displayCart();
                 alert(newProduct + ' ditambahkan ke keranjang!');
             }
         }
 
-        function removeProduct(index) {
-            if (index >= 0 && index < cart.length) {
-                cart.splice(index, 1);
+        function removeProduct(product) {
+            if (cart[product]) {
+                delete cart[product];
                 displayCart();
                 alert('Produk dihapus dari keranjang!');
             } else {
-                alert('Index tidak valid');
+                alert('Produk tidak ditemukan');
             }
         }
 
         function checkout() {
-            if (cart.length === 0) {
+            if (Object.keys(cart).length === 0) {
                 alert('Keranjang Anda kosong!');
                 return;
             }
@@ -275,13 +301,13 @@
         }
 
         function sendEmail(email, cart) {
-            const emailContent = 'Produk dalam keranjang Anda:\n' + cart.join('\n');
+            const emailContent = 'Produk dalam keranjang Anda:\n' + Object.entries(cart).map(([product, quantity]) => `${product} (x${quantity})`).join('\n');
             console.log('Mengirim email ke:', email);
             console.log('Isi email:\n', emailContent);
             alert('Rincian pembelian telah dikirim ke ' + email);
 
             // Reset cart
-            cart = [];
+            cart = {};
             displayCart();
         }
     </script>
