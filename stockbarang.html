@@ -3,207 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikasi Kasir</title>
+    <title>Daftar Barang</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #2e2e2e;
-            color: #e0e0e0;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f4;
         }
 
         .navbar {
-            background-color: #333;
+            background: linear-gradient(135deg, #0062cc, #004085);
             padding: 10px 20px;
-            color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
         }
 
-        .navbar ul {
-            list-style: none;
-            padding: 0;
+        .navbar-menu {
+            list-style-type: none;
             margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
         }
 
-        .navbar ul li {
-            margin: 0 15px;
+        .navbar-menu li {
+            margin: 0 20px;
         }
 
-        .navbar ul li a {
-            color: #fff;
+        .navbar-menu a {
+            color: white;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 18px;
+            padding: 10px 15px;
+            display: block;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border-radius: 5px;
         }
 
-        .navbar ul li a:hover {
-            text-decoration: underline;
+        .navbar-menu a:hover {
+            background-color: #0056b3;
+            color: #e2e2e2;
+        }
+
+        .navbar-menu a.active {
+            background-color: #004085;
+            color: #e2e2e2;
         }
 
         .container {
-            max-width: 1000px;
-            margin: auto;
             padding: 20px;
-            background-color: #3a3a3a;
+        }
+
+        .form-container, .table-container {
+            background-color: #fff;
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 1200px;
         }
 
-        h1 {
-            text-align: center;
-            color: #ffffff;
+        .form-container h2, .table-container h2 {
+            margin-top: 0;
+            color: #333;
         }
 
-        .form-section, .section {
-            display: none;
-            margin-bottom: 20px;
+        .form-group {
+            margin-bottom: 15px;
         }
 
-        .form-section.active, .section.active {
+        .form-group label {
             display: block;
-        }
-
-        label {
             margin-bottom: 5px;
-            color: #dcdcdc;
-            display: block;
+            color: #333;
         }
 
-        input, select {
+        .form-group input {
+            width: 100%;
             padding: 10px;
-            margin-bottom: 10px;
-            border: none;
-            border-radius: 4px;
-            background-color: #555555;
-            color: #ffffff;
-            width: calc(100% - 22px); /* Adjust width for padding and border */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
         }
 
-        button {
-            padding: 10px;
-            background-color: #007bff;
+        .form-group input:focus {
+            border-color: #0062cc;
+            outline: none;
+        }
+
+        .form-group button {
+            background-color: #0062cc;
             color: white;
             border: none;
-            border-radius: 4px;
+            padding: 10px 15px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            font-size: 16px;
         }
 
-        button:hover {
-            background-color: #0056b3;
+        .form-group button:hover {
+            background-color: #004085;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
-            background-color: #4a4a4a;
-            border-radius: 8px;
-            overflow: hidden;
+            margin-top: 20px;
         }
 
         th, td {
-            padding: 12px;
-            border-bottom: 1px solid #555555;
-            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
         }
 
         th {
-            background-color: #333333;
+            background-color: #f4f4f4;
+            color: #333;
         }
 
-        tr:nth-child(even) {
-            background-color: #2a2a2a;
+        td {
+            background-color: #fff;
         }
 
-        button.edit {
-            background-color: #28a745;
+        .status-toggle {
+            cursor: pointer;
+            color: #0062cc;
+            text-decoration: underline;
         }
 
-        button.edit:hover {
-            background-color: #218838;
+        .status-toggle:hover {
+            color: #004085;
         }
 
-        button.delete {
-            background-color: #dc3545;
+        .action-buttons {
+            display: flex;
+            gap: 10px;
         }
 
-        button.delete:hover {
-            background-color: #c82333;
+        .action-buttons button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
-        button.status {
-            background-color: #ffc107;
+        .action-buttons button.edit {
+            background-color: #0062cc;
         }
 
-        button.status:hover {
-            background-color: #e0a800;
+        .action-buttons button.edit:hover {
+            background-color: #004085;
         }
 
-        #receiptPreview {
-            margin-top: 20px;
-            background: #4a4a4a;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        #receiptContent {
-            color: #ffffff;
+        .action-buttons button.delete:hover {
+            background-color: #cc0000;
         }
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <ul>
-            <li><a href="#" id="navHome">Aplikasi Kasir</a></li>
-            <li><a href="#" id="navItems">Daftar Barang</a></li>
-            <li><a href="#" id="navHistory">Riwayat Pembelian Barang</a></li>
-            <li><a href="#" id="navReports">Rekap Data Laporan</a></li>
+    <nav class="navbar">
+        <ul class="navbar-menu">
+            <li><a href="#aplikasi-kasir">Aplikasi Kasir</a></li>
+            <li><a href="#daftar-barang" class="active">Daftar Barang</a></li>
+            <li><a href="#riwayat-pembelian">Riwayat Pembelian</a></li>
+            <li><a href="#rekap-laporan">Rekap Laporan</a></li>
         </ul>
-    </div>
+    </nav>
 
     <div class="container">
-        <h1>Aplikasi Kasir</h1>
-
-        <!-- Home Section -->
-        <div id="homeSection" class="section active">
-            <h2>Selamat Datang di Aplikasi Kasir</h2>
-            <p>Gunakan menu navigasi di atas untuk mengakses berbagai fitur aplikasi kasir.</p>
-        </div>
-
-        <!-- Form Input Barang -->
-        <div id="itemForm" class="form-section">
-            <h2>Tambah / Edit Barang</h2>
-            <form id="itemEditForm">
-                <label for="itemId">ID Barang:</label>
-                <input type="number" id="itemId" required>
-                <label for="itemName">Nama Barang:</label>
-                <input type="text" id="itemName" required>
-                <label for="itemPrice">Harga:</label>
-                <input type="number" id="itemPrice" step="0.01" required>
-                <label for="itemQuantity">Jumlah:</label>
-                <input type="number" id="itemQuantity" required>
-                <label for="itemStatus">Status:</label>
-                <select id="itemStatus">
-                    <option value="true">Active</option>
-                    <option value="false">Non Active</option>
-                </select>
-                <button type="submit" id="saveItemButton">Simpan Barang</button>
+        <div class="form-container">
+            <h2>Tambahkan Barang</h2>
+            <form id="barangForm">
+                <div class="form-group">
+                    <label for="nama-barang">Nama Barang</label>
+                    <input type="text" id="nama-barang" name="nama-barang" placeholder="Masukkan Nama Barang" required>
+                </div>
+                <div class="form-group">
+                    <label for="harga">Harga</label>
+                    <input type="number" id="harga" name="harga" placeholder="Masukkan Harga" required>
+                </div>
+                <div class="form-group">
+                    <label for="jumlah">Jumlah</label>
+                    <input type="number" id="jumlah" name="jumlah" placeholder="Masukkan Jumlah" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Tambah Barang</button>
+                </div>
             </form>
         </div>
 
-        <!-- Daftar Barang -->
-        <div id="itemSection" class="section">
+        <div class="table-container">
             <h2>Daftar Barang</h2>
-            <input type="text" id="searchBox" placeholder="Cari Barang...">
-            <button id="addItemButton">Tambah Barang</button>
-            <table id="itemTable">
+            <table id="barangTable">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -217,242 +215,49 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Data akan diisi oleh JavaScript -->
+                    <!-- Data Barang akan muncul di sini -->
                 </tbody>
             </table>
-        </div>
-
-        <!-- Riwayat Pembelian Barang -->
-        <div id="historySection" class="section">
-            <h2>Riwayat Pembelian Barang</h2>
-            <p>Riwayat pembelian barang akan ditampilkan di sini.</p>
-        </div>
-
-        <!-- Rekap Data Laporan -->
-        <div id="reportsSection" class="section">
-            <h2>Rekap Data Laporan</h2>
-            <p>Rekap data laporan akan ditampilkan di sini.</p>
-        </div>
-
-        <!-- Nota Pembelian -->
-        <div id="receiptSection" class="section">
-            <h2>Nota Pembelian</h2>
-            <button id="printReceipt">Cetak Nota</button>
-            <div id="receiptPreview" class="hidden">
-                <h3>Nota Pembelian</h3>
-                <div id="receiptContent"></div>
-            </div>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('itemEditForm');
-            const itemIdInput = document.getElementById('itemId');
-            const itemNameInput = document.getElementById('itemName');
-            const itemPriceInput = document.getElementById('itemPrice');
-            const itemQuantityInput = document.getElementById('itemQuantity');
-            const itemStatusInput = document.getElementById('itemStatus');
-            const itemTable = document.getElementById('itemTable').getElementsByTagName('tbody')[0];
-            const searchBox = document.getElementById('searchBox');
-            const receiptPreview = document.getElementById('receiptPreview');
-            const receiptContent = document.getElementById('receiptContent');
-            const printReceiptButton = document.getElementById('printReceipt');
-            const navHome = document.getElementById('navHome');
-            const navItems = document.getElementById('navItems');
-            const navHistory = document.getElementById('navHistory');
-            const navReports = document.getElementById('navReports');
-            const homeSection = document.getElementById('homeSection');
-            const itemSection = document.getElementById('itemSection');
-            const historySection = document.getElementById('historySection');
-            const reportsSection = document.getElementById('reportsSection');
-            const receiptSection = document.getElementById('receiptSection');
-            const addItemButton = document.getElementById('addItemButton');
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('barangForm');
+            const tableBody = document.querySelector('#barangTable tbody');
+            let itemCounter = 0;
 
-            function saveItems(items) {
-                localStorage.setItem('items', JSON.stringify(items));
-            }
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
 
-            function loadItems() {
-                const items = JSON.parse(localStorage.getItem('items')) || [];
-                itemTable.innerHTML = '';
-                items.forEach((item, index) => {
-                    const row = itemTable.insertRow();
-                    row.insertCell(0).textContent = index + 1;
-                    row.insertCell(1).textContent = item.id;
-                    row.insertCell(2).textContent = item.name;
-                    row.insertCell(3).textContent = item.price.toFixed(2);
-                    row.insertCell(4).textContent = item.quantity;
-                    
-                    const statusCell = row.insertCell(5);
-                    const statusButton = document.createElement('button');
-                    statusButton.textContent = item.status ? 'Non Active' : 'Active';
-                    statusButton.className = 'status';
-                    statusButton.addEventListener('click', () => toggleStatus(index));
-                    statusCell.appendChild(statusButton);
+                itemCounter++;
+                const namaBarang = document.getElementById('nama-barang').value;
+                const harga = document.getElementById('harga').value;
+                const jumlah = document.getElementById('jumlah').value;
 
-                    const editCell = row.insertCell(6);
-                    const editButton = document.createElement('button');
-                    editButton.textContent = 'Edit';
-                    editButton.className = 'edit';
-                    editButton.addEventListener('click', () => editItem(index));
-                    editCell.appendChild(editButton);
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${itemCounter}</td>
+                    <td>BRG${itemCounter.toString().padStart(4, '0')}</td>
+                    <td>${namaBarang}</td>
+                    <td>${harga}</td>
+                    <td>${jumlah}</td>
+                    <td><span class="status-toggle">On</span></td>
+                    <td><button class="edit">Edit</button></td>
+                    <td><button class="delete">Hapus</button></td>
+                `;
+                tableBody.appendChild(newRow);
 
-                    const deleteCell = row.insertCell(7);
-                    const deleteButton = document.createElement('button');
-                    deleteButton.textContent = 'Hapus';
-                    deleteButton.className = 'delete';
-                    deleteButton.addEventListener('click', () => deleteItem(index));
-                    deleteCell.appendChild(deleteButton);
-                });
-            }
+                form.reset();
+            });
 
-            function addItem(id, name, price, quantity, status) {
-                const items = JSON.parse(localStorage.getItem('items')) || [];
-                const existingItemIndex = items.findIndex(item => item.id === id);
-                if (existingItemIndex > -1) {
-                    items[existingItemIndex] = { id, name, price, quantity, status: status === 'true' };
-                } else {
-                    items.push({ id, name, price, quantity, status: status === 'true' });
+            tableBody.addEventListener('click', (e) => {
+                if (e.target.classList.contains('delete')) {
+                    e.target.closest('tr').remove();
+                } else if (e.target.classList.contains('status-toggle')) {
+                    e.target.textContent = e.target.textContent === 'On' ? 'Off' : 'On';
                 }
-                saveItems(items);
-                loadItems();
-            }
-
-            function editItem(index) {
-                const items = JSON.parse(localStorage.getItem('items')) || [];
-                const item = items[index];
-                itemIdInput.value = item.id;
-                itemNameInput.value = item.name;
-                itemPriceInput.value = item.price;
-                itemQuantityInput.value = item.quantity;
-                itemStatusInput.value = item.status ? 'true' : 'false';
-                form.removeEventListener('submit', handleAddItem);
-                form.addEventListener('submit', function handleEditItem(event) {
-                    event.preventDefault();
-                    addItem(
-                        parseInt(itemIdInput.value.trim(), 10),
-                        itemNameInput.value.trim(),
-                        parseFloat(itemPriceInput.value.trim()),
-                        parseInt(itemQuantityInput.value.trim(), 10),
-                        itemStatusInput.value
-                    );
-                    form.removeEventListener('submit', handleEditItem);
-                    form.addEventListener('submit', handleAddItem);
-                    itemIdInput.value = '';
-                    itemNameInput.value = '';
-                    itemPriceInput.value = '';
-                    itemQuantityInput.value = '';
-                    itemStatusInput.value = 'true';
-                });
-                showSection('itemForm');
-            }
-
-            function deleteItem(index) {
-                const items = JSON.parse(localStorage.getItem('items')) || [];
-                items.splice(index, 1);
-                saveItems(items);
-                loadItems();
-            }
-
-            function toggleStatus(index) {
-                const items = JSON.parse(localStorage.getItem('items')) || [];
-                items[index].status = !items[index].status;
-                saveItems(items);
-                loadItems();
-            }
-
-            function searchItems() {
-                const searchTerm = searchBox.value.toLowerCase();
-                const rows = itemTable.getElementsByTagName('tr');
-                Array.from(rows).forEach(row => {
-                    const nameCell = row.cells[2];
-                    if (nameCell) {
-                        const name = nameCell.textContent.toLowerCase();
-                        row.style.display = name.includes(searchTerm) ? '' : 'none';
-                    }
-                });
-            }
-
-            function printReceipt() {
-                const items = JSON.parse(localStorage.getItem('items')) || [];
-                let receiptHtml = '<h3>Nota Pembelian</h3><ul>';
-                items.forEach(item => {
-                    receiptHtml += `<li>${item.name}: ${item.quantity} x ${item.price.toFixed(2)} = ${(item.quantity * item.price).toFixed(2)}</li>`;
-                });
-                receiptHtml += `<li><strong>Total: ${items.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}</strong></li></ul>`;
-                receiptContent.innerHTML = receiptHtml;
-                receiptPreview.classList.remove('hidden');
-                window.print();
-            }
-
-            function handleAddItem(event) {
-                event.preventDefault();
-                addItem(
-                    parseInt(itemIdInput.value.trim(), 10),
-                    itemNameInput.value.trim(),
-                    parseFloat(itemPriceInput.value.trim()),
-                    parseInt(itemQuantityInput.value.trim(), 10),
-                    itemStatusInput.value
-                );
-                itemIdInput.value = '';
-                itemNameInput.value = '';
-                itemPriceInput.value = '';
-                itemQuantityInput.value = '';
-                itemStatusInput.value = 'true';
-            }
-
-            function showSection(sectionId) {
-                homeSection.classList.remove('active');
-                itemSection.classList.remove('active');
-                historySection.classList.remove('active');
-                reportsSection.classList.remove('active');
-                receiptSection.classList.remove('active');
-                document.querySelectorAll('.navbar a').forEach(link => link.classList.remove('active'));
-                if (sectionId === 'homeSection') {
-                    homeSection.classList.add('active');
-                    document.getElementById('navHome').classList.add('active');
-                } else if (sectionId === 'itemSection') {
-                    itemSection.classList.add('active');
-                    document.getElementById('navItems').classList.add('active');
-                } else if (sectionId === 'historySection') {
-                    historySection.classList.add('active');
-                    document.getElementById('navHistory').classList.add('active');
-                } else if (sectionId === 'reportsSection') {
-                    reportsSection.classList.add('active');
-                    document.getElementById('navReports').classList.add('active');
-                } else if (sectionId === 'receiptSection') {
-                    receiptSection.classList.add('active');
-                    document.getElementById('navReceipt').classList.add('active');
-                }
-            }
-
-            navHome.addEventListener('click', (e) => {
-                e.preventDefault();
-                showSection('homeSection');
             });
-
-            navItems.addEventListener('click', (e) => {
-                e.preventDefault();
-                showSection('itemSection');
-            });
-
-            navHistory.addEventListener('click', (e) => {
-                e.preventDefault();
-                showSection('historySection');
-            });
-
-            navReports.addEventListener('click', (e) => {
-                e.preventDefault();
-                showSection('reportsSection');
-            });
-
-            form.addEventListener('submit', handleAddItem);
-            searchBox.addEventListener('input', searchItems);
-            printReceiptButton.addEventListener('click', printReceipt);
-            addItemButton.addEventListener('click', () => showSection('itemForm'));
-
-            loadItems();
         });
     </script>
 </body>
