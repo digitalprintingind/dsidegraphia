@@ -55,27 +55,29 @@
             color: #ffffff;
         }
 
-        form, .section {
+        .form-section, .section {
             display: none;
             margin-bottom: 20px;
         }
 
-        form.active, .section.active {
+        .form-section.active, .section.active {
             display: block;
         }
 
         label {
             margin-bottom: 5px;
             color: #dcdcdc;
+            display: block;
         }
 
-        input {
+        input, select {
             padding: 10px;
             margin-bottom: 10px;
             border: none;
             border-radius: 4px;
             background-color: #555555;
             color: #ffffff;
+            width: calc(100% - 22px); /* Adjust width for padding and border */
         }
 
         button {
@@ -176,16 +178,25 @@
         </div>
 
         <!-- Form Input Barang -->
-        <form id="itemForm" class="section">
-            <h2>Tambah Barang</h2>
-            <label for="itemName">Nama Barang:</label>
-            <input type="text" id="itemName" required>
-            <label for="itemPrice">Harga:</label>
-            <input type="number" id="itemPrice" step="0.01" required>
-            <label for="itemQuantity">Jumlah:</label>
-            <input type="number" id="itemQuantity" required>
-            <button type="submit">Tambah Barang</button>
-        </form>
+        <div id="itemForm" class="form-section">
+            <h2>Tambah / Edit Barang</h2>
+            <form id="itemEditForm">
+                <label for="itemId">ID Barang:</label>
+                <input type="number" id="itemId" required>
+                <label for="itemName">Nama Barang:</label>
+                <input type="text" id="itemName" required>
+                <label for="itemPrice">Harga:</label>
+                <input type="number" id="itemPrice" step="0.01" required>
+                <label for="itemQuantity">Jumlah:</label>
+                <input type="number" id="itemQuantity" required>
+                <label for="itemStatus">Status:</label>
+                <select id="itemStatus">
+                    <option value="true">Active</option>
+                    <option value="false">Non Active</option>
+                </select>
+                <button type="submit" id="saveItemButton">Simpan Barang</button>
+            </form>
+        </div>
 
         <!-- Daftar Barang -->
         <div id="itemSection" class="section">
@@ -236,10 +247,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('itemForm');
+            const form = document.getElementById('itemEditForm');
+            const itemIdInput = document.getElementById('itemId');
             const itemNameInput = document.getElementById('itemName');
             const itemPriceInput = document.getElementById('itemPrice');
             const itemQuantityInput = document.getElementById('itemQuantity');
+            const itemStatusInput = document.getElementById('itemStatus');
             const itemTable = document.getElementById('itemTable').getElementsByTagName('tbody')[0];
             const searchBox = document.getElementById('searchBox');
             const receiptPreview = document.getElementById('receiptPreview');
@@ -256,6 +269,10 @@
             const receiptSection = document.getElementById('receiptSection');
             const addItemButton = document.getElementById('addItemButton');
 
+            function saveItems(items) {
+                localStorage.setItem('items', JSON.stringify(items));
+            }
+
             function loadItems() {
                 const items = JSON.parse(localStorage.getItem('items')) || [];
                 itemTable.innerHTML = '';
@@ -266,8 +283,14 @@
                     row.insertCell(2).textContent = item.name;
                     row.insertCell(3).textContent = item.price.toFixed(2);
                     row.insertCell(4).textContent = item.quantity;
-                    row.insertCell(5).textContent = item.status ? 'Active' : 'Non Active';
                     
+                    const statusCell = row.insertCell(5);
+                    const statusButton = document.createElement('button');
+                    statusButton.textContent = item.status ? 'Non Active' : 'Active';
+                    statusButton.className = 'status';
+                    statusButton.addEventListener('click', () => toggleStatus(index));
+                    statusCell.appendChild(statusButton);
+
                     const editCell = row.insertCell(6);
                     const editButton = document.createElement('button');
                     editButton.textContent = 'Edit';
@@ -281,20 +304,17 @@
                     deleteButton.className = 'delete';
                     deleteButton.addEventListener('click', () => deleteItem(index));
                     deleteCell.appendChild(deleteButton);
-
-                    const statusCell = row.insertCell(5);
-                    const statusButton = document.createElement('button');
-                    statusButton.textContent = item.status ? 'Non Active' : 'Active';
-                    statusButton.className = 'status';
-                    statusButton.addEventListener('click', () => toggleStatus(index));
-                    statusCell.appendChild(statusButton);
                 });
             }
 
-            function addItem(name, price, quantity) {
+            function addItem(id, name, price, quantity, status) {
                 const items = JSON.parse(localStorage.getItem('items')) || [];
-                const id = items.length ? items[items.length - 1].id + 1 : 1;
-                items.push({ id, name, price, quantity, status: true });
+                const existingItemIndex = items.findIndex(item => item.id === id);
+                if (existingItemIndex > -1) {
+                    items[existingItemIndex] = { id, name, price, quantity, status: status === 'true' };
+                } else {
+                    items.push({ id, name, price, quantity, status: status === 'true' });
+                }
                 saveItems(items);
                 loadItems();
             }
@@ -302,23 +322,30 @@
             function editItem(index) {
                 const items = JSON.parse(localStorage.getItem('items')) || [];
                 const item = items[index];
+                itemIdInput.value = item.id;
                 itemNameInput.value = item.name;
                 itemPriceInput.value = item.price;
                 itemQuantityInput.value = item.quantity;
+                itemStatusInput.value = item.status ? 'true' : 'false';
                 form.removeEventListener('submit', handleAddItem);
                 form.addEventListener('submit', function handleEditItem(event) {
                     event.preventDefault();
-                    item.name = itemNameInput.value.trim();
-                    item.price = parseFloat(itemPriceInput.value.trim());
-                    item.quantity = parseInt(itemQuantityInput.value.trim(), 10);
-                    saveItems(items);
-                    loadItems();
+                    addItem(
+                        parseInt(itemIdInput.value.trim(), 10),
+                        itemNameInput.value.trim(),
+                        parseFloat(itemPriceInput.value.trim()),
+                        parseInt(itemQuantityInput.value.trim(), 10),
+                        itemStatusInput.value
+                    );
                     form.removeEventListener('submit', handleEditItem);
                     form.addEventListener('submit', handleAddItem);
+                    itemIdInput.value = '';
                     itemNameInput.value = '';
                     itemPriceInput.value = '';
                     itemQuantityInput.value = '';
+                    itemStatusInput.value = 'true';
                 });
+                showSection('itemForm');
             }
 
             function deleteItem(index) {
@@ -361,15 +388,18 @@
 
             function handleAddItem(event) {
                 event.preventDefault();
-                const name = itemNameInput.value.trim();
-                const price = parseFloat(itemPriceInput.value.trim());
-                const quantity = parseInt(itemQuantityInput.value.trim(), 10);
-                if (name && price > 0 && quantity > 0) {
-                    addItem(name, price, quantity);
-                    itemNameInput.value = '';
-                    itemPriceInput.value = '';
-                    itemQuantityInput.value = '';
-                }
+                addItem(
+                    parseInt(itemIdInput.value.trim(), 10),
+                    itemNameInput.value.trim(),
+                    parseFloat(itemPriceInput.value.trim()),
+                    parseInt(itemQuantityInput.value.trim(), 10),
+                    itemStatusInput.value
+                );
+                itemIdInput.value = '';
+                itemNameInput.value = '';
+                itemPriceInput.value = '';
+                itemQuantityInput.value = '';
+                itemStatusInput.value = 'true';
             }
 
             function showSection(sectionId) {
