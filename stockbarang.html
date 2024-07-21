@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Barang dan Pembelian</title>
     <style>
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -189,6 +190,7 @@
         .action-buttons button.remove:hover {
             background-color: #cc0000;
         }
+
     </style>
 </head>
 <body>
@@ -231,7 +233,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>ID Barang</th>
+                        <th>ID Transaksi</th>
                         <th>Nama Barang</th>
                         <th>Jumlah</th>
                         <th>Aksi</th>
@@ -397,11 +399,11 @@
                 }
             };
 
-            const addPembelianToTable = (idBarang, namaBarang, jumlah) => {
+            const addPembelianToTable = (idTransaksi, namaBarang, jumlah) => {
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
                     <td>${pembelianTableBody.children.length + 1}</td>
-                    <td>${idBarang}</td>
+                    <td>${idTransaksi}</td>
                     <td>${namaBarang}</td>
                     <td>${jumlah}</td>
                     <td><button class="remove">Hapus</button></td>
@@ -431,7 +433,7 @@
                 printWindow.document.write('</head><body >');
                 printWindow.document.write('<h1>Nota Pembelian</h1>');
                 printWindow.document.write('<table>');
-                printWindow.document.write('<thead><tr><th>No</th><th>ID Barang</th><th>Nama Barang</th><th>Jumlah</th></tr></thead>');
+                printWindow.document.write('<thead><tr><th>No</th><th>ID Transaksi</th><th>Nama Barang</th><th>Jumlah</th></tr></thead>');
                 printWindow.document.write('<tbody>' + tableHtml + '</tbody>');
                 printWindow.document.write('</table>');
                 printWindow.document.write('</body></html>');
