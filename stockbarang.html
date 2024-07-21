@@ -10,7 +10,35 @@
             background-color: #2e2e2e;
             color: #e0e0e0;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #333;
+            padding: 10px 20px;
+            color: #fff;
+        }
+
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar ul li {
+            margin: 0 15px;
+        }
+
+        .navbar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .navbar ul li a:hover {
+            text-decoration: underline;
         }
 
         .container {
@@ -27,13 +55,13 @@
             color: #ffffff;
         }
 
-        form {
-            display: flex;
-            flex-direction: column;
+        form, .section {
+            display: none;
             margin-bottom: 20px;
-            background: #4a4a4a;
-            padding: 20px;
-            border-radius: 8px;
+        }
+
+        form.active, .section.active {
+            display: block;
         }
 
         label {
@@ -121,11 +149,20 @@
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <ul>
+            <li><a href="#" id="navItems">Daftar Barang</a></li>
+            <li><a href="#" id="navAddItem">Tambah Barang</a></li>
+            <li><a href="#" id="navReceipt">Nota Pembelian</a></li>
+        </ul>
+    </div>
+
     <div class="container">
         <h1>Aplikasi Kasir</h1>
 
         <!-- Form Input Barang -->
-        <form id="itemForm">
+        <form id="itemForm" class="active">
+            <h2>Tambah Barang</h2>
             <label for="itemName">Nama Barang:</label>
             <input type="text" id="itemName" required>
             <label for="itemPrice">Harga:</label>
@@ -136,35 +173,38 @@
         </form>
 
         <!-- Daftar Barang -->
-        <h2>Daftar Barang</h2>
-        <input type="text" id="searchBox" placeholder="Cari Barang...">
-        <table id="itemTable">
-            <thead>
-                <tr>
-                    <th>Nama Barang</th>
-                    <th>Harga</th>
-                    <th>Jumlah</th>
-                    <th>Total</th>
-                    <th>Edit</th>
-                    <th>Hapus</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Data akan diisi oleh JavaScript -->
-            </tbody>
-        </table>
-
-        <!-- Total dan Sisa Stok -->
-        <h2>Informasi Stok</h2>
-        <p>Total Stok: <span id="totalStock">0</span></p>
-        <p>Total Harga: <span id="totalPrice">0</span></p>
+        <div id="itemSection" class="section">
+            <h2>Daftar Barang</h2>
+            <input type="text" id="searchBox" placeholder="Cari Barang...">
+            <table id="itemTable">
+                <thead>
+                    <tr>
+                        <th>Nama Barang</th>
+                        <th>Harga</th>
+                        <th>Jumlah</th>
+                        <th>Total</th>
+                        <th>Edit</th>
+                        <th>Hapus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data akan diisi oleh JavaScript -->
+                </tbody>
+            </table>
+            <!-- Total dan Sisa Stok -->
+            <h2>Informasi Stok</h2>
+            <p>Total Stok: <span id="totalStock">0</span></p>
+            <p>Total Harga: <span id="totalPrice">0</span></p>
+        </div>
 
         <!-- Nota Pembelian -->
-        <h2>Nota Pembelian</h2>
-        <button id="printReceipt">Cetak Nota</button>
-        <div id="receiptPreview" class="hidden">
-            <h3>Nota Pembelian</h3>
-            <div id="receiptContent"></div>
+        <div id="receiptSection" class="section">
+            <h2>Nota Pembelian</h2>
+            <button id="printReceipt">Cetak Nota</button>
+            <div id="receiptPreview" class="hidden">
+                <h3>Nota Pembelian</h3>
+                <div id="receiptContent"></div>
+            </div>
         </div>
     </div>
 
@@ -181,6 +221,11 @@
             const receiptPreview = document.getElementById('receiptPreview');
             const receiptContent = document.getElementById('receiptContent');
             const printReceiptButton = document.getElementById('printReceipt');
+            const navItems = document.getElementById('navItems');
+            const navAddItem = document.getElementById('navAddItem');
+            const navReceipt = document.getElementById('navReceipt');
+            const itemSection = document.getElementById('itemSection');
+            const receiptSection = document.getElementById('receiptSection');
 
             function loadItems() {
                 const items = JSON.parse(localStorage.getItem('items')) || [];
@@ -293,6 +338,38 @@
                     itemQuantityInput.value = '';
                 }
             }
+
+            function showSection(sectionId) {
+                form.classList.remove('active');
+                itemSection.classList.remove('active');
+                receiptSection.classList.remove('active');
+                document.querySelectorAll('.navbar a').forEach(link => link.classList.remove('active'));
+                if (sectionId === 'itemForm') {
+                    form.classList.add('active');
+                    document.getElementById('navAddItem').classList.add('active');
+                } else if (sectionId === 'itemSection') {
+                    itemSection.classList.add('active');
+                    document.getElementById('navItems').classList.add('active');
+                } else if (sectionId === 'receiptSection') {
+                    receiptSection.classList.add('active');
+                    document.getElementById('navReceipt').classList.add('active');
+                }
+            }
+
+            navItems.addEventListener('click', (e) => {
+                e.preventDefault();
+                showSection('itemSection');
+            });
+
+            navAddItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                showSection('itemForm');
+            });
+
+            navReceipt.addEventListener('click', (e) => {
+                e.preventDefault();
+                showSection('receiptSection');
+            });
 
             form.addEventListener('submit', handleAddItem);
             searchBox.addEventListener('input', searchItems);
