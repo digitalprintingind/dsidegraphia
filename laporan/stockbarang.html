@@ -172,12 +172,6 @@
             <label for="notes">Catatan:</label>
             <input type="text" id="notes" name="notes">
         </div>
-        <div id="orderPermintaanFields" style="display: none;">
-            <label for="divisi">Divisi:</label>
-            <input type="text" id="divisi" name="divisi">
-            <label for="statusProses">Status Proses:</label>
-            <input type="text" id="statusProses" name="statusProses">
-        </div>
         <div id="dailyJobFields" style="display: none;">
             <label for="activity">Kegiatan:</label>
             <input type="text" id="activity" name="activity">
@@ -212,27 +206,17 @@
         function updateForm() {
             const category = document.getElementById('category').value;
             const commonFields = document.getElementById('commonFields');
-            const orderPermintaanFields = document.getElementById('orderPermintaanFields');
             const dailyJobFields = document.getElementById('dailyJobFields');
             const itemNameSelect = document.getElementById('itemNameSelect');
             const itemNameInput = document.getElementById('itemNameInput');
 
-            if (category === 'ORDER PERMINTAAN BARANG') {
-                commonFields.style.display = 'block';
-                orderPermintaanFields.style.display = 'block';
-                dailyJobFields.style.display = 'none';
-                itemNameInput.required = false;
-                itemNameSelect.required = false;
-                updateItemNames();
-            } else if (category === 'DAILY JOB') {
+            if (category === 'DAILY JOB') {
                 commonFields.style.display = 'none';
-                orderPermintaanFields.style.display = 'none';
                 dailyJobFields.style.display = 'block';
                 itemNameInput.required = false;
                 itemNameSelect.required = false;
             } else {
                 commonFields.style.display = 'block';
-                orderPermintaanFields.style.display = 'none';
                 dailyJobFields.style.display = 'none';
                 itemNameInput.required = true;
                 itemNameSelect.required = true;
@@ -256,18 +240,19 @@
                 itemNameSelect.innerHTML = '<option value="">-- Pilih Nama Barang --</option>';
                 let items = [];
 				if (category === 'INDOOR') {
-                    items = ['Stampel', 'Mug', 'Pin'];
-                } else if (category === 'OUTDOOR') {
-                    items = ['Banner', 'Billboard', 'Baliho'];
-                } else if (category === 'PRODUKSI') {
-                    items = ['Bahan A', 'Bahan B', 'Bahan C'];
-                } else if (category === 'GUDANG') {
-                    items = ['Rak', 'Box', 'Label'];
+					items = ['DOKU TONER BLACK', 'DOKU TONER HIJAU', 'KERTAS NCR KUNING', 'KERTAS NCR MERAH', 'KERTAS NCR PUTIH', '', 'TRANSFER PAPER / OPACK'];
+				} else if (category === 'OUTDOOR') {
+					items = ['ECO SOLVEN', 'FLEXY CHINA 300 GR', 'Y BANNER MINI A3', 'FLEXY CHINA 280 GR'];
+				} else if (category === 'PRODUKSI') {
+					items = ['CAT KARUNG HIJAU', 'CAT KARUNG HITAM', 'KARUNG 110x150 Doff Putih Garis Biru'];
+				} else if (category === 'GUDANG') {
+					items = ['Akrilik Name Tag', 'Box Kartu Nama'];
                 } else if (category === 'PURCHASE ORDER') {
-                    items = ['Barang X', 'Barang Y', 'Barang Z'];
+                    items = ['Form Logo ISA Uk. A4'];
                 } else if (category === 'ORDER PERMINTAAN BARANG') {
                     items = ['Stampel', 'Mug', 'Pin'];
                 }
+
                 items.forEach(item => {
                     const option = document.createElement('option');
                     option.value = item;
@@ -289,18 +274,6 @@
                         <th>Target Date</th>
                         <th>Finish Date</th>
                         <th>Catatan Progress</th>
-                        <th>Actions</th>
-                    </tr>
-                `;
-            } else if (category === 'ORDER PERMINTAAN BARANG') {
-                tableHead.innerHTML = `
-                    <tr>
-                        <th>Kategori</th>
-                        <th>Date</th>
-                        <th>Divisi</th>
-                        <th>Nama Barang</th>
-                        <th>Banyaknya</th>
-                        <th>Status Proses</th>
                         <th>Actions</th>
                     </tr>
                 `;
@@ -329,14 +302,6 @@
                 const finishDate = document.getElementById('finishDate').value;
 
                 return activity && startDate && targetDate && finishDate;
-            } else if (category === 'ORDER PERMINTAAN BARANG') {
-                const date = document.getElementById('date').value;
-                const divisi = document.getElementById('divisi').value;
-                const itemName = document.getElementById('itemNameSelect').value || document.getElementById('itemNameInput').value;
-                const quantity = document.getElementById('quantity').value;
-                const statusProses = document.getElementById('statusProses').value;
-
-                return date && divisi && itemName && quantity && statusProses;
             } else {
                 const date = document.getElementById('date').value;
                 const itemName = document.getElementById('itemNameSelect').value || document.getElementById('itemNameInput').value;
@@ -368,21 +333,6 @@
                     targetDate,
                     finishDate,
                     progressNotes
-                });
-            } else if (category === 'ORDER PERMINTAAN BARANG') {
-                const date = document.getElementById('date').value;
-                const divisi = document.getElementById('divisi').value;
-                const itemName = document.getElementById('itemNameSelect').value || document.getElementById('itemNameInput').value;
-                const quantity = document.getElementById('quantity').value;
-                const statusProses = document.getElementById('statusProses').value;
-
-                data.push({
-                    category,
-                    date,
-                    divisi,
-                    itemName,
-                    quantity,
-                    statusProses
                 });
             } else {
                 const date = document.getElementById('date').value;
@@ -424,19 +374,6 @@
                             <button class="delete-button" onclick="deleteData(${index})">Delete</button>
                         </td>
                     `;
-                } else if (row.category === 'ORDER PERMINTAAN BARANG') {
-                    tr.innerHTML = `
-                        <td>${row.category}</td>
-                        <td>${row.date}</td>
-                        <td>${row.divisi}</td>
-                        <td>${row.itemName}</td>
-                        <td>${row.quantity}</td>
-                        <td>${row.statusProses}</td>
-                        <td class="action-buttons">
-                            <button class="edit-button" onclick="editData(${index})">Edit</button>
-                            <button class="delete-button" onclick="deleteData(${index})">Delete</button>
-                        </td>
-                    `;
                 } else {
                     tr.innerHTML = `
                         <td>${row.date}</td>
@@ -472,19 +409,9 @@
                 document.getElementById('targetDate').value = row.targetDate;
                 document.getElementById('finishDate').value = row.finishDate;
                 document.getElementById('progressNotes').value = row.progressNotes;
-            } else if (row.category === 'ORDER PERMINTAAN BARANG') {
-                document.getElementById('date').value = row.date;
-                document.getElementById('divisi').value = row.divisi;
-                if (row.itemName) {
-                    document.getElementById('itemNameSelect').value = row.itemName;
-                } else {
-                    document.getElementById('itemNameInput').value = row.itemName;
-                }
-                document.getElementById('quantity').value = row.quantity;
-                document.getElementById('statusProses').value = row.statusProses;
             } else {
                 document.getElementById('date').value = row.date;
-                if (row.category === 'INDOOR' || row.category === 'OUTDOOR' || row.category === 'PRODUKSI' || row.category === 'GUDANG' || row.category === 'PURCHASE ORDER') {
+                if (row.category === 'INDOOR' || row.category === 'OUTDOOR' || row.category === 'PRODUKSI' || row.category === 'GUDANG' || row.category === 'PURCHASE ORDER' || row.category === 'ORDER PERMINTAAN BARANG') {
                     document.getElementById('itemNameSelect').value = row.itemName;
                 } else {
                     document.getElementById('itemNameInput').value = row.itemName;
@@ -494,22 +421,35 @@
                 document.getElementById('notes').value = row.notes;
             }
 
-            data.splice(index, 1); // Remove the row from the data array
+            data.splice(index, 1);
             updateTable();
         }
 
         function deleteData(index) {
-            data.splice(index, 1); // Remove the row from the data array
+            data.splice(index, 1);
             updateTable();
         }
 
         function saveToExcel() {
-            const ws = XLSX.utils.json_to_sheet(data);
+            const filteredData = data.map(row => {
+                const { category, ...rest } = row; // Spread operator to exclude 'category'
+                return rest;
+            });
+
             const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Data");
-            XLSX.writeFile(wb, "data.xlsx");
+            const ws = XLSX.utils.json_to_sheet(filteredData, { header: Object.keys(filteredData[0]) });
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            
+            const currentDate = new Date().toISOString().split('T')[0];
+            const fileName = `${currentDate}.xlsx`;
+            
+            XLSX.writeFile(wb, fileName);
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateForm(); // Initialize form fields based on initial category value
+        });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
 </body>
 </html>
