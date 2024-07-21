@@ -131,6 +131,14 @@
             background-color: #c82333;
         }
 
+        button.status {
+            background-color: #ffc107;
+        }
+
+        button.status:hover {
+            background-color: #e0a800;
+        }
+
         #receiptPreview {
             margin-top: 20px;
             background: #4a4a4a;
@@ -183,13 +191,16 @@
         <div id="itemSection" class="section">
             <h2>Daftar Barang</h2>
             <input type="text" id="searchBox" placeholder="Cari Barang...">
+            <button id="addItemButton">Tambah Barang</button>
             <table id="itemTable">
                 <thead>
                     <tr>
+                        <th>No</th>
+                        <th>ID Barang</th>
                         <th>Nama Barang</th>
                         <th>Harga</th>
                         <th>Jumlah</th>
-                        <th>Total</th>
+                        <th>Status</th>
                         <th>Edit</th>
                         <th>Hapus</th>
                     </tr>
@@ -198,10 +209,6 @@
                     <!-- Data akan diisi oleh JavaScript -->
                 </tbody>
             </table>
-            <!-- Total dan Sisa Stok -->
-            <h2>Informasi Stok</h2>
-            <p>Total Stok: <span id="totalStock">0</span></p>
-            <p>Total Harga: <span id="totalPrice">0</span></p>
         </div>
 
         <!-- Riwayat Pembelian Barang -->
@@ -234,8 +241,6 @@
             const itemPriceInput = document.getElementById('itemPrice');
             const itemQuantityInput = document.getElementById('itemQuantity');
             const itemTable = document.getElementById('itemTable').getElementsByTagName('tbody')[0];
-            const totalStockElem = document.getElementById('totalStock');
-            const totalPriceElem = document.getElementById('totalPrice');
             const searchBox = document.getElementById('searchBox');
             const receiptPreview = document.getElementById('receiptPreview');
             const receiptContent = document.getElementById('receiptContent');
@@ -249,49 +254,47 @@
             const historySection = document.getElementById('historySection');
             const reportsSection = document.getElementById('reportsSection');
             const receiptSection = document.getElementById('receiptSection');
+            const addItemButton = document.getElementById('addItemButton');
 
             function loadItems() {
                 const items = JSON.parse(localStorage.getItem('items')) || [];
                 itemTable.innerHTML = '';
                 items.forEach((item, index) => {
                     const row = itemTable.insertRow();
-                    row.insertCell(0).textContent = item.name;
-                    row.insertCell(1).textContent = item.price.toFixed(2);
-                    row.insertCell(2).textContent = item.quantity;
-                    row.insertCell(3).textContent = (item.price * item.quantity).toFixed(2);
+                    row.insertCell(0).textContent = index + 1;
+                    row.insertCell(1).textContent = item.id;
+                    row.insertCell(2).textContent = item.name;
+                    row.insertCell(3).textContent = item.price.toFixed(2);
+                    row.insertCell(4).textContent = item.quantity;
+                    row.insertCell(5).textContent = item.status ? 'Active' : 'Non Active';
                     
-                    const editCell = row.insertCell(4);
+                    const editCell = row.insertCell(6);
                     const editButton = document.createElement('button');
                     editButton.textContent = 'Edit';
                     editButton.className = 'edit';
                     editButton.addEventListener('click', () => editItem(index));
                     editCell.appendChild(editButton);
 
-                    const deleteCell = row.insertCell(5);
+                    const deleteCell = row.insertCell(7);
                     const deleteButton = document.createElement('button');
                     deleteButton.textContent = 'Hapus';
                     deleteButton.className = 'delete';
                     deleteButton.addEventListener('click', () => deleteItem(index));
                     deleteCell.appendChild(deleteButton);
+
+                    const statusCell = row.insertCell(5);
+                    const statusButton = document.createElement('button');
+                    statusButton.textContent = item.status ? 'Non Active' : 'Active';
+                    statusButton.className = 'status';
+                    statusButton.addEventListener('click', () => toggleStatus(index));
+                    statusCell.appendChild(statusButton);
                 });
-                updateTotals();
-            }
-
-            function updateTotals() {
-                const items = JSON.parse(localStorage.getItem('items')) || [];
-                const totalStock = items.reduce((sum, item) => sum + item.quantity, 0);
-                const totalPrice = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                totalStockElem.textContent = totalStock;
-                totalPriceElem.textContent = totalPrice.toFixed(2);
-            }
-
-            function saveItems(items) {
-                localStorage.setItem('items', JSON.stringify(items));
             }
 
             function addItem(name, price, quantity) {
                 const items = JSON.parse(localStorage.getItem('items')) || [];
-                items.push({ name, price, quantity });
+                const id = items.length ? items[items.length - 1].id + 1 : 1;
+                items.push({ id, name, price, quantity, status: true });
                 saveItems(items);
                 loadItems();
             }
@@ -325,11 +328,18 @@
                 loadItems();
             }
 
+            function toggleStatus(index) {
+                const items = JSON.parse(localStorage.getItem('items')) || [];
+                items[index].status = !items[index].status;
+                saveItems(items);
+                loadItems();
+            }
+
             function searchItems() {
                 const searchTerm = searchBox.value.toLowerCase();
                 const rows = itemTable.getElementsByTagName('tr');
                 Array.from(rows).forEach(row => {
-                    const nameCell = row.cells[0];
+                    const nameCell = row.cells[2];
                     if (nameCell) {
                         const name = nameCell.textContent.toLowerCase();
                         row.style.display = name.includes(searchTerm) ? '' : 'none';
@@ -410,6 +420,7 @@
             form.addEventListener('submit', handleAddItem);
             searchBox.addEventListener('input', searchItems);
             printReceiptButton.addEventListener('click', printReceipt);
+            addItemButton.addEventListener('click', () => showSection('itemForm'));
 
             loadItems();
         });
