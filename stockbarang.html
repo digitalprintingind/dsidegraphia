@@ -54,6 +54,27 @@
             color: #e2e2e2;
         }
 
+        .navbar-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        .navbar-buttons button {
+            background-color: #0062cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .navbar-buttons button:hover {
+            background-color: #004085;
+        }
+
         .container {
             padding: 20px;
         }
@@ -181,6 +202,26 @@
         .action-buttons button.delete:hover {
             background-color: #cc0000;
         }
+
+        .table-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .table-buttons button {
+            background-color: #0062cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .table-buttons button:hover {
+            background-color: #004085;
+        }
     </style>
 </head>
 <body>
@@ -191,6 +232,9 @@
             <li><a href="#riwayat-pembelian">Riwayat Pembelian</a></li>
             <li><a href="#rekap-laporan">Rekap Laporan</a></li>
         </ul>
+        <div class="navbar-buttons">
+            <button id="printNota">Cetak Nota Pembelian</button>
+        </div>
     </nav>
 
     <div class="container">
@@ -230,6 +274,8 @@
                         <th>ID Barang</th>
                         <th>Nama Barang</th>
                         <th>Jumlah</th>
+                        <th>Edit</th>
+                        <th>Hapus</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -263,7 +309,7 @@
         <div class="table-container">
             <h2>Daftar Barang</h2>
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Cari barang...">
+                <input type="text" id="searchBar" placeholder="Cari Barang...">
             </div>
             <table id="barangTable">
                 <thead>
@@ -289,12 +335,12 @@
         document.addEventListener('DOMContentLoaded', () => {
             const barangForm = document.getElementById('barangForm');
             const pembelianForm = document.getElementById('pembelianForm');
-            const barangTableBody = document.querySelector('#barangTable tbody');
-            const pembelianTableBody = document.querySelector('#pembelianTable tbody');
-            const searchInput = document.getElementById('searchInput');
+            const barangTableBody = document.getElementById('barangTable').querySelector('tbody');
+            const pembelianTableBody = document.getElementById('pembelianTable').querySelector('tbody');
+            const searchInput = document.getElementById('searchBar');
             const barangSelect = document.getElementById('barang');
-            let itemCounter = 0;
             let editingRow = null;
+            let itemCounter = 0;
 
             const loadItemsFromLocalStorage = () => {
                 const items = JSON.parse(localStorage.getItem('barangItems')) || [];
@@ -400,8 +446,21 @@
                     <td>${idBarang}</td>
                     <td>${namaBarang}</td>
                     <td>${jumlah}</td>
+                    <td><button class="edit">Edit</button></td>
+                    <td><button class="delete">Hapus</button></td>
                 `;
                 pembelianTableBody.appendChild(newRow);
+            };
+
+            const updatePembelian = (row, namaCustomer, idBarang, jumlah) => {
+                const cells = row.querySelectorAll('td');
+                cells[1].textContent = namaCustomer;
+                cells[2].textContent = idBarang;
+                cells[4].textContent = jumlah;
+            };
+
+            const deletePembelian = (row) => {
+                row.remove();
             };
 
             const searchItems = (query) => {
@@ -412,6 +471,24 @@
                     const matches = namaBarang.includes(query.toLowerCase());
                     row.style.display = matches ? '' : 'none';
                 });
+            };
+
+            const printNotaPembelian = () => {
+                let notaHtml = '<html><head><title>Nota Pembelian</title></head><body>';
+                notaHtml += '<h1>Nota Pembelian</h1>';
+                notaHtml += '<table border="1"><thead><tr><th>No</th><th>Nama Customer</th><th>ID Barang</th><th>Nama Barang</th><th>Jumlah</th></tr></thead><tbody>';
+                pembelianTableBody.querySelectorAll('tr').forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    notaHtml += '<tr>';
+                    cells.forEach(cell => notaHtml += `<td>${cell.textContent}</td>`);
+                    notaHtml += '</tr>';
+                });
+                notaHtml += '</tbody></table></body></html>';
+
+                const newWindow = window.open('', '_blank');
+                newWindow.document.write(notaHtml);
+                newWindow.document.close();
+                newWindow.print();
             };
 
             barangForm.addEventListener('submit', (e) => {
@@ -458,9 +535,22 @@
                 }
             });
 
+            pembelianTableBody.addEventListener('click', (e) => {
+                const row = e.target.closest('tr');
+                if (e.target.classList.contains('edit')) {
+                    // Logic to edit pembelian
+                } else if (e.target.classList.contains('delete')) {
+                    deletePembelian(row);
+                }
+            });
+
             searchInput.addEventListener('input', (e) => {
                 const query = e.target.value;
                 searchItems(query);
+            });
+
+            document.getElementById('printNota').addEventListener('click', () => {
+                printNotaPembelian();
             });
 
             loadItemsFromLocalStorage();
