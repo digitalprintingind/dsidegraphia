@@ -3,76 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Popup Glass Dashboard</title>
+    <title>Aplikasi Stok Barang</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: #f9f9f9;
             margin: 0;
-        }
-
-        .dashboard {
-            position: relative;
-        }
-
-        .popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        .popup-content {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
             padding: 20px;
-            width: 80%;
-            max-width: 600px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            position: relative;
         }
 
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 24px;
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
             cursor: pointer;
         }
 
-        .hidden {
-            display: none;
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        button.delete {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        button.delete:hover {
+            background-color: #c82333;
         }
     </style>
 </head>
 <body>
-    <div class="dashboard">
-        <button id="openPopup">Buka Popup</button>
-        <div id="popup" class="popup hidden">
-            <div class="popup-content">
-                <span id="closePopup" class="close">&times;</span>
-                <h2>Dashboard Popup</h2>
-                <p>Konten popup di sini.</p>
-            </div>
-        </div>
+    <div class="container">
+        <h1>Aplikasi Stok Barang</h1>
+        <form id="stockForm">
+            <label for="itemName">Nama Barang:</label>
+            <input type="text" id="itemName" required>
+            <label for="itemQuantity">Jumlah:</label>
+            <input type="number" id="itemQuantity" required>
+            <button type="submit">Tambah Barang</button>
+        </form>
+        <h2>Daftar Stok Barang</h2>
+        <table id="stockTable">
+            <thead>
+                <tr>
+                    <th>Nama Barang</th>
+                    <th>Jumlah</th>
+                    <th>Hapus</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data akan diisi oleh JavaScript -->
+            </tbody>
+        </table>
     </div>
     <script>
-        document.getElementById('openPopup').addEventListener('click', function() {
-            document.getElementById('popup').classList.remove('hidden');
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('stockForm');
+            const itemNameInput = document.getElementById('itemName');
+            const itemQuantityInput = document.getElementById('itemQuantity');
+            const stockTable = document.getElementById('stockTable').getElementsByTagName('tbody')[0];
 
-        document.getElementById('closePopup').addEventListener('click', function() {
-            document.getElementById('popup').classList.add('hidden');
+            function loadStock() {
+                const stock = JSON.parse(localStorage.getItem('stockItems')) || [];
+                stockTable.innerHTML = '';
+                stock.forEach((item, index) => {
+                    const row = stockTable.insertRow();
+                    row.insertCell(0).textContent = item.name;
+                    row.insertCell(1).textContent = item.quantity;
+                    const deleteCell = row.insertCell(2);
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Hapus';
+                    deleteButton.className = 'delete';
+                    deleteButton.addEventListener('click', () => deleteItem(index));
+                    deleteCell.appendChild(deleteButton);
+                });
+            }
+
+            function saveStock(stock) {
+                localStorage.setItem('stockItems', JSON.stringify(stock));
+            }
+
+            function addItem(name, quantity) {
+                const stock = JSON.parse(localStorage.getItem('stockItems')) || [];
+                stock.push({ name, quantity });
+                saveStock(stock);
+                loadStock();
+            }
+
+            function deleteItem(index) {
+                const stock = JSON.parse(localStorage.getItem('stockItems')) || [];
+                stock.splice(index, 1);
+                saveStock(stock);
+                loadStock();
+            }
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const name = itemNameInput.value.trim();
+                const quantity = parseInt(itemQuantityInput.value.trim(), 10);
+                if (name && quantity > 0) {
+                    addItem(name, quantity);
+                    itemNameInput.value = '';
+                    itemQuantityInput.value = '';
+                }
+            });
+
+            loadStock();
         });
     </script>
 </body>
