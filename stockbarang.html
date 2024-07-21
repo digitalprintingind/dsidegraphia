@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikasi Kasir</title>
+    <title>Daftar Barang</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -109,6 +109,19 @@
             background-color: #004085;
         }
 
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -128,6 +141,16 @@
 
         td {
             background-color: #fff;
+        }
+
+        .status-toggle {
+            cursor: pointer;
+            color: #0062cc;
+            text-decoration: underline;
+        }
+
+        .status-toggle:hover {
+            color: #004085;
         }
 
         .action-buttons {
@@ -163,28 +186,28 @@
 <body>
     <nav class="navbar">
         <ul class="navbar-menu">
-            <li><a href="#aplikasi-kasir" class="active">Aplikasi Kasir</a></li>
-            <li><a href="#daftar-barang">Daftar Barang</a></li>
+            <li><a href="#aplikasi-kasir">Aplikasi Kasir</a></li>
+            <li><a href="#daftar-barang" class="active">Daftar Barang</a></li>
             <li><a href="#riwayat-pembelian">Riwayat Pembelian</a></li>
             <li><a href="#rekap-laporan">Rekap Laporan</a></li>
         </ul>
     </nav>
 
     <div class="container">
-        <div class="form-container" id="aplikasi-kasir">
+        <div class="form-container">
             <h2>Tambahkan Barang</h2>
-            <form id="kasirForm">
+            <form id="barangForm">
                 <div class="form-group">
-                    <label for="kasir-nama-barang">Nama Barang</label>
-                    <input type="text" id="kasir-nama-barang" name="nama-barang" placeholder="Masukkan Nama Barang" required>
+                    <label for="nama-barang">Nama Barang</label>
+                    <input type="text" id="nama-barang" name="nama-barang" placeholder="Masukkan Nama Barang" required>
                 </div>
                 <div class="form-group">
-                    <label for="kasir-harga">Harga</label>
-                    <input type="number" id="kasir-harga" name="harga" placeholder="Masukkan Harga" required>
+                    <label for="harga">Harga</label>
+                    <input type="number" id="harga" name="harga" placeholder="Masukkan Harga" required>
                 </div>
                 <div class="form-group">
-                    <label for="kasir-jumlah">Jumlah</label>
-                    <input type="number" id="kasir-jumlah" name="jumlah" placeholder="Masukkan Jumlah" required>
+                    <label for="jumlah">Jumlah</label>
+                    <input type="number" id="jumlah" name="jumlah" placeholder="Masukkan Jumlah" required>
                 </div>
                 <div class="form-group">
                     <button type="submit">Tambah Barang</button>
@@ -193,8 +216,11 @@
         </div>
 
         <div class="table-container">
-            <h2>Daftar Barang Kasir</h2>
-            <table id="kasirTable">
+            <h2>Daftar Barang</h2>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Cari barang...">
+            </div>
+            <table id="barangTable">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -202,6 +228,7 @@
                         <th>Nama Barang</th>
                         <th>Harga</th>
                         <th>Jumlah</th>
+                        <th>Status</th>
                         <th>Edit</th>
                         <th>Hapus</th>
                     </tr>
@@ -215,24 +242,25 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('kasirForm');
-            const tableBody = document.querySelector('#kasirTable tbody');
+            const form = document.getElementById('barangForm');
+            const tableBody = document.querySelector('#barangTable tbody');
+            const searchInput = document.getElementById('searchInput');
             let itemCounter = 0;
             let editingRow = null;
 
             const loadItemsFromLocalStorage = () => {
-                const items = JSON.parse(localStorage.getItem('kasirItems')) || [];
+                const items = JSON.parse(localStorage.getItem('barangItems')) || [];
                 items.forEach(item => {
                     addItemToTable(item);
                 });
             };
 
             const saveItemsToLocalStorage = (items) => {
-                localStorage.setItem('kasirItems', JSON.stringify(items));
+                localStorage.setItem('barangItems', JSON.stringify(items));
             };
 
             const getItemsFromLocalStorage = () => {
-                return JSON.parse(localStorage.getItem('kasirItems')) || [];
+                return JSON.parse(localStorage.getItem('barangItems')) || [];
             };
 
             const addItemToTable = (item) => {
@@ -243,6 +271,7 @@
                     <td>${item.namaBarang}</td>
                     <td>${item.harga}</td>
                     <td>${item.jumlah}</td>
+                    <td><span class="status-toggle">${item.status}</span></td>
                     <td><button class="edit">Edit</button></td>
                     <td><button class="delete">Hapus</button></td>
                 `;
@@ -257,7 +286,8 @@
                     idBarang,
                     namaBarang,
                     harga,
-                    jumlah
+                    jumlah,
+                    status: 'On'
                 };
                 const items = getItemsFromLocalStorage();
                 items.push(item);
@@ -293,9 +323,9 @@
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
 
-                const namaBarang = document.getElementById('kasir-nama-barang').value;
-                const harga = document.getElementById('kasir-harga').value;
-                const jumlah = document.getElementById('kasir-jumlah').value;
+                const namaBarang = document.getElementById('nama-barang').value;
+                const harga = document.getElementById('harga').value;
+                const jumlah = document.getElementById('jumlah').value;
 
                 if (editingRow) {
                     updateItem(editingRow, namaBarang, harga, jumlah);
@@ -310,13 +340,37 @@
             tableBody.addEventListener('click', (e) => {
                 if (e.target.classList.contains('delete')) {
                     deleteItem(e.target.closest('tr'));
+                } else if (e.target.classList.contains('status-toggle')) {
+                    const status = e.target.textContent === 'On' ? 'Off' : 'On';
+                    e.target.textContent = status;
+
+                    const idBarang = e.target.closest('tr').cells[1].textContent;
+                    const items = getItemsFromLocalStorage();
+                    const itemIndex = items.findIndex(item => item.idBarang === idBarang);
+                    if (itemIndex > -1) {
+                        items[itemIndex].status = status;
+                        saveItemsToLocalStorage(items);
+                    }
                 } else if (e.target.classList.contains('edit')) {
                     const row = e.target.closest('tr');
-                    document.getElementById('kasir-nama-barang').value = row.cells[2].textContent;
-                    document.getElementById('kasir-harga').value = row.cells[3].textContent;
-                    document.getElementById('kasir-jumlah').value = row.cells[4].textContent;
+                    document.getElementById('nama-barang').value = row.cells[2].textContent;
+                    document.getElementById('harga').value = row.cells[3].textContent;
+                    document.getElementById('jumlah').value = row.cells[4].textContent;
                     editingRow = row;
                 }
+            });
+
+            searchInput.addEventListener('input', () => {
+                const searchText = searchInput.value.toLowerCase();
+                const rows = tableBody.querySelectorAll('tr');
+                rows.forEach(row => {
+                    const namaBarang = row.cells[2].textContent.toLowerCase();
+                    if (namaBarang.includes(searchText)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
             });
 
             loadItemsFromLocalStorage();
