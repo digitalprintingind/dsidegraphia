@@ -295,8 +295,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             const barangForm = document.getElementById('barangForm');
             const pembelianForm = document.getElementById('pembelianForm');
-            const barangTableBody = document.querySelector('#barangTable tbody');
-            const pembelianTableBody = document.querySelector('#pembelianTable tbody');
+            const barangTableBody = document.getElementById('barangTable').getElementsByTagName('tbody')[0];
+            const pembelianTableBody = document.getElementById('pembelianTable').getElementsByTagName('tbody')[0];
             const barangSelect = document.getElementById('barang');
             const searchInput = document.getElementById('searchInput');
 
@@ -304,7 +304,6 @@
             let transactionCounter = 1;
             let editIndex = -1;
 
-            // Load data from localStorage
             function loadBarangData() {
                 const barangData = JSON.parse(localStorage.getItem('barangData')) || [];
                 barangData.forEach(data => {
@@ -355,6 +354,7 @@
                 const option = document.createElement('option');
                 option.value = data.idBarang;
                 option.textContent = data.namaBarang;
+                option.setAttribute('data-harga', data.harga); // Menyimpan harga di atribut data
                 barangSelect.appendChild(option);
             }
 
@@ -378,6 +378,7 @@
                     const option = document.createElement('option');
                     option.value = idBarang;
                     option.textContent = namaBarang;
+                    option.setAttribute('data-harga', harga); // Menyimpan harga di atribut data
                     barangSelect.appendChild(option);
                 } else {
                     const row = barangTableBody.rows[editIndex];
@@ -477,7 +478,6 @@
                 }
             });
 
-            // Load data on page load
             loadBarangData();
         });
     </script>
