@@ -146,7 +146,6 @@
         }
 
         .action-buttons button {
-            background-color: #ff6f61;
             color: white;
             border: none;
             padding: 5px 10px;
@@ -160,6 +159,10 @@
 
         .action-buttons button.edit:hover {
             background-color: #004085;
+        }
+
+        .action-buttons button.delete {
+            background-color: #ff6f61;
         }
 
         .action-buttons button.delete:hover {
@@ -226,29 +229,40 @@
             const form = document.getElementById('barangForm');
             const tableBody = document.querySelector('#barangTable tbody');
             let itemCounter = 0;
+            let editingRow = null;
 
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
 
-                itemCounter++;
                 const namaBarang = document.getElementById('nama-barang').value;
                 const harga = document.getElementById('harga').value;
                 const jumlah = document.getElementById('jumlah').value;
 
-                const newRow = document.createElement('tr');
-                newRow.innerHTML = `
-                    <td>${itemCounter}</td>
-                    <td>BRG${itemCounter.toString().padStart(4, '0')}</td>
-                    <td>${namaBarang}</td>
-                    <td>${harga}</td>
-                    <td>${jumlah}</td>
-                    <td><span class="status-toggle">On</span></td>
-                    <td><button class="edit">Edit</button></td>
-                    <td><button class="delete">Hapus</button></td>
-                `;
-                tableBody.appendChild(newRow);
-
-                form.reset();
+                if (editingRow) {
+                    // Update existing row
+                    const cells = editingRow.querySelectorAll('td');
+                    cells[2].textContent = namaBarang;
+                    cells[3].textContent = harga;
+                    cells[4].textContent = jumlah;
+                    editingRow = null;
+                    form.reset();
+                } else {
+                    // Add new row
+                    itemCounter++;
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td>${itemCounter}</td>
+                        <td>BRG${itemCounter.toString().padStart(4, '0')}</td>
+                        <td>${namaBarang}</td>
+                        <td>${harga}</td>
+                        <td>${jumlah}</td>
+                        <td><span class="status-toggle">On</span></td>
+                        <td><button class="edit">Edit</button></td>
+                        <td><button class="delete">Hapus</button></td>
+                    `;
+                    tableBody.appendChild(newRow);
+                    form.reset();
+                }
             });
 
             tableBody.addEventListener('click', (e) => {
@@ -256,6 +270,12 @@
                     e.target.closest('tr').remove();
                 } else if (e.target.classList.contains('status-toggle')) {
                     e.target.textContent = e.target.textContent === 'On' ? 'Off' : 'On';
+                } else if (e.target.classList.contains('edit')) {
+                    const row = e.target.closest('tr');
+                    document.getElementById('nama-barang').value = row.cells[2].textContent;
+                    document.getElementById('harga').value = row.cells[3].textContent;
+                    document.getElementById('jumlah').value = row.cells[4].textContent;
+                    editingRow = row;
                 }
             });
         });
