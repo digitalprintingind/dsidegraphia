@@ -186,7 +186,10 @@
         </div>
         <div id="orderPermintaanBarangFields" style="display: none;">
             <label for="statusProses">Status Proses:</label>
-            <input type="text" id="statusProses" name="statusProses">
+            <select id="statusProses" name="statusProses">
+                <option value="Belanja">Belanja</option>
+                <option value="Selesai">Selesai</option>
+            </select>
         </div>
         <button type="button" onclick="addData()">Add Data</button>
     </form>
@@ -206,6 +209,15 @@
 
     <script>
         const data = [];
+        const allItems = {
+            INDOOR: ['DOKU TONER CYAN', 'DOKU TONER MAGENTA', 'DOKU TONER YELLOW'],
+            OUTDOOR: ['DOKU PINK 500ML', 'DOKU CYAN 500ML'],
+            PRODUKSI: ['Product A', 'Product B'],
+            GUDANG: ['Item X', 'Item Y'],
+            'PURCHASE ORDER': ['PO Item 1', 'PO Item 2'],
+            'DAILY JOB': [],
+            'ORDER PERMINTAAN BARANG': ['Item 1', 'Item 2', 'Item 3']
+        };
 
         function updateForm() {
             const division = document.getElementById('division').value;
@@ -232,37 +244,36 @@
                 typeField.style.display = 'none';
                 typeLabel.style.display = 'none';
                 itemNameInput.required = true;
-                itemNameSelect.required = false;
-                itemNameSelect.style.display = 'none';
-                itemNameInput.style.display = 'block';
+                itemNameSelect.required = true;
+                updateItemNames();
             } else {
                 commonFields.style.display = 'block';
                 dailyJobFields.style.display = 'none';
                 orderPermintaanBarangFields.style.display = 'none';
                 typeField.style.display = 'block';
                 typeLabel.style.display = 'block';
-                itemNameInput.required = true;
-                itemNameSelect.required = true;
-                itemNameInput.style.display = 'none';
-                itemNameSelect.style.display = 'block';
+                itemNameInput.required = false;
+                itemNameSelect.required = false;
                 updateItemNames();
             }
-
-            updateTableHeader();
         }
 
         function updateItemNames() {
             const division = document.getElementById('division').value;
             const itemNameSelect = document.getElementById('itemNameSelect');
-            const itemNameInput = document.getElementById('itemNameInput');
             itemNameSelect.innerHTML = '';
 
             let items = [];
-            if (division === 'INDOOR') {
-                items = ['DOKU TONER CYAN', 'DOKU TONER MAGENTA', 'DOKU TONER YELLOW'];
+            if (division === 'ORDER PERMINTAAN BARANG') {
+                Object.values(allItems).forEach(itemList => {
+                    items = items.concat(itemList);
+                });
+            } else if (division === 'INDOOR') {
+                items = allItems.INDOOR;
             } else if (division === 'OUTDOOR') {
-                items = ['DOKU PINK 500ML', 'DOKU CYAN 500ML'];
+                items = allItems.OUTDOOR;
             }
+
             items.forEach(item => {
                 const option = document.createElement('option');
                 option.value = item;
@@ -304,7 +315,7 @@
                        document.getElementById('progressNotes').value;
             } else if (division === 'ORDER PERMINTAAN BARANG') {
                 return document.getElementById('date').value &&
-                       (document.getElementById('itemNameInput').value) &&
+                       (document.getElementById('itemNameSelect').value || document.getElementById('itemNameInput').value) &&
                        document.getElementById('quantity').value &&
                        document.getElementById('statusProses').value;
             } else {
