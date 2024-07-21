@@ -109,6 +109,19 @@
             background-color: #004085;
         }
 
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -204,6 +217,9 @@
 
         <div class="table-container">
             <h2>Daftar Barang</h2>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Cari barang...">
+            </div>
             <table id="barangTable">
                 <thead>
                     <tr>
@@ -228,6 +244,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('barangForm');
             const tableBody = document.querySelector('#barangTable tbody');
+            const searchInput = document.getElementById('searchInput');
             let itemCounter = 0;
             let editingRow = null;
 
@@ -277,6 +294,19 @@
                     document.getElementById('jumlah').value = row.cells[4].textContent;
                     editingRow = row;
                 }
+            });
+
+            searchInput.addEventListener('input', () => {
+                const searchText = searchInput.value.toLowerCase();
+                const rows = tableBody.querySelectorAll('tr');
+                rows.forEach(row => {
+                    const namaBarang = row.cells[2].textContent.toLowerCase();
+                    if (namaBarang.includes(searchText)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
             });
         });
     </script>
