@@ -248,6 +248,78 @@
             let itemCounter = 0;
             let editingRow = null;
 
+            const loadItemsFromLocalStorage = () => {
+                const items = JSON.parse(localStorage.getItem('barangItems')) || [];
+                items.forEach(item => {
+                    addItemToTable(item);
+                });
+            };
+
+            const saveItemsToLocalStorage = (items) => {
+                localStorage.setItem('barangItems', JSON.stringify(items));
+            };
+
+            const getItemsFromLocalStorage = () => {
+                return JSON.parse(localStorage.getItem('barangItems')) || [];
+            };
+
+            const addItemToTable = (item) => {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${item.no}</td>
+                    <td>${item.idBarang}</td>
+                    <td>${item.namaBarang}</td>
+                    <td>${item.harga}</td>
+                    <td>${item.jumlah}</td>
+                    <td><span class="status-toggle">${item.status}</span></td>
+                    <td><button class="edit">Edit</button></td>
+                    <td><button class="delete">Hapus</button></td>
+                `;
+                tableBody.appendChild(newRow);
+            };
+
+            const addItem = (namaBarang, harga, jumlah) => {
+                itemCounter++;
+                const idBarang = `BRG${itemCounter.toString().padStart(4, '0')}`;
+                const item = {
+                    no: itemCounter,
+                    idBarang,
+                    namaBarang,
+                    harga,
+                    jumlah,
+                    status: 'On'
+                };
+                const items = getItemsFromLocalStorage();
+                items.push(item);
+                saveItemsToLocalStorage(items);
+                addItemToTable(item);
+            };
+
+            const updateItem = (row, namaBarang, harga, jumlah) => {
+                const cells = row.querySelectorAll('td');
+                cells[2].textContent = namaBarang;
+                cells[3].textContent = harga;
+                cells[4].textContent = jumlah;
+
+                const idBarang = cells[1].textContent;
+                const items = getItemsFromLocalStorage();
+                const itemIndex = items.findIndex(item => item.idBarang === idBarang);
+                if (itemIndex > -1) {
+                    items[itemIndex].namaBarang = namaBarang;
+                    items[itemIndex].harga = harga;
+                    items[itemIndex].jumlah = jumlah;
+                    saveItemsToLocalStorage(items);
+                }
+            };
+
+            const deleteItem = (row) => {
+                const idBarang = row.cells[1].textContent;
+                const items = getItemsFromLocalStorage();
+                const updatedItems = items.filter(item => item.idBarang !== idBarang);
+                saveItemsToLocalStorage(updatedItems);
+                row.remove();
+            };
+
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
 
@@ -256,37 +328,29 @@
                 const jumlah = document.getElementById('jumlah').value;
 
                 if (editingRow) {
-                    // Update existing row
-                    const cells = editingRow.querySelectorAll('td');
-                    cells[2].textContent = namaBarang;
-                    cells[3].textContent = harga;
-                    cells[4].textContent = jumlah;
+                    updateItem(editingRow, namaBarang, harga, jumlah);
                     editingRow = null;
-                    form.reset();
                 } else {
-                    // Add new row
-                    itemCounter++;
-                    const newRow = document.createElement('tr');
-                    newRow.innerHTML = `
-                        <td>${itemCounter}</td>
-                        <td>BRG${itemCounter.toString().padStart(4, '0')}</td>
-                        <td>${namaBarang}</td>
-                        <td>${harga}</td>
-                        <td>${jumlah}</td>
-                        <td><span class="status-toggle">On</span></td>
-                        <td><button class="edit">Edit</button></td>
-                        <td><button class="delete">Hapus</button></td>
-                    `;
-                    tableBody.appendChild(newRow);
-                    form.reset();
+                    addItem(namaBarang, harga, jumlah);
                 }
+
+                form.reset();
             });
 
             tableBody.addEventListener('click', (e) => {
                 if (e.target.classList.contains('delete')) {
-                    e.target.closest('tr').remove();
+                    deleteItem(e.target.closest('tr'));
                 } else if (e.target.classList.contains('status-toggle')) {
-                    e.target.textContent = e.target.textContent === 'On' ? 'Off' : 'On';
+                    const status = e.target.textContent === 'On' ? 'Off' : 'On';
+                    e.target.textContent = status;
+
+                    const idBarang = e.target.closest('tr').cells[1].textContent;
+                    const items = getItemsFromLocalStorage();
+                    const itemIndex = items.findIndex(item => item.idBarang === idBarang);
+                    if (itemIndex > -1) {
+                        items[itemIndex].status = status;
+                        saveItemsToLocalStorage(items);
+                    }
                 } else if (e.target.classList.contains('edit')) {
                     const row = e.target.closest('tr');
                     document.getElementById('nama-barang').value = row.cells[2].textContent;
@@ -308,6 +372,8 @@
                     }
                 });
             });
+
+            loadItemsFromLocalStorage();
         });
     </script>
 </body>
