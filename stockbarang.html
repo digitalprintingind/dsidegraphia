@@ -54,27 +54,6 @@
             color: #e2e2e2;
         }
 
-        .navbar-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            justify-content: center;
-        }
-
-        .navbar-buttons button {
-            background-color: #0062cc;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .navbar-buttons button:hover {
-            background-color: #004085;
-        }
-
         .container {
             padding: 20px;
         }
@@ -103,7 +82,7 @@
             color: #333;
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -111,7 +90,7 @@
             box-sizing: border-box;
         }
 
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus {
             border-color: #0062cc;
             outline: none;
         }
@@ -202,26 +181,6 @@
         .action-buttons button.delete:hover {
             background-color: #cc0000;
         }
-
-        .table-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .table-buttons button {
-            background-color: #0062cc;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .table-buttons button:hover {
-            background-color: #004085;
-        }
     </style>
 </head>
 <body>
@@ -231,10 +190,8 @@
             <li><a href="#daftar-barang">Daftar Barang</a></li>
             <li><a href="#riwayat-pembelian">Riwayat Pembelian</a></li>
             <li><a href="#rekap-laporan">Rekap Laporan</a></li>
+            <li><a href="#" id="printNota">Cetak Nota Pembelian</a></li>
         </ul>
-        <div class="navbar-buttons">
-            <button id="printNota">Cetak Nota Pembelian</button>
-        </div>
     </nav>
 
     <div class="container">
@@ -242,10 +199,6 @@
         <div class="form-container" id="aplikasi-kasir">
             <h2>Form Pembelian Customer</h2>
             <form id="pembelianForm">
-                <div class="form-group">
-                    <label for="nama-customer">Nama Customer</label>
-                    <input type="text" id="nama-customer" name="nama-customer" placeholder="Masukkan Nama Customer" required>
-                </div>
                 <div class="form-group">
                     <label for="barang">Pilih Barang</label>
                     <select id="barang" name="barang" required>
@@ -270,7 +223,6 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Customer</th>
                         <th>ID Barang</th>
                         <th>Nama Barang</th>
                         <th>Jumlah</th>
@@ -335,12 +287,12 @@
         document.addEventListener('DOMContentLoaded', () => {
             const barangForm = document.getElementById('barangForm');
             const pembelianForm = document.getElementById('pembelianForm');
-            const barangTableBody = document.getElementById('barangTable').querySelector('tbody');
-            const pembelianTableBody = document.getElementById('pembelianTable').querySelector('tbody');
+            const barangTableBody = document.querySelector('#barangTable tbody');
+            const pembelianTableBody = document.querySelector('#pembelianTable tbody');
             const searchInput = document.getElementById('searchBar');
             const barangSelect = document.getElementById('barang');
-            let editingRow = null;
             let itemCounter = 0;
+            let editingRow = null;
 
             const loadItemsFromLocalStorage = () => {
                 const items = JSON.parse(localStorage.getItem('barangItems')) || [];
@@ -438,11 +390,10 @@
                 }
             };
 
-            const addPembelianToTable = (namaCustomer, idBarang, namaBarang, jumlah) => {
+            const addPembelianToTable = (idBarang, namaBarang, jumlah) => {
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
                     <td>${pembelianTableBody.children.length + 1}</td>
-                    <td>${namaCustomer}</td>
                     <td>${idBarang}</td>
                     <td>${namaBarang}</td>
                     <td>${jumlah}</td>
@@ -452,15 +403,16 @@
                 pembelianTableBody.appendChild(newRow);
             };
 
-            const updatePembelian = (row, namaCustomer, idBarang, jumlah) => {
-                const cells = row.querySelectorAll('td');
-                cells[1].textContent = namaCustomer;
-                cells[2].textContent = idBarang;
-                cells[4].textContent = jumlah;
-            };
-
-            const deletePembelian = (row) => {
-                row.remove();
+            const printNotaPembelian = () => {
+                const printWindow = window.open('', '', 'height=600,width=800');
+                const tableHtml = document.querySelector('#pembelianTable').outerHTML;
+                printWindow.document.write('<html><head><title>Nota Pembelian</title></head><body>');
+                printWindow.document.write('<h1>Nota Pembelian</h1>');
+                printWindow.document.write(tableHtml);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                printWindow.focus();
+                printWindow.print();
             };
 
             const searchItems = (query) => {
@@ -471,24 +423,6 @@
                     const matches = namaBarang.includes(query.toLowerCase());
                     row.style.display = matches ? '' : 'none';
                 });
-            };
-
-            const printNotaPembelian = () => {
-                let notaHtml = '<html><head><title>Nota Pembelian</title></head><body>';
-                notaHtml += '<h1>Nota Pembelian</h1>';
-                notaHtml += '<table border="1"><thead><tr><th>No</th><th>Nama Customer</th><th>ID Barang</th><th>Nama Barang</th><th>Jumlah</th></tr></thead><tbody>';
-                pembelianTableBody.querySelectorAll('tr').forEach(row => {
-                    const cells = row.querySelectorAll('td');
-                    notaHtml += '<tr>';
-                    cells.forEach(cell => notaHtml += `<td>${cell.textContent}</td>`);
-                    notaHtml += '</tr>';
-                });
-                notaHtml += '</tbody></table></body></html>';
-
-                const newWindow = window.open('', '_blank');
-                newWindow.document.write(notaHtml);
-                newWindow.document.close();
-                newWindow.print();
             };
 
             barangForm.addEventListener('submit', (e) => {
@@ -509,13 +443,12 @@
 
             pembelianForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const namaCustomer = document.getElementById('nama-customer').value;
                 const idBarang = document.getElementById('barang').value;
                 const jumlah = document.getElementById('jumlah-pembelian').value;
                 const barang = getItemsFromLocalStorage().find(item => item.idBarang === idBarang);
 
                 if (barang) {
-                    addPembelianToTable(namaCustomer, barang.idBarang, barang.namaBarang, jumlah);
+                    addPembelianToTable(barang.idBarang, barang.namaBarang, jumlah);
                 }
                 pembelianForm.reset();
             });
@@ -538,9 +471,9 @@
             pembelianTableBody.addEventListener('click', (e) => {
                 const row = e.target.closest('tr');
                 if (e.target.classList.contains('edit')) {
-                    // Logic to edit pembelian
+                    // Implement edit functionality for pembelian
                 } else if (e.target.classList.contains('delete')) {
-                    deletePembelian(row);
+                    // Implement delete functionality for pembelian
                 }
             });
 
