@@ -302,6 +302,31 @@
             let itemCounter = 1;
             let transactionCounter = 1;
 
+            // Load data from localStorage
+            function loadBarangData() {
+                const barangData = JSON.parse(localStorage.getItem('barangData')) || [];
+                barangData.forEach(data => {
+                    addRowToBarangTable(data);
+                });
+            }
+
+            function saveBarangData() {
+                const rows = barangTableBody.getElementsByTagName('tr');
+                const data = [];
+                for (let i = 0; i < rows.length; i++) {
+                    const cells = rows[i].getElementsByTagName('td');
+                    const row = {
+                        idBarang: cells[1].textContent,
+                        namaBarang: cells[2].textContent,
+                        harga: cells[3].textContent,
+                        jumlah: cells[4].textContent,
+                        status: cells[5].textContent === 'Aktif' ? 'Aktif' : 'Non Aktif'
+                    };
+                    data.push(row);
+                }
+                localStorage.setItem('barangData', JSON.stringify(data));
+            }
+
             function generateIDBarang() {
                 const paddedCounter = String(itemCounter++).padStart(4, '0');
                 return `BRG${paddedCounter}`;
@@ -312,6 +337,25 @@
                 return `TRK${paddedCounter}`;
             }
 
+            function addRowToBarangTable(data) {
+                const row = barangTableBody.insertRow();
+                row.innerHTML = `
+                    <td>${barangTableBody.rows.length + 1}</td>
+                    <td>${data.idBarang}</td>
+                    <td>${data.namaBarang}</td>
+                    <td>${data.harga}</td>
+                    <td>${data.jumlah}</td>
+                    <td><span class="status-toggle">${data.status}</span></td>
+                    <td><button class="action-buttons edit">Edit</button></td>
+                    <td><button class="action-buttons delete">Hapus</button></td>
+                `;
+
+                const option = document.createElement('option');
+                option.value = data.idBarang;
+                option.textContent = data.namaBarang;
+                barangSelect.appendChild(option);
+            }
+
             function addBarang(e) {
                 e.preventDefault();
                 const namaBarang = document.getElementById('nama-barang').value;
@@ -319,23 +363,21 @@
                 const jumlah = document.getElementById('jumlah').value;
 
                 const idBarang = generateIDBarang();
-                const row = barangTableBody.insertRow();
-                row.innerHTML = `
-                    <td>${barangTableBody.rows.length}</td>
-                    <td>${idBarang}</td>
-                    <td>${namaBarang}</td>
-                    <td>${harga}</td>
-                    <td>${jumlah}</td>
-                    <td><span class="status-toggle">Aktif</span></td>
-                    <td><button class="action-buttons edit">Edit</button></td>
-                    <td><button class="action-buttons delete">Hapus</button></td>
-                `;
+                const data = {
+                    idBarang,
+                    namaBarang,
+                    harga,
+                    jumlah,
+                    status: 'Aktif'
+                };
+                addRowToBarangTable(data);
 
                 const option = document.createElement('option');
                 option.value = idBarang;
                 option.textContent = namaBarang;
                 barangSelect.appendChild(option);
 
+                saveBarangData();
                 barangForm.reset();
             }
 
@@ -386,6 +428,7 @@
             barangTableBody.addEventListener('click', (e) => {
                 if (e.target.classList.contains('delete')) {
                     e.target.closest('tr').remove();
+                    saveBarangData();
                 } else if (e.target.classList.contains('edit')) {
                     alert('Edit fitur belum tersedia');
                 }
@@ -396,6 +439,9 @@
                     e.target.closest('tr').remove();
                 }
             });
+
+            // Load data on page load
+            loadBarangData();
         });
     </script>
 </body>
