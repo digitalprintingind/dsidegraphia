@@ -3,43 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikasi Stok Barang</title>
+    <title>Aplikasi Kasir</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #2e2e2e;
+            color: #e0e0e0;
             margin: 0;
             padding: 20px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: auto;
             padding: 20px;
-            background-color: #fff;
+            background-color: #3a3a3a;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
             text-align: center;
+            color: #ffffff;
         }
 
         form {
             display: flex;
             flex-direction: column;
             margin-bottom: 20px;
+            background: #4a4a4a;
+            padding: 20px;
+            border-radius: 8px;
         }
 
         label {
             margin-bottom: 5px;
+            color: #dcdcdc;
         }
 
         input {
             padding: 10px;
             margin-bottom: 10px;
-            border: 1px solid #ddd;
+            border: none;
             border-radius: 4px;
+            background-color: #555555;
+            color: #ffffff;
         }
 
         button {
@@ -49,6 +57,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
@@ -58,47 +67,85 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #4a4a4a;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
+            padding: 12px;
+            border-bottom: 1px solid #555555;
             text-align: center;
         }
 
         th {
-            background-color: #f4f4f4;
+            background-color: #333333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #2a2a2a;
+        }
+
+        button.edit {
+            background-color: #28a745;
+        }
+
+        button.edit:hover {
+            background-color: #218838;
         }
 
         button.delete {
             background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
         }
 
         button.delete:hover {
             background-color: #c82333;
         }
+
+        #receiptPreview {
+            margin-top: 20px;
+            background: #4a4a4a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #receiptContent {
+            color: #ffffff;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Aplikasi Stok Barang</h1>
-        <form id="stockForm">
+        <h1>Aplikasi Kasir</h1>
+
+        <!-- Form Input Barang -->
+        <form id="itemForm">
             <label for="itemName">Nama Barang:</label>
             <input type="text" id="itemName" required>
+            <label for="itemPrice">Harga:</label>
+            <input type="number" id="itemPrice" step="0.01" required>
             <label for="itemQuantity">Jumlah:</label>
             <input type="number" id="itemQuantity" required>
             <button type="submit">Tambah Barang</button>
         </form>
-        <h2>Daftar Stok Barang</h2>
-        <table id="stockTable">
+
+        <!-- Daftar Barang -->
+        <h2>Daftar Barang</h2>
+        <input type="text" id="searchBox" placeholder="Cari Barang...">
+        <table id="itemTable">
             <thead>
                 <tr>
                     <th>Nama Barang</th>
+                    <th>Harga</th>
                     <th>Jumlah</th>
+                    <th>Total</th>
+                    <th>Edit</th>
                     <th>Hapus</th>
                 </tr>
             </thead>
@@ -106,60 +153,152 @@
                 <!-- Data akan diisi oleh JavaScript -->
             </tbody>
         </table>
+
+        <!-- Total dan Sisa Stok -->
+        <h2>Informasi Stok</h2>
+        <p>Total Stok: <span id="totalStock">0</span></p>
+        <p>Total Harga: <span id="totalPrice">0</span></p>
+
+        <!-- Nota Pembelian -->
+        <h2>Nota Pembelian</h2>
+        <button id="printReceipt">Cetak Nota</button>
+        <div id="receiptPreview" class="hidden">
+            <h3>Nota Pembelian</h3>
+            <div id="receiptContent"></div>
+        </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('stockForm');
+            const form = document.getElementById('itemForm');
             const itemNameInput = document.getElementById('itemName');
+            const itemPriceInput = document.getElementById('itemPrice');
             const itemQuantityInput = document.getElementById('itemQuantity');
-            const stockTable = document.getElementById('stockTable').getElementsByTagName('tbody')[0];
+            const itemTable = document.getElementById('itemTable').getElementsByTagName('tbody')[0];
+            const totalStockElem = document.getElementById('totalStock');
+            const totalPriceElem = document.getElementById('totalPrice');
+            const searchBox = document.getElementById('searchBox');
+            const receiptPreview = document.getElementById('receiptPreview');
+            const receiptContent = document.getElementById('receiptContent');
+            const printReceiptButton = document.getElementById('printReceipt');
 
-            function loadStock() {
-                const stock = JSON.parse(localStorage.getItem('stockItems')) || [];
-                stockTable.innerHTML = '';
-                stock.forEach((item, index) => {
-                    const row = stockTable.insertRow();
+            function loadItems() {
+                const items = JSON.parse(localStorage.getItem('items')) || [];
+                itemTable.innerHTML = '';
+                items.forEach((item, index) => {
+                    const row = itemTable.insertRow();
                     row.insertCell(0).textContent = item.name;
-                    row.insertCell(1).textContent = item.quantity;
-                    const deleteCell = row.insertCell(2);
+                    row.insertCell(1).textContent = item.price.toFixed(2);
+                    row.insertCell(2).textContent = item.quantity;
+                    row.insertCell(3).textContent = (item.price * item.quantity).toFixed(2);
+                    
+                    const editCell = row.insertCell(4);
+                    const editButton = document.createElement('button');
+                    editButton.textContent = 'Edit';
+                    editButton.className = 'edit';
+                    editButton.addEventListener('click', () => editItem(index));
+                    editCell.appendChild(editButton);
+
+                    const deleteCell = row.insertCell(5);
                     const deleteButton = document.createElement('button');
                     deleteButton.textContent = 'Hapus';
                     deleteButton.className = 'delete';
                     deleteButton.addEventListener('click', () => deleteItem(index));
                     deleteCell.appendChild(deleteButton);
                 });
+                updateTotals();
             }
 
-            function saveStock(stock) {
-                localStorage.setItem('stockItems', JSON.stringify(stock));
+            function updateTotals() {
+                const items = JSON.parse(localStorage.getItem('items')) || [];
+                const totalStock = items.reduce((sum, item) => sum + item.quantity, 0);
+                const totalPrice = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                totalStockElem.textContent = totalStock;
+                totalPriceElem.textContent = totalPrice.toFixed(2);
             }
 
-            function addItem(name, quantity) {
-                const stock = JSON.parse(localStorage.getItem('stockItems')) || [];
-                stock.push({ name, quantity });
-                saveStock(stock);
-                loadStock();
+            function saveItems(items) {
+                localStorage.setItem('items', JSON.stringify(items));
+            }
+
+            function addItem(name, price, quantity) {
+                const items = JSON.parse(localStorage.getItem('items')) || [];
+                items.push({ name, price, quantity });
+                saveItems(items);
+                loadItems();
+            }
+
+            function editItem(index) {
+                const items = JSON.parse(localStorage.getItem('items')) || [];
+                const item = items[index];
+                itemNameInput.value = item.name;
+                itemPriceInput.value = item.price;
+                itemQuantityInput.value = item.quantity;
+                form.removeEventListener('submit', handleAddItem);
+                form.addEventListener('submit', function handleEditItem(event) {
+                    event.preventDefault();
+                    item.name = itemNameInput.value.trim();
+                    item.price = parseFloat(itemPriceInput.value.trim());
+                    item.quantity = parseInt(itemQuantityInput.value.trim(), 10);
+                    saveItems(items);
+                    loadItems();
+                    form.removeEventListener('submit', handleEditItem);
+                    form.addEventListener('submit', handleAddItem);
+                    itemNameInput.value = '';
+                    itemPriceInput.value = '';
+                    itemQuantityInput.value = '';
+                });
             }
 
             function deleteItem(index) {
-                const stock = JSON.parse(localStorage.getItem('stockItems')) || [];
-                stock.splice(index, 1);
-                saveStock(stock);
-                loadStock();
+                const items = JSON.parse(localStorage.getItem('items')) || [];
+                items.splice(index, 1);
+                saveItems(items);
+                loadItems();
             }
 
-            form.addEventListener('submit', function(event) {
+            function searchItems() {
+                const searchTerm = searchBox.value.toLowerCase();
+                const rows = itemTable.getElementsByTagName('tr');
+                Array.from(rows).forEach(row => {
+                    const nameCell = row.cells[0];
+                    if (nameCell) {
+                        const name = nameCell.textContent.toLowerCase();
+                        row.style.display = name.includes(searchTerm) ? '' : 'none';
+                    }
+                });
+            }
+
+            function printReceipt() {
+                const items = JSON.parse(localStorage.getItem('items')) || [];
+                let receiptHtml = '<h3>Nota Pembelian</h3><ul>';
+                items.forEach(item => {
+                    receiptHtml += `<li>${item.name}: ${item.quantity} x ${item.price.toFixed(2)} = ${(item.quantity * item.price).toFixed(2)}</li>`;
+                });
+                receiptHtml += `<li><strong>Total: ${items.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}</strong></li></ul>`;
+                receiptContent.innerHTML = receiptHtml;
+                receiptPreview.classList.remove('hidden');
+                window.print();
+            }
+
+            function handleAddItem(event) {
                 event.preventDefault();
                 const name = itemNameInput.value.trim();
+                const price = parseFloat(itemPriceInput.value.trim());
                 const quantity = parseInt(itemQuantityInput.value.trim(), 10);
-                if (name && quantity > 0) {
-                    addItem(name, quantity);
+                if (name && price > 0 && quantity > 0) {
+                    addItem(name, price, quantity);
                     itemNameInput.value = '';
+                    itemPriceInput.value = '';
                     itemQuantityInput.value = '';
                 }
-            });
+            }
 
-            loadStock();
+            form.addEventListener('submit', handleAddItem);
+            searchBox.addEventListener('input', searchItems);
+            printReceiptButton.addEventListener('click', printReceipt);
+
+            loadItems();
         });
     </script>
 </body>
