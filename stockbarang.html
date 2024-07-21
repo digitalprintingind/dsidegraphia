@@ -3,429 +3,287 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Stock</title>
+    <title>Shopping Cart</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-color: #f5f5f5;
             margin: 0;
-            padding: 20px;
-        }
-
-        h1, h2 {
-            text-align: center;
+            padding: 0;
             color: #333;
         }
 
-        form {
-            max-width: 600px;
+        .container {
+            width: 90%;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007bff;
+            font-size: 2em;
+        }
+
+        .product, .cart-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            background: #fafafa;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .product button, .cart-item button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .product button {
+            background-color: #28a745;
+        }
+
+        .product button:hover {
+            background-color: #218838;
+        }
+
+        .cart-item button {
+            background-color: #007bff;
+            margin-left: 5px;
+        }
+
+        .cart-item button:hover {
+            background-color: #0056b3;
+        }
+
+        .cart-item button.remove {
+            background-color: #dc3545;
+        }
+
+        .cart-item button.remove:hover {
+            background-color: #c82333;
+        }
+
+        #cart {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .button-group {
+            margin-top: 20px;
+        }
+
+        .button-group button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            background-color: #007bff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button-group button:hover {
+            background-color: #0056b3;
+        }
+
+        form {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         form label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
+            margin-top: 10px;
         }
 
-        form input, form select {
-            width: calc(100% - 20px);
-            padding: 8px 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+        form input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            box-sizing: border-box;
         }
 
         form button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            margin-top: 10px;
         }
 
-        form button:hover {
-            background-color: #218838;
+        @media (max-width: 768px) {
+            .product, .cart-item {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .product button, .cart-item button {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .cart-item button {
+                margin-left: 0;
+            }
         }
 
-        #preview {
-            max-width: 800px;
-            margin: 20px auto;
-            overflow-x: auto;
-        }
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+            }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            background: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+            h1 {
+                font-size: 1.5em;
+            }
 
-        table thead {
-            background-color: #007bff;
-            color: white;
-        }
-
-        table th, table td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        table th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        table tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .action-buttons button {
-            margin-right: 5px;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .edit-button {
-            background-color: #ffc107;
-            color: white;
-        }
-
-        .edit-button:hover {
-            background-color: #e0a800;
-        }
-
-        .delete-button {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .delete-button:hover {
-            background-color: #c82333;
-        }
-
-        #saveButton {
-            display: block;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        #saveButton:hover {
-            background-color: #0056b3;
+            .product, .cart-item {
+                padding: 10px;
+                font-size: 0.9em;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Input Data</h1>
-    <form id="dataForm">
-        <label for="division">Divisi:</label>
-        <select id="division" name="division" required onchange="updateForm()">
-            <option value="">-- Pilih Divisi --</option>
-            <option value="INDOOR">INDOOR</option>
-            <option value="OUTDOOR">OUTDOOR</option>
-            <option value="PRODUKSI">PRODUKSI</option>
-            <option value="GUDANG">GUDANG</option>
-            <option value="PURCHASE ORDER">PURCHASE ORDER</option>
-            <option value="DAILY JOB">DAILY JOB</option>
-            <option value="ORDER PERMINTAAN BARANG">ORDER PERMINTAAN BARANG</option>
-        </select>
-        <div id="commonFields">
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date">
-            <label for="itemName">Nama Barang:</label>
-            <div id="itemNameContainer">
-                <select id="itemNameSelect" name="itemName">
-                    <!-- Options will be populated based on division selection -->
-                </select>
-                <input type="text" id="itemNameInput" name="itemName" style="display: none;">
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        <div id="products">
+            <div class="product">
+                <h2>Product 1</h2>
+                <button onclick="addToCart('Product 1')">Add to Cart</button>
             </div>
-            <label for="type">Jenis:</label>
-            <select id="type" name="type">
-                <option value="Material Masuk">Material Masuk</option>
-                <option value="Material Terpakai">Material Terpakai</option>
-                <option value="Material Reject">Material Reject</option>
-                <option value="Potongan Reject">Potongan Reject</option>
-            </select>
-            <label for="quantity">Banyaknya:</label>
-            <input type="number" id="quantity" name="quantity">
-            <label for="notes">Catatan:</label>
-            <input type="text" id="notes" name="notes">
+            <div class="product">
+                <h2>Product 2</h2>
+                <button onclick="addToCart('Product 2')">Add to Cart</button>
+            </div>
         </div>
-        <div id="dailyJobFields" style="display: none;">
-            <label for="activity">Kegiatan:</label>
-            <input type="text" id="activity" name="activity">
-            <label for="startDate">Start Date:</label>
-            <input type="date" id="startDate" name="startDate">
-            <label for="targetDate">Target Date:</label>
-            <input type="date" id="targetDate" name="targetDate">
-            <label for="finishDate">Finish Date:</label>
-            <input type="date" id="finishDate" name="finishDate">
-            <label for="progressNotes">Catatan Progress:</label>
-            <input type="text" id="progressNotes" name="progressNotes">
-        </div>
-        <div id="jenisFields" style="display: none;">
-            <label for="statusProses">Status Proses:</label>
-            <input type="text" id="statusProses" name="statusProses">
-        </div>
-        <button type="button" onclick="addData()">Add Data</button>
-    </form>
 
-    <h2>Preview</h2>
-    <div id="preview">
-        <table>
-            <thead id="tableHead">
-                <!-- Table headers will be populated based on division selection -->
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <h2>Cart</h2>
+        <ul id="cart"></ul>
+
+        <div class="button-group">
+            <button onclick="checkout()">Checkout</button>
+        </div>
+
+        <h2>Edit Cart</h2>
+        <form id="edit-form">
+            <label for="edit-index">Index:</label>
+            <input type="number" id="edit-index" min="0" required>
+            <label for="edit-product">Product Name:</label>
+            <input type="text" id="edit-product" required>
+            <button type="button" onclick="editCart()">Edit</button>
+            <button type="button" onclick="addProduct()">Add</button>
+            <button type="button" onclick="removeProduct()">Remove</button>
+        </form>
     </div>
 
-    <button id="saveButton" onclick="saveToExcel()">Save to Excel</button>
-
     <script>
-        const data = [];
+        let cart = [];
 
-        function updateForm() {
-            const division = document.getElementById('division').value;
-            const commonFields = document.getElementById('commonFields');
-            const dailyJobFields = document.getElementById('dailyJobFields');
-            const jenisFields = document.getElementById('jenisFields');
-            const itemNameSelect = document.getElementById('itemNameSelect');
-            const itemNameInput = document.getElementById('itemNameInput');
-
-            if (division === 'DAILY JOB') {
-                commonFields.style.display = 'none';
-                dailyJobFields.style.display = 'block';
-                jenisFields.style.display = 'none';
-                itemNameInput.required = false;
-                itemNameSelect.required = false;
-            } else if (division === 'ORDER PERMINTAAN BARANG') {
-                commonFields.style.display = 'block';
-                dailyJobFields.style.display = 'none';
-                jenisFields.style.display = 'block';
-                itemNameInput.required = false;
-                itemNameSelect.required = false;
-            } else {
-                commonFields.style.display = 'block';
-                dailyJobFields.style.display = 'none';
-                jenisFields.style.display = 'none';
-                itemNameInput.required = true;
-                itemNameSelect.required = true;
-                updateItemNames();
-            }
-
-            updateTableHeader();
+        function addToCart(product) {
+            cart.push(product);
+            displayCart();
+            alert(product + ' telah ditambahkan ke keranjang!');
         }
 
-        function updateItemNames() {
-            const division = document.getElementById('division').value;
-            const itemNameSelect = document.getElementById('itemNameSelect');
-            const itemNameInput = document.getElementById('itemNameInput');
-
-            if (division === 'DAILY JOB' || division === 'ORDER PERMINTAAN BARANG') {
-                itemNameSelect.style.display = 'none';
-                itemNameInput.style.display = 'block';
-            } else {
-                itemNameSelect.style.display = 'block';
-                itemNameInput.style.display = 'none';
-                itemNameSelect.innerHTML = '<option value="">-- Pilih Nama Barang --</option>';
-                let items = [];
-                switch (division) {
-                    case 'INDOOR':
-                        items = ['Item A', 'Item B', 'Item C'];
-                        break;
-                    case 'OUTDOOR':
-                        items = ['Item D', 'Item E', 'Item F'];
-                        break;
-                    case 'PRODUKSI':
-                        items = ['Item G', 'Item H', 'Item I'];
-                        break;
-                    case 'GUDANG':
-                        items = ['Item J', 'Item K', 'Item L'];
-                        break;
-                    case 'PURCHASE ORDER':
-                        items = ['Item M', 'Item N', 'Item O'];
-                        break;
-                }
-
-                items.forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item;
-                    option.textContent = item;
-                    itemNameSelect.appendChild(option);
-                });
-            }
-        }
-
-        function updateTableHeader() {
-            const division = document.getElementById('division').value;
-            const tableHead = document.getElementById('tableHead');
-            tableHead.innerHTML = '';
-            let headers = [];
-
-            if (division === 'ORDER PERMINTAAN BARANG') {
-                headers = ['Divisi', 'Date', 'Nama Barang', 'Banyaknya', 'Status Proses'];
-            } else if (division === 'DAILY JOB') {
-                headers = ['Divisi', 'Kegiatan', 'Start Date', 'Target Date', 'Finish Date', 'Catatan Progress'];
-            } else {
-                headers = ['Divisi', 'Date', 'Nama Barang', 'Jenis', 'Banyaknya', 'Catatan'];
-            }
-
-            const tr = document.createElement('tr');
-            headers.forEach(header => {
-                const th = document.createElement('th');
-                th.textContent = header;
-                tr.appendChild(th);
-            });
-            tableHead.appendChild(tr);
-        }
-
-        function addData() {
-            const division = document.getElementById('division').value;
-            const date = document.getElementById('date').value;
-            const itemNameSelect = document.getElementById('itemNameSelect');
-            const itemNameInput = document.getElementById('itemNameInput');
-            const type = document.getElementById('type').value;
-            const quantity = document.getElementById('quantity').value;
-            const notes = document.getElementById('notes').value;
-            const activity = document.getElementById('activity').value;
-            const startDate = document.getElementById('startDate').value;
-            const targetDate = document.getElementById('targetDate').value;
-            const finishDate = document.getElementById('finishDate').value;
-            const progressNotes = document.getElementById('progressNotes').value;
-            const statusProses = document.getElementById('statusProses').value;
-
-            if (division === 'ORDER PERMINTAAN BARANG') {
-                data.push({
-                    division,
-                    date,
-                    itemName: itemNameInput.value,
-                    quantity,
-                    statusProses
-                });
-            } else if (division === 'DAILY JOB') {
-                data.push({
-                    division,
-                    activity,
-                    startDate,
-                    targetDate,
-                    finishDate,
-                    progressNotes
-                });
-            } else {
-                data.push({
-                    division,
-                    date,
-                    itemName: itemNameSelect.value,
-                    type,
-                    quantity,
-                    notes
-                });
-            }
-
-            displayData();
-            document.getElementById('dataForm').reset();
-        }
-
-        function displayData() {
-            const tbody = document.querySelector('#preview tbody');
-            tbody.innerHTML = '';
-
-            data.forEach((item, index) => {
-                const tr = document.createElement('tr');
-
-                for (const key in item) {
-                    const td = document.createElement('td');
-                    td.textContent = item[key];
-                    tr.appendChild(td);
-                }
-
-                const tdActions = document.createElement('td');
-                tdActions.className = 'action-buttons';
-
+        function displayCart() {
+            const cartElement = document.getElementById('cart');
+            cartElement.innerHTML = '';
+            cart.forEach((product, index) => {
+                const li = document.createElement('li');
+                li.className = 'cart-item';
+                li.textContent = product;
+                
                 const editButton = document.createElement('button');
                 editButton.textContent = 'Edit';
-                editButton.className = 'edit-button';
-                editButton.onclick = () => editData(index);
-                tdActions.appendChild(editButton);
+                editButton.onclick = () => editProduct(index);
 
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Delete';
-                deleteButton.className = 'delete-button';
-                deleteButton.onclick = () => deleteData(index);
-                tdActions.appendChild(deleteButton);
-
-                tr.appendChild(tdActions);
-
-                tbody.appendChild(tr);
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.className = 'remove';
+                removeButton.onclick = () => removeProduct(index);
+                
+                li.appendChild(editButton);
+                li.appendChild(removeButton);
+                cartElement.appendChild(li);
             });
         }
 
-        function editData(index) {
-            const item = data[index];
-
-            document.getElementById('division').value = item.division;
-            updateForm();
-
-            if (item.division === 'ORDER PERMINTAAN BARANG') {
-                document.getElementById('date').value = item.date;
-                document.getElementById('itemNameInput').value = item.itemName;
-                document.getElementById('quantity').value = item.quantity;
-                document.getElementById('statusProses').value = item.statusProses;
-            } else if (item.division === 'DAILY JOB') {
-                document.getElementById('activity').value = item.activity;
-                document.getElementById('startDate').value = item.startDate;
-                document.getElementById('targetDate').value = item.targetDate;
-                document.getElementById('finishDate').value = item.finishDate;
-                document.getElementById('progressNotes').value = item.progressNotes;
+        function editProduct(index) {
+            if (index >= 0 && index < cart.length) {
+                document.getElementById('edit-index').value = index;
+                document.getElementById('edit-product').value = cart[index];
             } else {
-                document.getElementById('date').value = item.date;
-                document.getElementById('itemNameSelect').value = item.itemName;
-                document.getElementById('type').value = item.type;
-                document.getElementById('quantity').value = item.quantity;
-                document.getElementById('notes').value = item.notes;
+                alert('Index tidak valid');
+            }
+        }
+
+        function editCart() {
+            const index = parseInt(document.getElementById('edit-index').value);
+            const newProduct = document.getElementById('edit-product').value;
+            if (index >= 0 && index < cart.length) {
+                cart[index] = newProduct;
+                displayCart();
+                alert('Produk diubah menjadi ' + newProduct);
+            } else {
+                alert('Index tidak valid');
+            }
+        }
+
+        function addProduct() {
+            const newProduct = document.getElementById('edit-product').value;
+            if (newProduct) {
+                cart.push(newProduct);
+                displayCart();
+                alert(newProduct + ' ditambahkan ke keranjang!');
+            }
+        }
+
+        function removeProduct(index) {
+            if (index >= 0 && index < cart.length) {
+                cart.splice(index, 1);
+                displayCart();
+                alert('Produk dihapus dari keranjang!');
+            } else {
+                alert('Index tidak valid');
+            }
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Keranjang Anda kosong!');
+                return;
             }
 
-            data.splice(index, 1);
-            displayData();
+            const email = prompt('Masukkan email Anda untuk mengirimkan rincian pembelian:');
+            if (email) {
+                sendEmail(email, cart);
+            }
         }
 
-        function deleteData(index) {
-            data.splice(index, 1);
-            displayData();
-        }
+        function sendEmail(email, cart) {
+            const emailContent = 'Produk dalam keranjang Anda:\n' + cart.join('\n');
+            console.log('Mengirim email ke:', email);
+            console.log('Isi email:\n', emailContent);
+            alert('Rincian pembelian telah dikirim ke ' + email);
 
-        function saveToExcel() {
-            const workbook = XLSX.utils.book_new();
-            const worksheet = XLSX.utils.json_to_sheet(data);
-            XLSX.utils.book_append_sheet(workbook, worksheet, 'Laporan Stock');
-            XLSX.writeFile(workbook, 'laporan_stock.xlsx');
+            // Reset cart
+            cart = [];
+            displayCart();
         }
-
-        updateForm();  // Initialize form on page load
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </body>
 </html>
