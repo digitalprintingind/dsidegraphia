@@ -231,10 +231,10 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>ID Transaksi</th>
                         <th>Nama Barang</th>
                         <th>Harga</th>
                         <th>Jumlah</th>
+                        <th>ID Transaksi</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -403,10 +403,10 @@
                 const row = pembelianTableBody.insertRow();
                 row.innerHTML = `
                     <td>${pembelianTableBody.rows.length + 1}</td>
-                    <td>${generateIDTransaksi()}</td>
                     <td>${selectedOption.text}</td>
                     <td>${selectedHarga}</td>
                     <td>${jumlahPembelian}</td>
+                    <td>${generateIDTransaksi()}</td>
                     <td><button class="action-buttons remove">Hapus</button></td>
                 `;
 
