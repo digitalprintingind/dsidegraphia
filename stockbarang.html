@@ -302,6 +302,11 @@
             let itemCounter = 1;
             let transactionCounter = 1;
 
+            function generateIDBarang() {
+                const paddedCounter = String(itemCounter++).padStart(4, '0');
+                return `BRG${paddedCounter}`;
+            }
+
             function generateIDTransaksi() {
                 const paddedCounter = String(transactionCounter++).padStart(4, '0');
                 return `TRK${paddedCounter}`;
@@ -313,7 +318,7 @@
                 const harga = document.getElementById('harga').value;
                 const jumlah = document.getElementById('jumlah').value;
 
-                const idBarang = `B${itemCounter++}`;
+                const idBarang = generateIDBarang();
                 const row = barangTableBody.insertRow();
                 row.innerHTML = `
                     <td>${barangTableBody.rows.length}</td>
