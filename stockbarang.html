@@ -227,6 +227,9 @@
         <!-- Preview Tabel Pembelian Customer -->
         <div class="table-container">
             <h2>Preview Pembelian</h2>
+            <div id="transaction-id-container">
+                <span>ID Transaksi: <span id="transaction-id">TRK0001</span></span>
+            </div>
             <table id="pembelianTable">
                 <thead>
                     <tr>
@@ -234,7 +237,6 @@
                         <th>Nama Barang</th>
                         <th>Harga</th>
                         <th>Jumlah</th>
-                        <th>ID Transaksi</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -299,6 +301,7 @@
             const pembelianTableBody = document.getElementById('pembelianTable').getElementsByTagName('tbody')[0];
             const barangSelect = document.getElementById('barang');
             const searchInput = document.getElementById('searchInput');
+            const transactionIdSpan = document.getElementById('transaction-id');
 
             let itemCounter = 1;
             let transactionCounter = 1;
@@ -406,7 +409,6 @@
                     <td>${selectedOption.text}</td>
                     <td>${selectedHarga}</td>
                     <td>${jumlahPembelian}</td>
-                    <td>${generateIDTransaksi()}</td>
                     <td><button class="action-buttons remove">Hapus</button></td>
                 `;
 
@@ -477,6 +479,9 @@
                     e.target.closest('tr').remove();
                 }
             });
+
+            // Set ID Transaksi di elemen judul
+            transactionIdSpan.textContent = generateIDTransaksi();
 
             loadBarangData();
         });
