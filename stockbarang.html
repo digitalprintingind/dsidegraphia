@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Barang</title>
+    <title>Daftar Barang dan Pembelian</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -82,7 +82,7 @@
             color: #333;
         }
 
-        .form-group input, .form-group select {
+        .form-group input {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -90,7 +90,7 @@
             box-sizing: border-box;
         }
 
-        .form-group input:focus, .form-group select:focus {
+        .form-group input:focus {
             border-color: #0062cc;
             outline: none;
         }
@@ -187,17 +187,26 @@
     <nav class="navbar">
         <ul class="navbar-menu">
             <li><a href="#aplikasi-kasir" class="active">Aplikasi Kasir</a></li>
+            <li><a href="#daftar-barang">Daftar Barang</a></li>
+            <li><a href="#riwayat-pembelian">Riwayat Pembelian</a></li>
+            <li><a href="#rekap-laporan">Rekap Laporan</a></li>
         </ul>
     </nav>
 
     <div class="container">
-        <div id="aplikasi-kasir" class="form-container">
+        <!-- Form Input Pembelian Customer -->
+        <div class="form-container" id="aplikasi-kasir">
             <h2>Form Pembelian Customer</h2>
             <form id="pembelianForm">
                 <div class="form-group">
+                    <label for="nama-customer">Nama Customer</label>
+                    <input type="text" id="nama-customer" name="nama-customer" placeholder="Masukkan Nama Customer" required>
+                </div>
+                <div class="form-group">
                     <label for="barang">Pilih Barang</label>
                     <select id="barang" name="barang" required>
-                        <!-- Options akan diisi dengan JavaScript -->
+                        <option value="">-- Pilih Barang --</option>
+                        <!-- Option items should be dynamically populated -->
                     </select>
                 </div>
                 <div class="form-group">
@@ -210,24 +219,27 @@
             </form>
         </div>
 
+        <!-- Preview Tabel Pembelian Customer -->
         <div class="table-container">
             <h2>Preview Pembelian</h2>
             <table id="pembelianTable">
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Nama Customer</th>
                         <th>ID Barang</th>
                         <th>Nama Barang</th>
                         <th>Jumlah</th>
                     </tr>
                 </thead>
-                <tbody id="pembelianTableBody">
+                <tbody>
                     <!-- Data Pembelian akan muncul di sini -->
                 </tbody>
             </table>
         </div>
 
-        <div class="form-container">
+        <!-- Daftar Barang -->
+        <div class="form-container" id="daftar-barang">
             <h2>Tambahkan Barang</h2>
             <form id="barangForm">
                 <div class="form-group">
@@ -266,7 +278,7 @@
                         <th>Hapus</th>
                     </tr>
                 </thead>
-                <tbody id="barangTableBody">
+                <tbody>
                     <!-- Data Barang akan muncul di sini -->
                 </tbody>
             </table>
@@ -277,8 +289,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             const barangForm = document.getElementById('barangForm');
             const pembelianForm = document.getElementById('pembelianForm');
-            const barangTableBody = document.getElementById('barangTableBody');
-            const pembelianTableBody = document.getElementById('pembelianTableBody');
+            const barangTableBody = document.querySelector('#barangTable tbody');
+            const pembelianTableBody = document.querySelector('#pembelianTable tbody');
             const searchInput = document.getElementById('searchInput');
             const barangSelect = document.getElementById('barang');
             let itemCounter = 0;
@@ -304,74 +316,151 @@
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
                     <td>${item.no}</td>
-                    <td>${item.id}</td>
-                    <td>${item.nama}</td>
+                    <td>${item.idBarang}</td>
+                    <td>${item.namaBarang}</td>
                     <td>${item.harga}</td>
                     <td>${item.jumlah}</td>
-                    <td>${item.status}</td>
-                    <td><button class="action-buttons edit">Edit</button></td>
-                    <td><button class="action-buttons delete">Hapus</button></td>
+                    <td><span class="status-toggle">${item.status}</span></td>
+                    <td><button class="edit">Edit</button></td>
+                    <td><button class="delete">Hapus</button></td>
                 `;
                 barangTableBody.appendChild(newRow);
             };
 
             const addOptionToSelect = (item) => {
                 const option = document.createElement('option');
-                option.value = item.id;
-                option.textContent = item.nama;
+                option.value = item.idBarang;
+                option.textContent = `${item.namaBarang} - ${item.harga}`;
                 barangSelect.appendChild(option);
+            };
+
+            const addItem = (namaBarang, harga, jumlah) => {
+                itemCounter++;
+                const idBarang = `BRG${itemCounter.toString().padStart(4, '0')}`;
+                const item = {
+                    no: itemCounter,
+                    idBarang,
+                    namaBarang,
+                    harga,
+                    jumlah,
+                    status: 'On'
+                };
+                const items = getItemsFromLocalStorage();
+                items.push(item);
+                saveItemsToLocalStorage(items);
+                addItemToTable(item);
+                addOptionToSelect(item);
+            };
+
+            const updateItem = (row, namaBarang, harga, jumlah) => {
+                const cells = row.querySelectorAll('td');
+                cells[2].textContent = namaBarang;
+                cells[3].textContent = harga;
+                cells[4].textContent = jumlah;
+
+                const idBarang = cells[1].textContent;
+                const items = getItemsFromLocalStorage();
+                const itemIndex = items.findIndex(item => item.idBarang === idBarang);
+                if (itemIndex > -1) {
+                    items[itemIndex].namaBarang = namaBarang;
+                    items[itemIndex].harga = harga;
+                    items[itemIndex].jumlah = jumlah;
+                    saveItemsToLocalStorage(items);
+                }
+            };
+
+            const deleteItem = (row) => {
+                const idBarang = row.querySelectorAll('td')[1].textContent;
+                const items = getItemsFromLocalStorage();
+                const updatedItems = items.filter(item => item.idBarang !== idBarang);
+                saveItemsToLocalStorage(updatedItems);
+                row.remove();
+                barangSelect.querySelector(`option[value="${idBarang}"]`).remove();
+            };
+
+            const toggleStatus = (row) => {
+                const statusCell = row.querySelector('.status-toggle');
+                const newStatus = statusCell.textContent === 'On' ? 'Off' : 'On';
+                statusCell.textContent = newStatus;
+
+                const idBarang = row.querySelectorAll('td')[1].textContent;
+                const items = getItemsFromLocalStorage();
+                const itemIndex = items.findIndex(item => item.idBarang === idBarang);
+                if (itemIndex > -1) {
+                    items[itemIndex].status = newStatus;
+                    saveItemsToLocalStorage(items);
+                }
+            };
+
+            const addPembelianToTable = (namaCustomer, idBarang, namaBarang, jumlah) => {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${pembelianTableBody.children.length + 1}</td>
+                    <td>${namaCustomer}</td>
+                    <td>${idBarang}</td>
+                    <td>${namaBarang}</td>
+                    <td>${jumlah}</td>
+                `;
+                pembelianTableBody.appendChild(newRow);
+            };
+
+            const searchItems = (query) => {
+                const rows = barangTableBody.querySelectorAll('tr');
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    const namaBarang = cells[2].textContent.toLowerCase();
+                    const matches = namaBarang.includes(query.toLowerCase());
+                    row.style.display = matches ? '' : 'none';
+                });
             };
 
             barangForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const id = Date.now(); // Generate unique ID
-                const nama = document.getElementById('nama-barang').value;
+                const namaBarang = document.getElementById('nama-barang').value;
                 const harga = document.getElementById('harga').value;
                 const jumlah = document.getElementById('jumlah').value;
-                const status = 'Active';
 
-                const newItem = {
-                    no: ++itemCounter,
-                    id,
-                    nama,
-                    harga,
-                    jumlah,
-                    status
-                };
+                if (editingRow) {
+                    updateItem(editingRow, namaBarang, harga, jumlah);
+                    editingRow = null;
+                } else {
+                    addItem(namaBarang, harga, jumlah);
+                }
 
-                const items = getItemsFromLocalStorage();
-                items.push(newItem);
-                saveItemsToLocalStorage(items);
-                addItemToTable(newItem);
-                addOptionToSelect(newItem);
                 barangForm.reset();
             });
 
             pembelianForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const barangId = document.getElementById('barang').value;
+                const namaCustomer = document.getElementById('nama-customer').value;
+                const idBarang = document.getElementById('barang').value;
                 const jumlah = document.getElementById('jumlah-pembelian').value;
+                const barang = getItemsFromLocalStorage().find(item => item.idBarang === idBarang);
 
-                const selectedBarang = Array.from(barangSelect.options).find(option => option.value === barangId);
-                const namaBarang = selectedBarang ? selectedBarang.text : '';
-
-                const newRow = document.createElement('tr');
-                newRow.innerHTML = `
-                    <td>${++itemCounter}</td>
-                    <td>${barangId}</td>
-                    <td>${namaBarang}</td>
-                    <td>${jumlah}</td>
-                `;
-                pembelianTableBody.appendChild(newRow);
+                if (barang) {
+                    addPembelianToTable(namaCustomer, barang.idBarang, barang.namaBarang, jumlah);
+                }
                 pembelianForm.reset();
             });
 
+            barangTableBody.addEventListener('click', (e) => {
+                const row = e.target.closest('tr');
+                if (e.target.classList.contains('edit')) {
+                    const cells = row.querySelectorAll('td');
+                    document.getElementById('nama-barang').value = cells[2].textContent;
+                    document.getElementById('harga').value = cells[3].textContent;
+                    document.getElementById('jumlah').value = cells[4].textContent;
+                    editingRow = row;
+                } else if (e.target.classList.contains('delete')) {
+                    deleteItem(row);
+                } else if (e.target.classList.contains('status-toggle')) {
+                    toggleStatus(row);
+                }
+            });
+
             searchInput.addEventListener('input', (e) => {
-                const query = e.target.value.toLowerCase();
-                Array.from(barangTableBody.rows).forEach(row => {
-                    const nama = row.cells[2].textContent.toLowerCase();
-                    row.style.display = nama.includes(query) ? '' : 'none';
-                });
+                const query = e.target.value;
+                searchItems(query);
             });
 
             loadItemsFromLocalStorage();
