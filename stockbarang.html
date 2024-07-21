@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Stock</title>
     <style>
-              body {
+        body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
             margin: 0;
@@ -162,8 +162,11 @@
             </div>
             <label for="quantity">Banyaknya:</label>
             <input type="number" id="quantity" name="quantity">
-            <label for="notes">Catatan:</label>
-            <input type="text" id="notes" name="notes">
+            <label for="status">Status Proses:</label>
+            <select id="status" name="status">
+                <option value="Belanja">Belanja</option>
+                <option value="Selesai">Selesai</option>
+            </select>
             <div id="jenisField" style="display: block;">
                 <label for="type">Jenis:</label>
                 <select id="type" name="type">
@@ -203,7 +206,11 @@
     <button id="saveButton" onclick="saveToExcel()">Save to Excel</button>
 
     <script>
-        const data = [];
+        const allItems = {
+            INDOOR: ['DOKU TONER BLACK', 'DOKU TONER CYAN', 'DOKU TONER MAGENTA', 'DOKU TONER YELLOW', 'KERTAS ARTCARTON / BW A3+', 'KERTAS ARTPAPER A3+', 'KERTAS BRIEF CARD / BC F4', 'KERTAS BUFALO BIRU', 'KERTAS BUFALO HIJAU', 'KERTAS BUFALO KUNING', 'KERTAS BUFALO MERAH', 'KERTAS BUFALO ORANGE', 'KERTAS BUFALO PINK', 'KERTAS BUFALO PUTIH', 'KERTAS BUFALO SKY BLUE', 'KERTAS BUFALO UNGU', 'KERTAS FOTO', 'KERTAS HVS A3 PUTIH', 'KERTAS HVS A3+ PUTIH', 'KERTAS HVS A4 PUTIH', 'KERTAS HVS F4 BIRU', 'KERTAS HVS F4 HIJAU', 'KERTAS HVS F4 KUNING', 'KERTAS HVS F4 MERAH', 'KERTAS HVS F4 PUTIH', 'KERTAS INJECT', 'KERTAS KALKIR', 'KERTAS LINEN A3', 'KERTAS LINEN A4', 'KERTAS NCR BIRU', 'KERTAS NCR HIJAU', 'KERTAS NCR KUNING', 'KERTAS NCR MERAH', 'KERTAS NCR PUTIH', 'KERTAS SUBLIME A4', 'MASKING STIKER 10 CM', 'MASKING STIKER 15 CM', 'PVC ID CARD', 'STIKER CROMO A3+', 'STIKER HOLOGRAM A3+', 'STIKER POLIFLEX GOLD', 'STIKER POLIFLEX HITAM', 'STIKER POLIFLEX PUTIH', 'STIKER SKOTLET BIRU', 'STIKER SKOTLET GOLD', 'STIKER SKOTLET HIJAU', 'STIKER SKOTLET HITAM', 'STIKER SKOTLET KUNING', 'STIKER SKOTLET MERAH', 'STIKER SKOTLET ORANGE', 'STIKER SKOTLET PUTIH', 'STIKER SKOTLET SILVER', 'STIKER TRANSPARANT A3+', 'STIKER VINYL A3+', 'TINTA DIAMOND ART BIRU', 'TINTA DIAMOND ART HITAM', 'TINTA DIAMOND ART KUNING', 'TINTA DIAMOND ART MAGENTA', 'TINTA DIAMOND ART CYAN', 'TINTA DIAMOND DIGITAL BIRU', 'TINTA DIAMOND DIGITAL HITAM', 'TINTA DIAMOND DIGITAL KUNING', 'TINTA DIAMOND DIGITAL MAGENTA', 'TINTA DIAMOND DIGITAL CYAN', 'TINTA DIAMOND SUBLIM BIRU', 'TINTA DIAMOND SUBLIM HITAM', 'TINTA DIAMOND SUBLIM KUNING', 'TINTA DIAMOND SUBLIM MAGENTA', 'TINTA DIAMOND SUBLIM CYAN', 'TINTA EPSON L100 BIRU', 'TINTA EPSON L100 HITAM', 'TINTA EPSON L100 KUNING', 'TINTA EPSON L100 MAGENTA', 'TINTA EPSON L100 CYAN', 'TINTA EPSON L200 BIRU', 'TINTA EPSON L200 HITAM', 'TINTA EPSON L200 KUNING', 'TINTA EPSON L200 MAGENTA', 'TINTA EPSON L200 CYAN', 'TINTA EPSON L800 BIRU', 'TINTA EPSON L800 HITAM', 'TINTA EPSON L800 KUNING', 'TINTA EPSON L800 MAGENTA', 'TINTA EPSON L800 CYAN', 'TINTA EPSON L805 BIRU', 'TINTA EPSON L805 HITAM', 'TINTA EPSON L805 KUNING', 'TINTA EPSON L805 MAGENTA', 'TINTA EPSON L805 CYAN'],
+            OUTDOOR: ['BANER FLEXI', 'BANER TENT', 'STIKER VINYL BIRU', 'STIKER VINYL HITAM', 'STIKER VINYL KUNING', 'STIKER VINYL MAGENTA', 'STIKER VINYL MERAH', 'STIKER VINYL PUTIH', 'STIKER VINYL TRANSPARANT'],
+            PRODUKSI: ['PRODUKSI BANNER', 'PRODUKSI STIKER', 'PRODUKSI KALENDER']
+        };
 
         function updateForm() {
             const division = document.getElementById('division').value;
@@ -212,100 +219,43 @@
             const itemNameSelect = document.getElementById('itemNameSelect');
             const itemNameInput = document.getElementById('itemNameInput');
             const jenisField = document.getElementById('jenisField');
+            const itemNameContainer = document.getElementById('itemNameContainer');
+            
+            // Clear itemNameSelect options
+            itemNameSelect.innerHTML = '';
 
             if (division === 'DAILY JOB') {
                 commonFields.style.display = 'none';
                 dailyJobFields.style.display = 'block';
-                itemNameInput.required = false;
-                itemNameSelect.required = false;
                 jenisField.style.display = 'none';
             } else if (division === 'ORDER PERMINTAAN BARANG') {
                 commonFields.style.display = 'block';
                 dailyJobFields.style.display = 'none';
-                itemNameInput.required = true;
-                itemNameSelect.required = true;
-                jenisField.style.display = 'none';
-                updateItemNames();
-            } else {
-                commonFields.style.display = 'block';
-                dailyJobFields.style.display = 'none';
-                itemNameInput.required = true;
-                itemNameSelect.required = true;
-                jenisField.style.display = 'block';
-                updateItemNames();
-            }
-
-            updateTableHeader();
-        }
-
-        function updateItemNames() {
-            const division = document.getElementById('division').value;
-            const itemNameSelect = document.getElementById('itemNameSelect');
-            const itemNameInput = document.getElementById('itemNameInput');
-            
-            if (division === 'DAILY JOB') {
-                itemNameSelect.style.display = 'none';
-                itemNameInput.style.display = 'block';
-            } else {
                 itemNameSelect.style.display = 'block';
                 itemNameInput.style.display = 'none';
-                itemNameSelect.innerHTML = '<option value="">-- Pilih Nama Barang --</option>';
-                let items = [];
-                if (division === 'INDOOR') {
-                    items = ['DOKU TONER BLACK', 'DOKU TONER CYAN', 'DOKU TONER MAGENTA', 'DOKU TONER YELLOW', 'KERTAS ARTCARTON / BW A3+', 'KERTAS ARTPAPER A3+', 'KERTAS BRIEF CARD / BC F4', 'KERTAS BUFALO BIRU', 'KERTAS BUFALO HIJAU', 'KERTAS BUFALO KUNING', 'KERTAS BUFALO MERAH', 'KERTAS BUFALO ORANGE', 'KERTAS BUFALO PINK', 'KERTAS BUFALO PUTIH', 'KERTAS BUFALO SKY BLUE', 'KERTAS BUFALO UNGU', 'KERTAS FOTO', 'KERTAS HVS A3 PUTIH', 'KERTAS HVS A3+ PUTIH', 'KERTAS HVS A4 PUTIH', 'KERTAS HVS F4 BIRU', 'KERTAS HVS F4 HIJAU', 'KERTAS HVS F4 KUNING', 'KERTAS HVS F4 MERAH', 'KERTAS HVS F4 PUTIH', 'KERTAS INJECT', 'KERTAS KALKIR', 'KERTAS LINEN A3', 'KERTAS LINEN A4', 'KERTAS NCR BIRU', 'KERTAS NCR HIJAU', 'KERTAS NCR KUNING', 'KERTAS NCR MERAH', 'KERTAS NCR PUTIH', 'KERTAS SUBLIME A4', 'MASKING STIKER 10 CM', 'MASKING STIKER 15 CM', 'PVC ID CARD', 'STIKER CROMO A3+', 'STIKER HOLOGRAM A3+', 'STIKER POLIFLEX GOLD', 'STIKER POLIFLEX HITAM', 'STIKER POLIFLEX PUTIH', 'STIKER SKOTLET BIRU', 'STIKER SKOTLET GOLD', 'STIKER SKOTLET HIJAU', 'STIKER SKOTLET HITAM', 'STIKER SKOTLET KUNING', 'STIKER SKOTLET MERAH', 'STIKER SKOTLET ORANGE', 'STIKER SKOTLET PUTIH', 'STIKER SKOTLET SILVER', 'STIKER TRANSPARANT A3+', 'STIKER VINYL A3+', 'TINTA DIAMOND ART BIRU', 'TINTA DIAMOND ART HITAM', 'TINTA DIAMOND ART KUNING', 'TINTA DIAMOND ART MAGENTA', 'TINTA DIAMOND ART CYAN', 'TINTA DIAMOND DIGITAL BIRU', 'TINTA DIAMOND DIGITAL HITAM', 'TINTA DIAMOND DIGITAL KUNING', 'TINTA DIAMOND DIGITAL MAGENTA', 'TINTA DIAMOND DIGITAL CYAN', 'TINTA DIAMOND SUBLIM BIRU', 'TINTA DIAMOND SUBLIM HITAM', 'TINTA DIAMOND SUBLIM KUNING', 'TINTA DIAMOND SUBLIM MAGENTA', 'TINTA DIAMOND SUBLIM CYAN', 'TINTA EPSON L100 BIRU', 'TINTA EPSON L100 HITAM', 'TINTA EPSON L100 KUNING', 'TINTA EPSON L100 MAGENTA', 'TINTA EPSON L100 CYAN', 'TINTA EPSON L200 BIRU', 'TINTA EPSON L200 HITAM', 'TINTA EPSON L200 KUNING', 'TINTA EPSON L200 MAGENTA', 'TINTA EPSON L200 CYAN', 'TINTA EPSON L800 BIRU', 'TINTA EPSON L800 HITAM', 'TINTA EPSON L800 KUNING', 'TINTA EPSON L800 MAGENTA', 'TINTA EPSON L800 CYAN', 'TINTA EPSON L805 BIRU', 'TINTA EPSON L805 HITAM', 'TINTA EPSON L805 KUNING', 'TINTA EPSON L805 MAGENTA', 'TINTA EPSON L805 CYAN'];
-                } else if (division === 'OUTDOOR') {
-                    items = ['BANER FLEXI', 'BANER TENT', 'STIKER VINYL BIRU', 'STIKER VINYL HITAM', 'STIKER VINYL KUNING', 'STIKER VINYL MAGENTA', 'STIKER VINYL MERAH', 'STIKER VINYL PUTIH', 'STIKER VINYL TRANSPARANT'];
-                } else if (division === 'PRODUKSI') {
-                    items = ['PRODUKSI BANNER', 'PRODUKSI STIKER', 'PRODUKSI KALENDER'];
-                }
-                items.forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item;
-                    option.textContent = item;
-                    itemNameSelect.appendChild(option);
-                });
+                jenisField.style.display = 'none';
+                populateItemNameOptions('ORDER PERMINTAAN BARANG');
+            } else {
+                commonFields.style.display = 'block';
+                dailyJobFields.style.display = 'none';
+                itemNameSelect.style.display = 'none';
+                itemNameInput.style.display = 'block';
+                jenisField.style.display = 'block';
             }
         }
 
-        function updateTableHeader() {
-            const division = document.getElementById('division').value;
-            const tableHead = document.getElementById('tableHead');
-            tableHead.innerHTML = '';
-
-            if (division === 'DAILY JOB') {
-                tableHead.innerHTML = `
-                    <tr>
-                        <th>Division</th>
-                        <th>Date</th>
-                        <th>Activity</th>
-                        <th>Start Date</th>
-                        <th>Target Date</th>
-                        <th>Finish Date</th>
-                        <th>Progress Notes</th>
-                    </tr>
-                `;
-            } else if (division === 'ORDER PERMINTAAN BARANG') {
-                tableHead.innerHTML = `
-                    <tr>
-                        <th>Division</th>
-                        <th>Date</th>
-                        <th>Nama Barang</th>
-                        <th>Banyaknya</th>
-                        <th>Catatan</th>
-                    </tr>
-                `;
-            } else {
-                tableHead.innerHTML = `
-                    <tr>
-                        <th>Division</th>
-                        <th>Date</th>
-                        <th>Nama Barang</th>
-                        <th>Banyaknya</th>
-                        <th>Jenis</th>
-                        <th>Catatan</th>
-                    </tr>
-                `;
+        function populateItemNameOptions(division) {
+            const itemNameSelect = document.getElementById('itemNameSelect');
+            let items = [];
+            if (division === 'ORDER PERMINTAAN BARANG') {
+                items = allItems[division] || [];
             }
+            items.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item;
+                option.textContent = item;
+                itemNameSelect.appendChild(option);
+            });
         }
 
         function addData() {
@@ -313,7 +263,7 @@
             const date = document.getElementById('date').value;
             const itemName = document.getElementById('itemNameSelect').style.display === 'none' ? document.getElementById('itemNameInput').value : document.getElementById('itemNameSelect').value;
             const quantity = document.getElementById('quantity').value;
-            const notes = document.getElementById('notes').value;
+            const status = document.getElementById('status').value;
             const activity = document.getElementById('activity') ? document.getElementById('activity').value : '';
             const startDate = document.getElementById('startDate') ? document.getElementById('startDate').value : '';
             const targetDate = document.getElementById('targetDate') ? document.getElementById('targetDate').value : '';
@@ -328,17 +278,17 @@
                 }
                 data.push([division, date, activity, startDate, targetDate, finishDate, progressNotes]);
             } else if (division === 'ORDER PERMINTAAN BARANG') {
-                if (!itemName || !quantity) {
+                if (!itemName || !quantity || !status) {
                     alert('Please fill in all fields.');
                     return;
                 }
-                data.push([division, date, itemName, quantity, notes]);
+                data.push([division, date, itemName, quantity, status]);
             } else {
-                if (!itemName || !quantity || !type) {
+                if (!itemName || !quantity || !type || !status) {
                     alert('Please fill in all fields.');
                     return;
                 }
-                data.push([division, date, itemName, quantity, type, notes]);
+                data.push([division, date, itemName, quantity, type, status]);
             }
 
             updateTable();
@@ -366,9 +316,9 @@
             if (division === 'DAILY JOB') {
                 csvContent += "Division,Date,Activity,Start Date,Target Date,Finish Date,Progress Notes\n";
             } else if (division === 'ORDER PERMINTAAN BARANG') {
-                csvContent += "Division,Date,Nama Barang,Banyaknya,Catatan\n";
+                csvContent += "Division,Date,Nama Barang,Banyaknya,Status Proses\n";
             } else {
-                csvContent += "Division,Date,Nama Barang,Banyaknya,Jenis,Catatan\n";
+                csvContent += "Division,Date,Nama Barang,Banyaknya,Jenis,Status Proses\n";
             }
 
             // Append data rows
@@ -383,6 +333,8 @@
             document.body.appendChild(link);
             link.click();
         }
+
+        let data = [];
     </script>
 </body>
 </html>
