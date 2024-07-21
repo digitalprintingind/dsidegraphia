@@ -284,7 +284,7 @@
 
         function updateTableHeader() {
             const division = document.getElementById('division').value;
-            const tableHead = document.querySelector('#preview thead');
+            const tableHead = document.querySelector('#tableHead');
             let headers = [];
 
             if (division === 'DAILY JOB') {
@@ -351,6 +351,7 @@
         }
 
         function updateTable() {
+            updateTableHeader();
             const tableBody = document.querySelector('#preview tbody');
             const division = document.getElementById('division').value;
 
