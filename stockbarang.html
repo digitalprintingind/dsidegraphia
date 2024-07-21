@@ -417,6 +417,33 @@
                 }
             }
 
+            function toggleStatus(e) {
+                if (e.target.classList.contains('status-toggle')) {
+                    const statusElement = e.target;
+                    statusElement.textContent = statusElement.textContent === 'Aktif' ? 'Non Aktif' : 'Aktif';
+                    saveBarangData();
+                }
+            }
+
+            function editRow(e) {
+                if (e.target.classList.contains('edit')) {
+                    const row = e.target.closest('tr');
+                    const cells = row.getElementsByTagName('td');
+                    
+                    const idBarang = cells[1].textContent;
+                    const namaBarang = prompt("Edit Nama Barang:", cells[2].textContent);
+                    const harga = prompt("Edit Harga:", cells[3].textContent);
+                    const jumlah = prompt("Edit Jumlah:", cells[4].textContent);
+                    
+                    if (namaBarang && harga && jumlah) {
+                        cells[2].textContent = namaBarang;
+                        cells[3].textContent = harga;
+                        cells[4].textContent = jumlah;
+                        saveBarangData();
+                    }
+                }
+            }
+
             barangForm.addEventListener('submit', addBarang);
             pembelianForm.addEventListener('submit', addPembelian);
             searchInput.addEventListener('input', searchBarang);
@@ -430,9 +457,11 @@
                     e.target.closest('tr').remove();
                     saveBarangData();
                 } else if (e.target.classList.contains('edit')) {
-                    alert('Edit fitur belum tersedia');
+                    editRow(e);
                 }
             });
+
+            barangTableBody.addEventListener('click', toggleStatus);
 
             pembelianTableBody.addEventListener('click', (e) => {
                 if (e.target.classList.contains('remove')) {
