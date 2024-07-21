@@ -181,6 +181,14 @@
         .action-buttons button.delete:hover {
             background-color: #cc0000;
         }
+
+        .action-buttons button.remove {
+            background-color: #ff6f61;
+        }
+
+        .action-buttons button.remove:hover {
+            background-color: #cc0000;
+        }
     </style>
 </head>
 <body>
@@ -198,10 +206,6 @@
         <div class="form-container" id="aplikasi-kasir">
             <h2>Form Pembelian Customer</h2>
             <form id="pembelianForm">
-                <div class="form-group">
-                    <label for="nama-customer">Nama Customer</label>
-                    <input type="text" id="nama-customer" name="nama-customer" placeholder="Masukkan Nama Customer" required>
-                </div>
                 <div class="form-group">
                     <label for="barang">Pilih Barang</label>
                     <select id="barang" name="barang" required>
@@ -226,10 +230,10 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Customer</th>
                         <th>ID Barang</th>
                         <th>Nama Barang</th>
                         <th>Jumlah</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -392,16 +396,20 @@
                 }
             };
 
-            const addPembelianToTable = (namaCustomer, idBarang, namaBarang, jumlah) => {
+            const addPembelianToTable = (idBarang, namaBarang, jumlah) => {
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
                     <td>${pembelianTableBody.children.length + 1}</td>
-                    <td>${namaCustomer}</td>
                     <td>${idBarang}</td>
                     <td>${namaBarang}</td>
                     <td>${jumlah}</td>
+                    <td><button class="remove">Hapus</button></td>
                 `;
                 pembelianTableBody.appendChild(newRow);
+            };
+
+            const removePembelian = (row) => {
+                row.remove();
             };
 
             const searchItems = (query) => {
@@ -432,13 +440,12 @@
 
             pembelianForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const namaCustomer = document.getElementById('nama-customer').value;
                 const idBarang = document.getElementById('barang').value;
                 const jumlah = document.getElementById('jumlah-pembelian').value;
                 const barang = getItemsFromLocalStorage().find(item => item.idBarang === idBarang);
 
                 if (barang) {
-                    addPembelianToTable(namaCustomer, barang.idBarang, barang.namaBarang, jumlah);
+                    addPembelianToTable(barang.idBarang, barang.namaBarang, jumlah);
                 }
                 pembelianForm.reset();
             });
@@ -455,6 +462,13 @@
                     deleteItem(row);
                 } else if (e.target.classList.contains('status-toggle')) {
                     toggleStatus(row);
+                }
+            });
+
+            pembelianTableBody.addEventListener('click', (e) => {
+                if (e.target.classList.contains('remove')) {
+                    const row = e.target.closest('tr');
+                    removePembelian(row);
                 }
             });
 
