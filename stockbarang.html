@@ -1,315 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
+    <title>Popup Glass Dashboard</title>
     <style>
         body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            background-color: #e0f7fa;
-            margin: 0;
-            padding: 0;
-            color: #333;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            height: 100vh;
+            margin: 0;
         }
 
-        .container {
+        .dashboard {
+            position: relative;
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 600px;
-            margin: 20px;
-            padding: 20px;
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        h1 {
-            color: #00796b;
-            font-size: 2.5em;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .product, .cart-item {
-            border: 2px solid #00796b;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 12px;
-            background: #b2dfdb;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: 100%;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            flex-wrap: wrap;
-            transition: background-color 0.3s;
+            background: rgba(0, 0, 0, 0.5);
         }
 
-        .product:hover, .cart-item:hover {
-            background: #80cbc4;
-        }
-
-        .product button, .cart-item button {
-            padding: 10px 20px;
-            border: none;
+        .popup-content {
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            color: #fff;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
             cursor: pointer;
-            transition: background-color 0.3s;
         }
 
-        .product button {
-            background-color: #004d40;
-            font-weight: bold;
-        }
-
-        .product button:hover {
-            background-color: #00332b;
-        }
-
-        .cart-item button {
-            background-color: #00796b;
-            margin-left: 5px;
-        }
-
-        .cart-item button:hover {
-            background-color: #004d40;
-        }
-
-        .cart-item button.remove {
-            background-color: #d32f2f;
-        }
-
-        .cart-item button.remove:hover {
-            background-color: #b71c1c;
-        }
-
-        #cart {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .button-group {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .button-group button {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 12px;
-            color: #fff;
-            background-color: #004d40;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 1.2em;
-        }
-
-        .button-group button:hover {
-            background-color: #00332b;
-        }
-
-        form {
-            margin-top: 20px;
-            padding: 15px;
-            background: #c1f0f6;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        form label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        form input {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin-top: 5px;
-            border-radius: 8px;
-            border: 2px solid #00796b;
-            box-sizing: border-box;
-        }
-
-        form button {
-            margin-top: 10px;
-            background-color: #004d40;
-            border: none;
-            color: #fff;
-            font-size: 1em;
-        }
-
-        form button:hover {
-            background-color: #00332b;
-        }
-
-        @media (max-width: 768px) {
-            .product, .cart-item {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .product button, .cart-item button {
-                width: 100%;
-                margin-top: 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                width: 95%;
-                padding: 10px;
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            .product, .cart-item {
-                padding: 10px;
-                font-size: 1em;
-            }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Shopping Cart</h1>
-        <div id="products">
-            <div class="product">
-                <h2>Product 1</h2>
-                <button onclick="addToCart('Product 1')">Add to Cart</button>
-            </div>
-            <div class="product">
-                <h2>Product 2</h2>
-                <button onclick="addToCart('Product 2')">Add to Cart</button>
+    <div class="dashboard">
+        <button id="openPopup">Buka Popup</button>
+        <div id="popup" class="popup hidden">
+            <div class="popup-content">
+                <span id="closePopup" class="close">&times;</span>
+                <h2>Dashboard Popup</h2>
+                <p>Konten popup di sini.</p>
             </div>
         </div>
-
-        <h2>Cart</h2>
-        <ul id="cart"></ul>
-
-        <div class="button-group">
-            <button onclick="checkout()">Checkout</button>
-        </div>
-
-        <h2>Edit Cart</h2>
-        <form id="edit-form">
-            <label for="edit-index">Index:</label>
-            <input type="number" id="edit-index" min="0" required>
-            <label for="edit-product">Product Name:</label>
-            <input type="text" id="edit-product" required>
-            <button type="button" onclick="editCart()">Edit</button>
-            <button type="button" onclick="addProduct()">Add</button>
-            <button type="button" onclick="removeProduct()">Remove</button>
-        </form>
     </div>
-
     <script>
-        let cart = {};
+        document.getElementById('openPopup').addEventListener('click', function() {
+            document.getElementById('popup').classList.remove('hidden');
+        });
 
-        function addToCart(product) {
-            if (cart[product]) {
-                cart[product]++;
-            } else {
-                cart[product] = 1;
-            }
-            displayCart();
-            alert(product + ' telah ditambahkan ke keranjang!');
-        }
-
-        function displayCart() {
-            const cartElement = document.getElementById('cart');
-            cartElement.innerHTML = '';
-            for (const product in cart) {
-                const li = document.createElement('li');
-                li.className = 'cart-item';
-                li.textContent = `${product} (x${cart[product]})`;
-                
-                const editButton = document.createElement('button');
-                editButton.textContent = 'Edit';
-                editButton.onclick = () => editProduct(product);
-
-                const removeButton = document.createElement('button');
-                removeButton.textContent = 'Remove';
-                removeButton.className = 'remove';
-                removeButton.onclick = () => removeProduct(product);
-                
-                li.appendChild(editButton);
-                li.appendChild(removeButton);
-                cartElement.appendChild(li);
-            }
-        }
-
-        function editProduct(product) {
-            const index = Array.from(document.querySelectorAll('#cart .cart-item')).findIndex(item => item.textContent.startsWith(product));
-            if (index !== -1) {
-                document.getElementById('edit-index').value = index;
-                document.getElementById('edit-product').value = product;
-            } else {
-                alert('Produk tidak ditemukan');
-            }
-        }
-
-        function editCart() {
-            const index = parseInt(document.getElementById('edit-index').value);
-            const newProduct = document.getElementById('edit-product').value;
-            const oldProduct = Object.keys(cart)[index];
-            if (oldProduct && newProduct) {
-                cart[newProduct] = (cart[newProduct] || 0) + cart[oldProduct];
-                delete cart[oldProduct];
-                displayCart();
-                alert('Produk diubah menjadi ' + newProduct);
-            } else {
-                alert('Index tidak valid atau nama produk kosong');
-            }
-        }
-
-        function addProduct() {
-            const newProduct = document.getElementById('edit-product').value;
-            if (newProduct) {
-                cart[newProduct] = (cart[newProduct] || 0) + 1;
-                displayCart();
-                alert(newProduct + ' ditambahkan ke keranjang!');
-            }
-        }
-
-        function removeProduct(product) {
-            if (cart[product]) {
-                delete cart[product];
-                displayCart();
-                alert('Produk dihapus dari keranjang!');
-            } else {
-                alert('Produk tidak ditemukan');
-            }
-        }
-
-        function checkout() {
-            if (Object.keys(cart).length === 0) {
-                alert('Keranjang Anda kosong!');
-                return;
-            }
-
-            const email = prompt('Masukkan email Anda untuk mengirimkan rincian pembelian:');
-            if (email) {
-                sendEmail(email, cart);
-            }
-        }
-
-        function sendEmail(email, cart) {
-            const emailContent = 'Produk dalam keranjang Anda:\n' + Object.entries(cart).map(([product, quantity]) => `${product} (x${quantity})`).join('\n');
-            console.log('Mengirim email ke:', email);
-            console.log('Isi email:\n', emailContent);
-            alert('Rincian pembelian telah dikirim ke ' + email);
-
-            // Reset cart
-            cart = {};
-            displayCart();
-        }
+        document.getElementById('closePopup').addEventListener('click', function() {
+            document.getElementById('popup').classList.add('hidden');
+        });
     </script>
 </body>
 </html>
