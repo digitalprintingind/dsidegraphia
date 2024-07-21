@@ -82,7 +82,7 @@
             color: #333;
         }
 
-        .form-group input, .form-group select {
+        .form-group input {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -90,7 +90,7 @@
             box-sizing: border-box;
         }
 
-        .form-group input:focus, .form-group select:focus {
+        .form-group input:focus {
             border-color: #0062cc;
             outline: none;
         }
@@ -190,7 +190,6 @@
             <li><a href="#daftar-barang">Daftar Barang</a></li>
             <li><a href="#riwayat-pembelian">Riwayat Pembelian</a></li>
             <li><a href="#rekap-laporan">Rekap Laporan</a></li>
-            <li><a href="#" id="printNota">Cetak Nota Pembelian</a></li>
         </ul>
     </nav>
 
@@ -199,6 +198,10 @@
         <div class="form-container" id="aplikasi-kasir">
             <h2>Form Pembelian Customer</h2>
             <form id="pembelianForm">
+                <div class="form-group">
+                    <label for="nama-customer">Nama Customer</label>
+                    <input type="text" id="nama-customer" name="nama-customer" placeholder="Masukkan Nama Customer" required>
+                </div>
                 <div class="form-group">
                     <label for="barang">Pilih Barang</label>
                     <select id="barang" name="barang" required>
@@ -223,11 +226,10 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Nama Customer</th>
                         <th>ID Barang</th>
                         <th>Nama Barang</th>
                         <th>Jumlah</th>
-                        <th>Edit</th>
-                        <th>Hapus</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -261,7 +263,7 @@
         <div class="table-container">
             <h2>Daftar Barang</h2>
             <div class="search-container">
-                <input type="text" id="searchBar" placeholder="Cari Barang...">
+                <input type="text" id="searchInput" placeholder="Cari barang...">
             </div>
             <table id="barangTable">
                 <thead>
@@ -289,7 +291,7 @@
             const pembelianForm = document.getElementById('pembelianForm');
             const barangTableBody = document.querySelector('#barangTable tbody');
             const pembelianTableBody = document.querySelector('#pembelianTable tbody');
-            const searchInput = document.getElementById('searchBar');
+            const searchInput = document.getElementById('searchInput');
             const barangSelect = document.getElementById('barang');
             let itemCounter = 0;
             let editingRow = null;
@@ -390,29 +392,16 @@
                 }
             };
 
-            const addPembelianToTable = (idBarang, namaBarang, jumlah) => {
+            const addPembelianToTable = (namaCustomer, idBarang, namaBarang, jumlah) => {
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
                     <td>${pembelianTableBody.children.length + 1}</td>
+                    <td>${namaCustomer}</td>
                     <td>${idBarang}</td>
                     <td>${namaBarang}</td>
                     <td>${jumlah}</td>
-                    <td><button class="edit">Edit</button></td>
-                    <td><button class="delete">Hapus</button></td>
                 `;
                 pembelianTableBody.appendChild(newRow);
-            };
-
-            const printNotaPembelian = () => {
-                const printWindow = window.open('', '', 'height=600,width=800');
-                const tableHtml = document.querySelector('#pembelianTable').outerHTML;
-                printWindow.document.write('<html><head><title>Nota Pembelian</title></head><body>');
-                printWindow.document.write('<h1>Nota Pembelian</h1>');
-                printWindow.document.write(tableHtml);
-                printWindow.document.write('</body></html>');
-                printWindow.document.close();
-                printWindow.focus();
-                printWindow.print();
             };
 
             const searchItems = (query) => {
@@ -443,12 +432,13 @@
 
             pembelianForm.addEventListener('submit', (e) => {
                 e.preventDefault();
+                const namaCustomer = document.getElementById('nama-customer').value;
                 const idBarang = document.getElementById('barang').value;
                 const jumlah = document.getElementById('jumlah-pembelian').value;
                 const barang = getItemsFromLocalStorage().find(item => item.idBarang === idBarang);
 
                 if (barang) {
-                    addPembelianToTable(barang.idBarang, barang.namaBarang, jumlah);
+                    addPembelianToTable(namaCustomer, barang.idBarang, barang.namaBarang, jumlah);
                 }
                 pembelianForm.reset();
             });
@@ -468,22 +458,9 @@
                 }
             });
 
-            pembelianTableBody.addEventListener('click', (e) => {
-                const row = e.target.closest('tr');
-                if (e.target.classList.contains('edit')) {
-                    // Implement edit functionality for pembelian
-                } else if (e.target.classList.contains('delete')) {
-                    // Implement delete functionality for pembelian
-                }
-            });
-
             searchInput.addEventListener('input', (e) => {
                 const query = e.target.value;
                 searchItems(query);
-            });
-
-            document.getElementById('printNota').addEventListener('click', () => {
-                printNotaPembelian();
             });
 
             loadItemsFromLocalStorage();
