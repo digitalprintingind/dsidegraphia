@@ -246,6 +246,7 @@
                         <th>No</th>
                         <th>Nama Barang</th>
                         <th>Harga</th>
+                        <th>Banyaknya</th>
                         <th>Jumlah</th>
                         <th>Aksi</th>
                     </tr>
@@ -291,7 +292,6 @@
                         <th>Nama Barang</th>
                         <th>Harga</th>
                         <th>Jumlah</th>
-                        <th>Status</th>
                         <th>Edit</th>
                         <th>Hapus</th>
                     </tr>
@@ -305,15 +305,16 @@
         <!-- Riwayat Pembelian -->
         <div class="table-container" id="riwayat-pembelian">
             <h2>Riwayat Pembelian</h2>
-            <table>
+            <table id="riwayatTable">
                 <thead>
                     <tr>
                         <th>No</th>
                         <th>ID Transaksi</th>
-                        <th>Tanggal</th>
                         <th>Nama Barang</th>
                         <th>Jumlah</th>
-                        <th>Total Harga</th>
+                        <th>Tanggal</th>
+                        <th>Harga</th>
+                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -325,14 +326,13 @@
         <!-- Rekap Laporan -->
         <div class="table-container" id="rekap-laporan">
             <h2>Rekap Laporan</h2>
-            <table>
+            <table id="rekapTable">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Periode</th>
-                        <th>Total Penjualan</th>
-                        <th>Total Pembelian</th>
-                        <th>Keuntungan</th>
+                        <th>Bulan</th>
+                        <th>Jumlah Transaksi</th>
+                        <th>Total Pendapatan</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -343,197 +343,124 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const barangForm = document.getElementById('barangForm');
-            const pembelianForm = document.getElementById('pembelianForm');
-            const barangTableBody = document.getElementById('barangTable').getElementsByTagName('tbody')[0];
-            const pembelianTableBody = document.getElementById('pembelianTable').getElementsByTagName('tbody')[0];
+        // Simulasi data barang
+        let barangData = [
+            { id: 'BRG001', nama: 'Barang 1', harga: 10000, jumlah: 50, status: 'Aktif' },
+            { id: 'BRG002', nama: 'Barang 2', harga: 20000, jumlah: 30, status: 'Aktif' },
+            // Tambahkan data barang lainnya jika perlu
+        ];
+
+        // Fungsi untuk memuat data barang ke dropdown
+        function loadBarangData() {
             const barangSelect = document.getElementById('barang');
-            const searchInput = document.getElementById('searchInput');
-            const transactionIdSpan = document.getElementById('transaction-id');
+            const barangTable = document.getElementById('barangTable').getElementsByTagName('tbody')[0];
+            barangTable.innerHTML = ''; // Bersihkan tabel sebelum memuat data
 
-            let itemCounter = 1;
-            let transactionCounter = 1;
-            let editIndex = -1;
-
-            function loadBarangData() {
-                const barangData = JSON.parse(localStorage.getItem('barangData')) || [];
-                barangData.forEach(data => {
-                    addRowToBarangTable(data);
-                });
-            }
-
-            function saveBarangData() {
-                const rows = barangTableBody.getElementsByTagName('tr');
-                const data = [];
-                for (let i = 0; i < rows.length; i++) {
-                    const cells = rows[i].getElementsByTagName('td');
-                    const row = {
-                        idBarang: cells[1].textContent,
-                        namaBarang: cells[2].textContent,
-                        harga: cells[3].textContent,
-                        jumlah: cells[4].textContent,
-                        status: cells[5].textContent === 'Aktif' ? 'Aktif' : 'Non Aktif'
-                    };
-                    data.push(row);
-                }
-                localStorage.setItem('barangData', JSON.stringify(data));
-            }
-
-            function generateIDBarang() {
-                const paddedCounter = String(itemCounter++).padStart(4, '0');
-                return `BRG${paddedCounter}`;
-            }
-
-            function generateIDTransaksi() {
-                const paddedCounter = String(transactionCounter++).padStart(4, '0');
-                return `TRK${paddedCounter}`;
-            }
-
-            function addRowToBarangTable(data) {
-                const row = barangTableBody.insertRow();
-                row.innerHTML = `
-                    <td>${barangTableBody.rows.length + 1}</td>
-                    <td>${data.idBarang}</td>
-                    <td>${data.namaBarang}</td>
-                    <td>${data.harga}</td>
-                    <td>${data.jumlah}</td>
-                    <td><span class="status-toggle">${data.status}</span></td>
-                    <td><button class="action-buttons edit">Edit</button></td>
-                    <td><button class="action-buttons delete">Hapus</button></td>
-                `;
-
+            barangData.forEach((barang, index) => {
+                // Tambahkan ke dropdown
                 const option = document.createElement('option');
-                option.value = data.idBarang;
-                option.textContent = data.namaBarang;
-                option.setAttribute('data-harga', data.harga); // Menyimpan harga di atribut data
+                option.value = barang.id;
+                option.textContent = barang.nama;
                 barangSelect.appendChild(option);
-            }
 
-            function addBarang(e) {
-                e.preventDefault();
-                const namaBarang = document.getElementById('nama-barang').value;
-                const harga = document.getElementById('harga').value;
-                const jumlah = document.getElementById('jumlah').value;
+                // Tambahkan ke tabel
+                const row = barangTable.insertRow();
+                row.insertCell(0).textContent = index + 1;
+                row.insertCell(1).textContent = barang.id;
+                row.insertCell(2).textContent = barang.nama;
+                row.insertCell(3).textContent = barang.harga;
+                row.insertCell(4).textContent = barang.jumlah;
 
-                if (editIndex === -1) {
-                    const idBarang = generateIDBarang();
-                    const data = {
-                        idBarang,
-                        namaBarang,
-                        harga,
-                        jumlah,
-                        status: 'Aktif'
-                    };
-                    addRowToBarangTable(data);
-
-                    const option = document.createElement('option');
-                    option.value = idBarang;
-                    option.textContent = namaBarang;
-                    option.setAttribute('data-harga', harga); // Menyimpan harga di atribut data
-                    barangSelect.appendChild(option);
-                } else {
-                    const row = barangTableBody.rows[editIndex];
-                    row.cells[2].textContent = namaBarang;
-                    row.cells[3].textContent = harga;
-                    row.cells[4].textContent = jumlah;
-                    editIndex = -1;
-                }
-
-                saveBarangData();
-                barangForm.reset();
-            }
-
-            function addPembelian(e) {
-                e.preventDefault();
-                const selectedBarangId = document.getElementById('barang').value;
-                const jumlahPembelian = document.getElementById('jumlah-pembelian').value;
-
-                const selectedOption = barangSelect.options[barangSelect.selectedIndex];
-                const selectedHarga = selectedOption.getAttribute('data-harga');
-
-                const row = pembelianTableBody.insertRow();
-                row.innerHTML = `
-                    <td>${pembelianTableBody.rows.length + 1}</td>
-                    <td>${selectedOption.text}</td>
-                    <td>${selectedHarga}</td>
-                    <td>${jumlahPembelian}</td>
-                    <td><button class="action-buttons remove">Hapus</button></td>
+                // Edit dan Hapus tombol
+                const actionCell = row.insertCell(5);
+                actionCell.innerHTML = `
+                    <button class="edit">Edit</button>
+                    <button class="delete">Hapus</button>
                 `;
-
-                pembelianForm.reset();
-            }
-
-            function searchBarang() {
-                const query = searchInput.value.toLowerCase();
-                const rows = barangTableBody.getElementsByTagName('tr');
-
-                for (let i = 0; i < rows.length; i++) {
-                    const cells = rows[i].getElementsByTagName('td');
-                    let found = false;
-
-                    for (let j = 2; j < cells.length - 2; j++) {
-                        if (cells[j].textContent.toLowerCase().indexOf(query) > -1) {
-                            found = true;
-                            break;
-                        }
-                    }
-
-                    rows[i].style.display = found ? '' : 'none';
-                }
-            }
-
-            function toggleStatus(e) {
-                if (e.target.classList.contains('status-toggle')) {
-                    const statusElement = e.target;
-                    statusElement.textContent = statusElement.textContent === 'Aktif' ? 'Non Aktif' : 'Aktif';
-                    saveBarangData();
-                }
-            }
-
-            function editRow(e) {
-                if (e.target.classList.contains('edit')) {
-                    const row = e.target.closest('tr');
-                    const cells = row.getElementsByTagName('td');
-                    
-                    document.getElementById('nama-barang').value = cells[2].textContent;
-                    document.getElementById('harga').value = cells[3].textContent;
-                    document.getElementById('jumlah').value = cells[4].textContent;
-                    
-                    editIndex = Array.from(barangTableBody.rows).indexOf(row);
-                }
-            }
-
-            barangForm.addEventListener('submit', addBarang);
-            pembelianForm.addEventListener('submit', addPembelian);
-            searchInput.addEventListener('input', searchBarang);
-
-            document.getElementById('cetakNota').addEventListener('click', () => {
-                alert('Nota akan dicetak');
             });
+        }
 
-            barangTableBody.addEventListener('click', (e) => {
-                if (e.target.classList.contains('delete')) {
-                    e.target.closest('tr').remove();
-                    saveBarangData();
-                } else if (e.target.classList.contains('edit')) {
-                    editRow(e);
-                }
-            });
+        // Fungsi untuk menambahkan barang ke tabel
+        function addRowToBarangTable(data) {
+            const barangTable = document.getElementById('barangTable').getElementsByTagName('tbody')[0];
+            const index = barangTable.rows.length;
 
-            barangTableBody.addEventListener('click', toggleStatus);
+            const row = barangTable.insertRow();
+            row.insertCell(0).textContent = index + 1;
+            row.insertCell(1).textContent = data.id;
+            row.insertCell(2).textContent = data.nama;
+            row.insertCell(3).textContent = data.harga;
+            row.insertCell(4).textContent = data.jumlah;
 
-            pembelianTableBody.addEventListener('click', (e) => {
-                if (e.target.classList.contains('remove')) {
-                    e.target.closest('tr').remove();
-                }
-            });
+            // Edit dan Hapus tombol
+            const actionCell = row.insertCell(5);
+            actionCell.innerHTML = `
+                <button class="edit">Edit</button>
+                <button class="delete">Hapus</button>
+            `;
+        }
 
-            // Set ID Transaksi di elemen judul
-            transactionIdSpan.textContent = generateIDTransaksi();
+        // Fungsi untuk menambahkan barang baru
+        document.getElementById('barangForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nama = document.getElementById('nama-barang').value;
+            const harga = document.getElementById('harga').value;
+            const jumlah = document.getElementById('jumlah').value;
 
-            loadBarangData();
+            const newBarang = {
+                id: `BRG${String(barangData.length + 1).padStart(3, '0')}`,
+                nama,
+                harga,
+                jumlah,
+                status: 'Aktif'
+            };
+
+            barangData.push(newBarang);
+            addRowToBarangTable(newBarang);
+
+            // Reset form
+            document.getElementById('barangForm').reset();
         });
+
+        // Fungsi pencarian barang
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const rows = document.getElementById('barangTable').getElementsByTagName('tbody')[0].rows;
+
+            for (let row of rows) {
+                const namaBarang = row.cells[2].textContent.toLowerCase();
+                const idBarang = row.cells[1].textContent.toLowerCase();
+
+                if (namaBarang.includes(searchTerm) || idBarang.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        });
+
+        // Fungsi untuk mengubah status barang
+        function toggleStatus(id) {
+            const barang = barangData.find(b => b.id === id);
+            barang.status = barang.status === 'Aktif' ? 'Non Aktif' : 'Aktif';
+            loadBarangData();
+        }
+
+        // Event listener untuk tombol Edit dan Hapus
+        document.getElementById('barangTable').addEventListener('click', (e) => {
+            if (e.target.classList.contains('edit')) {
+                // Implementasi edit
+            } else if (e.target.classList.contains('delete')) {
+                const row = e.target.closest('tr');
+                const id = row.cells[1].textContent;
+                const index = barangData.findIndex(b => b.id === id);
+                barangData.splice(index, 1);
+                loadBarangData();
+            }
+        });
+
+        // Load data barang saat halaman dimuat
+        window.onload = loadBarangData;
     </script>
 </body>
 </html>
