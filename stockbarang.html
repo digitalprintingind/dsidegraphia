@@ -228,15 +228,12 @@
 
         <!-- Preview Tabel Pembelian Customer -->
         <div class="table-container">
-            <h2>
-                <div id="transaction-id-container">
-                    <span>ID Transaksi: <span id="transaction-id">TRK0001</span></span>
-                </div>
-            </h2>
+            <h2>Rincian Pembelian</h2>
             <table id="pembelianTable">
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>ID Transaksi</th>
                         <th>Nama Barang</th>
                         <th>Harga</th>
                         <th>Qty</th>
@@ -306,13 +303,12 @@
                         <th>Nama Barang</th>
                         <th>Harga</th>
                         <th>Qty</th>
-                        <th>Total</th>
+                        <th>Jumlah</th>
                         <th>Tanggal</th>
-                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Riwayat Pembelian akan muncul di sini -->
+                    <!-- Data Riwayat Pembelian akan muncul di sini -->
                 </tbody>
             </table>
         </div>
@@ -324,206 +320,21 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>ID Transaksi</th>
+                        <th>ID Laporan</th>
                         <th>Nama Barang</th>
-                        <th>Harga</th>
-                        <th>Qty</th>
-                        <th>Total</th>
-                        <th>Tanggal</th>
+                        <th>Jumlah Terjual</th>
+                        <th>Total Pendapatan</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Rekap Laporan akan muncul di sini -->
+                    <!-- Data Rekap Laporan akan muncul di sini -->
                 </tbody>
             </table>
         </div>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const pembelianForm = document.getElementById("pembelianForm");
-            const barangForm = document.getElementById("barangForm");
-            const barangTable = document.getElementById("barangTable").querySelector("tbody");
-            const pembelianTable = document.getElementById("pembelianTable").querySelector("tbody");
-            const searchInput = document.getElementById("searchInput");
-            const cancelEditButton = document.getElementById("cancelEdit");
-            const barangSelect = document.getElementById("barang");
-
-            let barangData = [
-                { id: "BRG001", nama: "Pensil", harga: 5000, jumlah: 100 },
-                { id: "BRG002", nama: "Buku Tulis", harga: 10000, jumlah: 50 },
-                // Add more data as needed
-            ];
-
-            let pembelianData = [];
-            let transaksiIdCounter = 1;
-            let editingIndex = -1;
-
-            function renderBarangTable(data) {
-                barangTable.innerHTML = "";
-                barangSelect.innerHTML = '<option value="">-- Pilih Barang --</option>';
-                data.forEach((barang, index) => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td>${index + 1}</td>
-                        <td>${barang.id}</td>
-                        <td>${barang.nama}</td>
-                        <td>${barang.harga}</td>
-                        <td>${barang.jumlah}</td>
-                        <td class="action-buttons">
-                            <button class="edit">Edit</button>
-                            <button class="delete">Hapus</button>
-                        </td>
-                    `;
-                    barangTable.appendChild(row);
-
-                    // Add to dropdown options
-                    const option = document.createElement("option");
-                    option.value = barang.id;
-                    option.textContent = barang.nama;
-                    barangSelect.appendChild(option);
-
-                    // Attach event listeners to action buttons
-                    const editButton = row.querySelector(".edit");
-                    const deleteButton = row.querySelector(".delete");
-
-                    editButton.addEventListener("click", () => editBarang(index));
-                    deleteButton.addEventListener("click", () => deleteBarang(index));
-                });
-            }
-
-            function renderPembelianTable(data) {
-                pembelianTable.innerHTML = "";
-                data.forEach((pembelian, index) => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td>${index + 1}</td>
-                        <td>${pembelian.nama}</td>
-                        <td>${pembelian.harga}</td>
-                        <td>${pembelian.jumlah}</td>
-                        <td>${pembelian.harga * pembelian.jumlah}</td>
-                        <td class="action-buttons">
-                            <button class="edit">Edit</button>
-                            <button class="delete">Hapus</button>
-                        </td>
-                    `;
-                    pembelianTable.appendChild(row);
-
-                    // Attach event listeners to action buttons
-                    const editButton = row.querySelector(".edit");
-                    const deleteButton = row.querySelector(".delete");
-
-                    editButton.addEventListener("click", () => editPembelian(index));
-                    deleteButton.addEventListener("click", () => deletePembelian(index));
-                });
-            }
-
-            pembelianForm.addEventListener("submit", function (event) {
-                event.preventDefault();
-                const selectedBarang = barangData.find(barang => barang.id === barangSelect.value);
-                const jumlahPembelian = parseInt(document.getElementById("jumlah-pembelian").value);
-
-                if (selectedBarang && jumlahPembelian > 0 && jumlahPembelian <= selectedBarang.jumlah) {
-                    pembelianData.push({
-                        id: selectedBarang.id,
-                        nama: selectedBarang.nama,
-                        harga: selectedBarang.harga,
-                        jumlah: jumlahPembelian
-                    });
-
-                    selectedBarang.jumlah -= jumlahPembelian;
-
-                    renderPembelianTable(pembelianData);
-                    renderBarangTable(barangData);
-
-                    pembelianForm.reset();
-                } else {
-                    alert("Jumlah pembelian tidak valid.");
-                }
-            });
-
-            barangForm.addEventListener("submit", function (event) {
-                event.preventDefault();
-                const namaBarangInput = document.getElementById("nama-barang");
-                const hargaInput = document.getElementById("harga");
-                const jumlahInput = document.getElementById("jumlah");
-
-                if (editingIndex > -1) {
-                    // Edit existing barang
-                    barangData[editingIndex] = {
-                        id: barangData[editingIndex].id, // Keep the existing ID
-                        nama: namaBarangInput.value,
-                        harga: parseInt(hargaInput.value),
-                        jumlah: parseInt(jumlahInput.value)
-                    };
-                    editingIndex = -1;
-                    cancelEditButton.style.display = 'none';
-                } else {
-                    // Add new barang
-                    const newBarang = {
-                        id: "BRG" + String(barangData.length + 1).padStart(3, "0"),
-                        nama: namaBarangInput.value,
-                        harga: parseInt(hargaInput.value),
-                        jumlah: parseInt(jumlahInput.value)
-                    };
-
-                    barangData.push(newBarang);
-                }
-
-                renderBarangTable(barangData);
-                barangForm.reset();
-            });
-
-            searchInput.addEventListener("input", function () {
-                const searchTerm = searchInput.value.toLowerCase();
-                const filteredData = barangData.filter(barang => barang.nama.toLowerCase().includes(searchTerm));
-                renderBarangTable(filteredData);
-            });
-
-            function editBarang(index) {
-                const barang = barangData[index];
-                document.getElementById("nama-barang").value = barang.nama;
-                document.getElementById("harga").value = barang.harga;
-                document.getElementById("jumlah").value = barang.jumlah;
-
-                editingIndex = index;
-                cancelEditButton.style.display = 'inline';
-            }
-
-            function deleteBarang(index) {
-                if (confirm("Anda yakin ingin menghapus barang ini?")) {
-                    barangData.splice(index, 1);
-                    renderBarangTable(barangData);
-                }
-            }
-
-            function editPembelian(index) {
-                const pembelian = pembelianData[index];
-                document.getElementById("barang").value = pembelian.id;
-                document.getElementById("jumlah-pembelian").value = pembelian.jumlah;
-
-                pembelianData.splice(index, 1);
-                renderPembelianTable(pembelianData);
-            }
-
-            function deletePembelian(index) {
-                if (confirm("Anda yakin ingin menghapus pembelian ini?")) {
-                    const pembelian = pembelianData[index];
-                    const barang = barangData.find(barang => barang.id === pembelian.id);
-
-                    if (barang) {
-                        barang.jumlah += pembelian.jumlah;
-                    }
-
-                    pembelianData.splice(index, 1);
-                    renderPembelianTable(pembelianData);
-                    renderBarangTable(barangData);
-                }
-            }
-
-            // Initial rendering
-            renderBarangTable(barangData);
-        });
+        // JavaScript code to handle form submissions, table updates, etc.
     </script>
 </body>
 </html>
