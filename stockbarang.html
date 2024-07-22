@@ -212,7 +212,7 @@
                     <label for="barang">Pilih Barang</label>
                     <select id="barang" name="barang" required>
                         <option value="">-- Pilih Barang --</option>
-                        <!-- Option items should be dynamically populated -->
+                        <!-- Option items will be populated dynamically -->
                     </select>
                 </div>
                 <div class="form-group">
@@ -347,6 +347,7 @@
             const pembelianTable = document.getElementById("pembelianTable").querySelector("tbody");
             const searchInput = document.getElementById("searchInput");
             const cancelEditButton = document.getElementById("cancelEdit");
+            const barangSelect = document.getElementById("barang");
 
             let barangData = [
                 { id: "BRG001", nama: "Pensil", harga: 5000, jumlah: 100 },
@@ -360,6 +361,7 @@
 
             function renderBarangTable(data) {
                 barangTable.innerHTML = "";
+                barangSelect.innerHTML = '<option value="">-- Pilih Barang --</option>';
                 data.forEach((barang, index) => {
                     const row = document.createElement("tr");
                     row.innerHTML = `
@@ -374,6 +376,12 @@
                         </td>
                     `;
                     barangTable.appendChild(row);
+
+                    // Add to dropdown options
+                    const option = document.createElement("option");
+                    option.value = barang.id;
+                    option.textContent = barang.nama;
+                    barangSelect.appendChild(option);
 
                     // Attach event listeners to action buttons
                     const editButton = row.querySelector(".edit");
@@ -413,11 +421,8 @@
 
             pembelianForm.addEventListener("submit", function (event) {
                 event.preventDefault();
-                const barangSelect = document.getElementById("barang");
-                const jumlahPembelianInput = document.getElementById("jumlah-pembelian");
-
                 const selectedBarang = barangData.find(barang => barang.id === barangSelect.value);
-                const jumlahPembelian = parseInt(jumlahPembelianInput.value);
+                const jumlahPembelian = parseInt(document.getElementById("jumlah-pembelian").value);
 
                 if (selectedBarang && jumlahPembelian > 0 && jumlahPembelian <= selectedBarang.jumlah) {
                     pembelianData.push({
