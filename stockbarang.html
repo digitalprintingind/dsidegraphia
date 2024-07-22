@@ -233,7 +233,6 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>ID Transaksi</th>
                         <th>Nama Barang</th>
                         <th>Harga</th>
                         <th>Qty</th>
@@ -265,11 +264,11 @@
                 </div>
                 <div class="form-group">
                     <button type="submit">Tambah Barang</button>
+                    <button type="button" id="cancelEdit" style="display: none;">Batal Edit</button>
                 </div>
             </form>
         </div>
 
-        <!-- Tabel Daftar Barang -->
         <div class="table-container">
             <h2>Daftar Barang</h2>
             <div class="search-container">
@@ -303,7 +302,7 @@
                         <th>Nama Barang</th>
                         <th>Harga</th>
                         <th>Qty</th>
-                        <th>Jumlah</th>
+                        <th>Total</th>
                         <th>Tanggal</th>
                     </tr>
                 </thead>
@@ -334,56 +333,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const barangForm = document.getElementById('barangForm');
-            const barangTableBody = document.getElementById('barangTable').querySelector('tbody');
-            let barangIdCounter = 1;
-
-            // Fungsi untuk menambahkan barang ke tabel
-            function addBarangToTable(id, nama, harga, jumlah) {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${barangIdCounter++}</td>
-                    <td>${id}</td>
-                    <td>${nama}</td>
-                    <td>${harga}</td>
-                    <td>${jumlah}</td>
-                    <td class="action-buttons">
-                        <button class="edit" onclick="editBarang(this)">Edit</button>
-                        <button class="delete" onclick="hapusBarang(this)">Hapus</button>
-                    </td>
-                `;
-                barangTableBody.appendChild(row);
-            }
-
-            // Fungsi untuk menangani submit form
-            barangForm.addEventListener('submit', (event) => {
-                event.preventDefault();
-                const id = Date.now(); // Gunakan timestamp sebagai ID barang
-                const nama = document.getElementById('nama-barang').value;
-                const harga = document.getElementById('harga').value;
-                const jumlah = document.getElementById('jumlah').value;
-                addBarangToTable(id, nama, harga, jumlah);
-                barangForm.reset(); // Reset form setelah data ditambahkan
-            });
-
-            // Fungsi untuk mengedit barang
-            window.editBarang = (button) => {
-                const row = button.closest('tr');
-                const cells = row.querySelectorAll('td');
-                document.getElementById('nama-barang').value = cells[2].textContent;
-                document.getElementById('harga').value = cells[3].textContent;
-                document.getElementById('jumlah').value = cells[4].textContent;
-                // Update ID jika diperlukan untuk editing
-                barangForm.dataset.editId = cells[1].textContent;
-            };
-
-            // Fungsi untuk menghapus barang
-            window.hapusBarang = (button) => {
-                const row = button.closest('tr');
-                row.remove();
-            };
-        });
+        // JavaScript code to handle form submissions, table updates, etc.
     </script>
 </body>
 </html>
