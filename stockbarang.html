@@ -189,6 +189,7 @@
         .action-buttons button.delete:hover {
             background-color: #cc0000;
         }
+
     </style>
 </head>
 <body>
@@ -219,18 +220,6 @@
                     <input type="number" id="jumlah-pembelian" name="jumlah-pembelian" placeholder="Masukkan Jumlah" required>
                 </div>
                 <div class="form-group">
-                    <label for="total-harga">Total Harga</label>
-                    <input type="number" id="total-harga" name="total-harga" placeholder="Total Harga" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="bayar">Jumlah Bayar</label>
-                    <input type="number" id="bayar" name="bayar" placeholder="Jumlah Bayar" required>
-                </div>
-                <div class="form-group">
-                    <label for="kembalian">Kembalian</label>
-                    <input type="number" id="kembalian" name="kembalian" placeholder="Kembalian" readonly>
-                </div>
-                <div class="form-group">
                     <button type="submit">Tambah Pembelian</button>
                     <button type="button" id="cetakNota">Cetak Nota</button>
                 </div>
@@ -239,11 +228,7 @@
 
         <!-- Preview Tabel Pembelian Customer -->
         <div class="table-container">
-            <h2>
-                <div id="transaction-id-container">
-                    <span>ID Transaksi: <span id="transaction-id">TRK0001</span></span>
-                </div>
-            </h2>
+            <h2>Rincian Pembelian</h2>
             <table id="pembelianTable">
                 <thead>
                     <tr>
@@ -279,30 +264,31 @@
                 </div>
                 <div class="form-group">
                     <button type="submit">Tambah Barang</button>
-                    <button type="button" id="cancelEdit" style="display:none;">Batal Edit</button>
+                    <button type="button" id="cancelEdit" style="display: none;">Batal Edit</button>
                 </div>
             </form>
+        </div>
+
+        <div class="table-container">
+            <h2>Daftar Barang</h2>
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Cari Barang...">
+                <input type="text" id="searchInput" placeholder="Cari barang...">
             </div>
-            <div class="table-container">
-                <h2>Daftar Barang</h2>
-                <table id="barangTable">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>ID Barang</th>
-                            <th>Nama Barang</th>
-                            <th>Harga</th>
-                            <th>Jumlah</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Data Barang akan muncul di sini -->
-                    </tbody>
-                </table>
-            </div>
+            <table id="barangTable">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>ID Barang</th>
+                        <th>Nama Barang</th>
+                        <th>Harga</th>
+                        <th>Qty</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data Barang akan muncul di sini -->
+                </tbody>
+            </table>
         </div>
 
         <!-- Riwayat Pembelian -->
@@ -314,8 +300,9 @@
                         <th>No</th>
                         <th>ID Transaksi</th>
                         <th>Nama Barang</th>
-                        <th>Jumlah</th>
-                        <th>Total Harga</th>
+                        <th>Harga</th>
+                        <th>Qty</th>
+                        <th>Total</th>
                         <th>Tanggal</th>
                     </tr>
                 </thead>
@@ -333,8 +320,10 @@
                     <tr>
                         <th>No</th>
                         <th>ID Transaksi</th>
-                        <th>Jumlah Item</th>
-                        <th>Total Pendapatan</th>
+                        <th>Nama Barang</th>
+                        <th>Harga</th>
+                        <th>Qty</th>
+                        <th>Total</th>
                         <th>Tanggal</th>
                     </tr>
                 </thead>
@@ -346,247 +335,115 @@
     </div>
 
     <script>
-        // Data Barang (Contoh)
-        const barangList = [
-            { id: 'BRG001', nama: 'Barang 1', harga: 10000, jumlah: 50 },
-            { id: 'BRG002', nama: 'Barang 2', harga: 20000, jumlah: 30 },
-            { id: 'BRG003', nama: 'Barang 3', harga: 15000, jumlah: 20 }
-        ];
+        // Contoh implementasi JavaScript (fungsi dasar, bisa diperluas)
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const barangForm = document.getElementById('barangForm');
+            const barangTable = document.getElementById('barangTable').getElementsByTagName('tbody')[0];
+            const pembelianForm = document.getElementById('pembelianForm');
+            const pembelianTable = document.getElementById('pembelianTable').getElementsByTagName('tbody')[0];
+            const searchInput = document.getElementById('searchInput');
 
-        // Data Transaksi Pembelian (Contoh)
-        const transaksiList = [];
+            let barangData = [];
+            let pembelianData = [];
+            let editIndex = -1;
 
-        // Menampilkan Data Barang di Dropdown
-        const barangSelect = document.getElementById('barang');
-        barangList.forEach(barang => {
-            const option = document.createElement('option');
-            option.value = barang.id;
-            option.textContent = `${barang.nama} - Rp${barang.harga}`;
-            barangSelect.appendChild(option);
-        });
-
-        // Menampilkan Daftar Barang di Tabel
-        const barangTableBody = document.querySelector('#barangTable tbody');
-        barangList.forEach((barang, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${barang.id}</td>
-                <td>${barang.nama}</td>
-                <td>Rp${barang.harga}</td>
-                <td>${barang.jumlah}</td>
-                <td class="action-buttons">
-                    <button class="edit" onclick="editBarang('${barang.id}')">Edit</button>
-                    <button class="delete" onclick="deleteBarang('${barang.id}')">Hapus</button>
-                </td>
-            `;
-            barangTableBody.appendChild(row);
-        });
-
-        // Fungsi Edit Barang
-        function editBarang(id) {
-            const barang = barangList.find(b => b.id === id);
-            document.getElementById('nama-barang').value = barang.nama;
-            document.getElementById('harga').value = barang.harga;
-            document.getElementById('jumlah').value = barang.jumlah;
-            document.getElementById('barangForm').dataset.editId = id;
-            document.getElementById('cancelEdit').style.display = 'inline-block';
-        }
-
-        // Fungsi Hapus Barang
-        function deleteBarang(id) {
-            const confirmDelete = confirm('Apakah Anda yakin ingin menghapus barang ini?');
-            if (confirmDelete) {
-                // Hapus Barang dari List
-                const index = barangList.findIndex(b => b.id === id);
-                if (index !== -1) {
-                    barangList.splice(index, 1);
-                    // Perbarui Tabel
-                    barangTableBody.innerHTML = '';
-                    barangList.forEach((barang, index) => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${index + 1}</td>
-                            <td>${barang.id}</td>
-                            <td>${barang.nama}</td>
-                            <td>Rp${barang.harga}</td>
-                            <td>${barang.jumlah}</td>
-                            <td class="action-buttons">
-                                <button class="edit" onclick="editBarang('${barang.id}')">Edit</button>
-                                <button class="delete" onclick="deleteBarang('${barang.id}')">Hapus</button>
-                            </td>
-                        `;
-                        barangTableBody.appendChild(row);
-                    });
+            barangForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const namaBarang = document.getElementById('nama-barang').value;
+                const harga = document.getElementById('harga').value;
+                const jumlah = document.getElementById('jumlah').value;
+                
+                if (editIndex > -1) {
+                    barangData[editIndex] = { namaBarang, harga, jumlah };
+                    editIndex = -1;
+                } else {
+                    barangData.push({ namaBarang, harga, jumlah });
                 }
-            }
-        }
 
-        // Fungsi Tambah Barang
-        document.getElementById('barangForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const nama = document.getElementById('nama-barang').value;
-            const harga = parseFloat(document.getElementById('harga').value);
-            const jumlah = parseInt(document.getElementById('jumlah').value, 10);
-            const editId = this.dataset.editId;
-
-            if (editId) {
-                // Edit Barang
-                const barang = barangList.find(b => b.id === editId);
-                barang.nama = nama;
-                barang.harga = harga;
-                barang.jumlah = jumlah;
-                // Perbarui Tabel
-                barangTableBody.innerHTML = '';
-                barangList.forEach((barang, index) => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${index + 1}</td>
-                        <td>${barang.id}</td>
-                        <td>${barang.nama}</td>
-                        <td>Rp${barang.harga}</td>
-                        <td>${barang.jumlah}</td>
-                        <td class="action-buttons">
-                            <button class="edit" onclick="editBarang('${barang.id}')">Edit</button>
-                            <button class="delete" onclick="deleteBarang('${barang.id}')">Hapus</button>
-                        </td>
-                    `;
-                    barangTableBody.appendChild(row);
-                });
-                delete this.dataset.editId;
+                updateBarangTable();
+                barangForm.reset();
                 document.getElementById('cancelEdit').style.display = 'none';
-            } else {
-                // Tambah Barang
-                const id = `BRG${String(barangList.length + 1).padStart(3, '0')}`;
-                barangList.push({ id, nama, harga, jumlah });
-                // Perbarui Tabel
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${barangList.length}</td>
-                    <td>${id}</td>
-                    <td>${nama}</td>
-                    <td>Rp${harga}</td>
-                    <td>${jumlah}</td>
-                    <td class="action-buttons">
-                        <button class="edit" onclick="editBarang('${id}')">Edit</button>
-                        <button class="delete" onclick="deleteBarang('${id}')">Hapus</button>
-                    </td>
-                `;
-                barangTableBody.appendChild(row);
-            }
-
-            this.reset();
-        });
-
-        // Fungsi Pencarian
-        document.getElementById('searchInput').addEventListener('input', function () {
-            const query = this.value.toLowerCase();
-            const rows = barangTableBody.getElementsByTagName('tr');
-
-            Array.from(rows).forEach(row => {
-                const cells = row.getElementsByTagName('td');
-                const match = Array.from(cells).some(cell => cell.textContent.toLowerCase().includes(query));
-                row.style.display = match ? '' : 'none';
-            });
-        });
-
-        // Fungsi Cetak Nota
-        document.getElementById('cetakNota').addEventListener('click', function () {
-            const printWindow = window.open('', 'Print', 'height=600,width=800');
-            printWindow.document.write('<html><head><title>Cetak Nota</title></head><body>');
-            printWindow.document.write(document.querySelector('.table-container').innerHTML);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.focus();
-            printWindow.print();
-        });
-
-        // Fungsi Tambah Pembelian
-        document.getElementById('pembelianForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const barangId = document.getElementById('barang').value;
-            const jumlah = parseInt(document.getElementById('jumlah-pembelian').value, 10);
-            const bayar = parseFloat(document.getElementById('bayar').value);
-            const barang = barangList.find(b => b.id === barangId);
-            const totalHarga = barang.harga * jumlah;
-            const kembalian = bayar - totalHarga;
-
-            if (kembalian < 0) {
-                alert('Jumlah bayar tidak cukup.');
-                return;
-            }
-
-            transaksiList.push({
-                no: transaksiList.length + 1,
-                namaBarang: barang.nama,
-                harga: barang.harga,
-                qty: jumlah,
-                jumlah: totalHarga,
-                tanggal: new Date().toLocaleDateString()
             });
 
-            const transaksiTableBody = document.querySelector('#pembelianTable tbody');
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${transaksiList.length}</td>
-                <td>${barang.nama}</td>
-                <td>Rp${barang.harga}</td>
-                <td>${jumlah}</td>
-                <td>Rp${totalHarga}</td>
-                <td class="action-buttons">
-                    <button class="edit" onclick="editTransaksi('${barang.nama}')">Edit</button>
-                    <button class="delete" onclick="deleteTransaksi('${barang.nama}')">Hapus</button>
-                </td>
-            `;
-            transaksiTableBody.appendChild(row);
+            pembelianForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const barangSelect = document.getElementById('barang');
+                const jumlahPembelian = document.getElementById('jumlah-pembelian').value;
 
-            document.getElementById('total-harga').value = '';
-            document.getElementById('bayar').value = '';
-            document.getElementById('kembalian').value = '';
-            document.getElementById('pembelianForm').reset();
-        });
+                const selectedBarang = barangSelect.options[barangSelect.selectedIndex].text;
+                const harga = barangData.find(item => item.namaBarang === selectedBarang)?.harga || 0;
+                const total = harga * jumlahPembelian;
 
-        // Fungsi Edit Transaksi
-        function editTransaksi(nama) {
-            // Implementasi edit transaksi
-        }
+                pembelianData.push({ selectedBarang, harga, jumlahPembelian, total });
+                updatePembelianTable();
+                pembelianForm.reset();
+            });
 
-        // Fungsi Hapus Transaksi
-        function deleteTransaksi(nama) {
-            const confirmDelete = confirm('Apakah Anda yakin ingin menghapus transaksi ini?');
-            if (confirmDelete) {
-                // Hapus Transaksi dari List
-                const index = transaksiList.findIndex(t => t.namaBarang === nama);
-                if (index !== -1) {
-                    transaksiList.splice(index, 1);
-                    // Perbarui Tabel
-                    const transaksiTableBody = document.querySelector('#pembelianTable tbody');
-                    transaksiTableBody.innerHTML = '';
-                    transaksiList.forEach((transaksi, index) => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${index + 1}</td>
-                            <td>${transaksi.namaBarang}</td>
-                            <td>Rp${transaksi.harga}</td>
-                            <td>${transaksi.qty}</td>
-                            <td>Rp${transaksi.jumlah}</td>
-                            <td class="action-buttons">
-                                <button class="edit" onclick="editTransaksi('${transaksi.namaBarang}')">Edit</button>
-                                <button class="delete" onclick="deleteTransaksi('${transaksi.namaBarang}')">Hapus</button>
-                            </td>
-                        `;
-                        transaksiTableBody.appendChild(row);
+            function updateBarangTable() {
+                barangTable.innerHTML = '';
+                barangData.forEach((item, index) => {
+                    const row = barangTable.insertRow();
+                    row.insertCell().textContent = index + 1;
+                    row.insertCell().textContent = `ID${index + 1}`;
+                    row.insertCell().textContent = item.namaBarang;
+                    row.insertCell().textContent = item.harga;
+                    row.insertCell().textContent = item.jumlah;
+                    const actionsCell = row.insertCell();
+                    actionsCell.innerHTML = `
+                        <button class="edit" onclick="editBarang(${index})">Edit</button>
+                        <button class="delete" onclick="deleteBarang(${index})">Hapus</button>
+                    `;
+                });
+            }
+
+            function updatePembelianTable() {
+                pembelianTable.innerHTML = '';
+                pembelianData.forEach((item, index) => {
+                    const row = pembelianTable.insertRow();
+                    row.insertCell().textContent = index + 1;
+                    row.insertCell().textContent = item.selectedBarang;
+                    row.insertCell().textContent = item.harga;
+                    row.insertCell().textContent = item.jumlahPembelian;
+                    row.insertCell().textContent = item.total;
+                    row.insertCell().innerHTML = `<button class="delete" onclick="deletePembelian(${index})">Hapus</button>`;
+                });
+            }
+
+            window.editBarang = function(index) {
+                const item = barangData[index];
+                document.getElementById('nama-barang').value = item.namaBarang;
+                document.getElementById('harga').value = item.harga;
+                document.getElementById('jumlah').value = item.jumlah;
+                document.getElementById('cancelEdit').style.display = 'inline';
+                editIndex = index;
+            };
+
+            window.deleteBarang = function(index) {
+                barangData.splice(index, 1);
+                updateBarangTable();
+            };
+
+            window.deletePembelian = function(index) {
+                pembelianData.splice(index, 1);
+                updatePembelianTable();
+            };
+
+            searchInput.addEventListener('input', function() {
+                const query = searchInput.value.toLowerCase();
+                const rows = barangTable.getElementsByTagName('tr');
+                Array.from(rows).forEach(row => {
+                    const cells = row.getElementsByTagName('td');
+                    let match = false;
+                    Array.from(cells).forEach(cell => {
+                        if (cell.textContent.toLowerCase().includes(query)) {
+                            match = true;
+                        }
                     });
-                }
-            }
-        }
-
-        // Update ID Transaksi
-        const transactionIdElement = document.getElementById('transaction-id');
-        function updateTransactionId() {
-            const latestId = `TRK${String(transaksiList.length + 1).padStart(4, '0')}`;
-            transactionIdElement.textContent = latestId;
-        }
+                    row.style.display = match ? '' : 'none';
+                });
+            });
+        });
     </script>
 </body>
 </html>
