@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D'SIDE GRAPHIA</title>
     <style>
-
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -191,15 +190,6 @@
             background-color: #cc0000;
         }
 
-        .action-buttons button.remove {
-            background-color: #ff6f61;
-        }
-
-        .action-buttons button.remove:hover {
-            background-color: #cc0000;
-        }
-
-
     </style>
 </head>
 <body>
@@ -239,9 +229,9 @@
         <!-- Preview Tabel Pembelian Customer -->
         <div class="table-container">
             <h2>
-            <div id="transaction-id-container">
-                <span>ID Transaksi: <span id="transaction-id">TRK0001</span></span>
-            </div>
+                <div id="transaction-id-container">
+                    <span>ID Transaksi: <span id="transaction-id">TRK0001</span></span>
+                </div>
             </h2>
             <table id="pembelianTable">
                 <thead>
@@ -277,8 +267,8 @@
                     <input type="number" id="jumlah" name="jumlah" placeholder="Masukkan Jumlah" required>
                 </div>
                 <div class="form-group">
-                    <button type="submit" id="tambahBarangBtn">Tambah Barang</button>
-                    <button type="button" id="updateBarangBtn" style="display:none;">Update Barang</button>
+                    <button type="submit">Tambah Barang</button>
+                    <button type="button" id="cancelEdit" style="display: none;">Batal Edit</button>
                 </div>
             </form>
         </div>
@@ -353,16 +343,11 @@
         document.addEventListener("DOMContentLoaded", function () {
             const pembelianForm = document.getElementById("pembelianForm");
             const barangForm = document.getElementById("barangForm");
-            const pembelianTable = document.getElementById("pembelianTable").querySelector("tbody");
             const barangTable = document.getElementById("barangTable").querySelector("tbody");
+            const pembelianTable = document.getElementById("pembelianTable").querySelector("tbody");
             const searchInput = document.getElementById("searchInput");
-            const barangSelect = document.getElementById("barang");
-            const transactionIdSpan = document.getElementById("transaction-id");
-            const cetakNotaButton = document.getElementById("cetakNota");
-            const updateBarangBtn = document.getElementById("updateBarangBtn");
-            const tambahBarangBtn = document.getElementById("tambahBarangBtn");
+            const cancelEditButton = document.getElementById("cancelEdit");
 
-            // Placeholder data for demonstration
             let barangData = [
                 { id: "BRG001", nama: "Pensil", harga: 5000, jumlah: 100 },
                 { id: "BRG002", nama: "Buku Tulis", harga: 10000, jumlah: 50 },
@@ -371,10 +356,10 @@
 
             let pembelianData = [];
             let transaksiIdCounter = 1;
+            let editingIndex = -1;
 
             function renderBarangTable(data) {
                 barangTable.innerHTML = "";
-                barangSelect.innerHTML = '<option value="">-- Pilih Barang --</option>';
                 data.forEach((barang, index) => {
                     const row = document.createElement("tr");
                     row.innerHTML = `
@@ -389,12 +374,6 @@
                         </td>
                     `;
                     barangTable.appendChild(row);
-
-                    // Tambahkan opsi barang ke dalam select
-                    const option = document.createElement("option");
-                    option.value = barang.id;
-                    option.textContent = barang.nama;
-                    barangSelect.appendChild(option);
 
                     // Attach event listeners to action buttons
                     const editButton = row.querySelector(".edit");
@@ -411,6 +390,7 @@
                     const row = document.createElement("tr");
                     row.innerHTML = `
                         <td>${index + 1}</td>
+                        <td>${pembelian.id}</td>
                         <td>${pembelian.nama}</td>
                         <td>${pembelian.harga}</td>
                         <td>${pembelian.jumlah}</td>
@@ -464,39 +444,30 @@
                 const hargaInput = document.getElementById("harga");
                 const jumlahInput = document.getElementById("jumlah");
 
-                const newBarang = {
-                    id: "BRG" + String(barangData.length + 1).padStart(3, "0"),
-                    nama: namaBarangInput.value,
-                    harga: parseInt(hargaInput.value),
-                    jumlah: parseInt(jumlahInput.value)
-                };
+                if (editingIndex > -1) {
+                    // Edit existing barang
+                    barangData[editingIndex] = {
+                        id: barangData[editingIndex].id, // Keep the existing ID
+                        nama: namaBarangInput.value,
+                        harga: parseInt(hargaInput.value),
+                        jumlah: parseInt(jumlahInput.value)
+                    };
+                    editingIndex = -1;
+                    cancelEditButton.style.display = 'none';
+                } else {
+                    // Add new barang
+                    const newBarang = {
+                        id: "BRG" + String(barangData.length + 1).padStart(3, "0"),
+                        nama: namaBarangInput.value,
+                        harga: parseInt(hargaInput.value),
+                        jumlah: parseInt(jumlahInput.value)
+                    };
 
-                barangData.push(newBarang);
-
-                renderBarangTable(barangData);
-
-                barangForm.reset();
-            });
-
-            updateBarangBtn.addEventListener("click", function () {
-                const namaBarangInput = document.getElementById("nama-barang");
-                const hargaInput = document.getElementById("harga");
-                const jumlahInput = document.getElementById("jumlah");
-
-                const updatedBarang = {
-                    id: selectedBarangId,
-                    nama: namaBarangInput.value,
-                    harga: parseInt(hargaInput.value),
-                    jumlah: parseInt(jumlahInput.value)
-                };
-
-                barangData = barangData.map(barang => (barang.id === updatedBarang.id ? updatedBarang : barang));
+                    barangData.push(newBarang);
+                }
 
                 renderBarangTable(barangData);
-
                 barangForm.reset();
-                updateBarangBtn.style.display = "none";
-                tambahBarangBtn.style.display = "block";
             });
 
             searchInput.addEventListener("input", function () {
@@ -511,11 +482,8 @@
                 document.getElementById("harga").value = barang.harga;
                 document.getElementById("jumlah").value = barang.jumlah;
 
-                selectedBarangId = barang.id;
-
-                barangForm.reset();
-                updateBarangBtn.style.display = "block";
-                tambahBarangBtn.style.display = "none";
+                editingIndex = index;
+                cancelEditButton.style.display = 'inline';
             }
 
             function deleteBarang(index) {
@@ -549,56 +517,8 @@
                 }
             }
 
-            cetakNotaButton.addEventListener("click", function () {
-                let notaContent = `
-                    <h1>D'SIDE GRAPHIA</h1>
-                    <p>ID Transaksi: ${transactionIdSpan.textContent}</p>
-                    <p>Tanggal: ${new Date().toLocaleString()}</p>
-                    <table border="1" cellpadding="5" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Barang</th>
-                                <th>Harga</th>
-                                <th>Qty</th>
-                                <th>Jumlah</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                `;
-
-                let total = 0;
-
-                pembelianData.forEach((pembelian, index) => {
-                    notaContent += `
-                        <tr>
-                            <td>${index + 1}</td>
-                            <td>${pembelian.nama}</td>
-                            <td>${pembelian.harga}</td>
-                            <td>${pembelian.jumlah}</td>
-                            <td>${pembelian.harga * pembelian.jumlah}</td>
-                        </tr>
-                    `;
-                    total += pembelian.harga * pembelian.jumlah;
-                });
-
-                notaContent += `
-                        </tbody>
-                    </table>
-                    <p>Total: ${total}</p>
-                    <p>Terima kasih atas pembelian Anda!</p>
-                    <p>Hormat kami,</p>
-                    <p>D'SIDE GRAPHIA</p>
-                `;
-
-                const newWindow = window.open("", "_blank");
-                newWindow.document.write(notaContent);
-                newWindow.document.close();
-                newWindow.print();
-            });
-
+            // Initial rendering
             renderBarangTable(barangData);
-            renderPembelianTable(pembelianData);
         });
     </script>
 </body>
