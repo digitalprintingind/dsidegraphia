@@ -1,38 +1,434 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Live TikTok</title>
+    <title>Laporan Stock</title>
     <style>
+        /* Styling remains the same as before */
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
+            background-color: #f4f4f9;
             margin: 0;
-            padding: 0;
+            padding: 20px;
         }
-        iframe {
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tabs button {
+            background-color: #007bff;
+            color: white;
             border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 0 5px;
+        }
+
+        .tabs button.active {
+            background-color: #0056b3;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        form input, form select {
+            width: calc(100% - 20px);
+            padding: 8px 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        form button {
+            display: block;
             width: 100%;
-            height: 600px;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #218838;
+        }
+
+        .preview {
+            max-width: 800px;
+            margin: 20px auto;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table thead {
+            background-color: #007bff;
+            color: white;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .action-buttons button {
+            margin-right: 5px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .edit-button {
+            background-color: #ffc107;
+            color: white;
+        }
+
+        .edit-button:hover {
+            background-color: #e0a800;
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+
+        #saveButton, #saveButtonOrderPermintaanBarang, #saveButtonDailyJob, #saveButtonDivisi {
+            display: block;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        #saveButton, #saveButtonOrderPermintaanBarang, #saveButtonDailyJob, #saveButtonDivisi:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <h1>Profil TikTok Live</h1>
-    <p>Username TikTok: <span id="tiktok-username">username</span></p>
-    <iframe id="tiktok-profile" src="" allow="fullscreen"></iframe>
+    <h1>Input Data</h1>
+    <div class="tabs">
+        <button class="tab-button active" data-tab="divisi">Divisi</button>
+        <button class="tab-button" data-tab="dailyJob">Daily Job</button>
+        <button class="tab-button" data-tab="orderPermintaanBarang">Order Permintaan Barang</button>
+    </div>
+
+    <div id="divisi" class="tab-content active">
+        <form id="divisiForm">
+            <label for="division">Divisi:</label>
+            <select id="division" name="division" required onchange="updateForm()">
+                <option value="">-- Pilih Divisi --</option>
+                <option value="INDOOR">INDOOR</option>
+                <option value="OUTDOOR">OUTDOOR</option>
+                <option value="PRODUKSI">PRODUKSI</option>
+                <option value="GUDANG">GUDANG</option>
+            </select>
+            <div id="commonFields">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date">
+                <label for="itemName">Nama Barang:</label>
+                <div id="itemNameContainer">
+                    <select id="itemNameSelect" name="itemName">
+                        <!-- Options will be populated based on division selection -->
+                    </select>
+                    <input type="text" id="itemNameInput" name="itemName" style="display: none;">
+                </div>
+                <label for="type">Jenis:</label>
+                <select id="type" name="type">
+                    <option value="Material Masuk">Material Masuk</option>
+                    <option value="Material Terpakai">Material Terpakai</option>
+                    <option value="Material Reject">Material Reject</option>
+                    <option value="Potongan Reject">Potongan Reject</option>
+                </select>
+                <label for="quantity">Banyaknya:</label>
+                <input type="number" id="quantity" name="quantity">
+                <label for="notes">Catatan:</label>
+                <input type="text" id="notes" name="notes">
+            </div>
+            <button type="button" onclick="addData('divisi')">Add Data</button>
+        </form>
+        <div class="preview">
+            <table>
+                <thead id="tableHeadDivisi">
+                    <tr>
+                        <th>No</th>
+                        <th>Divisi</th>
+                        <th>Date</th>
+                        <th>Nama Barang</th>
+                        <th>Jenis</th>
+                        <th>Banyaknya</th>
+                        <th>Catatan</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBodyDivisi">
+                </tbody>
+            </table>
+        </div>
+        <button id="saveButtonDivisi" onclick="saveToGoogleSheets('divisi')">Save to Google Sheets (Divisi)</button>
+    </div>
+
+    <div id="dailyJob" class="tab-content">
+        <form id="dailyJobForm">
+            <label for="activity">Kegiatan:</label>
+            <input type="text" id="activity" name="activity">
+            <label for="dateDailyJob">Date:</label>
+            <input type="date" id="dateDailyJob" name="dateDailyJob">
+            <label for="quantityDailyJob">Banyaknya:</label>
+            <input type="number" id="quantityDailyJob" name="quantityDailyJob">
+            <label for="statusDailyJob">Status Proses:</label>
+            <input type="text" id="statusDailyJob" name="statusDailyJob">
+            <button type="button" onclick="addData('dailyJob')">Add Data</button>
+        </form>
+        <div class="preview">
+            <table>
+                <thead id="tableHeadDailyJob">
+                    <tr>
+                        <th>No</th>
+                        <th>Kegiatan</th>
+                        <th>Date</th>
+                        <th>Banyaknya</th>
+                        <th>Status Proses</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBodyDailyJob">
+                </tbody>
+            </table>
+        </div>
+        <button id="saveButtonDailyJob" onclick="saveToGoogleSheets('dailyJob')">Save to Google Sheets (Daily Job)</button>
+    </div>
+
+    <div id="orderPermintaanBarang" class="tab-content">
+        <form id="orderPermintaanBarangForm">
+            <label for="divisionOrder">Divisi:</label>
+            <select id="divisionOrder" name="divisionOrder" onchange="updateForm()">
+                <option value="">-- Pilih Divisi --</option>
+                <option value="INDOOR">INDOOR</option>
+                <option value="OUTDOOR">OUTDOOR</option>
+                <option value="PRODUKSI">PRODUKSI</option>
+                <option value="GUDANG">GUDANG</option>
+            </select>
+            <label for="dateOrder">Date:</label>
+            <input type="date" id="dateOrder" name="dateOrder">
+            <label for="itemNameOrder">Nama Barang:</label>
+            <input type="text" id="itemNameOrder" name="itemNameOrder">
+            <label for="quantityOrder">Banyaknya:</label>
+            <input type="number" id="quantityOrder" name="quantityOrder">
+            <label for="statusOrder">Status Proses:</label>
+            <input type="text" id="statusOrder" name="statusOrder">
+            <button type="button" onclick="addData('orderPermintaanBarang')">Add Data</button>
+        </form>
+        <div class="preview">
+            <table>
+                <thead id="tableHeadOrderPermintaanBarang">
+                    <tr>
+                        <th>No</th>
+                        <th>Divisi</th>
+                        <th>Date</th>
+                        <th>Nama Barang</th>
+                        <th>Banyaknya</th>
+                        <th>Status Proses</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBodyOrderPermintaanBarang">
+                </tbody>
+            </table>
+        </div>
+        <button id="saveButtonOrderPermintaanBarang" onclick="saveToGoogleSheets('orderPermintaanBarang')">Save to Google Sheets (Order Permintaan Barang)</button>
+    </div>
 
     <script>
-        function updateProfile(username) {
-            const iframe = document.getElementById('tiktok-profile');
-            iframe.src = `https://www.tiktok.com/@${username}`;
+        const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbxDXtoIqJZbDfrRcd-BzffdR8MzqaIz6ZpIgkoD152HzR_dZI5BNv5pgEcHeBpmy3nxAA/exec'; // Ganti dengan URL Google Apps Script Anda
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tab-button');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                    document.getElementById(tab.dataset.tab).classList.add('active');
+                });
+            });
+
+            updateForm();
+        });
+
+        function updateForm() {
+            const division = document.getElementById('division').value;
+            const itemNameContainer = document.getElementById('itemNameContainer');
+            const itemNameSelect = document.getElementById('itemNameSelect');
+            const itemNameInput = document.getElementById('itemNameInput');
+
+            // Reset the input fields
+            itemNameSelect.innerHTML = '';
+            itemNameInput.style.display = 'none';
+            itemNameSelect.style.display = 'block';
+
+            if (division === 'GUDANG') {
+                itemNameContainer.innerHTML = `
+                    <input type="text" id="itemNameInput" name="itemName">
+                `;
+            } else {
+                const items = {
+                    'INDOOR': ['Item 1', 'Item 2', 'Item 3'],
+                    'OUTDOOR': ['Item A', 'Item B', 'Item C'],
+                    'PRODUKSI': ['Item X', 'Item Y', 'Item Z'],
+                };
+
+                items[division].forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item;
+                    option.textContent = item;
+                    itemNameSelect.appendChild(option);
+                });
+            }
         }
 
-        // Ganti 'username' dengan username TikTok yang diinginkan
-        const username = 'username'; // Ganti dengan username TikTok yang sesuai
-        document.getElementById('tiktok-username').textContent = username;
-        updateProfile(username);
+        function addData(tab) {
+            const tableBody = document.getElementById(`tableBody${capitalize(tab)}`);
+            const form = document.getElementById(`${tab}Form`);
+            const formData = new FormData(form);
+            const row = document.createElement('tr');
+            const fields = Array.from(formData.entries());
+
+            row.innerHTML = `<td>${tableBody.children.length + 1}</td>`;
+            fields.forEach(([name, value]) => {
+                const cell = document.createElement('td');
+                cell.textContent = value;
+                row.appendChild(cell);
+            });
+
+            // Add edit and delete buttons
+            const actionCell = document.createElement('td');
+            actionCell.classList.add('action-buttons');
+
+            const editButton = document.createElement('button');
+            editButton.classList.add('edit-button');
+            editButton.textContent = 'Edit';
+            editButton.addEventListener('click', () => editRow(row, tab));
+
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('delete-button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.addEventListener('click', () => deleteRow(row));
+
+            actionCell.appendChild(editButton);
+            actionCell.appendChild(deleteButton);
+            row.appendChild(actionCell);
+
+            tableBody.appendChild(row);
+
+            form.reset();
+        }
+
+        function editRow(row, tab) {
+            const cells = row.querySelectorAll('td');
+            const form = document.getElementById(`${tab}Form`);
+            const fields = Array.from(new FormData(form).entries());
+
+            fields.forEach(([name], index) => {
+                form[name].value = cells[index + 1].textContent;
+            });
+
+            row.remove();
+        }
+
+        function deleteRow(row) {
+            row.remove();
+        }
+
+        function saveToGoogleSheets(tab) {
+            const table = document.querySelector(`#${tab} .preview table`);
+            const rows = table.querySelectorAll('tr');
+            const headers = Array.from(rows[0].querySelectorAll('th')).map(th => th.textContent);
+            const data = Array.from(rows).slice(1).map(row => Array.from(row.querySelectorAll('td')).map(td => td.textContent));
+
+            fetch(googleScriptUrl, {
+                method: 'POST',
+                contentType: 'application/json',
+                payload: JSON.stringify({ headers, rows: data }),
+            })
+            .then(response => response.text())
+            .then(result => {
+                alert(result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to save data.');
+            });
+        }
+
+        function capitalize(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
     </script>
 </body>
 </html>
