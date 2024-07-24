@@ -413,8 +413,10 @@
 
             fetch(googleScriptUrl, {
                 method: 'POST',
-                contentType: 'application/json',
-                payload: JSON.stringify({ headers, rows: data }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ headers, rows: data }),
             })
             .then(response => response.text())
             .then(result => {
