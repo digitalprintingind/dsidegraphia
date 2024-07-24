@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Stock</title>
     <style>
-        /* Styling remains the same as before */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
@@ -303,7 +302,7 @@
     </div>
 
     <script>
-        const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbxDXtoIqJZbDfrRcd-BzffdR8MzqaIz6ZpIgkoD152HzR_dZI5BNv5pgEcHeBpmy3nxAA/exec'; // Ganti dengan URL Google Apps Script Anda
+        const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbxDXtoIqJZbDfrRcd-BzffdR8MzqaIz6ZpIgkoD152HzR_dZI5BNv5pgEcHeBpmy3nxAA/exec';
 
         document.addEventListener('DOMContentLoaded', () => {
             // Tab functionality
@@ -413,8 +412,10 @@
 
             fetch(googleScriptUrl, {
                 method: 'POST',
-                contentType: 'application/json',
-                payload: JSON.stringify({ headers, rows: data }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ headers, rows: data }),
             })
             .then(response => response.text())
             .then(result => {
