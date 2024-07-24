@@ -11,18 +11,15 @@
             margin: 0;
             padding: 20px;
         }
-
         h1, h2 {
             text-align: center;
             color: #333;
         }
-
         .tabs {
             display: flex;
             justify-content: center;
             margin-bottom: 20px;
         }
-
         .tabs button {
             background-color: #007bff;
             color: white;
@@ -32,19 +29,15 @@
             border-radius: 4px;
             margin: 0 5px;
         }
-
         .tabs button.active {
             background-color: #0056b3;
         }
-
         .tab-content {
             display: none;
         }
-
         .tab-content.active {
             display: block;
         }
-
         form {
             max-width: 600px;
             margin: 0 auto;
@@ -53,13 +46,11 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
         form label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
         }
-
         form input, form select {
             width: calc(100% - 20px);
             padding: 8px 10px;
@@ -67,7 +58,6 @@
             border: 1px solid #ddd;
             border-radius: 4px;
         }
-
         form button {
             display: block;
             width: 100%;
@@ -78,17 +68,14 @@
             border-radius: 4px;
             cursor: pointer;
         }
-
         form button:hover {
             background-color: #218838;
         }
-
         .preview {
             max-width: 800px;
             margin: 20px auto;
             overflow-x: auto;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
@@ -98,27 +85,18 @@
             overflow: hidden;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
         table thead {
             background-color: #007bff;
             color: white;
         }
-
         table th, table td {
             padding: 10px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
-
-        table th {
-            background-color: #007bff;
-            color: white;
-        }
-
         table tr:hover {
             background-color: #f1f1f1;
         }
-
         .action-buttons button {
             margin-right: 5px;
             padding: 5px 10px;
@@ -126,25 +104,20 @@
             border-radius: 4px;
             cursor: pointer;
         }
-
         .edit-button {
             background-color: #ffc107;
             color: white;
         }
-
         .edit-button:hover {
             background-color: #e0a800;
         }
-
         .delete-button {
             background-color: #dc3545;
             color: white;
         }
-
         .delete-button:hover {
             background-color: #c82333;
         }
-
         #saveButton, #saveButtonOrderPermintaanBarang, #saveButtonDailyJob, #saveButtonDivisi {
             display: block;
             width: 100%;
@@ -158,8 +131,7 @@
             cursor: pointer;
             text-align: center;
         }
-
-        #saveButton, #saveButtonOrderPermintaanBarang, #saveButtonDailyJob, #saveButtonDivisi:hover {
+        #saveButton:hover, #saveButtonOrderPermintaanBarang:hover, #saveButtonDailyJob:hover, #saveButtonDivisi:hover {
             background-color: #0056b3;
         }
     </style>
@@ -270,21 +242,14 @@
                 <option value="PRODUKSI">PRODUKSI</option>
                 <option value="GUDANG">GUDANG</option>
             </select>
-            <div id="commonFieldsOrder">
-                <label for="dateOrder">Date:</label>
-                <input type="date" id="dateOrder" name="dateOrder">
-                <label for="itemNameOrder">Nama Barang:</label>
-                <div id="itemNameContainerOrder">
-                    <select id="itemNameSelectOrder" name="itemNameOrder">
-                        <!-- Options will be populated based on division selection -->
-                    </select>
-                    <input type="text" id="itemNameInputOrder" name="itemNameOrder" style="display: none;">
-                </div>
-                <label for="quantityOrder">Banyaknya:</label>
-                <input type="number" id="quantityOrder" name="quantityOrder">
-                <label for="statusOrder">Status Proses:</label>
-                <input type="text" id="statusOrder" name="statusOrder">
-            </div>
+            <label for="dateOrder">Date:</label>
+            <input type="date" id="dateOrder" name="dateOrder">
+            <label for="itemNameOrder">Nama Barang:</label>
+            <input type="text" id="itemNameOrder" name="itemNameOrder">
+            <label for="quantityOrder">Banyaknya:</label>
+            <input type="number" id="quantityOrder" name="quantityOrder">
+            <label for="statusOrder">Status Proses:</label>
+            <input type="text" id="statusOrder" name="statusOrder">
             <button type="button" onclick="addData('orderPermintaanBarang')">Add Data</button>
         </form>
         <div class="preview">
@@ -309,125 +274,133 @@
     </div>
 
     <script>
-        // Mengubah tab yang aktif
-        document.querySelectorAll('.tab-button').forEach(button => {
-            button.addEventListener('click', () => {
-                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbyyt-5ttPaxPHPGyf_AMPi90S7TvHatS4c0Elqc27SkAPbWgfskHzW8GvF4r4-RedXPcg/exec';
 
-                button.classList.add('active');
-                document.getElementById(button.getAttribute('data-tab')).classList.add('active');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tab-button');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                    document.getElementById(tab.dataset.tab).classList.add('active');
+                });
             });
+
+            updateForm();
         });
 
-        // Menambahkan data ke tabel pratinjau
-        let counter = {divisi: 0, dailyJob: 0, orderPermintaanBarang: 0};
+        function updateForm() {
+            const division = document.getElementById('division') ? document.getElementById('division').value : '';
+            const itemNameContainer = document.getElementById('itemNameContainer');
+            const itemNameSelect = document.getElementById('itemNameSelect');
+            const itemNameInput = document.getElementById('itemNameInput');
+
+            // Reset the input fields
+            itemNameSelect.innerHTML = '';
+            itemNameInput.style.display = 'none';
+            itemNameSelect.style.display = 'block';
+
+            if (division === 'GUDANG') {
+                itemNameContainer.innerHTML = `
+                    <input type="text" id="itemNameInput" name="itemName">
+                `;
+            } else {
+                const items = {
+                    'INDOOR': ['Item 1', 'Item 2', 'Item 3'],
+                    'OUTDOOR': ['Item A', 'Item B', 'Item C'],
+                    'PRODUKSI': ['Item X', 'Item Y', 'Item Z'],
+                };
+
+                items[division].forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item;
+                    option.textContent = item;
+                    itemNameSelect.appendChild(option);
+                });
+            }
+        }
 
         function addData(tab) {
-            let formData = {};
+            const tableBody = document.getElementById(`tableBody${capitalize(tab)}`);
             const form = document.getElementById(`${tab}Form`);
+            const formData = new FormData(form);
+            const row = document.createElement('tr');
+            const fields = Array.from(formData.entries());
 
-            new FormData(form).forEach((value, key) => formData[key] = value);
+            row.innerHTML = `<td>${tableBody.children.length + 1}</td>`;
+            fields.forEach(([name, value]) => {
+                const cell = document.createElement('td');
+                cell.textContent = value;
+                row.appendChild(cell);
+            });
 
-            counter[tab]++;
-            const tableBody = document.getElementById(`tableBody${capitalizeFirstLetter(tab)}`);
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td>${counter[tab]}</td>
-                ${Object.values(formData).map(value => `<td>${value}</td>`).join('')}
-                <td>
-                    <div class="action-buttons">
-                        <button class="edit-button" onclick="editRow(this, '${tab}')">Edit</button>
-                        <button class="delete-button" onclick="deleteRow(this, '${tab}')">Delete</button>
-                    </div>
-                </td>
-            `;
-            tableBody.appendChild(newRow);
+            // Add edit and delete buttons
+            const actionCell = document.createElement('td');
+            actionCell.classList.add('action-buttons');
+
+            const editButton = document.createElement('button');
+            editButton.classList.add('edit-button');
+            editButton.textContent = 'Edit';
+            editButton.addEventListener('click', () => editRow(row, tab));
+
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('delete-button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.addEventListener('click', () => deleteRow(row));
+
+            actionCell.appendChild(editButton);
+            actionCell.appendChild(deleteButton);
+            row.appendChild(actionCell);
+
+            tableBody.appendChild(row);
 
             form.reset();
         }
 
-        // Mengedit data di tabel pratinjau
-        function editRow(button, tab) {
-            const row = button.closest('tr');
-            const cells = row.querySelectorAll('td:not(:last-child)');
+        function editRow(row, tab) {
+            const cells = row.querySelectorAll('td');
             const form = document.getElementById(`${tab}Form`);
 
-            let index = 0;
-            for (let [key, input] of new FormData(form).entries()) {
-                input.value = cells[index].innerText;
-                index++;
-            }
+            cells.forEach((cell, index) => {
+                if (index > 0 && index < form.elements.length) {
+                    form.elements[index - 1].value = cell.textContent;
+                }
+            });
 
-            deleteRow(button, tab);
-        }
-
-        // Menghapus data dari tabel pratinjau
-        function deleteRow(button, tab) {
-            const row = button.closest('tr');
             row.remove();
-            counter[tab]--;
-            updateRowNumbers(tab);
         }
 
-        // Memperbarui nomor baris setelah penghapusan
-        function updateRowNumbers(tab) {
-            const rows = document.querySelectorAll(`#tableBody${capitalizeFirstLetter(tab)} tr`);
-            rows.forEach((row, index) => {
-                row.querySelector('td:first-child').innerText = index + 1;
-            });
+        function deleteRow(row) {
+            row.remove();
         }
 
-        // Mengubah divisi dan menampilkan input sesuai divisi
-        function updateForm() {
-            const division = document.getElementById('division').value;
-            const itemNameSelect = document.getElementById('itemNameSelect');
-            const itemNameInput = document.getElementById('itemNameInput');
-
-            itemNameSelect.style.display = division === 'INDOOR' ? 'none' : 'block';
-            itemNameInput.style.display = division === 'INDOOR' ? 'block' : 'none';
-
-            if (division === 'INDOOR') {
-                itemNameSelect.innerHTML = '';
-                itemNameInput.setAttribute('required', '');
-            } else {
-                itemNameSelect.innerHTML = `
-                    <option value="Material A">Material A</option>
-                    <option value="Material B">Material B</option>
-                    <option value="Material C">Material C</option>
-                `;
-                itemNameInput.removeAttribute('required');
-            }
-        }
-
-        // Menyimpan data ke Google Sheets
         function saveToGoogleSheets(tab) {
-            const tableBody = document.getElementById(`tableBody${capitalizeFirstLetter(tab)}`);
-            const data = Array.from(tableBody.rows).map(row => Array.from(row.cells).map(cell => cell.innerText));
-            
-            const url = "https://script.google.com/macros/s/AKfycbwuzGfh2oGMe-2odVOlwbCr0vsBi65u5Gvkg9-1-R_P_EWgZi1rPEx18dnrmva9vwNDtg/exec";
-            const spreadsheetId = "3qDx6oC3TYEkIvHWov73eONrneaK6a";
-            
-            fetch(url, {
+            const table = document.querySelector(`#${tab} .preview table`);
+            const rows = table.querySelectorAll('tr');
+            const headers = Array.from(rows[0].querySelectorAll('th')).map(th => th.textContent);
+            const data = Array.from(rows).slice(1).map(row => Array.from(row.querySelectorAll('td')).map(td => td.textContent));
+
+            fetch(googleScriptUrl, {
                 method: 'POST',
-                body: JSON.stringify({ data, spreadsheetId, sheetName: tab }),
                 headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(response => response.json())
-              .then(data => {
-                if (data.status === 'success') {
-                    alert('Data berhasil disimpan ke Google Sheets!');
-                } else {
-                    alert('Gagal menyimpan data. Coba lagi.');
-                }
-              }).catch(error => {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ headers, rows: data }),
+            })
+            .then(response => response.text())
+            .then(result => {
+                alert(result);
+            })
+            .catch(error => {
                 console.error('Error:', error);
-                alert('Gagal menyimpan data. Coba lagi.');
+                alert('Failed to save data.');
             });
         }
 
-        function capitalizeFirstLetter(string) {
+        function capitalize(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
     </script>
