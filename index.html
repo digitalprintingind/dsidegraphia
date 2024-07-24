@@ -458,41 +458,50 @@
             });
         }
 
-        async function saveToGoogleSheets(button) {
-    const tab = button.getAttribute('data-tab');
-    let dataToSend;
-    
-    if (tab === 'divisi') {
-        dataToSend = data.divisi;
-    } else if (tab === 'dailyJob') {
-        dataToSend = data.dailyJob;
-    } else if (tab === 'orderPermintaanBarang') {
-        dataToSend = data.orderPermintaanBarang;
-    }
+        const googleSheetsEndpoint = 'https://script.google.com/macros/s/AKfycbwuzGfh2oGMe-2odVOlwbCr0vsBi65u5Gvkg9-1-R_P_EWgZi1rPEx18dnrmva9vwNDtg/exec';
 
-    try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbwuzGfh2oGMe-2odVOlwbCr0vsBi65u5Gvkg9-1-R_P_EWgZi1rPEx18dnrmva9vwNDtg/exec', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                tab: tab,
-                data: dataToSend
+        function saveToGoogleSheets(tab) {
+            let data;
+            if (tab === 'divisi') {
+                data = { tab: 'divisi', data: getDataForDivisi() };
+            } else if (tab === 'dailyJob') {
+                data = { tab: 'dailyJob', data: getDataForDailyJob() };
+            } else if (tab === 'orderPermintaanBarang') {
+                data = { tab: 'orderPermintaanBarang', data: getDataForOrderPermintaanBarang() };
+            }
+
+            fetch(googleSheetsEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
             })
-        });
-
-        if (response.ok) {
-            alert('Data successfully sent to Google Sheets!');
-        } else {
-            alert('Failed to send data to Google Sheets.');
+            .then(response => response.text())
+            .then(result => {
+                console.log('Success:', result);
+                alert('Data saved to Google Sheets.');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while sending data to Google Sheets.');
+            });
         }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred while sending data to Google Sheets.');
-    }
-}
 
+        function getDataForDivisi() {
+            // Ambil data dari tabel atau form untuk Divisi
+            return [];
+        }
+
+        function getDataForDailyJob() {
+            // Ambil data dari tabel atau form untuk Daily Job
+            return [];
+        }
+
+        function getDataForOrderPermintaanBarang() {
+            // Ambil data dari tabel atau form untuk Order Permintaan Barang
+            return [];
+        }
     </script>
 </body>
 </html>
