@@ -270,14 +270,21 @@
                 <option value="PRODUKSI">PRODUKSI</option>
                 <option value="GUDANG">GUDANG</option>
             </select>
-            <label for="dateOrder">Date:</label>
-            <input type="date" id="dateOrder" name="dateOrder">
-            <label for="itemNameOrder">Nama Barang:</label>
-            <input type="text" id="itemNameOrder" name="itemNameOrder">
-            <label for="quantityOrder">Banyaknya:</label>
-            <input type="number" id="quantityOrder" name="quantityOrder">
-            <label for="statusOrder">Status Proses:</label>
-            <input type="text" id="statusOrder" name="statusOrder">
+            <div id="commonFieldsOrder">
+                <label for="dateOrder">Date:</label>
+                <input type="date" id="dateOrder" name="dateOrder">
+                <label for="itemNameOrder">Nama Barang:</label>
+                <div id="itemNameContainerOrder">
+                    <select id="itemNameSelectOrder" name="itemNameOrder">
+                        <!-- Options will be populated based on division selection -->
+                    </select>
+                    <input type="text" id="itemNameInputOrder" name="itemNameOrder" style="display: none;">
+                </div>
+                <label for="quantityOrder">Banyaknya:</label>
+                <input type="number" id="quantityOrder" name="quantityOrder">
+                <label for="statusOrder">Status Proses:</label>
+                <input type="text" id="statusOrder" name="statusOrder">
+            </div>
             <button type="button" onclick="addData('orderPermintaanBarang')">Add Data</button>
         </form>
         <div class="preview">
@@ -302,132 +309,125 @@
     </div>
 
     <script>
-        const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbyyt-5ttPaxPHPGyf_AMPi90S7TvHatS4c0Elqc27SkAPbWgfskHzW8GvF4r4-RedXPcg/exec';
+        // Mengubah tab yang aktif
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // Tab functionality
-            const tabs = document.querySelectorAll('.tab-button');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-
-                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-                    document.getElementById(tab.dataset.tab).classList.add('active');
-                });
+                button.classList.add('active');
+                document.getElementById(button.getAttribute('data-tab')).classList.add('active');
             });
-
-            updateForm();
         });
 
-        function updateForm() {
-            const division = document.getElementById('division').value;
-            const itemNameContainer = document.getElementById('itemNameContainer');
-            const itemNameSelect = document.getElementById('itemNameSelect');
-            const itemNameInput = document.getElementById('itemNameInput');
-
-            // Reset the input fields
-            itemNameSelect.innerHTML = '';
-            itemNameInput.style.display = 'none';
-            itemNameSelect.style.display = 'block';
-
-            if (division === 'GUDANG') {
-                itemNameContainer.innerHTML = `
-                    <input type="text" id="itemNameInput" name="itemName">
-                `;
-            } else {
-                const items = {
-                    'INDOOR': ['Item 1', 'Item 2', 'Item 3'],
-                    'OUTDOOR': ['Item A', 'Item B', 'Item C'],
-                    'PRODUKSI': ['Item X', 'Item Y', 'Item Z'],
-                };
-
-                items[division].forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item;
-                    option.textContent = item;
-                    itemNameSelect.appendChild(option);
-                });
-            }
-        }
+        // Menambahkan data ke tabel pratinjau
+        let counter = {divisi: 0, dailyJob: 0, orderPermintaanBarang: 0};
 
         function addData(tab) {
-            const tableBody = document.getElementById(`tableBody${capitalize(tab)}`);
+            let formData = {};
             const form = document.getElementById(`${tab}Form`);
-            const formData = new FormData(form);
-            const row = document.createElement('tr');
-            const fields = Array.from(formData.entries());
 
-            row.innerHTML = `<td>${tableBody.children.length + 1}</td>`;
-            fields.forEach(([name, value]) => {
-                const cell = document.createElement('td');
-                cell.textContent = value;
-                row.appendChild(cell);
-            });
+            new FormData(form).forEach((value, key) => formData[key] = value);
 
-            // Add edit and delete buttons
-            const actionCell = document.createElement('td');
-            actionCell.classList.add('action-buttons');
-
-            const editButton = document.createElement('button');
-            editButton.classList.add('edit-button');
-            editButton.textContent = 'Edit';
-            editButton.addEventListener('click', () => editRow(row, tab));
-
-            const deleteButton = document.createElement('button');
-            deleteButton.classList.add('delete-button');
-            deleteButton.textContent = 'Delete';
-            deleteButton.addEventListener('click', () => deleteRow(row));
-
-            actionCell.appendChild(editButton);
-            actionCell.appendChild(deleteButton);
-            row.appendChild(actionCell);
-
-            tableBody.appendChild(row);
+            counter[tab]++;
+            const tableBody = document.getElementById(`tableBody${capitalizeFirstLetter(tab)}`);
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${counter[tab]}</td>
+                ${Object.values(formData).map(value => `<td>${value}</td>`).join('')}
+                <td>
+                    <div class="action-buttons">
+                        <button class="edit-button" onclick="editRow(this, '${tab}')">Edit</button>
+                        <button class="delete-button" onclick="deleteRow(this, '${tab}')">Delete</button>
+                    </div>
+                </td>
+            `;
+            tableBody.appendChild(newRow);
 
             form.reset();
         }
 
-        function editRow(row, tab) {
-            const cells = row.querySelectorAll('td');
+        // Mengedit data di tabel pratinjau
+        function editRow(button, tab) {
+            const row = button.closest('tr');
+            const cells = row.querySelectorAll('td:not(:last-child)');
             const form = document.getElementById(`${tab}Form`);
-            const fields = Array.from(new FormData(form).entries());
 
-            fields.forEach(([name], index) => {
-                form[name].value = cells[index + 1].textContent;
+            let index = 0;
+            for (let [key, input] of new FormData(form).entries()) {
+                input.value = cells[index].innerText;
+                index++;
+            }
+
+            deleteRow(button, tab);
+        }
+
+        // Menghapus data dari tabel pratinjau
+        function deleteRow(button, tab) {
+            const row = button.closest('tr');
+            row.remove();
+            counter[tab]--;
+            updateRowNumbers(tab);
+        }
+
+        // Memperbarui nomor baris setelah penghapusan
+        function updateRowNumbers(tab) {
+            const rows = document.querySelectorAll(`#tableBody${capitalizeFirstLetter(tab)} tr`);
+            rows.forEach((row, index) => {
+                row.querySelector('td:first-child').innerText = index + 1;
             });
-
-            row.remove();
         }
 
-        function deleteRow(row) {
-            row.remove();
+        // Mengubah divisi dan menampilkan input sesuai divisi
+        function updateForm() {
+            const division = document.getElementById('division').value;
+            const itemNameSelect = document.getElementById('itemNameSelect');
+            const itemNameInput = document.getElementById('itemNameInput');
+
+            itemNameSelect.style.display = division === 'INDOOR' ? 'none' : 'block';
+            itemNameInput.style.display = division === 'INDOOR' ? 'block' : 'none';
+
+            if (division === 'INDOOR') {
+                itemNameSelect.innerHTML = '';
+                itemNameInput.setAttribute('required', '');
+            } else {
+                itemNameSelect.innerHTML = `
+                    <option value="Material A">Material A</option>
+                    <option value="Material B">Material B</option>
+                    <option value="Material C">Material C</option>
+                `;
+                itemNameInput.removeAttribute('required');
+            }
         }
 
+        // Menyimpan data ke Google Sheets
         function saveToGoogleSheets(tab) {
-            const table = document.querySelector(`#${tab} .preview table`);
-            const rows = table.querySelectorAll('tr');
-            const headers = Array.from(rows[0].querySelectorAll('th')).map(th => th.textContent);
-            const data = Array.from(rows).slice(1).map(row => Array.from(row.querySelectorAll('td')).map(td => td.textContent));
-
-            fetch(googleScriptUrl, {
+            const tableBody = document.getElementById(`tableBody${capitalizeFirstLetter(tab)}`);
+            const data = Array.from(tableBody.rows).map(row => Array.from(row.cells).map(cell => cell.innerText));
+            
+            const url = "https://script.google.com/macros/s/AKfycbwuzGfh2oGMe-2odVOlwbCr0vsBi65u5Gvkg9-1-R_P_EWgZi1rPEx18dnrmva9vwNDtg/exec";
+            const spreadsheetId = "3qDx6oC3TYEkIvHWov73eONrneaK6a";
+            
+            fetch(url, {
                 method: 'POST',
+                body: JSON.stringify({ data, spreadsheetId, sheetName: tab }),
                 headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ headers, rows: data }),
-            })
-            .then(response => response.text())
-            .then(result => {
-                alert(result);
-            })
-            .catch(error => {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json())
+              .then(data => {
+                if (data.status === 'success') {
+                    alert('Data berhasil disimpan ke Google Sheets!');
+                } else {
+                    alert('Gagal menyimpan data. Coba lagi.');
+                }
+              }).catch(error => {
                 console.error('Error:', error);
-                alert('Failed to save data.');
+                alert('Gagal menyimpan data. Coba lagi.');
             });
         }
 
-        function capitalize(string) {
+        function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
     </script>
