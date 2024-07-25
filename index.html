@@ -1,507 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Stock</title>
+    <title>Formulir Pengiriman Data</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
+            margin: 20px;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: auto;
             padding: 20px;
-        }
-
-        h1, h2 {
-            text-align: center;
-            color: #333;
-        }
-
-        .tabs {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 5px;
-        }
-
-        .tabs button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 0px;
-            margin: 0px;
-        }
-
-        .tabs button.active {
-            background-color: black;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        form {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        form label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        form input, form select {
-            width: calc(100% - 20px);
-            padding: 8px 10px;
-            margin-bottom: 15px;
             border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        form button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        form button:hover {
-            background-color: #218838;
-        }
-
-        .preview {
-            max-width: 800px;
-            margin: 20px auto;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            background: #fff;
             border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
-        table thead {
-            background-color: #007bff;
-            color: white;
+        .form-group {
+            margin-bottom: 15px;
         }
-
-        table th, table td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        table th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        table tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .action-buttons button {
-            margin-right: 5px;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .edit-button {
-            background-color: #ffc107;
-            color: white;
-        }
-
-        .edit-button:hover {
-            background-color: #e0a800;
-        }
-
-        .delete-button {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .delete-button:hover {
-            background-color: #c82333;
-        }
-
-        #saveButton, #saveButtonOrderPermintaanBarang, #saveButtonDailyJob, #saveButtonDivisi {
+        .form-group label {
             display: block;
-            width: 100%;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
+            margin-bottom: 5px;
         }
-
-        #saveButton, #saveButtonOrderPermintaanBarang, #saveButtonDailyJob, #saveButtonDivisi:hover {
-            background-color: #0056b3;
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #218838;
         }
     </style>
 </head>
 <body>
-    <h1>Input Data</h1>
-    <div class="tabs">
-        <button class="tab-button active" data-tab="divisi">Divisi</button>
-        <button class="tab-button" data-tab="dailyJob">Daily Job</button>
-        <button class="tab-button" data-tab="orderPermintaanBarang">Order Permintaan Barang</button>
-    </div>
-
-    <div id="divisi" class="tab-content active">
-        <form id="divisiForm" method="POST" action="https://script.google.com/macros/s/AKfycbwuzGfh2oGMe-2odVOlwbCr0vsBi65u5Gvkg9-1-R_P_EWgZi1rPEx18dnrmva9vwNDtg/exec">
-            <label for="division">Divisi:</label>
-            <select id="division" name="division" required onchange="updateForm()">
-                <option value="">-- Pilih Divisi --</option>
-                <option value="INDOOR">INDOOR</option>
-                <option value="OUTDOOR">OUTDOOR</option>
-                <option value="PRODUKSI">PRODUKSI</option>
-                <option value="GUDANG">GUDANG</option>
-            </select>
-            <div id="commonFields">
-                <label for="date">Date:</label>
-                <input type="date" id="date" name="date">
-                <label for="itemName">Nama Barang:</label>
-                <div id="itemNameContainer">
-                    <select id="itemNameSelect" name="itemName">
-                        <!-- Options will be populated based on division selection -->
-                    </select>
-                    <input type="text" id="itemNameInput" name="itemName" style="display: none;">
-                </div>
-                <label for="type">Jenis:</label>
-                <select id="type" name="type">
-                    <option value="Material Masuk">Material Masuk</option>
-                    <option value="Material Terpakai">Material Terpakai</option>
-                    <option value="Material Reject">Material Reject</option>
-                    <option value="Potongan Reject">Potongan Reject</option>
-                </select>
-                <label for="quantity">Banyaknya:</label>
-                <input type="number" id="quantity" name="quantity">
-                <label for="notes">Catatan:</label>
-                <input type="text" id="notes" name="notes">
+    <div class="form-container">
+        <h1>Formulir Pengiriman Data</h1>
+        <form id="dataForm">
+            <div class="form-group">
+                <label for="nama">Nama:</label>
+                <input type="text" id="nama" name="nama" required>
             </div>
-            <button type="button" onclick="addData('divisi')">Add Data</button>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="pesan">Pesan:</label>
+                <textarea id="pesan" name="pesan" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit">Kirim</button>
+            </div>
         </form>
-        <div class="preview">
-            <table>
-                <thead id="tableHeadDivisi">
-                    <!-- Table headers for Divisi tab -->
-                </thead>
-                <tbody id="tableBodyDivisi">
-                </tbody>
-            </table>
-        </div>
-        <button id="saveButtonDivisi" onclick="saveToGoogleSheets('divisi')">Save to Google Sheets (Divisi)</button>
+        <p id="responseMessage"></p>
     </div>
 
-    <div id="dailyJob" class="tab-content">
-        <form id="dailyJobForm">
-            <label for="activity">Kegiatan:</label>
-            <input type="text" id="activity" name="activity">
-            <label for="startDate">Start Date:</label>
-            <input type="date" id="startDate" name="startDate">
-            <label for="targetDate">Target Date:</label>
-            <input type="date" id="targetDate" name="targetDate">
-            <label for="finishDate">Finish Date:</label>
-            <input type="date" id="finishDate" name="finishDate">
-            <label for="progressNotes">Catatan Progress:</label>
-            <input type="text" id="progressNotes" name="progressNotes">
-            <button type="button" onclick="addData('dailyJob')">Add Data</button>
-        </form>
-        <div class="preview">
-            <table>
-                <thead id="tableHeadDailyJob">
-                    <!-- Table headers for Daily Job tab -->
-                </thead>
-                <tbody id="tableBodyDailyJob">
-                </tbody>
-            </table>
-        </div>
-        <button id="saveButtonDailyJob" onclick="saveToGoogleSheets('dailyJob')">Save to Google Sheets (Daily Job)</button>
-    </div>
-
-    <div id="orderPermintaanBarang" class="tab-content">
-        <form id="orderPermintaanBarangForm">
-            <label for="division">Divisi:</label>
-            <select id="divisionOrder" name="division" required>
-                <option value="ORDER PERMINTAAN BARANG">ORDER PERMINTAAN BARANG</option>
-            </select>
-            <label for="dateOrder">Date:</label>
-            <input type="date" id="dateOrder" name="date">
-            <label for="itemNameOrder">Nama Barang:</label>
-            <input type="text" id="itemNameOrder" name="itemName">
-            <label for="quantityOrder">Banyaknya:</label>
-            <input type="number" id="quantityOrder" name="quantity">
-            <label for="statusOrder">Status Proses:</label>
-            <select id="statusOrder" name="status">
-                <option value="Belanja">Belanja</option>
-                <option value="Pending">Pending</option>
-                <option value="Selesai">Selesai</option>
-            </select>
-            <button type="button" onclick="addData('orderPermintaanBarang')">Add Data</button>
-        </form>
-        <div class="preview">
-            <table>
-                <thead id="tableHeadOrderPermintaanBarang">
-                    <!-- Table headers for Order Permintaan Barang tab -->
-                </thead>
-                <tbody id="tableBodyOrderPermintaanBarang">
-                </tbody>
-            </table>
-        </div>
-        <button id="saveButtonOrderPermintaanBarang" onclick="saveToGoogleSheets('orderPermintaanBarang')">Save to Google Sheets (Order Permintaan Barang)</button>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
-        const data = {
-            divisi: [],
-            dailyJob: [],
-            orderPermintaanBarang: []
-        };
+        document.getElementById('dataForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-        document.querySelectorAll('.tab-button').forEach(button => {
-            button.addEventListener('click', () => {
-                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-                button.classList.add('active');
-                document.getElementById(button.getAttribute('data-tab')).classList.add('active');
-                updateTableHead(button.getAttribute('data-tab'));
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
             });
-        });
 
-        function updateForm() {
-            const division = document.getElementById('division').value;
-            const itemNameContainer = document.getElementById('itemNameContainer');
-            const itemNameSelect = document.getElementById('itemNameSelect');
-            const itemNameInput = document.getElementById('itemNameInput');
-
-            itemNameSelect.style.display = 'block';
-            itemNameInput.style.display = 'none';
-            itemNameSelect.innerHTML = '';
-
-            if (division === 'PRODUKSI' || division === 'GUDANG') {
-                itemNameSelect.style.display = 'none';
-                itemNameInput.style.display = 'block';
-            } else {
-                let items = [];
-                if (division === 'INDOOR') {
-                    items = ['KERTAS ART CARTON 260 GR', 'KERTAS ART PAPER 150 GR', 'KERTAS ART PAPER 210 GR', 'KERTAS HVS A4 PUTIH', 'KERTAS KRAFT BROWN', 'KERTAS MAP TINGGI', 'KERTAS MAP RING BINDER'];
-                } else if (division === 'OUTDOOR') {
-                    items = ['BANNER PVC 440', 'BANNER STICKER', 'BANNER STRETCH', 'BANNER TRANSFAR', 'CLOTH BANNER', 'GLOBE BANNER', 'MEJA TAMPILAN', 'ROLLUP BANNER', 'STICKER LOGO', 'STICKER PAPER', 'STICKER VINYL', 'X-BANNER'];
-                }
-                items.forEach(item => {
-                    itemNameSelect.innerHTML += `<option value="${item}">${item}</option>`;
-                });
-            }
-        }
-
-        function updateTableHead(tab) {
-            let tableHead;
-            if (tab === 'divisi') {
-                tableHead = document.getElementById('tableHeadDivisi');
-            } else if (tab === 'dailyJob') {
-                tableHead = document.getElementById('tableHeadDailyJob');
-            } else if (tab === 'orderPermintaanBarang') {
-                tableHead = document.getElementById('tableHeadOrderPermintaanBarang');
-            }
-            tableHead.innerHTML = '';
-
-            let headers = [];
-            if (tab === 'dailyJob') {
-                headers = ['No', 'Kegiatan', 'Start Date', 'Target Date', 'Finish Date', 'Catatan Progress', 'Actions'];
-            } else if (tab === 'orderPermintaanBarang') {
-                headers = ['No', 'Divisi', 'Date', 'Nama Barang', 'Banyaknya', 'Status Proses', 'Actions'];
-            } else {
-                headers = ['No', 'Divisi', 'Date', 'Nama Barang', 'Banyaknya', 'Jenis', 'Catatan', 'Actions'];
-            }
-
-            const tr = document.createElement('tr');
-            headers.forEach(header => {
-                const th = document.createElement('th');
-                th.textContent = header;
-                tr.appendChild(th);
-            });
-            tableHead.appendChild(tr);
-        }
-
-        function addData(tab) {
-            let row = {};
-            if (tab === 'dailyJob') {
-                row = {
-                    No: data.dailyJob.length + 1,
-                    Kegiatan: document.getElementById('activity').value,
-                    'Start Date': document.getElementById('startDate').value,
-                    'Target Date': document.getElementById('targetDate').value,
-                    'Finish Date': document.getElementById('finishDate').value,
-                    'Catatan Progress': document.getElementById('progressNotes').value
-                };
-                data.dailyJob.push(row);
-            } else if (tab === 'orderPermintaanBarang') {
-                row = {
-                    No: data.orderPermintaanBarang.length + 1,
-                    Divisi: document.getElementById('divisionOrder').value,
-                    Date: document.getElementById('dateOrder').value,
-                    'Nama Barang': document.getElementById('itemNameOrder').value,
-                    Banyaknya: document.getElementById('quantityOrder').value,
-                    'Status Proses': document.getElementById('statusOrder').value
-                };
-                data.orderPermintaanBarang.push(row);
-            } else {
-                row = {
-                    No: data.divisi.length + 1,
-                    Divisi: document.getElementById('division').value,
-                    Date: document.getElementById('date').value,
-                    'Nama Barang': document.getElementById('itemNameSelect').style.display === 'none' ? document.getElementById('itemNameInput').value : document.getElementById('itemNameSelect').value,
-                    Banyaknya: document.getElementById('quantity').value,
-                    Jenis: document.getElementById('type').value,
-                    Catatan: document.getElementById('notes').value
-                };
-                data.divisi.push(row);
-            }
-            renderTable(tab);
-        }
-
-        function renderTable(tab) {
-            let tableBody;
-            let rows;
-            if (tab === 'divisi') {
-                tableBody = document.getElementById('tableBodyDivisi');
-                rows = data.divisi;
-            } else if (tab === 'dailyJob') {
-                tableBody = document.getElementById('tableBodyDailyJob');
-                rows = data.dailyJob;
-            } else if (tab === 'orderPermintaanBarang') {
-                tableBody = document.getElementById('tableBodyOrderPermintaanBarang');
-                rows = data.orderPermintaanBarang;
-            }
-            tableBody.innerHTML = '';
-
-            rows.forEach((row, index) => {
-                const tr = document.createElement('tr');
-                for (const key in row) {
-                    const td = document.createElement('td');
-                    td.textContent = row[key];
-                    tr.appendChild(td);
-                }
-                const editButton = document.createElement('button');
-                editButton.textContent = 'Edit';
-                editButton.className = 'action-buttons edit-button';
-                editButton.onclick = () => {
-                    // Populate the form with the selected row's data
-                    if (tab === 'dailyJob') {
-                        document.getElementById('activity').value = row.Kegiatan;
-                        document.getElementById('startDate').value = row['Start Date'];
-                        document.getElementById('targetDate').value = row['Target Date'];
-                        document.getElementById('finishDate').value = row['Finish Date'];
-                        document.getElementById('progressNotes').value = row['Catatan Progress'];
-                    } else if (tab === 'orderPermintaanBarang') {
-                        document.getElementById('divisionOrder').value = row.Divisi;
-                        document.getElementById('dateOrder').value = row.Date;
-                        document.getElementById('itemNameOrder').value = row['Nama Barang'];
-                        document.getElementById('quantityOrder').value = row.Banyaknya;
-                        document.getElementById('statusOrder').value = row['Status Proses'];
-                    } else {
-                        document.getElementById('division').value = row.Divisi;
-                        document.getElementById('date').value = row.Date;
-                        document.getElementById('itemNameSelect').style.display = 'none';
-                        document.getElementById('itemNameInput').style.display = 'block';
-                        document.getElementById('itemNameInput').value = row['Nama Barang'];
-                        document.getElementById('quantity').value = row.Banyaknya;
-                        document.getElementById('type').value = row.Jenis;
-                        document.getElementById('notes').value = row.Catatan;
-                    }
-                    // Remove the row from the table
-                    rows.splice(index, 1);
-                    renderTable(tab);
-                };
-
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Hapus';
-                deleteButton.className = 'action-buttons delete-button';
-                deleteButton.onclick = () => {
-                    rows.splice(index, 1);
-                    renderTable(tab);
-                };
-
-                const actionTd = document.createElement('td');
-                actionTd.className = 'action-buttons';
-                actionTd.appendChild(editButton);
-                actionTd.appendChild(deleteButton);
-
-                tr.appendChild(actionTd);
-                tableBody.appendChild(tr);
-            });
-        }
-
-        const googleSheetsEndpoint = 'https://script.google.com/macros/s/AKfycbzxYTLYHL9YCnTPPYimy9BUd0rY1OF-zZz4zWiTlJk8oln3W23m-tcW6oj8mhajf6-okQ/exec';
-
-        function saveToGoogleSheets(tab) {
-            let data;
-            if (tab === 'divisi') {
-                data = { tab: 'divisi', data: getDataForDivisi() };
-            } else if (tab === 'dailyJob') {
-                data = { tab: 'dailyJob', data: getDataForDailyJob() };
-            } else if (tab === 'orderPermintaanBarang') {
-                data = { tab: 'orderPermintaanBarang', data: getDataForOrderPermintaanBarang() };
-            }
-
-            fetch(googleSheetsEndpoint, {
+            fetch('https://script.google.com/macros/s/AKfycbwuzGfh2oGMe-2odVOlwbCr0vsBi65u5Gvkg9-1-R_P_EWgZi1rPEx18dnrmva9vwNDtg/exec', {
                 method: 'POST',
+                body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                }
             })
-            .then(response => response.text())
+            .then(response => response.json())
             .then(result => {
-                console.log('Success:', result);
-                alert('Data saved to Google Sheets.');
+                document.getElementById('responseMessage').textContent = 'Data berhasil dikirim!';
+                document.getElementById('dataForm').reset();
             })
             .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while sending data to Google Sheets.');
+                document.getElementById('responseMessage').textContent = 'Terjadi kesalahan, coba lagi.';
             });
-        }
-
-        function getDataForDivisi() {
-            // Ambil data dari tabel atau form untuk Divisi
-            return [];
-        }
-
-        function getDataForDailyJob() {
-            // Ambil data dari tabel atau form untuk Daily Job
-            return [];
-        }
-
-        function getDataForOrderPermintaanBarang() {
-            // Ambil data dari tabel atau form untuk Order Permintaan Barang
-            return [];
-        }
+        });
     </script>
 </body>
 </html>
