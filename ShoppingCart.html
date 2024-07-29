@@ -3,426 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Product Page</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- Google Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <title>Shopping Cart Popup</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
+        /* Glass effect styling */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: linear-gradient(to right, #1e3c72, #2a5298);
-            display: flex;
-            align-items: center;
-            padding: 10px 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-        }
-
-        .navbar a {
+        .glass-effect .modal-content {
+            background: rgba(255, 255, 255, 0.1);
             color: white;
-            padding: 10px 15px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease, border-bottom 0.3s ease;
-            border-bottom: 2px solid transparent;
         }
 
-        .navbar a:hover {
-            color: #f5f5f5;
-            border-bottom: 2px solid #f5f5f5;
-        }
-
-        .cart-icon {
-            position: fixed;
-            margin-top: 10px;
-            right: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            z-index: 1001;
-        }
-
-        .cart-icon img {
-            width: 24px;
-            height: 24px;
-        }
-
-        .cart-icon span {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: red;
+        .modal-body {
             color: white;
-            border-radius: 50%;
-            padding: 2px 5px;
-            font-size: 0.8em;
         }
 
-        .cart-dropdown {
-            display: none;
-            position: fixed;
-            right: 5px;
-            top: 40px;
-            background-color: white;
-            width: 300px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            z-index: 1002;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .cart-dropdown.show {
-            display: block;
-        }
-
-        .cart-dropdown .cart-items {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .cart-item img {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-
-        .cart-item-details {
-            flex-grow: 1;
-            padding: 0 10px;
-        }
-
-        .cart-item-title {
-            font-size: 1em;
-            margin: 0;
-        }
-
-        .cart-item-price {
-            font-size: 0.9em;
-            color: #666;
-        }
-
-        .cart-item-qty {
-            font-size: 0.9em;
-            color: #666;
-        }
-
-        .cart-item-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-
-        .cart-item-actions button {
-            background-color: #ff4d4d;
+        .table {
             color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            margin-top: 5px;
-            cursor: pointer;
         }
 
-        .cart-item-actions button.edit {
-            background-color: #ff9900;
+        .table th, .table td {
+            color: white;
         }
 
-        .cart-total {
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .cart-total button {
+        .btn-success {
             background-color: #28a745;
-            color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .banner {
-            width: 100%;
-            height: 30vh;
-            background-image: url('https://via.placeholder.com/1920x600');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 3em;
-            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-        }
-
-        .banner::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 1;
-        }
-
-        .banner span {
-            position: relative;
-            z-index: 2;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .container {
-            margin-top: 80px;
-            padding: 20px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .product-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .product-card {
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            flex: 1 1 calc(33.333% - 20px); /* 3 columns */
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 250px;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .product-details {
-            padding: 20px;
-        }
-
-        .product-title {
-            font-size: 1.6em;
-            font-family: 'Roboto', sans-serif;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .product-price {
-            font-size: 1.4em;
-            color: #e63946;
-            margin-bottom: 15px;
-        }
-
-        .product-qty {
-            margin-bottom: 10px;
-        }
-
-        .product-qty label {
-            margin-right: 10px;
-        }
-
-        .product-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .product-actions button {
-            background-color: #e63946;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .product-actions button:hover {
-            background-color: #d62839;
-            transform: scale(1.05);
-        }
-
-        footer {
-            background-color: #1e3c72;
-            color: white;
-            text-align: center;
-            padding: 20px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-            font-family: 'Roboto', sans-serif;
-            font-size: 1em;
-        }
-
-        .pagination {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .pagination button {
-            background: linear-gradient(to right, #2a5298, #1e3c72);
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            margin: 0 5px;
-            cursor: pointer;
-            transition: background 0.3s ease, transform 0.3s ease;
-        }
-
-        .pagination button:hover {
-            background: linear-gradient(to right, #1e3c72, #2a5298);
-            transform: scale(1.05);
-        }
-
-        @media screen and (max-width: 600px) {
-            .product-card {
-                flex: 1 1 calc(100% - 20px); /* 1 column */
-            }
         }
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <a href="#">Home</a>
-        <a href="#">Products</a>
-        <a href="#">Contact</a>
-    </div>
-    
-    <div class="cart-icon" onclick="toggleCart()">
-        <img src="https://via.placeholder.com/24" alt="Cart Icon">
-        <span id="cart-count">0</span>
-    </div>
 
-    <div id="cart-dropdown" class="cart-dropdown">
-        <div class="cart-items">
-            <!-- Cart items will be dynamically inserted here -->
-        </div>
-        <div class="cart-total">
-            <span>Total: $<span id="cart-total">0.00</span></span>
-            <button onclick="checkout()">Checkout</button>
-        </div>
-    </div>
+    <!-- Button to open the cart -->
+    <button class="btn btn-primary" id="openCart">Open Cart</button>
 
-    <div class="banner">
-        <span>Welcome to Our Store</span>
-    </div>
-
-    <div class="container">
-        <div class="product-grid">
-            <!-- Product cards will be dynamically inserted here -->
-        </div>
-
-        <div class="pagination">
-            <button onclick="prevPage()">Previous</button>
-            <button onclick="nextPage()">Next</button>
-        </div>
-    </div>
-
-    <footer>
-        &copy; 2024 Your Company. All Rights Reserved.
-    </footer>
-
-    <script>
-        let cart = [];
-        let cartCount = 0;
-        let cartTotal = 0;
-
-        function toggleCart() {
-            const cartDropdown = document.getElementById('cart-dropdown');
-            cartDropdown.classList.toggle('show');
-        }
-
-        function addToCart(product) {
-            cart.push(product);
-            cartCount++;
-            cartTotal += product.price;
-            updateCart();
-        }
-
-        function updateCart() {
-            const cartDropdown = document.getElementById('cart-dropdown');
-            const cartItems = cartDropdown.querySelector('.cart-items');
-            const cartCountElem = document.getElementById('cart-count');
-            const cartTotalElem = document.getElementById('cart-total');
-
-            cartItems.innerHTML = cart.map(item => `
-                <div class="cart-item">
-                    <img src="${item.image}" alt="${item.title}">
-                    <div class="cart-item-details">
-                        <p class="cart-item-title">${item.title}</p>
-                        <p class="cart-item-price">$${item.price.toFixed(2)}</p>
-                        <p class="cart-item-qty">Qty: ${item.quantity}</p>
-                    </div>
-                    <div class="cart-item-actions">
-                        <button class="edit" onclick="editItem(${item.id})">Edit</button>
-                        <button onclick="removeItem(${item.id})">Remove</button>
+    <!-- Shopping Cart Popup -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-effect">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel">Shopping Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cartItems">
+                            <!-- Cart items will be inserted here -->
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-between">
+                        <h4>Total: <span id="cartTotal">$0.00</span></h4>
+                        <button class="btn btn-success" id="checkoutBtn">Checkout</button>
                     </div>
                 </div>
-            `).join('');
+            </div>
+        </div>
+    </div>
 
-            cartCountElem.textContent = cartCount;
-            cartTotalElem.textContent = cartTotal.toFixed(2);
-        }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cart = [
+                { item: 'Product 1', price: 10.00, quantity: 1 },
+                { item: 'Product 2', price: 20.00, quantity: 2 },
+                { item: 'Product 3', price: 30.00, quantity: 1 },
+            ];
 
-        function removeItem(id) {
-            const itemIndex = cart.findIndex(item => item.id === id);
-            if (itemIndex > -1) {
-                cartTotal -= cart[itemIndex].price;
-                cartCount -= cart[itemIndex].quantity;
-                cart.splice(itemIndex, 1);
-                updateCart();
+            function updateCart() {
+                const cartItems = document.getElementById('cartItems');
+                const cartTotal = document.getElementById('cartTotal');
+                let total = 0;
+
+                cartItems.innerHTML = '';
+                cart.forEach(product => {
+                    const productTotal = product.price * product.quantity;
+                    total += productTotal;
+                    cartItems.innerHTML += `
+                        <tr>
+                            <td>${product.item}</td>
+                            <td>$${product.price.toFixed(2)}</td>
+                            <td>${product.quantity}</td>
+                            <td>$${productTotal.toFixed(2)}</td>
+                        </tr>
+                    `;
+                });
+
+                cartTotal.textContent = `$${total.toFixed(2)}`;
             }
-        }
 
-        function checkout() {
-            alert('Proceed to checkout');
-        }
+            // Open cart button
+            const openCartBtn = document.getElementById('openCart');
+            const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
 
-        function editItem(id) {
-            alert('Edit item with ID: ' + id);
-        }
+            openCartBtn.addEventListener('click', function () {
+                updateCart();
+                cartModal.show();
+            });
 
-        function prevPage() {
-            alert('Previous page');
-        }
-
-        function nextPage() {
-            alert('Next page');
-        }
+            // Checkout button
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            checkoutBtn.addEventListener('click', function () {
+                alert('Checkout process initiated.');
+            });
+        });
     </script>
 </body>
 </html>
