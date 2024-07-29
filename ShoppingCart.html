@@ -185,71 +185,72 @@
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
-        }
+        }/* Container untuk card produk */
+.product-card {
+    width: 300px; /* Lebar card */
+    border-radius: 15px; /* Sudut melengkung */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan card */
+    overflow: hidden; /* Memotong elemen yang keluar dari card */
+    background: #fff; /* Warna latar belakang */
+    margin: 20px; /* Margin sekitar card */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efek transisi saat hover */
+}
 
-        .product-card {
-            background-color: white;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease;
-            flex: 1 1 calc(25% - 20px); /* 4 columns */
-        }
+.product-card:hover {
+    transform: translateY(-10px); /* Efek naik saat hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Bayangan lebih dalam saat hover */
+}
 
-        .product-card:hover {
-            transform: scale(1.05);
-        }
+/* Gambar produk */
+.product-card img {
+    width: 100%; /* Gambar mengisi lebar card */
+    height: 200px; /* Tinggi gambar */
+    object-fit: cover; /* Menjaga aspek rasio gambar */
+}
 
-        .product-image {
-            width: 100%;
-            height: 250px;
-            margin: 5px;
-            background-size: cover;
-            background-position: center;
-        }
+/* Nama produk */
+.product-card .product-name {
+    font-size: 1.2em; /* Ukuran font nama produk */
+    font-weight: bold; /* Ketebalan font */
+    margin: 15px; /* Margin sekitar nama produk */
+    color: #333; /* Warna font */
+}
 
-        .product-details {
-            padding: 20px;
-        }
+/* Deskripsi produk */
+.product-card .product-description {
+    font-size: 0.9em; /* Ukuran font deskripsi produk */
+    color: #666; /* Warna font deskripsi */
+    margin: 0 15px 15px 15px; /* Margin deskripsi produk */
+    line-height: 1.4; /* Jarak antar baris */
+}
 
-        .product-title {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
+/* Harga produk */
+.product-card .product-price {
+    font-size: 1.1em; /* Ukuran font harga */
+    color: #e74c3c; /* Warna harga */
+    margin: 15px; /* Margin sekitar harga */
+    font-weight: bold; /* Ketebalan font harga */
+}
 
-        .product-price {
-            font-size: 1.2em;
-            color: #28a745;
-            margin-bottom: 10px;
-        }
+/* Tombol beli */
+.product-card .buy-button {
+    display: block; /* Tombol menjadi elemen blok */
+    width: calc(100% - 30px); /* Lebar tombol */
+    margin: 15px; /* Margin tombol */
+    padding: 10px; /* Padding tombol */
+    border: none; /* Menghilangkan border */
+    border-radius: 5px; /* Sudut tombol melengkung */
+    background-color: #3498db; /* Warna latar belakang tombol */
+    color: #fff; /* Warna teks tombol */
+    font-size: 1em; /* Ukuran font tombol */
+    cursor: pointer; /* Menunjukkan pointer saat hover */
+    text-align: center; /* Teks tombol rata tengah */
+    transition: background-color 0.3s ease; /* Efek transisi saat hover */
+}
 
-        .product-qty {
-            margin-bottom: 10px;
-        }
-
-        .product-qty label {
-            margin-right: 10px;
-        }
-
-        .product-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .product-actions button {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .product-actions button:hover {
-            background-color: #218838;
-        }
+.product-card .buy-button:hover {
+    background-color: #2980b9; /* Warna tombol saat hover */
+}
 
         footer {
             background-color: blue;
