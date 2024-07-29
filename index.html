@@ -3,93 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir Pengiriman Data</title>
+    <title>Login dan Registrasi</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .form-container {
-            max-width: 500px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        .form-group button {
-            padding: 10px 15px;
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .form-group button:hover {
-            background-color: #218838;
-        }
+        body { font-family: Arial, sans-serif; }
+        .container { width: 300px; margin: auto; padding-top: 50px; }
+        input { width: 100%; padding: 10px; margin: 5px 0; }
+        button { width: 100%; padding: 10px; background-color: #007bff; color: #fff; border: none; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        .message { color: red; }
     </style>
 </head>
 <body>
-    <div class="form-container">
-        <h1>Formulir Pengiriman Data</h1>
-        <form id="dataForm">
-            <div class="form-group">
-                <label for="nama">Nama:</label>
-                <input type="text" id="nama" name="nama" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="pesan">Pesan:</label>
-                <textarea id="pesan" name="pesan" rows="4" required></textarea>
-            </div>
-            <div class="form-group">
-                <button type="submit">Kirim</button>
-            </div>
-        </form>
-        <p id="responseMessage"></p>
+    <div class="container">
+        <h2>Login</h2>
+        <div id="loginForm">
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="login()">Login</button>
+            <div class="message" id="loginMessage"></div>
+        </div>
+        <h2>Registrasi</h2>
+        <div id="registerForm">
+            <input type="text" id="newUsername" placeholder="Username">
+            <input type="password" id="newPassword" placeholder="Password">
+            <button onclick="register()">Registrasi</button>
+            <div class="message" id="registerMessage"></div>
+        </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        document.getElementById('dataForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+        // URL Google Sheets CSV
+        const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTq4ejuCtrDGT6VyHqNv-7RZlYnfwE6XHz6LJ-Fa49Lja3JjFyMTxY-v_Mjn8nAJEUr4JloY2c-LVaU/pub?output=csv';
 
-            const formData = new FormData(this);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
+        let users = [];
 
-            fetch('https://script.google.com/macros/s/AKfycbwuzGfh2oGMe-2odVOlwbCr0vsBi65u5Gvkg9-1-R_P_EWgZi1rPEx18dnrmva9vwNDtg/exec', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
+        // Mengambil data dari CSV
+        function fetchCSVData() {
+            return $.ajax({
+                url: CSV_URL,
+                dataType: 'text',
+                success: function(data) {
+                    let lines = data.split('\n');
+                    for (let i = 1; i < lines.length; i++) {
+                        let [username, password] = lines[i].split(',');
+                        if (username && password) {
+                            users.push({ username, password });
+                        }
+                    }
                 }
-            })
-            .then(response => response.json())
-            .then(result => {
-                document.getElementById('responseMessage').textContent = 'Data berhasil dikirim!';
-                document.getElementById('dataForm').reset();
-            })
-            .catch(error => {
-                document.getElementById('responseMessage').textContent = 'Terjadi kesalahan, coba lagi.';
             });
+        }
+
+        // Cek login
+        function login() {
+            let username = $('#username').val();
+            let password = $('#password').val();
+            let user = users.find(u => u.username === username && u.password === password);
+            if (user) {
+                window.location.href = 'index.html'; // Redirect ke halaman utama
+            } else {
+                $('#loginMessage').text('Username atau password salah.');
+            }
+        }
+
+        // Registrasi pengguna
+        function register() {
+            let username = $('#newUsername').val();
+            let password = $('#newPassword').val();
+            if (users.find(u => u.username === username)) {
+                $('#registerMessage').text('Username sudah ada.');
+            } else {
+                users.push({ username, password });
+                $('#registerMessage').text('Registrasi berhasil. Silakan login.');
+            }
+        }
+
+        $(document).ready(function() {
+            fetchCSVData();
         });
     </script>
 </body>
