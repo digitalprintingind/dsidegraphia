@@ -62,6 +62,113 @@
             height: 100%;
             border: none;
         }
+        .home-banner {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .home-banner h1 {
+            font-size: 3em;
+            margin: 0.5em 0;
+            animation: slideInDown 1s ease-out;
+        }
+        .home-banner p {
+            font-size: 1.5em;
+            margin: 0.5em 0;
+            animation: slideInUp 1s ease-out;
+        }
+        .home-banner a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1em;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .home-banner a:hover {
+            background-color: #0056b3;
+        }
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-image img {
+            width: 100%;
+            height: auto;
+        }
+        .product-info {
+            padding: 15px;
+        }
+        .product-info h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+        .product-info p {
+            margin: 0 0 15px;
+            color: #555;
+        }
+        .product-info .price {
+            font-size: 20px;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .pagination button:hover {
+            background-color: #0056b3;
+        }
+        .pagination button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -73,10 +180,20 @@
     <iframe src="https://example.com/rekap-data"></iframe>
 </div>
 <div id="home" class="tab-content active">
-    <iframe src="https://example.com/rekap-data"></iframe>
+    <div class="home-banner">
+        <h1>Welcome to<br/> D'Side Graphia</h1>
+        <p>Your one-stop solution for all your needs</p>
+        <a href="#">Get Started</a>
+    </div>
 </div>
 <div id="product" class="tab-content">
-    <iframe src="https://example.com/product"></iframe>
+	<div id="barang">
+    <div id="product-container"></div>
+    <div class="pagination">
+        <button id="prev" onclick="prevPage()">Prev</button>
+        <button id="next" onclick="nextPage()">Next</button>
+    </div>
+    </div>
 </div>
 <div id="profile" class="tab-content">
     <iframe src="https://example.com/profile"></iframe>
@@ -91,6 +208,72 @@
 </div>
 
 <script>
+    const googleSheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTq4ejuCtrDGT6VyHqNv-7RZlYnfwE6XHz6LJ-Fa49Lja3JjFyMTxY-v_Mjn8nAJEUr4JloY2c-LVaU/pub?output=csv';
+    const productsPerPage = 10;
+    let currentPage = 1;
+    let products = [];
+
+    function fetchCSV(url) {
+        return fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                const rows = data.split('\n').slice(1);
+                return rows.map(row => {
+                    const cols = row.split(',');
+                    return {
+                        name: cols[1],
+                        price: cols[2],
+                        description: cols[3],
+                        image: cols[4]
+                    };
+                });
+            });
+    }
+
+    function renderProducts(page) {
+        const container = document.getElementById('product-container');
+        container.innerHTML = '';
+        const start = (page - 1) * productsPerPage;
+        const end = start + productsPerPage;
+        const productsToRender = products.slice(start, end);
+
+        productsToRender.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+
+            card.innerHTML = `
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name}">
+                </div>
+                <div class="product-info">
+                    <h3>${product.name}</h3>
+                    <p>${product.description}</p>
+                    <div class="price">$${product.price}</div>
+                </div>
+            `;
+
+            container.appendChild(card);
+        });
+
+        document.getElementById('prev').disabled = page === 1;
+        document.getElementById('next').disabled = end >= products.length;
+    }
+
+    function prevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            renderProducts(currentPage);
+        }
+    }
+
+    function nextPage() {
+        if ((currentPage * productsPerPage) < products.length) {
+            currentPage++;
+            renderProducts(currentPage);
+        }
+    }
+
+
     function showTab(tabId) {
         const contents = document.querySelectorAll('.tab-content');
         const tabs = document.querySelectorAll('.tab');
@@ -102,6 +285,13 @@
         });
         document.getElementById(tabId).classList.add('active');
         event.currentTarget.classList.add('active');
+
+        if (tabId === 'barang' && products.length === 0) {
+            fetchCSV(googleSheetURL).then(data => {
+                products = data;
+                renderProducts(currentPage);
+            });
+        }
     }
 </script>
 
