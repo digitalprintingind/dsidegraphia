@@ -1,87 +1,109 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login dan Registrasi</title>
+    <title>D'Side Graphia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body { font-family: Arial, sans-serif; }
-        .container { width: 300px; margin: auto; padding-top: 50px; }
-        input { width: 100%; padding: 10px; margin: 5px 0; }
-        button { width: 100%; padding: 10px; background-color: #007bff; color: #fff; border: none; cursor: pointer; }
-        button:hover { background-color: #0056b3; }
-        .message { color: red; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            border-top: 2px solid #ccc;
+            position: -webkit-sticky; /* Safari */
+            position: sticky;
+            bottom: 0;
+            border-radius: 20px;
+            background-color: white;
+            z-index: 1000;
+        }
+        .tab {
+            flex: 1;
+            text-align: center;
+            font-size: 7px;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .tab i {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 5px;
+            border-radius: 20px;
+        }
+        .tab:hover {
+            background-color: #f0f0f0;
+            border-radius: 20px;
+        }
+        .tab.active {
+            background-color: #007bff;
+            color: white;
+            border-radius: 20px;
+        }
+        .tab-content {
+            display: none;
+            flex: 1;
+            height: 100%;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Login</h2>
-        <div id="loginForm">
-            <input type="text" id="username" placeholder="Username">
-            <input type="password" id="password" placeholder="Password">
-            <button onclick="login()">Login</button>
-            <div class="message" id="loginMessage"></div>
-        </div>
-        <h2>Registrasi</h2>
-        <div id="registerForm">
-            <input type="text" id="newUsername" placeholder="Username">
-            <input type="password" id="newPassword" placeholder="Password">
-            <button onclick="register()">Registrasi</button>
-            <div class="message" id="registerMessage"></div>
-        </div>
-    </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        // URL Google Sheets CSV
-        const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTq4ejuCtrDGT6VyHqNv-7RZlYnfwE6XHz6LJ-Fa49Lja3JjFyMTxY-v_Mjn8nAJEUr4JloY2c-LVaU/pub?output=csv';
+<div id="update-data" class="tab-content">
+    <iframe src="https://www.appsheet.com/start/3459f079-bcb4-4e85-be1a-dfe3416a19a0"></iframe>
+</div>
+<div id="rekap-data" class="tab-content">
+    <iframe src="https://example.com/rekap-data"></iframe>
+</div>
+<div id="home" class="tab-content active">
+    <iframe src="https://example.com/rekap-data"></iframe>
+</div>
+<div id="product" class="tab-content">
+    <iframe src="https://example.com/product"></iframe>
+</div>
+<div id="profile" class="tab-content">
+    <iframe src="https://example.com/profile"></iframe>
+</div>
 
-        let users = [];
+<div class="tabs">
+    <div class="tab" onclick="showTab('update-data')"><i class="fas fa-sync-alt"></i> Update Data</div>
+    <div class="tab" onclick="showTab('rekap-data')"><i class="fas fa-chart-bar"></i> Rekap Data</div>
+    <div class="tab active" onclick="showTab('home')"><i class="fas fa-home"></i> Home</div>
+    <div class="tab" onclick="showTab('product')"><i class="fas fa-box"></i> Product</div>
+    <div class="tab" onclick="showTab('profile')"><i class="fas fa-user"></i> Profile</div>
+</div>
 
-        // Mengambil data dari CSV
-        function fetchCSVData() {
-            return $.ajax({
-                url: CSV_URL,
-                dataType: 'text',
-                success: function(data) {
-                    let lines = data.split('\n');
-                    for (let i = 1; i < lines.length; i++) {
-                        let [username, password] = lines[i].split(',');
-                        if (username && password) {
-                            users.push({ username, password });
-                        }
-                    }
-                }
-            });
-        }
-
-        // Cek login
-        function login() {
-            let username = $('#username').val();
-            let password = $('#password').val();
-            let user = users.find(u => u.username === username && u.password === password);
-            if (user) {
-                window.location.href = 'index.html'; // Redirect ke halaman utama
-            } else {
-                $('#loginMessage').text('Username atau password salah.');
-            }
-        }
-
-        // Registrasi pengguna
-        function register() {
-            let username = $('#newUsername').val();
-            let password = $('#newPassword').val();
-            if (users.find(u => u.username === username)) {
-                $('#registerMessage').text('Username sudah ada.');
-            } else {
-                users.push({ username, password });
-                $('#registerMessage').text('Registrasi berhasil. Silakan login.');
-            }
-        }
-
-        $(document).ready(function() {
-            fetchCSVData();
+<script>
+    function showTab(tabId) {
+        const contents = document.querySelectorAll('.tab-content');
+        const tabs = document.querySelectorAll('.tab');
+        contents.forEach(content => {
+            content.classList.remove('active');
         });
-    </script>
+        tabs.forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+</script>
+
 </body>
 </html>
