@@ -326,6 +326,53 @@
 .contact-form button:hover {
     background-color: #0056b3;
 }
+
+
+h1 {
+    text-align: center;
+    color: #007bff;
+}
+
+.table-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: #007bff;
+    color: #fff;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #e2e2e2;
+}
+
+tfoot {
+    background-color: #f9f9f9;
+}
     </style>
 </head>
 <body>
@@ -334,7 +381,23 @@
     <iframe src="https://www.appsheet.com/start/3459f079-bcb4-4e85-be1a-dfe3416a19a0"></iframe>
 </div>
 <div id="rekap-data" class="tab-content">
-    <iframe src="https://example.com/rekap-data"></iframe>
+    <h1>Rekap Data</h1>
+    <div class="table-container">
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Barang</th>
+                    <th>Harga</th>
+                    <th>Jumlah</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data akan dimuat di sini oleh JavaScript -->
+            </tbody>
+        </table>
+    </div>
 </div>
 <div id="home" class="tab-content active">
     <div class="home-banner">
@@ -486,6 +549,34 @@
             renderProducts(currentPage);
         });
     });
+    
+    document.addEventListener("DOMContentLoaded", function() {
+    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTq4ejuCtrDGT6VyHqNv-7RZlYnfwE6XHz6LJ-Fa49Lja3JjFyMTxY-v_Mjn8nAJEUr4JloY2c-LVaU/pub?output=csv';
+    fetch(csvUrl)
+        .then(response => response.text())
+        .then(data => {
+            const rows = data.split('\n').slice(1); // Ambil data dari baris kedua ke bawah
+            const tableBody = document.querySelector('#data-table tbody');
+            tableBody.innerHTML = ''; // Kosongkan tabel sebelum menambah data
+
+            rows.forEach((row, index) => {
+                const columns = row.split(',');
+                if (columns.length > 1) { // Hanya menambah baris jika ada data
+                    const tableRow = document.createElement('tr');
+                    tableRow.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${columns[0]}</td>
+                        <td>${columns[1]}</td>
+                        <td>${columns[2]}</td>
+                        <td>${columns[3]}</td>
+                    `;
+                    tableBody.appendChild(tableRow);
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching the CSV data:', error));
+});
+
 </script>
 </body>
 </html>
