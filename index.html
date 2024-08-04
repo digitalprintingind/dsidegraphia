@@ -7,11 +7,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
 
-        @media only screen and (min-width: 769px) {
-    .mobile-only {
-        display: none;
-    }
-}
+(min-width: 481px) {
+            .desktop-message {
+                display: block;
+                text-align: center;
+                margin-top: 20%;
+                font-size: 1.5em;
+            }
+            .mobile-view {
+                display: none;
+            }
+        }
 
         body {
             font-family: 'Roboto', sans-serif;
@@ -284,7 +290,7 @@ tfoot {
     </style>
 </head>
 <body>
-
+<div class="mobile-view">
 <div id="update-data" class="tab-content">
     <iframe src="https://www.appsheet.com/start/3459f079-bcb4-4e85-be1a-dfe3416a19a0"></iframe>
 </div>
@@ -365,7 +371,7 @@ tfoot {
     <div class="tab" onclick="showTab('katalog')"><i class="fas fa-box"></i> Katalog</div>
     <div class="tab" onclick="showTab('profile')"><i class="fas fa-user"></i> Profile</div>
 </div>
-
+</div>
 <script>
     const googleSheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTq4ejuCtrDGT6VyHqNv-7RZlYnfwE6XHz6LJ-Fa49Lja3JjFyMTxY-v_Mjn8nAJEUr4JloY2c-LVaU/pub?output=csv';
     const productsPerPageMobile = 10;
