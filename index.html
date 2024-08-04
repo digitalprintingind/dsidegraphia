@@ -408,13 +408,9 @@ tfoot {
     </div>
 </div>
 <div id="katalog" class="tab-content">
-    <div id="product-container" class="post-card-container"></div>
-    <div class="pagination">
-        <button id="prev" onclick="prevPage()">Prev</button>
-        <button id="next" onclick="nextPage()">Next</button>
-    </div>
+    <iframe src="https://s.id/katalog-dsidegraphia"></iframe>
 </div>
-<div id="profile" class="tab-content active">
+<div id="profile" class="tab-content">
     <div class="profile-container">
         <div class="profile-header">
             <h1>D'Side Graphia</h1>
@@ -479,48 +475,7 @@ tfoot {
             });
     }
 
-    function renderProducts(page) {
-        const container = document.getElementById('product-container');
-        container.innerHTML = '';
-        const start = (page - 1) * productsPerPage;
-        const end = start + productsPerPage;
-        const productsToRender = products.slice(start, end);
-
-        productsToRender.forEach(product => {
-            const card = document.createElement('div');
-            card.className = 'post-card';
-
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=6281234567890&text=Halo, saya tertarik dengan produk ${product.name}.`;
-
-            card.innerHTML = `
-                <img src="${product.image}" alt="${product.name}">
-                <div class="post-card-content">
-                    <h3>${product.name}</h3>
-                    <p>${product.description}</p>
-                    <div class="price">Rp ${product.price}</div>
-                </div>
-                <a href="${whatsappUrl}" class="checkout-button" target="_blank"><i class="fab fa-whatsapp"></i> Checkout</a>
-            `;
-            container.appendChild(card);
-        });
-
-        document.getElementById('prev').disabled = page === 1;
-        document.getElementById('next').disabled = end >= products.length;
-    }
-
-    function prevPage() {
-        if (currentPage > 1) {
-            currentPage--;
-            renderProducts(currentPage);
-        }
-    }
-
-    function nextPage() {
-        if ((currentPage * productsPerPage) < products.length) {
-            currentPage++;
-            renderProducts(currentPage);
-        }
-    }
+    
 
     function showTab(tabId) {
         const contents = document.querySelectorAll('.tab-content');
