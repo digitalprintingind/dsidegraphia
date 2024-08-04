@@ -279,6 +279,59 @@
         tfoot {
             background-color: #f9f9f9;
         }
+        
+        /* Maintenance */
+        
+.container {
+    text-align: center;
+}
+
+.maintenance-message {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.maintenance-message h1 {
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 24px;
+}
+
+.maintenance-message p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.loader {
+    margin: 20px auto;
+    border: 5px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 5px solid #3498db;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+        
+/*End Maintenance CSS*/
+/*Maintenance HTML
+        
+    <div class="container">
+        <div class="maintenance-message">
+            <h1>Website Under Maintenance</h1>
+            <p>We are currently performing maintenance. Please check back later.</p>
+            <div class="loader"></div>
+        </div>
+    </div>
+        
+End Maintenance HTML*/
+        
     </style>
 </head>
 <body>
@@ -286,8 +339,14 @@
     <iframe src="https://www.appsheet.com/start/3459f079-bcb4-4e85-be1a-dfe3416a19a0"></iframe>
 </div>
 <div id="rekap-data" class="tab-content">
-    <h3>Maintenance</h3>
-    <iframe src="#"></iframe>
+    <div class="container">
+        <div class="maintenance-message">
+            <h1>Website Under Maintenance</h1>
+            <p>We are currently performing maintenance.</p>
+            <p>Data Rekape Khusus, Logine nganggo ID</p>
+            <div class="loader"></div>
+        </div>
+    </div>
 </div>
 <div id="home" class="tab-content active">
     <div class="home-banner">
@@ -320,7 +379,7 @@
                     <input type="email" id="email" name="email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <input type="file" name="attachment" placeholder="Upload Gambar" accept="image/png, image/jpeg">
+                    <input type="file" name="attachment" accept="image/png, image/jpeg">
                 </div>
                 <div class="form-group">
                     <textarea id="message" name="message" rows="4" placeholder="Tulis Pesan/Rincian disini" required></textarea>
@@ -353,7 +412,7 @@
         <div>Profile</div>
     </div>
 </div>
-
+    	
 <script>
     document.querySelectorAll('.tab').forEach(tab => {
         tab.addEventListener('click', () => {
