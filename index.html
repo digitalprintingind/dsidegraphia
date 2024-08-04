@@ -9,12 +9,6 @@
 
 
         @media (min-width: 481px) {
-            .desktop-message {
-                display: block;
-                text-align: center;
-                margin-top: 20%;
-                font-size: 1.5em;
-            }
             .mobile-view {
                 display: none;
             }
@@ -454,14 +448,6 @@ tfoot {
         .catch(error => console.error('Error fetching the CSV data:', error));
 });
 
-        function forceMobileView() {
-            if (window.innerWidth > 480) {
-                document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=480');
-            }
-        }
-
-        window.addEventListener('resize', forceMobileView);
-        window.addEventListener('load', forceMobileView);
 
 </script>
 </body>
