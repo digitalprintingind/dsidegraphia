@@ -56,21 +56,31 @@
         .tab.active i {
             transform: scale(1.2);
         }
-.tab-content {
-  margin-bottom: 50px;
-}
-
-@media (max-width: 768px) {
-  .tab-content {
-    padding: 10px;
-  }
-}
-
-@media (max-width: 576px) {
-  .tab-content {
-    padding: 5px;
-  }
-}
+        .tab-content {
+            display: none;
+            flex: 1;
+            height: 100%;
+            background-color: #fff;
+            padding: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease;
+        }
+        .responsive-iframe-container {
+            position: relative;
+            padding-bottom: 50px; /* margin bawah */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #f0f0f0; /* opsional, untuk contoh */
+        }
+        .responsive-iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
 
         .tab-content.active {
             display: block;
@@ -286,7 +296,9 @@ tfoot {
 </head>
 <body>
 <div id="update-data" class="tab-content">
+    <div class="responsive-iframe-container">
     <iframe src="https://www.appsheet.com/start/3459f079-bcb4-4e85-be1a-dfe3416a19a0"></iframe>
+    </div>
 </div>
 <div id="rekap-data" class="tab-content">
     <h3>Masih dalam proses perbaikan</h3>
