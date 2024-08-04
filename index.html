@@ -229,7 +229,7 @@
 }
 
 
-h1 {
+h3 {
     text-align: center;
     color: #007bff;
 }
@@ -273,21 +273,6 @@ tr:hover {
 
 tfoot {
     background-color: #f9f9f9;
-}
-.notification {
-    display: none;
-    padding: 10px;
-    margin-top: 15px;
-    border-radius: 4px;
-    color: white;
-}
-
-.notification.success {
-    background-color: #28a745;
-}
-
-.notification.error {
-    background-color: #dc3545;
 }
     </style>
 </head>
@@ -398,36 +383,6 @@ tfoot {
                 });
             });
     }
-
-
-    
-    document.getElementById('myForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Mencegah pengiriman formulir secara default
-
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
-
-    const notification = document.getElementById('notification');
-
-    // Simulasi proses pengiriman formulir
-    if (name && email && message) {
-        // Simulasikan hasil sukses
-        notification.textContent = 'Formulir berhasil dikirim!';
-        notification.className = 'notification success';
-    } else {
-        // Simulasikan hasil gagal
-        notification.textContent = 'Gagal mengirim formulir. Harap isi semua kolom!';
-        notification.className = 'notification error';
-    }
-
-    notification.style.display = 'block';
-
-    // Sembunyikan notifikasi setelah 3 detik
-    setTimeout(() => {
-        notification.style.display = 'none';
-    }, 3000);
-});
 
 
     function showTab(tabId) {
