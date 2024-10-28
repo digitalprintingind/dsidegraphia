@@ -101,7 +101,7 @@ header {position: fixed;
         flex-wrap: wrap; /* Membuat kolom dapat membungkus ke baris baru */
         justify-content: center;align-items: center;
         gap: 20px;
-        margin: 20px;max-width: 400px;
+        margin: 25px;max-width: 400px;
     }
 
     .product-card2 {
@@ -664,7 +664,7 @@ header {position: fixed;
             transition: left 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Smooth animation */
             z-index: 2;
             box-shadow: 4px 0px 15px rgba(0, 0, 0, 0.3);
-            padding-top: 20px;
+            padding-top: 20px;text-align: left;
         }
 
         .sidebar1A.active1A {
@@ -1018,13 +1018,12 @@ margin: 0;
 </style>
     
 
-<style>
-    /* MENU TAB ARTIKEL */
+<style>  /* MENU TAB ARTIKEL */
     .containerA2 {
         font-family: Arial, sans-serif;
         margin: auto;
         text-align: center;
-        max-width: 800px;
+        max-width: 400px;
     }
 
     .articlesA2 {
@@ -1060,27 +1059,25 @@ margin: 0;
         gap: 15px;
     }
 
-.profile-picA2 {
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-    background-color: #7e57c2;
-    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq6o7DA5x1okfNwIrtP_3wsY0Bt6QhiAKHOIqZb9NqNebf8PIwdb1NI-4');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
+    .profile-picA2 {
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+        background-color: #7e57c2;
+        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq6o7DA5x1okfNwIrtP_3wsY0Bt6QhiAKHOIqZb9NqNebf8PIwdb1NI-4');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
 
     .authorA2 {
-        font-size: 0.95em;
+        font-size: 0.8em;
         color: #555;
-        
     }
 
     .article-cardA2 h2 {
         margin: 0;
-        font-size: 1.1em;
+        font-size: 0.9em;
         color: #333;
     }
 
@@ -1088,10 +1085,10 @@ margin: 0;
         color: #666;
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        -webkit-line-clamp: 4;
+        -webkit-line-clamp: 2; /* Batasi menjadi 2 baris */
         overflow: hidden;
         text-overflow: ellipsis;
-        font-size: 0.9em;
+        font-size: 0.8em;
         line-height: 1.4;
         margin-top: 15px;
     }
@@ -1099,6 +1096,7 @@ margin: 0;
     .lightboxA2 {
         display: none;
         position: fixed;
+        text-align: left;
         top: 0;
         left: 0;
         width: 100%;
@@ -1125,7 +1123,7 @@ margin: 0;
         border-radius: 15px;
         padding: 30px;
         max-width: 600px;
-        max-height: 80vh;
+        max-height: 70vh;
         overflow-y: auto;
         animation: slideIn 0.5s forwards;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -1160,21 +1158,38 @@ margin: 0;
 
     #popup-titleA2 {
         margin: 0;
-        font-size: 1.1em;
+        font-size: 0.9em;
         color: #333;
     }
 
     #popup-authorA2 {
         color: #777;
-        font-size: 0.9em;
+        font-size: 0.8em;
         margin-top: 5px;
     }
 
     #popup-contentA2 {
         color: #666;
-        font-size: 1em;
+        font-size: 0.8em;
         line-height: 1.5;
         margin-top: 10px;
+    }
+
+    /* Gaya untuk media (foto atau video) */
+    .mediaA2 {
+        width: 100%;
+        max-height: 300px;
+        margin-top: 15px;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+    .thumbnailA2 {
+        width: 100%;
+        max-height: 200px;
+        border-radius: 10px;
+        margin-top: 10px;
+        object-fit: cover;
     }
 </style>
 
@@ -1241,9 +1256,9 @@ margin: 0;
     <!-- Product card2 1 -->
     <div class="product-card2"  data-category="jersey">
         <div class="card2-header">
-            <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Smart Watch">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAh7b9wMDVsomFhYbnDApcZxrVc59jQ3CILlhk31JD9-Xfb5ZzESNUyaZ3&s=10" alt="Smart Watch">
         </div>
-        <div class="card2-price">Rp 1.500.000</div>
+        <div class="card2-price">Rp 135.000</div>
         <div class="card2-body">
             <div class="card2-left">
                 <div class="card2-title">Grade A</div>
@@ -1267,9 +1282,9 @@ margin: 0;
     <!-- Product card2 2 -->
     <div class="product-card2"  data-category="jersey">
         <div class="card2-header">
-            <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Headphones">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGPuAagReq0wrv5z8oy9I1nIFoT6cDd1eWy3qMzUH3XbSL5fjkeGSQgM&s=10" alt="Headphones">
         </div>
-        <div class="card2-price">Rp 1.200.000</div>
+        <div class="card2-price">Rp 110.000</div>
         <div class="card2-body">
             <div class="card2-left">
                 <div class="card2-title">Grade B</div>
@@ -1293,9 +1308,9 @@ margin: 0;
     <!-- Product card2 3 -->
     <div class="product-card2"  data-category="jersey">
         <div class="card2-header">
-            <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Game Controller">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc6FDAaWD4TzL8n8P-Eajo1YB9KWvDoNhQegCQj2NZa3HjKlPQHnwo-9I&s=10" alt="Game Controller">
         </div>
-        <div class="card2-price">Rp 2.500.000</div>
+        <div class="card2-price">Rp 105.000</div>
         <div class="card2-body">
             <div class="card2-left">
                 <div class="card2-title">Grade C</div>
@@ -1319,9 +1334,35 @@ margin: 0;
     <!-- Product card2 1 -->
     <div class="product-card2"  data-category="stiker">
         <div class="card2-header">
-            <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Smart Watch">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStmjlxToDjJjgCrIcNdVnHCFxJiCH8egls6f33UqXXBSrvq-B1hx7psVzI&s=10" alt="Smart Watch">
         </div>
-        <div class="card2-price">Rp 1.500.000</div>
+        <div class="card2-price">Rp 9.000</div>
+        <div class="card2-body">
+            <div class="card2-left">
+                <div class="card2-title">Stiker Cromo</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                <div class="card2-rating">
+                    <div class="stars">★★★★☆</div>
+                </div>
+            </div>
+            <div class="card2-right">
+                <span>YOUR TITLE</span>
+                <p>Lorem ipsum dolor sit amet, consectetur</p>
+                <span>YOUR TITLE</span>
+                <p>Lorem ipsum dolor sit amet, consectetur</p>
+                <span>YOUR TITLE</span>
+                <p>Lorem ipsum dolor sit amet, consectetur</p>
+            </div>
+        </div>
+        <button class="add-btn">ADD TO CART</button>
+    </div>
+
+    <!-- Product card2 2 -->
+    <div class="product-card2"  data-category="stiker">
+        <div class="card2-header">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeSMrcpS8m5biiToQtxySF4Rqw4sCc3uKn9eVdgytBNCcdOBSu9Av0nFRp&s=10" alt="Headphones">
+        </div>
+        <div class="card2-price">Rp 11.000</div>
         <div class="card2-body">
             <div class="card2-left">
                 <div class="card2-title">Stiker Vinyl</div>
@@ -1345,12 +1386,38 @@ margin: 0;
     <!-- Product card2 2 -->
     <div class="product-card2"  data-category="stiker">
         <div class="card2-header">
-            <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Headphones">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPgHjw7OQ0ee--zyuVFeA-JJFr3yIjygBFxu0Q_Ci0L8kaet5vt0Jhmcjy&s=10" alt="Headphones">
         </div>
-        <div class="card2-price">Rp 1.200.000</div>
+        <div class="card2-price">Rp 11.000</div>
         <div class="card2-body">
             <div class="card2-left">
-                <div class="card2-title">Stiker Cromo</div>
+                <div class="card2-title">Stiker Transparant</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                <div class="card2-rating">
+                    <div class="stars">★★★★☆</div>
+                </div>
+            </div>
+            <div class="card2-right">
+                <span>YOUR TITLE</span>
+                <p>Lorem ipsum dolor sit amet, consectetur</p>
+                <span>YOUR TITLE</span>
+                <p>Lorem ipsum dolor sit amet, consectetur</p>
+                <span>YOUR TITLE</span>
+                <p>Lorem ipsum dolor sit amet, consectetur</p>
+            </div>
+        </div>
+        <button class="add-btn">ADD TO CART</button>
+    </div>
+
+    <!-- Product card2 2 -->
+    <div class="product-card2"  data-category="stiker">
+        <div class="card2-header">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9E2PDJESPERYf-cMQ-JVfTa_7rAdm0BDrjbkOfrXMjWASC7r6mJmOKTQ&s=10" alt="Headphones">
+        </div>
+        <div class="card2-price">Rp 14.000</div>
+        <div class="card2-body">
+            <div class="card2-left">
+                <div class="card2-title">Stiker Hologram</div>
                 <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
                 <div class="card2-rating">
                     <div class="stars">★★★★☆</div>
@@ -1373,7 +1440,7 @@ margin: 0;
         <div class="card2-header">
             <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Game Controller">
         </div>
-        <div class="card2-price">Rp 2.500.000</div>
+        <div class="card2-price">Rp 2.500</div>
         <div class="card2-body">
             <div class="card2-left">
                 <div class="card2-title">Nota A</div>
@@ -1572,237 +1639,190 @@ margin: 0;
 <div class="containerA2">
     <div class="articlesA2">
         <!-- Daftar artikel tentang D'Side Graphia dan percetakan -->
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Peran D'Side Graphia dalam Industri Kreatif</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">D'Side Graphia telah mengubah cara industri kreatif beroperasi, memungkinkan produksi dengan skala kecil namun tetap berkualitas...</p>
+        <div class="article-cardA2" data-media="https://www.youtube.com/watch?v=example20" data-type="video">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Teknik Digital Printing yang Efisien</h2>
+            <div class="authorA2">Penulis: Admin</div>
         </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Mengapa D'Side Graphia Menjadi Pilihan Utama</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">D'Side Graphia memberikan kemudahan dan fleksibilitas yang tidak dimiliki oleh metode cetak tradisional...</p>
+    </div>
+    <p class="contentA2">D'Side Graphia menggunakan teknik digital printing yang efisien untuk menghasilkan produk berkualitas.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image19.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Memahami Proses Cetak Digital</h2>
+            <div class="authorA2">Penulis: Admin</div>
         </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Pemilihan Bahan Cetak dalam D'Side Graphia</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">Pemilihan bahan dalam D'Side Graphia memegang peranan penting dalam memastikan hasil cetak yang maksimal...</p>
+    </div>
+    <p class="contentA2">Proses cetak digital di D'Side Graphia mencakup berbagai tahap untuk memastikan kualitas.</p>
+</div>
+<div class="article-cardA2" data-media="https://www.youtube.com/watch?v=example23" data-type="video">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Peran Desain dalam Percetakan Digital</h2>
+            <div class="authorA2">Penulis: Admin</div>
         </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Peran D'Side Graphia dalam Industri Kreatif</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">D'Side Graphia telah mengubah cara industri kreatif beroperasi, memungkinkan produksi dengan skala kecil namun tetap berkualitas...</p>
+    </div>
+    <p class="contentA2">Desain yang baik adalah kunci untuk hasil cetak yang memuaskan. D'Side Graphia memahami pentingnya desain.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image21.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Digital Printing untuk Branding yang Kuat</h2>
+            <div class="authorA2">Penulis: Admin</div>
         </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Mengapa D'Side Graphia Menjadi Pilihan Utama</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">D'Side Graphia memberikan kemudahan dan fleksibilitas yang tidak dimiliki oleh metode cetak tradisional...</p>
+    </div>
+    <p class="contentA2">D'Side Graphia menawarkan solusi digital printing untuk memperkuat branding Anda.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image22.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Bahan Baku untuk Percetakan Digital</h2>
+            <div class="authorA2">Penulis: Admin</div>
         </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Pemilihan Bahan Cetak dalam D'Side Graphia</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">Pemilihan bahan dalam D'Side Graphia memegang peranan penting dalam memastikan hasil cetak yang maksimal...</p>
+    </div>
+    <p class="contentA2">Pilihan bahan baku sangat mempengaruhi hasil cetakan. D'Side Graphia selalu memilih yang terbaik.</p>
+</div>
+<div class="article-cardA2" data-media="https://www.youtube.com/watch?v=example26" data-type="video">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Cetak Bahan Pemasaran yang Efektif</h2>
+            <div class="authorA2">Penulis: Admin</div>
         </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Teknologi Terkini dalam D'Side Graphia</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">Perkembangan teknologi terus menghadirkan inovasi baru dalam dunia D'Side Graphia, seperti kecepatan cetak dan kualitas hasil...</p>
+    </div>
+    <p class="contentA2">Pelajari bagaimana D'Side Graphia mencetak bahan pemasaran yang efektif untuk berbagai bisnis.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image24.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Inovasi dalam Finishing Produk Cetak</h2>
+            <div class="authorA2">Penulis: Admin</div>
         </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Mengenal Jenis-Jenis Tinta untuk D'Side Graphia</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">Berbagai jenis tinta digunakan dalam D'Side Graphia, masing-masing dengan kelebihan dan karakteristik tersendiri...</p>
+    </div>
+    <p class="contentA2">Finishing produk cetak adalah tahap akhir yang krusial. D'Side Graphia memiliki berbagai opsi finishing.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image25.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Kreativitas dalam Desain Packaging</h2>
+            <div class="authorA2">Penulis: Admin</div>
         </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Tips Meningkatkan Kualitas Hasil Cetak Digital</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">Dengan beberapa trik sederhana, kualitas hasil cetak digital bisa lebih optimal dan tahan lama...</p>
+    </div>
+    <p class="contentA2">D'Side Graphia membantu menciptakan desain kemasan yang menarik dan fungsional.</p>
+</div>
+<div class="article-cardA2" data-media="https://www.youtube.com/watch?v=example29" data-type="video">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Mengatasi Tantangan dalam Digital Printing</h2>
+            <div class="authorA2">Penulis: Admin</div>
         </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Keuntungan Menggunakan D'Side Graphia untuk Bisnis</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">D'Side Graphia menawarkan fleksibilitas yang sangat berguna bagi bisnis untuk branding dan promosi...</p>
+    </div>
+    <p class="contentA2">Pelajari cara D'Side Graphia mengatasi berbagai tantangan dalam digital printing.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image27.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Mengenal Percetakan 3D</h2>
+            <div class="authorA2">Penulis: Admin</div>
         </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>D'Side Graphia dalam Dunia Pendidikan</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">D'Side Graphia kini banyak dimanfaatkan di institusi pendidikan untuk cetak modul, poster, dan bahan ajar lainnya...</p>
+    </div>
+    <p class="contentA2">D'Side Graphia juga menjelajahi percetakan 3D untuk memenuhi permintaan pasar yang terus berkembang.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image28.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Perkembangan Percetakan di Era Digital</h2>
+            <div class="authorA2">Penulis: Admin</div>
         </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Panduan Memilih Printer untuk D'Side Graphia</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">Dengan berbagai tipe printer yang tersedia, memilih yang tepat sangat penting untuk hasil cetak terbaik...</p>
+    </div>
+    <p class="contentA2">D'Side Graphia mengikuti perkembangan percetakan di era digital untuk tetap relevan.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image30.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Cetakan Berkualitas untuk Event Khusus</h2>
+            <div class="authorA2">Penulis: Admin</div>
         </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Panduan Singkat: Offset Printing vs D'Side Graphia</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">Banyak yang masih bingung antara offset dan D'Side Graphia, padahal keduanya memiliki karakteristik unik masing-masing...</p>
+    </div>
+    <p class="contentA2">D'Side Graphia menyediakan cetakan berkualitas tinggi untuk berbagai acara khusus.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image31.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Keunggulan Digital Printing dalam Bisnis Kecil</h2>
+            <div class="authorA2">Penulis: Admin</div>
         </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Mengenal Large Format Printing untuk Bisnis Anda</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">Large format printing cocok untuk mencetak media besar seperti banner, spanduk, dan billboard dengan kualitas tinggi...</p>
+    </div>
+    <p class="contentA2">Digital printing memberikan banyak keuntungan bagi bisnis kecil. D'Side Graphia membantu Anda memanfaatkannya.</p>
+</div>
+<div class="article-cardA2" data-media="https://www.youtube.com/watch?v=example31" data-type="video">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Masa Depan Percetakan dengan Teknologi AI</h2>
+            <div class="authorA2">Penulis: Admin</div>
         </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Faktor yang Mempengaruhi Biaya Cetak Digital</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">Beberapa faktor utama seperti bahan, tinta, dan ukuran memengaruhi biaya cetak digital secara keseluruhan...</p>
+    </div>
+    <p class="contentA2">D'Side Graphia menjelajahi bagaimana teknologi AI dapat mengubah industri percetakan.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image32.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Kustomisasi dalam Digital Printing</h2>
+            <div class="authorA2">Penulis: Admin</div>
         </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Manfaat D'Side Graphia dalam Promosi Produk</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">D'Side Graphia memungkinkan promosi yang lebih fleksibel, mulai dari flyer hingga billboard...</p>
+    </div>
+    <p class="contentA2">D'Side Graphia menawarkan berbagai opsi kustomisasi untuk produk cetakan Anda.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image33.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Manfaat Digital Printing untuk Event dan Promosi</h2>
+            <div class="authorA2">Penulis: Admin</div>
         </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Bagaimana Menjaga Keawetan Hasil Cetak Digital</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">Teknik tertentu dapat membantu menjaga kualitas cetakan agar lebih tahan lama dan terlihat profesional...</p>
+    </div>
+    <p class="contentA2">D'Side Graphia membantu Anda mendapatkan manfaat maksimal dari digital printing untuk event dan promosi.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image34.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Solusi Digital Printing untuk Kebutuhan Spesifik</h2>
+            <div class="authorA2">Penulis: Admin</div>
         </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Tren D'Side Graphia di Tahun 2024</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">Banyak tren baru di D'Side Graphia yang diprediksi akan muncul pada tahun 2024, baik dari segi teknologi maupun desain...</p>
-        </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Panduan Memilih Tinta untuk D'Side Graphia</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">Pemilihan tinta dalam D'Side Graphia sangat menentukan hasil akhir, baik untuk kebutuhan indoor maupun outdoor...</p>
-        </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Keunggulan D'Side Graphia dalam Produksi Massal</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">D'Side Graphia memiliki kelebihan tertentu yang membuatnya cocok digunakan dalam produksi massal berbiaya rendah...</p>
-        </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Sejarah D'Side Graphia dan Perkembangannya</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">D'Side Graphia memiliki perjalanan panjang sebelum menjadi salah satu metode cetak yang paling populer saat ini...</p>
-        </div>
-        <div class="article-cardA2">
-            <div class="article-headerA2">
-                <div class="profile-picA2"></div>
-                <div>
-                    <h2>Pengaruh D'Side Graphia Terhadap Bisnis Retail</h2>
-                    <div class="authorA2">Penulis: Admin</div>
-                </div>
-            </div>
-            <p class="contentA2">Bisnis retail kini banyak memanfaatkan D'Side Graphia untuk menarik perhatian konsumen dengan visual yang menarik...</p>
-        </div>
-        <!-- Tambahkan 17 artikel lainnya dengan pola yang sama -->
+    </div>
+    <p class="contentA2">D'Side Graphia memberikan solusi digital printing yang disesuaikan untuk memenuhi kebutuhan spesifik Anda.</p>
+</div>
+
+
     </div>
 </div>
 
 <!-- Popup Lightbox -->
 <div class="lightboxA2" id="lightboxA2">
     <div class="lightbox-contentA2">
-        <button class="close-btnA2" id="close-btnA2"></button>
+        <button class="close-btnA2" id="close-btnA2">Tutup</button>
         <h2 id="popup-titleA2">Judul Artikel</h2>
         <div id="popup-authorA2">Penulis: Admin</div>
         <p id="popup-contentA2">Detail artikel akan ditampilkan di sini.</p>
+        <img id="popup-imageA2" class="mediaA2" style="display: none;" alt="Media" />
+        <iframe id="popup-videoA2" class="mediaA2" width="100%" height="315" style="display: none;" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
 </div>
 
@@ -2455,32 +2475,49 @@ updateCart();
 
  <!--MENU TAB PROTOFOLIO --> 
 <script>
-    // Menampilkan popup lightbox saat card diklik
+    // Menampilkan thumbnail dan popup lightbox saat card diklik
     document.querySelectorAll('.article-cardA2').forEach(card => {
+        const mediaUrl = card.getAttribute('data-media');
+        const mediaType = card.getAttribute('data-type');
+
         card.addEventListener('click', () => {
-            const articleTitle = card.querySelector('h2').innerText;
-            const articleAuthor = card.querySelector('.authorA2').innerText;
-            const articleContent = card.querySelector('.contentA2').innerText;
-
-            document.getElementById('popup-titleA2').innerText = articleTitle;
-            document.getElementById('popup-authorA2').innerText = articleAuthor;
-            document.getElementById('popup-contentA2').innerText = articleContent;
-
             document.getElementById('lightboxA2').style.display = 'flex';
+            document.getElementById('popup-titleA2').innerText = card.querySelector('h2').innerText;
+            document.getElementById('popup-authorA2').innerText = card.querySelector('.authorA2').innerText;
+            document.getElementById('popup-contentA2').innerText = card.querySelector('.contentA2').innerText;
+
+            if (mediaType === 'image') {
+                const image = document.getElementById('popup-imageA2');
+                image.src = mediaUrl;
+                image.style.display = 'block';
+                document.getElementById('popup-videoA2').style.display = 'none';
+            } else if (mediaType === 'video') {
+                const video = document.getElementById('popup-videoA2');
+                video.src = mediaUrl;
+                video.style.display = 'block';
+                document.getElementById('popup-imageA2').style.display = 'none';
+            }
         });
     });
 
-    // Menutup popup lightbox
+    // Menutup lightbox saat tombol close diklik
     document.getElementById('close-btnA2').addEventListener('click', () => {
-        document.getElementById('lightboxA2').style.display = 'none';
+        closeLightbox();
     });
 
-    // Menutup popup saat mengklik di luar konten
+    // Menutup lightbox saat mengklik di luar konten
     document.getElementById('lightboxA2').addEventListener('click', (event) => {
-        if (event.target === document.getElementById('lightboxA2')) {
-            document.getElementById('lightboxA2').style.display = 'none';
+        if (event.target === event.currentTarget) {
+            closeLightbox();
         }
     });
+
+    // Fungsi untuk menutup lightbox
+    function closeLightbox() {
+        document.getElementById('lightboxA2').style.display = 'none';
+        document.getElementById('popup-imageA2').style.display = 'none';
+        document.getElementById('popup-videoA2').style.display = 'none';
+    }
 </script>
 
  <!--TOMBOL FULLSCREEN --> 
