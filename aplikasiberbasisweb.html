@@ -8,13 +8,52 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 	
 <style>
-body {max-width: 400px;
+body {
+		max-width: 400px;
       margin: 0;
       padding: 0;
       }
 .bottom{margin-bottom:70px}
 </style>
 
+    <style> /* TOMBOL FULLSCREEN */
+        .notification {
+            position: fixed;
+            top: 70px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .notification::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -10px;
+            margin-top: -5px;
+            border: 5px solid transparent;
+            border-right-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .fullscreen-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1em;
+        }
+
+        .fullscreen-icon {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+    </style>
 
 <style> /* Style untuk header */
 header {background-color: rgba(0, 0, 100, 0.7);box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); padding:10px;position: fixed;top: 0;left: 0;width: 100%;z-index: 100;}
@@ -468,7 +507,7 @@ header {background-color: rgba(0, 0, 100, 0.7);box-shadow: 0 2px 5px rgba(0, 0, 
 </style>
 
 
-<style> /*MENU TAB HOME*/
+<style> /*MENU TAB PROFILE*/
         .profile-card {
             margin-top: 55px;
             width: 100%;
@@ -694,7 +733,7 @@ header {background-color: rgba(0, 0, 100, 0.7);box-shadow: 0 2px 5px rgba(0, 0, 
 
 <style> /*MENU TAB HOME*/
     /* Resetting margin and padding */
-..containerH1 {
+.containerH1 {
     overflow: hidden; /* Hanya untuk kontainer tertentu */
 }
 .specific-element {
@@ -795,8 +834,8 @@ margin: 0;
     }
 
     .noteH1 {
-      background: rgba(255, 255, 255, 1);
-      color: #000;
+      background: rgba(255, 255, 255, 0.2);
+      color: #f1f1f1;
       font-size: 0.85em;
       padding: 10px;
       border-radius: 10px;
@@ -1782,6 +1821,11 @@ margin: 0;
     </div>
 </header>
 
+<div class="notification" id="notification">
+    <i id="fullscreen-icon" class="fas fa-expand fullscreen-icon"></i>
+    <div class="fullscreen-button">Klik tampilan Full Screen</div>
+</div>
+
 <div class="containerH1 specific-element fullscreen">	
   <div class="slider-containerH1">
     <div class="sliderH1">
@@ -1804,7 +1848,7 @@ margin: 0;
         <a href="https://maps.google.com" title="Location"><i class="fas fa-map-marker-alt"></i></a>
       </div>
       <div class="noteH1">
-        <p>Note: Aplikasi Berbasis Website Digital Printing ini. Masih dalam Process Maintenace</p>
+        <p>Note: Additional information or announcement goes here. This can be used for brief updates.</p>
       </div>
     </div>
 
@@ -2075,6 +2119,7 @@ margin: 0;
 <!--END MENU TAB PROFILE-->
 <div class="bottom" ></div>
 </div>
+
 
 <!--MENU TAB PRODUCT-->
 <script>
@@ -2435,6 +2480,30 @@ updateCart();
     document.getElementById('lightboxA2').addEventListener('click', (event) => {
         if (event.target === document.getElementById('lightboxA2')) {
             document.getElementById('lightboxA2').style.display = 'none';
+        }
+    });
+</script>
+
+ <!--TOMBOL FULLSCREEN --> 
+<script>
+    const notification = document.getElementById('notification');
+    const fullscreenIcon = document.getElementById('fullscreen-icon');
+
+    notification.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+            fullscreenIcon.classList.remove('fa-expand');
+            fullscreenIcon.classList.add('fa-compress'); // Ikon fullscreen aktif
+            notification.innerHTML = `<i id="fullscreen-icon" class="fas fa-compress fullscreen-icon"></i>
+                                      <div class="fullscreen-button">Klik membatalkan Full Screen</div>`;
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+                fullscreenIcon.classList.remove('fa-compress');
+                fullscreenIcon.classList.add('fa-expand'); // Ikon fullscreen non-aktif
+                notification.innerHTML = `<i id="fullscreen-icon" class="fas fa-expand fullscreen-icon"></i>
+                                          <div class="fullscreen-button">Klik tampilan Full Screen</div>`;
+            }
         }
     });
 </script>
