@@ -699,6 +699,7 @@ header {position: fixed;
             z-index: 2;
             box-shadow: 4px 0px 15px rgba(0, 0, 0, 0.3);
             padding-top: 20px;
+            text-align:left;
         }
 
         .sidebar1A.active1A {
@@ -2053,15 +2054,15 @@ margin: 0;
     <div class="sidebar1A" id="sidebar1A">
         <nav class="menu1A">
             <ul>
-                <li><a href="#">Beranda</a></li>
-                <li><a href="#">Profil</a></li>
-                <li><a href="#">Layanan</a></li>
-                <li><a href="#">Kontak</a></li>
+                <li><a href="#profil-p">Profil</a></li>
+                <li><a href="#gallery-p">Gallery</a></li>
+                <li><a href="#layanan-p">Layanan</a></li>
+                <li><a href="#contact-p">Kontak</a></li>
             </ul>
         </nav>
     </div>
     
-    <div class="profile-card">
+    <div id="profil-p" class="profile-card">
         <div class="profile-header">
             <div class="profile-image-container">
                 <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Profile Image" class="profile-image">
@@ -2074,7 +2075,7 @@ margin: 0;
         </div>
 
         <!-- Tab galeri kategori -->
-   <div class="gallery-tabs-container">
+   <div id="gallery-p" class="gallery-tabs-container">
         <div class="gallery-tabs">
             <div class="gallery-tab active" onclick="showTab('spanduk')">Spanduk</div>
             <div class="gallery-tab" onclick="showTab('jersey')">Jersey</div>
@@ -2129,6 +2130,10 @@ margin: 0;
             <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 6"></div>
         </div>
     </div>
+    
+    <div id="layanan-p">Layanan</div>
+    
+    <div id="contact-p">Kontak</div>
 <!--END MENU TAB PROFILE-->
 <div class="bottom" ></div>
 </div>
