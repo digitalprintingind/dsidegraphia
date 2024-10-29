@@ -12,7 +12,7 @@ body {
         font-family: 'Arial', sans-serif;
 		max-width: 400px;
       margin: 0;
-      padding: 0;box-shadow: 0px 0px 50px rgba(225, 225, 0, 5);
+      padding: 0;
       }
 .bottom{margin-bottom:70px}
 </style>
@@ -75,6 +75,39 @@ header {position: fixed;
 	    align-items: center;}
 @media only screen and (max-width: 768px) {body {width: 100%;}}
 @media only screen and (min-width: 768px) {body {width: 400px;margin: 0 auto;overflow-x: hidden;}}
+.menu-show-left {
+		position: fixed;
+		top:8px;
+		width:55px;height: 35px;	
+	    max-width: 400px;
+	    display: flex;
+	    overflow: hidden;
+    	margin-left:15px;
+		z-index:101;}
+
+.menu-show-right {
+		position: fixed;
+		top:8px;
+		width:55px;height: 35px;	
+	    max-width: 400px;
+	    display: flex;
+	    overflow: hidden;
+    	margin-right:15px;
+		z-index:101;}
+
+.logo-icon {
+		object-fit: contain;
+            color: #fff;
+            font-size: 30px;
+            cursor: pointer;
+            margin:0;
+            transition: transform 0.4s ease, color 0.3s ease;
+        }
+        
+.logo-icon:hover {
+            color: #1abc9c;
+            transform: rotate(90deg); /* Rotate effect on hover */
+        }
 </style>
 
 
@@ -101,7 +134,7 @@ header {position: fixed;
         flex-wrap: wrap; /* Membuat kolom dapat membungkus ke baris baru */
         justify-content: center;align-items: center;
         gap: 20px;
-        margin: 25px;max-width: 400px;
+        margin: 30px;max-width: 400px;
     }
 
     .product-card2 {
@@ -178,10 +211,10 @@ header {position: fixed;
         display: flex;
         line-height: 1.5;
         justify-content: space-between;
-        text-align: left;
         align-items: flex-start;
         font-family: 'Arial', sans-serif;
         margin-top: 0.8rem;
+        text-align:left;
     }
 
     .card2-left {
@@ -263,7 +296,7 @@ header {position: fixed;
 
 <style>/* Daftar item di keranjang */
 #cart-items {
-    max-height: 400px; /* Sesuaikan tinggi maksimum sesuai keinginan */
+    max-height: 260px; /* Sesuaikan tinggi maksimum sesuai keinginan */
     overflow-y: auto; /* Aktifkan scroll vertikal */
     margin-bottom: 10px; /* Jarak di bawah untuk elemen lainnya */
 }
@@ -304,8 +337,9 @@ header {position: fixed;
     font-family: 'Arial', sans-serif;
         position: fixed;
         top: 55px;
-        right: 20px;
-        width: 300px;
+        
+        width: 95%;
+        max-width:380px;
         max-height: 400px;
         overflow-y: auto;
         background-color: rgba(255, 255, 255, 0.93);
@@ -664,7 +698,7 @@ header {position: fixed;
             transition: left 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Smooth animation */
             z-index: 2;
             box-shadow: 4px 0px 15px rgba(0, 0, 0, 0.3);
-            padding-top: 20px;text-align: left;
+            padding-top: 20px;
         }
 
         .sidebar1A.active1A {
@@ -722,15 +756,18 @@ header {position: fixed;
 
         /* Toggle Icon */
         .toggle1A {
+        	max-width:400px;
             font-size: 30px;
             cursor: pointer;
-            position: relative;
-            top: -3px;
-            left: -10px;
+            position: fixed;
+            top: 0px;
+            left: 15px;
             color: #fff;
             z-index: 1000;
             transition: transform 0.4s ease, color 0.3s ease;
         }
+        
+   
 
         .toggle1A:hover {
             color: #1abc9c;
@@ -870,14 +907,14 @@ margin: 0;
 
     /* Footer */
     .footerH1 {
-            font-family: 'Arial', sans-serif;
+      font-family: 'Arial', sans-serif;
       width: 100%;
       color: #fff;
       padding: 10px;
       text-align: center;
       font-size: 0.9rem;
       position: absolute; /* Kept absolute to remain within the slider */
-      bottom: 8.5rem; /* Align to the bottom */
+      bottom: 5.5rem; /* Align to the bottom */
     }
   </style>
   
@@ -886,7 +923,7 @@ margin: 0;
         font-family: Arial, sans-serif;
         margin: auto;
         text-align: center;
-        max-width: 800px;
+        max-width: 400px;
     }
 
     .reviewsU1 {
@@ -1197,7 +1234,17 @@ margin: 0;
 </head>
 <body>
     
-
+<header>
+    <div class="container">
+        <div class="logo">
+            <img style="margin-left:0;" src="https://blogger.googleusercontent.com/img/a/AVvXsEh-TdU_CPouYJR_QS5_8VZbsd7-VTIv4CUQupHmFzTJSdTQZ8qSh6bkLsHy7CA5YgqVxpMTgMOXVMcEAfieyZP-D8S1y-M7kGbL43x4zxk3DKYLl8B7rUV8PD7xFAgwFpNdKWzd0SSJDbB1eKxut766Mssumdl6oYwXM1uAikoTXo9889Cnpx7PbvQzVnpk=s1600" alt="Logo" />
+        </div>
+        <div id="cart-icon">
+<i class="fas fa-shopping-cart"></i>
+    <span id="cart-count">0</span>
+</div>
+    </div>
+</header>
 <!-- Ikon Keranjang Belanja di Pojok Kanan Atas -->
 
 
@@ -1215,22 +1262,10 @@ margin: 0;
 
 <!-- Content sections for each tab -->
 <div class="contentH3" id="content-productH3"><!--MENU TAB PRODUCT-->
-<header>
-    <div class="container">
-        <div class="toggle1A" id="icon">&#9776;</div>
-        <div class="logo">
-            <img style="margin-left:0;" src="https://blogger.googleusercontent.com/img/a/AVvXsEh-TdU_CPouYJR_QS5_8VZbsd7-VTIv4CUQupHmFzTJSdTQZ8qSh6bkLsHy7CA5YgqVxpMTgMOXVMcEAfieyZP-D8S1y-M7kGbL43x4zxk3DKYLl8B7rUV8PD7xFAgwFpNdKWzd0SSJDbB1eKxut766Mssumdl6oYwXM1uAikoTXo9889Cnpx7PbvQzVnpk=s1600" alt="Logo" />
-        </div>
-        <div id="cart-icon">
-			<i class="fas fa-shopping-cart"></i>
-    		<span id="cart-count">0</span>
-		</div>
-    </div>
-</header>
+<div class="menu-show-left"><div class="logo-icon" id="icon">&#9776;</div></div>
 
 
 <div class="tab-container">
-    
     <div id="tabs"> <!-- Kontainer untuk tab -->
         <button class="tab active-tab" data-category="jersey">
             <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Jersey" class="tab-icon">
@@ -1252,7 +1287,6 @@ margin: 0;
 </div>
 
 <div class="card2-container">
-	
     <!-- Product card2 1 -->
     <div class="product-card2"  data-category="jersey">
         <div class="card2-header">
@@ -1623,18 +1657,6 @@ margin: 0;
 
 
 <div class="contentH3" id="content-portofolioH3"><!--MENU TAB PAYMENT-->
-<header>
-    <div class="container">
-        <div class="toggle1A" id="icon">&#9776;</div>
-        <div class="logo">
-            <img style="margin-left:0;" src="https://blogger.googleusercontent.com/img/a/AVvXsEh-TdU_CPouYJR_QS5_8VZbsd7-VTIv4CUQupHmFzTJSdTQZ8qSh6bkLsHy7CA5YgqVxpMTgMOXVMcEAfieyZP-D8S1y-M7kGbL43x4zxk3DKYLl8B7rUV8PD7xFAgwFpNdKWzd0SSJDbB1eKxut766Mssumdl6oYwXM1uAikoTXo9889Cnpx7PbvQzVnpk=s1600" alt="Logo" />
-        </div>
-        <div id="cart-icon">
-			<i class="fas fa-shopping-cart"></i>
-    		<span id="cart-count">0</span>
-		</div>
-    </div>
-</header>
 
 <div class="containerA2">
     <div class="articlesA2">
@@ -1831,19 +1853,6 @@ margin: 0;
 
 <div class="contentH3 activeH3" id="content-homeH3"><!--MENU TAB HOME-->
 
-<header>
-    <div class="container">
-        <div class="toggle1A" id="icon">&#9776;</div>
-        <div class="logo">
-            <img style="margin-left:0;" src="https://blogger.googleusercontent.com/img/a/AVvXsEh-TdU_CPouYJR_QS5_8VZbsd7-VTIv4CUQupHmFzTJSdTQZ8qSh6bkLsHy7CA5YgqVxpMTgMOXVMcEAfieyZP-D8S1y-M7kGbL43x4zxk3DKYLl8B7rUV8PD7xFAgwFpNdKWzd0SSJDbB1eKxut766Mssumdl6oYwXM1uAikoTXo9889Cnpx7PbvQzVnpk=s1600" alt="Logo" />
-        </div>
-        <div id="cart-icon">
-			<i class="fas fa-shopping-cart"></i>
-    		<span id="cart-count">0</span>
-		</div>
-    </div>
-</header>
-
 <div class="notification" id="notification">
     <i id="fullscreen-icon" class="fas fa-expand fullscreen-icon"></i>
     <div class="fullscreen-button">Klik tampilan Full Screen</div>
@@ -1862,7 +1871,7 @@ margin: 0;
     <!-- Overlay Content -->
     <div class="overlayH1">
       <div class="profile-imageH1"></div>
-      <h1>D'Side Graphia</h1>
+      <h1>Digital Printing</h1>
       <p class="descriptionH1">Advertising need your bussines</p>
       <div class="contact-infoH1">
         <a href="mailto:example@domain.com" title="Email"><i class="fas fa-envelope"></i></a>
@@ -1877,7 +1886,7 @@ margin: 0;
 
     <!-- Footer -->
     <div class="footerH1">
-      &copy; 2024 D'Side Graphia by Ridwan. All rights reserved.
+      &copy; 2024 Digital Printing by Ridwan. All rights reserved.
     </div>
   </div>
 </div>
@@ -1885,20 +1894,7 @@ margin: 0;
 </div>
 
 <div class="contentH3" id="content-ulasanH3"><!--MENU TAB CONTACT FORM-->
-
-<header>
-    <div class="container">
-        <div class="toggle1A" id="icon">&#9776;</div>
-        <div class="logo">
-            <img style="margin-left:0;" src="https://blogger.googleusercontent.com/img/a/AVvXsEh-TdU_CPouYJR_QS5_8VZbsd7-VTIv4CUQupHmFzTJSdTQZ8qSh6bkLsHy7CA5YgqVxpMTgMOXVMcEAfieyZP-D8S1y-M7kGbL43x4zxk3DKYLl8B7rUV8PD7xFAgwFpNdKWzd0SSJDbB1eKxut766Mssumdl6oYwXM1uAikoTXo9889Cnpx7PbvQzVnpk=s1600" alt="Logo" />
-        </div>
-        <div id="cart-icon">
-			<i class="fas fa-shopping-cart"></i>
-    		<span id="cart-count">0</span>
-		</div>
-    </div>
-</header>
-
+   
     <div class="containerU1">
         <div class="reviewsU1">
             <!-- Review 1 -->
@@ -2049,19 +2045,7 @@ margin: 0;
 </div>
 
 <div class="contentH3" id="content-profileH3"> <!--MENU TAB PROFILE-->
-
-<header>
-    <div class="container">
-        <div class="toggle1A" id="toggle1A">&#9776;</div>
-        <div class="logo">
-            <img style="margin-left:0;" src="https://blogger.googleusercontent.com/img/a/AVvXsEh-TdU_CPouYJR_QS5_8VZbsd7-VTIv4CUQupHmFzTJSdTQZ8qSh6bkLsHy7CA5YgqVxpMTgMOXVMcEAfieyZP-D8S1y-M7kGbL43x4zxk3DKYLl8B7rUV8PD7xFAgwFpNdKWzd0SSJDbB1eKxut766Mssumdl6oYwXM1uAikoTXo9889Cnpx7PbvQzVnpk=s1600" alt="Logo" />
-        </div>
-        <div id="cart-icon">
-			<i class="fas fa-shopping-cart"></i>
-    		<span id="cart-count">0</span>
-		</div>
-    </div>
-</header>
+<div class="menu-show-left"><div class="logo-icon" id="toggle1A">&#9776;</div></div>
 
     <!-- Overlay for outside click to close sidebar -->
     <div class="overlay1A" id="overlay1A"></div>
@@ -2084,7 +2068,7 @@ margin: 0;
             </div>
         </div>
         <div class="profile-info">
-            <h2 class="profile-name">D'Side Graphia</h2>
+            <h2 class="profile-name">DIGITAL PRINTING</h2>
             <p class="profile-title">Your Solution Advertising</p>
             <p class="profile-location">📍 Jl, Indonesia Raya Merdeka dan Damai</p>
         </div>
