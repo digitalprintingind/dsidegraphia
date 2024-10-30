@@ -6,7 +6,166 @@
 	<title>Modern Slider with Overlay</title>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-	
+
+<style>/*Contact Service*/
+.boxlayanan {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding:10px;
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+        }
+        
+        .services-container {
+            max-width: 400px;
+            width: 100%;
+            padding: 10px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .services-container h2 {
+            font-size: 28px;
+            margin-bottom: 1rem;
+            color: #00796b;
+        }
+        
+        .service-card {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            background: #f5f5f5;
+            border-radius: 8px;
+            margin: 1rem 0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .icon1 {
+            font-size: 30px;
+            color: #4db6ac;
+            margin-right: 1rem;
+        }
+        
+        .service-content h3 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .service-content p {
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+    
+    
+<style> /*Contact Form*/
+.boxcontact{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin:0;
+        }
+        .contact-form {
+            max-width: 400px;
+            width: 340px;
+            background: #fff;
+            padding:10px;
+            border-radius: 12px;
+            transform: translateY(-20px);
+            animation: slideDown 0.5s ease-out forwards;
+        }
+        
+        .contact-form h2 {
+            font-size: 24px;
+            margin-bottom: 1.5rem;
+            color: #333;
+            text-align: center;
+        }
+        
+        .form-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 10px;
+            font-size: 16px;
+            border: 2px solid #6a0dad;
+            border-radius: 8px;
+            outline: none;
+            transition: border 0.3s;
+            background: #fff;
+        }
+        
+        .form-group label {
+            position: absolute;
+            top: 50%;
+            left: 12px;
+            color: #999;
+            font-size: 14px;
+            pointer-events: none;
+            transform: translateY(-50%);
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #6a0dad;
+        }
+        
+        .form-group input:focus + label,
+        .form-group textarea:focus + label,
+        .form-group input:not(:placeholder-shown) + label,
+        .form-group textarea:not(:placeholder-shown) + label {
+            top: -5px;
+            left: 10px;
+            font-size: 12px;
+            color: #6a0dad;
+            background: #fff;
+            padding: 0 5px;
+            border-radius: 4px;
+        }
+        
+        .tombol {
+            width: 100%;
+            padding: 12px;
+            background: #6a0dad;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: block;
+        }
+        
+        .tombol:hover {
+            background: #6a0dad;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+</style>
+
+
 <style>
 body {
         font-family: 'Arial', sans-serif;
@@ -579,7 +738,7 @@ header {position: fixed;
 
         /* Bagian header dengan gambar background */
         .profile-header {
-            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10');
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNDgsiuO-Ks6G1Y1oZtWbEAOJbhr31ANZfcd0A7u6BzIywtpAzFTwquZQH');
             background-size: cover;
             background-position: center;
             height: 150px;
@@ -687,23 +846,29 @@ header {position: fixed;
     </style>
 
 <style> /* MENU PROFILE */
-        .sidebar1A {
+        .sidebar1A {max-width: 400px;
             font-family: 'Arial', sans-serif;
-            width: 260px;
+            width: 100%; /* Full width */
             background: rgba(0, 0, 0, 0.3); /* Gradasi */
-            height: calc(100vh - 55px); /* Menyesuaikan tinggi sidebar */
+            height: 0; /* Mulai dengan tinggi 0 untuk slide dari atas */
             position: fixed;
-            top: 55px; /* Memberikan jarak atas */
-            left: -260px;
-            transition: left 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Smooth animation */
+            max-width:400px;
+            top: 55px;
+            
+            align-items: center;
+            justify-content: center;
+            transition: height 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Smooth animation */
             z-index: 2;
-            box-shadow: 4px 0px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
             padding-top: 20px;
-            text-align:left;
+            text-align: left;
+            overflow: hidden; /* Sembunyikan konten saat slide */
         }
 
+        /* Aktifkan sidebar */
         .sidebar1A.active1A {
-            left: 0;
+            height: auto; /* Tinggi otomatis sesuai konten */
+            max-height: calc(100vh - 55px); /* Batas maksimum tinggi sidebar */
         }
 
         /* Menu Styling */
@@ -757,18 +922,15 @@ header {position: fixed;
 
         /* Toggle Icon */
         .toggle1A {
-        	max-width:400px;
             font-size: 30px;
             cursor: pointer;
             position: fixed;
-            top: 0px;
+            top: 15px;
             left: 15px;
             color: #fff;
             z-index: 1000;
             transition: transform 0.4s ease, color 0.3s ease;
         }
-        
-   
 
         .toggle1A:hover {
             color: #1abc9c;
@@ -777,11 +939,14 @@ header {position: fixed;
 
         /* Overlay effect */
         .overlay1A {
-            position: fixed;
-            top: 0;
-            left: 0;
+        	max-width: 400px;
+            position: absolute;
+            top:55px;
+            
+            align-items: center;
+            justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 100%; /* Hanya sampai sidebar */
             background: rgba(0, 0, 0, 0.4);
             display: none;
             z-index: 1;
@@ -789,6 +954,7 @@ header {position: fixed;
 
         .overlay1A.active1A {
             display: block;
+            height: calc(100vh - 55px); /* Membatasi tinggi overlay sampai sidebar */
         }
     </style>
 
@@ -863,7 +1029,7 @@ margin: 0;
       height: 120px;
       border-radius: 20px;
       margin: 10px auto;
-      background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10') center/cover no-repeat;
+      background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNDgsiuO-Ks6G1Y1oZtWbEAOJbhr31ANZfcd0A7u6BzIywtpAzFTwquZQH') center/cover no-repeat;
       border: 3px solid #fff;
     }
 
@@ -2131,9 +2297,60 @@ margin: 0;
         </div>
     </div>
     
-    <div id="layanan-p">Layanan</div>
+<div id="layanan-p">
+<div class="boxlayanan">
+    <div class="services-container">
+        <h2>Our Services</h2>
+
+        <div class="service-card">
+            <div class="icon1">📈</div>
+            <div class="service-content">
+                <h3>Digital Marketing</h3>
+                <p>We help grow your business online with targeted ads, SEO, and content strategies.</p>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <div class="icon1">🌐</div>
+            <div class="service-content">
+                <h3>Web Development</h3>
+                <p>From idea to launch, we build responsive, engaging, and user-friendly websites.</p>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <div class="icon1">🎨</div>
+            <div class="service-content">
+                <h3>Graphic Design</h3>
+                <p>Our designers create stunning visuals that make your brand stand out.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
     
-    <div id="contact-p">Kontak</div>
+<div id="contact-p">
+<div class="boxcontact">
+    <div class="contact-form">
+        <h2>Contact Us</h2>
+        <form action="#" method="post">
+            <div class="form-group">
+                <input type="text" id="name" name="name" required placeholder=" ">
+                <label for="name">Name</label>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" name="email" required placeholder=" ">
+                <label for="email">Email</label>
+            </div>
+            <div class="form-group">
+                <textarea id="message" name="message" rows="4" required placeholder=" "></textarea>
+                <label for="message">Message</label>
+            </div>
+            <button class="tombol" type="submit">Send Message</button>
+        </form>
+    </div>
+</div>
+</div>
 <!--END MENU TAB PROFILE-->
 <div class="bottom" ></div>
 </div>
@@ -2391,7 +2608,7 @@ updateCart();
 
 
 
-<!-- MENU TAB HOME TOGGLE -->
+<!-- MENU TAB PROFILE TOGGLE -->
     <script>
         const toggle1A = document.getElementById('toggle1A');
         const sidebar1A = document.getElementById('sidebar1A');
@@ -2407,6 +2624,14 @@ updateCart();
         overlay1A.addEventListener('click', () => {
             sidebar1A.classList.remove('active1A');
             overlay1A.classList.remove('active1A');
+        });
+
+        // Close sidebar when clicking anywhere outside the sidebar
+        document.addEventListener('click', (event) => {
+            if (!sidebar1A.contains(event.target) && !toggle1A.contains(event.target) && sidebar1A.classList.contains('active1A')) {
+                sidebar1A.classList.remove('active1A');
+                overlay1A.classList.remove('active1A');
+            }
         });
     </script>
     
@@ -2533,5 +2758,15 @@ updateCart();
     });
 </script>
 
+
+ <!--CONTACT FORM --> 
+<script>
+        document.querySelector("form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Thank you! Your message has been sent.");
+        });
+</script>
+
+    
   </body>
 </html>
