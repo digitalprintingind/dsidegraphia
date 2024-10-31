@@ -217,46 +217,54 @@ body {
     </style>
 
 <style> /* Style untuk header */
-header {position: fixed;
+header {
+		position: fixed;
+	    overflow: hidden;
 	    top: 0;
 	    width: 100%;
 	    max-width: 400px;
-	    display: flex;
 	    background-color: #6a0dad;
 	    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-	height:55px;
-	    overflow: hidden;
-	z-index:100;
-	  }
-.container {display: flex;align-items: center;margin: 0 auto;}
-.logo img {height: 35px;object-fit: contain;
-	    justify-content: space-between;
-	    align-items: center;}
+	   	 max-width: 400px;
+            display: flex;
+            align-items: center;
+            height: 55px; /* Tinggi header */
+		z-index:100;
+        }
+        .logo-left img {
+            flex: 1;
+            height:35px;
+            padding: 10px; /* Padding untuk kolom kiri */
+            display: flex;
+            align-items: left;
+            justify-content: left;
+        }
+        .icon-right {
+            flex: 1;
+            margin-top:10px;
+            padding: 0px; /* Padding untuk kolom kanan */
+            display: flex;
+            align-items: right;
+            justify-content: right;
+        }
+
+		
 @media only screen and (max-width: 768px) {body {width: 100%;}}
 @media only screen and (min-width: 768px) {body {width: 400px;margin: 0 auto;overflow-x: hidden;}}
 .menu-show-left {
 		position: fixed;
-		top:8px;
+		top:70px;
 		width:55px;height: 35px;	
 	    max-width: 400px;
+		color:#6a0dad;
 	    display: flex;
 	    overflow: hidden;
     	margin-left:15px;
-		z-index:101;}
-
-.menu-show-right {
-		position: fixed;
-		top:8px;
-		width:55px;height: 35px;	
-	    max-width: 400px;
-	    display: flex;
-	    overflow: hidden;
-    	margin-right:15px;
-		z-index:101;}
+		z-index:10;}
 
 .logo-icon {
 		object-fit: contain;
-            color: #fff;
+            color: #6a0dad;
             font-size: 30px;
             cursor: pointer;
             margin:0;
@@ -264,17 +272,14 @@ header {position: fixed;
         }
         
 .logo-icon:hover {
-            color: #1abc9c;
+            color: #6a0dad;
             transform: rotate(90deg); /* Rotate effect on hover */
         }
 </style>
 
 
 <style> /* Styling untuk Tab Container */
-.tab-container {display: flex;margin-bottom: 5px;padding: 10px;}
-.toggle-button {background-color: #ff6600;color: #fff;padding: 10px 15px;border: none;border-radius: 5px;cursor: pointer;transition: background-color 0.3s ease;margin-bottom: 10px;}
-.icon {position: fixed;top: 7px;left: 10px;width: 40px;height: 40px;background-color: #ff6600;border-radius: 50%;display: flex;justify-content: center;align-items: center;cursor: pointer;transition: transform 0.3s ease;z-index: 1000;}
-.icon:hover {transform: scale(1.1);}
+
 .tab {background-color: rgba(0, 0, 0, 0.7);border: none;color: #fff;padding: 10px 15px;border-radius: 15px;cursor: pointer;transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;display: flex;align-items: center;width: 90%;margin: 5px 10px;font-family: 'Arial', sans-serif;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);text-align: left;}
 .tab-icon {width: 40px;height: 40px;margin-right: 10px;transition: transform 0.3s ease;border-radius: 50%;}
 .tab:hover {background-color: #ff6600;color: #fff;box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);}
@@ -293,7 +298,8 @@ header {position: fixed;
         flex-wrap: wrap; /* Membuat kolom dapat membungkus ke baris baru */
         justify-content: center;align-items: center;
         gap: 20px;
-        margin: 30px;max-width: 400px;
+        max-width: 400px;
+        margin-top:70px;
     }
 
     .product-card2 {
@@ -461,18 +467,9 @@ header {position: fixed;
 }
 
     /* Posisi dan gaya ikon keranjang belanja */
-    #cart-icon {position:relative;
-        top: 0px;
-        right: -70px;
-        z-index: 1000;
-        cursor: pointer;
+    #cart-icon {
         font-size: 30px;
         color:white;
-    }
-
-    #cart-icon img {
-        width: 40px;
-        height: 40px;
     }
 
     /* Gaya untuk jumlah item di ikon keranjang */
@@ -480,7 +477,7 @@ header {position: fixed;
         font-family: 'Arial', sans-serif;
         width: 20px;
         height: 10px;
-        top: -20px;
+        top: -15px;
         right: 15px;
         background-color: red;
         color: white;
@@ -854,13 +851,13 @@ header {position: fixed;
             position: fixed;
             max-width:400px;
             top: 55px;
-            
             align-items: center;
             justify-content: center;
             transition: height 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Smooth animation */
             z-index: 2;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
             padding-top: 20px;
+            z-index:100;
             text-align: left;
             overflow: hidden; /* Sembunyikan konten saat slide */
         }
@@ -942,7 +939,6 @@ header {position: fixed;
         	max-width: 400px;
             position: absolute;
             top:55px;
-            
             align-items: center;
             justify-content: center;
             width: 100%;
@@ -952,22 +948,11 @@ header {position: fixed;
             z-index: 1;
         }
 
-        .overlay1A.active1A {
-            display: block;
-            height: calc(100vh - 55px); /* Membatasi tinggi overlay sampai sidebar */
-        }
     </style>
 
 
 <style> /*MENU TAB HOME*/
     /* Resetting margin and padding */
-.containerH1 {
-    overflow: hidden; /* Hanya untuk kontainer tertentu */
-      z-index: 1;
-}
-.specific-element {
-    overflow: hidden; /* Mencegah scrollbar di elemen ini */
-}
 .fullscreen {
     position: fixed; /* Menjaga elemen ini di tempatnya */
     top: 0;
@@ -1013,15 +998,14 @@ margin: 0;
     .overlayH1 {
       position: relative; /* Changed to relative for proper overlay placement */
       width: 75%;
-	    max-width: 300px;
+	  max-width: 300px;
       padding: 20px;
       background: rgba(0, 0, 0, 0.5);
-        box-shadow: 0px 0px 50px rgba(225, 225, 0, 5);
+      box-shadow: 0px 0px 50px rgba(225, 225, 0, 5);
       color: #fff;
       border-radius: 15px;
       text-align: center;
-      z-index: 10;
-      top:-40px;
+      z-index: 100;
     }
 
     .profile-imageH1 {
@@ -1074,14 +1058,14 @@ margin: 0;
 
     /* Footer */
     .footerH1 {
+    	position:fixed;
       font-family: 'Arial', sans-serif;
       width: 100%;
       color: #fff;
-      padding: 10px;
+      padding: 0;
       text-align: center;
       font-size: 0.9rem;
-      position: absolute; /* Kept absolute to remain within the slider */
-      bottom: 150px; /* Align to the bottom */
+      bottom: 100px; /* Align to the bottom */
     }
   </style>
   
@@ -1402,15 +1386,13 @@ margin: 0;
 <body>
     
 <header>
-    <div class="container">
-        <div class="logo">
-            <img style="margin-left:-30px;" src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
-        </div>
-        <div id="cart-icon">
-<i class="fas fa-shopping-cart"></i>
-    <span id="cart-count">0</span>
-</div>
+    <div class="logo-left">
+        <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
     </div>
+    <div class="icon-right" id="cart-icon">
+		<i class="fas fa-shopping-cart"></i>
+    	<span id="cart-count">0</span>
+	</div>
 </header>
 <!-- Ikon Keranjang Belanja di Pojok Kanan Atas -->
 
@@ -1429,7 +1411,7 @@ margin: 0;
 
 <!-- Content sections for each tab -->
 <div class="contentH3" id="content-productH3"><!--MENU TAB PRODUCT-->
-<div class="menu-show-left"><div class="logo-icon" id="icon">&#9776;</div></div>
+<div class="menu-show-left"><div class="logo-icon" id="icon"><i class="fas fa-bars"></i></div></div>
 
 
 <div class="tab-container">
