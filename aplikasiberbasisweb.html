@@ -7,6 +7,67 @@
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+
+<style>
+/* Style for popup animation */
+.popup-hidden {
+    display: none;
+}
+#payment-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    width: 340px;
+    text-align: center;
+    z-index: 1100;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+#payment-popup.popup-show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+.payment-content h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+}
+.payment-details ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+.payment-details li {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+button {
+    margin: 10px 8px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+#cancel-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+#next-btn {
+    background-color: #3498db;
+    color: white;
+}
+button:hover {
+    opacity: 0.8;
+}
+</style>
+
 <style>/*Contact Service*/
 .boxlayanan {
             display: flex;
@@ -1370,6 +1431,15 @@ margin: 0;
 	</div>
 </header>
 
+<!-- HTML for Payment Popup -->
+<div id="payment-popup" class="popup-hidden">
+    <div class="payment-content">
+        <h2>Pembayaran</h2>
+        <div class="payment-details"></div>
+        <button id="cancel-btn">Cancel</button>
+        <button id="next-btn">Next</button>
+    </div>
+</div>
 
 <!-- Cart Popup -->
 <div id="cart-popup" class="popup-hidden">
@@ -2396,6 +2466,7 @@ const subtotalElement = document.getElementById('subtotal');
 const cartCount = document.getElementById('cart-count');
 const cartIcon = document.getElementById('cart-icon');
 const cartPopup = document.getElementById('cart-popup');
+const paymentPopup = document.getElementById('payment-popup');
 
 let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
@@ -2406,7 +2477,7 @@ cartIcon.addEventListener('click', function() {
 
 // Function to add item to cart
 function addToCart(productName, productPrice, productImg, event) {
-    event.stopPropagation(); // Mencegah event dari menjalar ke window
+    event.stopPropagation();
     const item = cartItems.find(cartItem => cartItem.name === productName);
     if (item) {
         item.qty += 1;
@@ -2460,13 +2531,13 @@ document.querySelectorAll('.add-btn').forEach(btn => {
         const productName = productCard.querySelector('.card2-title').innerText;
         const productPrice = parseInt(productCard.querySelector('.card2-price').innerText.replace(/Rp |[.]/g, ''));
         const productImg = productCard.querySelector('.card2-header img').src;
-        addToCart(productName, productPrice, productImg, event); // Pastikan menambahkan event
+        addToCart(productName, productPrice, productImg, event);
     });
 });
 
 // Functions for increasing, decreasing and removing items
 function decreaseQty(productName, event) {
-    event.stopPropagation(); // Mencegah event dari menjalar ke window
+    event.stopPropagation();
     const item = cartItems.find(cartItem => cartItem.name === productName);
     if (item && item.qty > 1) {
         item.qty -= 1;
@@ -2477,41 +2548,72 @@ function decreaseQty(productName, event) {
 }
 
 function removeFromCart(productName, event) {
-    event.stopPropagation(); // Mencegah event dari menjalar ke window
+    event.stopPropagation();
     cartItems = cartItems.filter(cartItem => cartItem.name !== productName);
     updateCart();
 }
 
+// Function to handle checkout
 function checkout() {
     if (cartItems.length === 0) {
         alert('Keranjang kosong, tambahkan produk terlebih dahulu!');
         return;
     }
 
-    // Buat pesan checkout
+    // Tampilkan popup pembayaran
+    showPaymentPopup();
+}
+
+// Show payment popup
+function showPaymentPopup() {
+    const subtotal = cartItems.reduce((total, item) => total + item.price * item.qty, 0);
+    paymentPopup.classList.remove('popup-hidden'); // Tampilkan popup
+    paymentPopup.classList.add('popup-show'); // Tambahkan kelas animasi
+    const paymentDetails = paymentPopup.querySelector('.payment-details');
+    paymentDetails.innerHTML = `
+        <p><strong>Subtotal: Rp ${subtotal.toLocaleString()}</strong></p>
+        <p>Pilih metode pembayaran:</p>
+        <ul>
+            <li>a.n <b>PT. DSAIN KREASI MANDIRI</b></li>
+            <li>Bank Mandiri</li>
+            <li><b><h1 style="margin-top:-3px;">1340020180971<h1></b></li>
+        </ul>
+    `;
+}
+
+// Hide payment popup
+function hidePaymentPopup() {
+    paymentPopup.classList.remove('popup-show'); // Hapus kelas animasi
+    paymentPopup.classList.add('popup-hidden');
+}
+
+// Send order to WhatsApp
+function sendOrderToWhatsApp() {
     let message = "Pesanan Anda:\n--------------------------------------\n";
     cartItems.forEach(item => {
         message += `${item.name} - Qty: ${item.qty} - Rp ${item.price * item.qty}\n`;
     });
     message += `--------------------------------------\nSubtotal: Rp ${cartItems.reduce((total, item) => total + item.price * item.qty, 0).toLocaleString()}`;
 
-    // Encode pesan untuk URL
     const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = '6285172288904'; // Ganti dengan nomor WhatsApp yang diinginkan
+    const phoneNumber = '6285172288904';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
-    // Buka URL WhatsApp
     window.open(whatsappUrl, '_blank');
 
-    // Reset keranjang
     cartItems = [];
     updateCart();
+    hidePaymentPopup();
 }
 
 // Event listener untuk tombol checkout
 checkoutBtn.addEventListener('click', checkout);
 
-// Close popup when clicking outside of it
+// Event listeners untuk tombol pada popup pembayaran
+document.getElementById('cancel-btn').addEventListener('click', hidePaymentPopup);
+document.getElementById('next-btn').addEventListener('click', sendOrderToWhatsApp);
+
+// Close cart popup when clicking outside of it
 window.addEventListener('click', function(event) {
     if (!cartPopup.classList.contains('popup-hidden') && !cartIcon.contains(event.target) && !cartPopup.contains(event.target)) {
         cartPopup.classList.add('popup-hidden');
