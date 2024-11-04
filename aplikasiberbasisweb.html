@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>D'Side Graphia</title>
+	<title>Modern Slider with Overlay</title>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -296,7 +296,7 @@ header {
 
 .tab {
     position: relative;
-    background-color: rgba(0, 0, 0, 0.7);
+    background: rgba(106, 13, 173, 0.3); /* Warna #6a0dad dengan transparansi 0.8 */
     border: none;
     color: #fff;
     cursor: pointer;
@@ -305,7 +305,6 @@ header {
     width: 100%;
     margin: 5px -5px; /* Kurangi margin di sisi vertikal */
     font-family: 'Arial', sans-serif;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: left;
 }
 
@@ -340,7 +339,7 @@ header {
     padding:5px 5px 0px 5px;
     max-width:390px;
     width: 100%; /* Lebar kontainer */
-    background-color: rgba(0, 0, 0, 0.5); /* Warna latar belakang */
+    background: rgba(106, 13, 173, 0.3); /* Warna #6a0dad dengan transparansi 0.8 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bayangan untuk efek kedalaman */
     z-index: 999; /* Pastikan berada di atas elemen lainnya */
     opacity: 0; /* Mulai dengan tidak terlihat */
@@ -907,30 +906,56 @@ header {
     </style>
 
 <style> /* MENU PROFILE */
-        .sidebar1A {
-            max-width: 400px;
-            font-family: 'Arial', sans-serif;
-            width: 100%; /* Full width */
-            background: rgba(0, 0, 0, 0.3); /* Gradasi */
-            height: 0; /* Mulai dengan tinggi 0 untuk slide dari atas */
-            position: fixed;
-            top: 55px;
-            align-items: center;
-            justify-content: center;
-            transition: height 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Smooth animation */
-            z-index: 2;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
-            padding-top: 20px;
-            z-index:100;
-            text-align: left;
-            overflow: hidden; /* Sembunyikan konten saat slide */
-        }
+/* Gaya Sidebar */
+.sidebar1A {
+    max-width: 400px;
+    font-family: 'Arial', sans-serif;
+    width: 100%;
+    background: rgba(106, 13, 173, 0.8); /* Warna #6a0dad dengan transparansi 0.8 */
+    height: auto; /* Sesuaikan tinggi secara otomatis */
+    position: fixed;
+    top: 55px;
+    align-items: center;
+    justify-content: center;
+    opacity: 0; /* Mulai dengan opacity 0 */
+    visibility: hidden; /* Sembunyikan dengan visibility */
+    transition: opacity 0.6s ease, visibility 0s 0.6s; /* Transisi untuk opacity dan visibility */
+    z-index: 1009;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    padding-top: 20px;
+    text-align: left;
+    overflow: hidden;
+}
 
-        /* Aktifkan sidebar */
-        .sidebar1A.active1A {
-            height: auto; /* Tinggi otomatis sesuai konten */
-            max-height: calc(100vh - 55px); /* Batas maksimum tinggi sidebar */
-        }
+/* Aktifkan sidebar dengan fade in */
+.sidebar1A.active1A {
+    opacity: 1; /* Ubah menjadi 1 saat aktif */
+    visibility: visible; /* Tampilkan saat aktif */
+    transition: opacity 0.6s ease; /* Transisi opacity tanpa delay */
+}
+
+/* Gaya Overlay */
+.overlay1A {
+    max-width: 400px;
+    position: absolute;
+    top: 55px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%; /* Hanya sampai sidebar */
+    background: rgba(106, 13, 173, 0.4); /* Warna #6a0dad dengan transparansi 0.8 */
+    display: none;
+    z-index: 1;
+    opacity: 0; /* Mulai dengan opacity 0 */
+    transition: opacity 0.6s ease; /* Transisi untuk opacity */
+}
+
+/* Overlay saat aktif */
+.overlay1A.active1A {
+    display: block; /* Tampilkan saat aktif */
+    opacity: 1; /* Ubah menjadi 1 saat aktif */
+    transition: opacity 0.6s ease; /* Transisi opacity tanpa delay */
+}
 
         /* Menu Styling */
         .menu1A ul {
@@ -996,20 +1021,6 @@ header {
         .toggle1A:hover {
             color: #1abc9c;
             transform: rotate(90deg); /* Rotate effect on hover */
-        }
-
-        /* Overlay effect */
-        .overlay1A {
-        	  max-width: 400px;
-            position: absolute;
-            top:55px;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%; /* Hanya sampai sidebar */
-            background: rgba(0, 0, 0, 0.4);
-            display: none;
-            z-index: 1;
         }
 
     </style>
@@ -2654,29 +2665,47 @@ updateCart();
 
 <!-- MENU TAB PROFILE TOGGLE -->
     <script>
-        const toggle1A = document.getElementById('toggle1A');
-        const sidebar1A = document.getElementById('sidebar1A');
-        const overlay1A = document.getElementById('overlay1A');
+// MENU TAB PROFILE TOGGLE
+const toggle1A = document.getElementById('toggle1A');
+const sidebar1A = document.getElementById('sidebar1A');
+const overlay1A = document.getElementById('overlay1A');
 
-        // Toggle sidebar open/close
-        toggle1A.addEventListener('click', () => {
-            sidebar1A.classList.toggle('active1A');
-            overlay1A.classList.toggle('active1A');
-        });
+// Toggle sidebar open/close
+toggle1A.addEventListener('click', () => {
+    if (sidebar1A.classList.contains('active1A')) {
+        sidebar1A.classList.remove('active1A');
+        overlay1A.classList.remove('active1A');
+        setTimeout(() => {
+            overlay1A.style.display = 'none'; // Sembunyikan overlay setelah efek selesai
+        }, 600); // Waktu sesuai dengan durasi transisi
+    } else {
+        overlay1A.style.display = 'block'; // Tampilkan overlay sebelum efek fade
+        setTimeout(() => {
+            sidebar1A.classList.add('active1A');
+            overlay1A.classList.add('active1A');
+        }, 20); // Delay kecil untuk memastikan overlay ditampilkan terlebih dahulu
+    }
+});
 
-        // Close sidebar when clicking outside
-        overlay1A.addEventListener('click', () => {
-            sidebar1A.classList.remove('active1A');
-            overlay1A.classList.remove('active1A');
-        });
+// Close sidebar when clicking outside
+overlay1A.addEventListener('click', () => {
+    sidebar1A.classList.remove('active1A');
+    overlay1A.classList.remove('active1A');
+    setTimeout(() => {
+        overlay1A.style.display = 'none'; // Sembunyikan overlay setelah efek selesai
+    }, 600);
+});
 
-        // Close sidebar when clicking anywhere outside the sidebar
-        document.addEventListener('click', (event) => {
-            if (!sidebar1A.contains(event.target) && !toggle1A.contains(event.target) && sidebar1A.classList.contains('active1A')) {
-                sidebar1A.classList.remove('active1A');
-                overlay1A.classList.remove('active1A');
-            }
-        });
+// Close sidebar when clicking anywhere outside the sidebar
+document.addEventListener('click', (event) => {
+    if (!sidebar1A.contains(event.target) && !toggle1A.contains(event.target) && sidebar1A.classList.contains('active1A')) {
+        sidebar1A.classList.remove('active1A');
+        overlay1A.classList.remove('active1A');
+        setTimeout(() => {
+            overlay1A.style.display = 'none'; // Sembunyikan overlay setelah efek selesai
+        }, 600);
+    }
+});
     </script>
     
 
