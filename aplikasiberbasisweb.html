@@ -143,17 +143,39 @@
         padding: 10px 5px;
     }
 
-    .help-text {
-        left: -5px; /* Memberikan jarak antara ikon dan teks */
-        font-size: 14px;
-        color: #333; /* Warna teks */
-        background-color: #f1f1f1; /* Warna latar belakang bubble */
-        border-radius: 10px; /* Sudut bulat untuk bubble */
-        padding: 10px; /* Padding dalam bubble */
-        display: block; /* Sembunyikan teks secara default */
-        position: relative; /* Untuk efek bubble */
-        white-space: nowrap; /* Mencegah teks membungkus */
+.help-text {
+    left: -5px; /* Memberikan jarak antara ikon dan teks */
+    font-size: 14px;
+    color: #333; /* Warna teks */
+    background-color: #f1f1f1; /* Warna latar belakang bubble */
+    border-radius: 10px; /* Sudut bulat untuk bubble */
+    padding: 10px; /* Padding dalam bubble */
+    display: block; /* Sembunyikan teks secara default */
+    position: relative; /* Untuk efek bubble */
+    white-space: nowrap; /* Mencegah teks membungkus */
+
+    /* Tambahkan animasi */
+    animation: waveBubble 1.5s ease-in-out infinite;
+}
+
+/* Definisi keyframes untuk animasi wave */
+@keyframes waveBubble {
+    0% {
+        transform: translateY(0); /* Posisi awal */
     }
+    25% {
+        transform: translateY(-5px); /* Bergerak ke atas */
+    }
+    50% {
+        transform: translateY(0); /* Kembali ke posisi awal */
+    }
+    75% {
+        transform: translateY(5px); /* Bergerak ke bawah */
+    }
+    100% {
+        transform: translateY(0); /* Kembali ke posisi awal */
+    }
+}
 
 
     .whatsapp-float.active + .help-text {
@@ -161,63 +183,118 @@
     }
 </style>
 
-<style> /* Style for popup payment animation */
-.popup-hidden {
-    display: none;
-}
-#payment-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.9);
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
-    width: 340px;
-    text-align: center;
-    z-index: 1100;
-    opacity: 0;
-    transition: all 0.3s ease;
-}
-#payment-popup.popup-show {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-}
-.payment-content h2 {
-    font-size: 20px;
-    margin-bottom: 15px;
-    color: #333;
-}
-.payment-details ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 10px 0;
-}
-.payment-details li {
-    margin: 5px 0;
-    font-size: 14px;
-    color: #555;
-}
-button {
-    margin: 10px 8px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-}
-#cancel-btn {
-    background-color: #e74c3c;
-    color: white;
-}
-#next-btn {
-    background-color: #3498db;
-    color: white;
-}
-button:hover {
-    opacity: 0.8;
-}
+<style>
+    /* Style for popup payment animation */
+    .popup-hidden {
+        display: none;
+    }
+
+    #payment-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.9);
+        background-color: #ffffff; /* Warna latar belakang putih */
+        padding: 20px;
+        border-radius: 8px; /* Sudut lebih bulat */
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* Bayangan lembut */
+        width: 300px;
+        text-align: left; /* Rata kiri untuk struk */
+        z-index: 1100;
+        opacity: 0;
+        transition: all 0.3s ease;
+        font-family: 'Arial', sans-serif; /* Font modern */
+        border: 1px solid #ccc; /* Garis batas halus */
+        background: linear-gradient(to bottom, #ffffff 0%, #f9f9f9 100%); /* Gradien lembut */
+        overflow: hidden; /* Untuk menghindari overflow */
+        position: relative; /* Memungkinkan efek kertas */
+    }
+
+    #payment-popup.popup-show {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+    .payment-content h2 {
+        font-size: 20px;
+        margin-bottom: 10px; /* Margin dikurangi */
+        color: #333;
+        text-align: center; /* Rata tengah untuk judul */
+        border-bottom: 1px solid #ccc; /* Garis bawah untuk judul */
+        padding-bottom: 10px; /* Padding bawah untuk jarak */
+        text-transform: uppercase; /* Semua huruf kapital */
+        letter-spacing: 1px; /* Jarak antar huruf */
+    }
+
+    .payment-details ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 10px 0;
+    }
+
+    .payment-details li {
+        margin: 8px 0; /* Jarak antar item */
+        font-size: 16px; /* Ukuran font */
+        color: #555;
+        display: flex; /* Flexbox untuk item */
+        justify-content: space-between; /* Rata kanan dan kiri */
+        padding: 5px 0; /* Padding atas dan bawah */
+        border-bottom: 1px solid #eee; /* Garis bawah antar item */
+    }
+
+    .payment-details li:last-child {
+        border-bottom: none; /* Menghilangkan garis bawah pada item terakhir */
+    }
+
+    .total {
+        font-weight: bold; /* Menebalkan total */
+        font-size: 18px; /* Ukuran font lebih besar untuk total */
+        margin-top: 10px; /* Jarak atas untuk total */
+    }
+
+    button {
+        width: 45%; /* Tombol lebar penuh */
+        padding: 12px 0; /* Padding atas dan bawah */
+        border: none;
+        border-radius: 8px; /* Sudut lebih bulat */
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 16px; /* Ukuran font tombol */
+        margin-top: 10px; /* Jarak atas untuk tombol */
+        transition: background-color 0.3s ease; /* Transisi untuk hover */
+    }
+
+    #cancel-btn {
+        background-color: #e74c3c; /* Merah untuk tombol cancel */
+        color: white;
+    }
+
+    #next-btn {
+        background-color: #3498db; /* Biru untuk tombol next */
+        color: white;
+    }
+
+    button:hover {
+        opacity: 0.9; /* Mengubah opacity saat hover */
+    }
+
+    button:active {
+        transform: scale(0.95); /* Efek saat ditekan */
+    }
+
+    /* Efek lipatan kertas */
+    #payment-popup:before {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        background-color: rgba(255, 255, 255, 0.1); /* Efek transparan untuk lipatan */
+        border-radius: 10px; /* Sudut bulat */
+        z-index: -1; /* Dibawah konten */
+        box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1); /* Bayangan dalam untuk efek kertas */
+    }
 </style>
 
 <style>/*Contact Service*/
