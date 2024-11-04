@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,7 +78,7 @@
             max-width: 400px;
             width: 340px;
             background: #fff;
-            padding:10px;
+            
             border-radius: 12px;
             transform: translateY(-20px);
             animation: slideDown 0.5s ease-out forwards;
@@ -278,17 +279,80 @@ header {
 </style>
 
 
-<style> /* Styling untuk Tab Container */
+<style>
+/* Container untuk Tab */
+.tab-container {
+    position: fixed;
+    max-width: 400px;
+    border-radius: 15px;
+    overflow: hidden;
+    z-index: 1000;
+}
 
-.tab {background-color: rgba(0, 0, 0, 0.7);border: none;color: #fff;padding: 10px 15px;border-radius: 15px;cursor: pointer;transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;display: flex;align-items: center;width: 90%;margin: 5px 10px;font-family: 'Arial', sans-serif;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);text-align: left;}
-.tab-icon {width: 40px;height: 40px;margin-right: 10px;transition: transform 0.3s ease;border-radius: 50%;}
-.tab:hover {background-color: #ff6600;color: #fff;box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);}
-.active-tab {background-color: #ff6600;color: #fff;box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);}
-.tab span {font-size: 14px;font-weight: 500;}
-#tabs {position: fixed;top: 55px;left: 0;height: 100%;width: 250px;background-color: rgba(0, 0, 0, 0.5);box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);overflow-y: auto;transform: translateX(-100%);transition: transform 0.3s ease;z-index: 999;}
-@media (max-width: 768px) {
-.tab {width: 100%;padding: 8px;}
-.tab-icon {width: 30px;height: 30px;}}
+/* Styling untuk Tab */
+.tab.hidden {
+    display: none;
+}
+
+.tab {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 5px -5px; /* Kurangi margin di sisi vertikal */
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.tab-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.tab:hover {
+    background-color: #6a0dad;
+    color: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.active-tab {
+    background-color: #6a0dad;
+    
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.tab span {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Container untuk semua Tab */
+#tabs {
+    position: fixed; /* Posisi tetap untuk menghindari pengaruh pada tata letak lainnya */
+    top: 55px; /* Jarak dari atas */
+    padding:5px 5px 0px 5px;
+    max-width:390px;
+    width: 100%; /* Lebar kontainer */
+    background-color: rgba(0, 0, 0, 0.5); /* Warna latar belakang */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bayangan untuk efek kedalaman */
+    z-index: 999; /* Pastikan berada di atas elemen lainnya */
+    opacity: 0; /* Mulai dengan tidak terlihat */
+    visibility: hidden; /* Tersembunyi secara default */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transisi untuk opacity dan visibility */
+}
+
+/* Tambahkan kelas untuk menampilkan tabs */
+#tabs.show {
+    opacity: 1; /* Tampilkan slider */
+    visibility: visible; /* Ubah visibility menjadi terlihat */
+}
 </style>
 
 
@@ -843,13 +907,13 @@ header {
     </style>
 
 <style> /* MENU PROFILE */
-        .sidebar1A {max-width: 400px;
+        .sidebar1A {
+            max-width: 400px;
             font-family: 'Arial', sans-serif;
             width: 100%; /* Full width */
             background: rgba(0, 0, 0, 0.3); /* Gradasi */
             height: 0; /* Mulai dengan tinggi 0 untuk slide dari atas */
             position: fixed;
-            max-width:400px;
             top: 55px;
             align-items: center;
             justify-content: center;
@@ -936,7 +1000,7 @@ header {
 
         /* Overlay effect */
         .overlay1A {
-        	max-width: 400px;
+        	  max-width: 400px;
             position: absolute;
             top:55px;
             align-items: center;
@@ -1058,35 +1122,15 @@ margin: 0;
 
     /* Footer */
     .footerH1 {
-      position:fixed;
+    	position:fixed;
       font-family: 'Arial', sans-serif;
       width: 100%;
       color: #fff;
       padding: 0;
       text-align: center;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       bottom: 80px; /* Align to the bottom */
     }
-    .footerH1 a:link {
-    color: #1a73e8; /* Warna tautan belum dikunjungi */
-    text-decoration: none;
-}
-
-/* Tautan yang telah dikunjungi */
-.footerH1 a:visited {
-    color: #551A8B; /* Warna tautan yang sudah dikunjungi */
-}
-
-/* Tautan saat kursor berada di atasnya */
-.footerH1 a:hover {
-    color: #FF4500; /* Warna saat mouse di-hover */
-    text-decoration: underline;
-}
-
-/* Tautan saat diklik (active) */
-.footerH1 a:active {
-    color: #FF0000; /* Warna saat tautan aktif (sedang diklik) */
-}
   </style>
   
 <style> /*MENU TAB ULASAN*/
@@ -1414,7 +1458,6 @@ margin: 0;
     	<span id="cart-count">0</span>
 	</div>
 </header>
-<!-- Ikon Keranjang Belanja di Pojok Kanan Atas -->
 
 
 <!-- Cart Popup -->
@@ -2055,7 +2098,7 @@ margin: 0;
 
     <!-- Footer -->
     <div class="footerH1">
-      &copy; 2024 <a href="https://wa.me/6287838333993"><b>D'Side Graphia</b></a> Design by : <a href="https://wa.me/6285172288904"><b>Ridwan</b></a>. All rights reserved.
+      &copy; 2024 <a href="https://wa.me/6287838333993"><b>D'Side Graphia</b></a> by <a href="https://wa.me/6285172288904"><b>Ridwan</b></a>. All rights reserved.
     </div>
   </div>
 </div>
@@ -2384,24 +2427,23 @@ margin: 0;
 
 <!--MENU TAB PRODUCT-->
 <script>
-// Toggle untuk menampilkan dan menyembunyikan tab dengan efek slide dari kiri
+// Toggle untuk menampilkan dan menyembunyikan tab dengan efek fade in dan fade out
 const toggleIcon = document.getElementById('icon');
 const tabsContainer = document.getElementById('tabs');
 
 toggleIcon.addEventListener('click', (event) => {
     event.stopPropagation(); // Menghentikan propagasi klik agar tidak menutup tabs
-    if (tabsContainer.style.transform === 'translateX(0%)') {
-        tabsContainer.style.transform = 'translateX(-100%)'; // Sembunyikan tab
+    if (tabsContainer.classList.contains('show')) {
+        tabsContainer.classList.remove('show'); // Sembunyikan tab dengan efek fade out
     } else {
-        tabsContainer.style.display = 'block'; // Pastikan tab terlihat
-        tabsContainer.style.transform = 'translateX(0%)'; // Muncul dari kiri
+        tabsContainer.classList.add('show'); // Tampilkan tab dengan efek fade in
     }
 });
 
 // Tutup tabs jika klik terjadi di luar area tabs atau icon
 document.addEventListener('click', (event) => {
     if (!tabsContainer.contains(event.target) && !toggleIcon.contains(event.target)) {
-        tabsContainer.style.transform = 'translateX(-100%)';
+        tabsContainer.classList.remove('show'); // Sembunyikan tab dengan efek fade out
     }
 });
 
