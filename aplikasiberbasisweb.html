@@ -11,7 +11,7 @@
 <style> /* Floating button container */
     .whatsapp-float-container {
         position: fixed;
-        bottom: 120px;
+        bottom: 140px;
         right: 25px;
         display: flex;
         align-items: center;
@@ -46,7 +46,7 @@
 
     .whatsapp-card {
         position: fixed;
-        bottom: 120px;
+        bottom: 140px;
         right: 20px;
         background-color: white;
         border-radius: 8px;
@@ -426,7 +426,7 @@ body {
     <style> /* TOMBOL FULLSCREEN */
         .notification {
             position: relative;
-            top: 40px;
+            top: 50px;
             left: 20px;
             background: rgba(0, 0, 0, 0.8);
             color: white;
@@ -435,7 +435,7 @@ body {
             display: flex;
             align-items: center;
             cursor: pointer;
-	    max-width: 280px;
+			width: 150px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             z-index: 1000;
         }
@@ -454,7 +454,7 @@ body {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8em;
+            font-size: 16px;
         }
 
         .fullscreen-icon {
@@ -1319,7 +1319,7 @@ margin: 0;
 	  max-width: 300px;
       padding: 20px;
       margin-top:-5em;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.9);
       box-shadow: 0px 0px 50px rgba(225, 225, 0, 5);
       color: #fff;
       border-radius: 15px;
@@ -1383,7 +1383,7 @@ margin: 0;
       color: #fff;
       padding: 0;
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 14px;
       bottom: 80px; /* Align to the bottom */
     }
   </style>
@@ -2384,7 +2384,7 @@ margin: 0;
 
 <div class="notification" id="notification">
     <i id="fullscreen-icon" class="fas fa-expand fullscreen-icon"></i>
-    <div class="fullscreen-button">Klik tampilan Full Screen</div>
+    <div class="fullscreen-button">Full Screen</div>
 </div>
 
 <div class="containerH1 specific-element fullscreen">	
@@ -3157,14 +3157,14 @@ document.addEventListener('click', (event) => {
             fullscreenIcon.classList.remove('fa-expand');
             fullscreenIcon.classList.add('fa-compress'); // Ikon fullscreen aktif
             notification.innerHTML = `<i id="fullscreen-icon" class="fas fa-compress fullscreen-icon"></i>
-                                      <div class="fullscreen-button">Klik membatalkan Full Screen</div>`;
+                                      <div class="fullscreen-button">Full Screen</div>`;
         } else {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
                 fullscreenIcon.classList.remove('fa-compress');
                 fullscreenIcon.classList.add('fa-expand'); // Ikon fullscreen non-aktif
                 notification.innerHTML = `<i id="fullscreen-icon" class="fas fa-expand fullscreen-icon"></i>
-                                          <div class="fullscreen-button">Klik tampilan Full Screen</div>`;
+                                          <div class="fullscreen-button">Normal</div>`;
             }
         }
     });
