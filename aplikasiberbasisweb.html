@@ -1318,7 +1318,7 @@ margin: 0;
 	  max-width: 300px;
       padding: 20px;
       margin-top:-5em;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.7);
       box-shadow: 0px 0px 50px rgba(225, 225, 0, 5);
       color: #fff;
       border-radius: 15px;
@@ -1769,7 +1769,7 @@ margin: 0;
 <!-- HTML for Payment Popup -->
 <div id="payment-popup" class="popup-hidden">
     <div class="payment-content">
-        <h2>Pembayaran</h2>
+        <h3>Total Tagihan</h3>
         <div class="payment-details"></div>
         <button id="cancel-btn">Cancel</button>
         <button id="next-btn">Next</button>
@@ -2907,12 +2907,12 @@ function showPaymentPopup() {
     paymentPopup.classList.add('popup-show'); // Tambahkan kelas animasi
     const paymentDetails = paymentPopup.querySelector('.payment-details');
     paymentDetails.innerHTML = `
-        <p><strong>Subtotal: Rp ${subtotal.toLocaleString()}</strong></p>
+        <p><strong><h1 style="margin-top:-10px;margin-bottom:30px;">Rp ${subtotal.toLocaleString()}</h1></strong></p>
         <p>Pilih metode pembayaran:</p>
         <ul>
-            <li>a.n <b>PT. DSAIN KREASI MANDIRI</b></li>
+            <li><h3>a.n <b>PT. DSAIN KREASI MANDIRI</h3></b></li>
             <li>Bank Mandiri</li>
-            <li><b><h1 style="margin-top:-3px;">1340020180971<h1></b></li>
+            <li><b><h1 style="margin-top:-3px;margin-bottom:50px;">1340020180971<h1></b></li>
         </ul>
     `;
 }
