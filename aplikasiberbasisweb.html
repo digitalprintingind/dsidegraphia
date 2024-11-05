@@ -542,23 +542,20 @@ header {
 
 .tab {
     position: relative;
-    background: rgba(30, 144, 255, 0.3); /* Warna blue dengan transparansi 0.8 */
+    background: rgba(30, 144, 255, 1); /* Warna blue dengan transparansi 0.8 */
     border: none;
     color: #fff;
     cursor: pointer;
     display: flex;
     align-items: center;
     width: 100%;
-    margin: 5px -5px; /* Kurangi margin di sisi vertikal */
+    margin: 0px -5px; /* Kurangi margin di sisi vertikal */
     font-family: 'Arial', sans-serif;
     text-align: left;
 }
 
-.tab-icon {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-    border-radius: 50%;
+.tab i{
+    font-size:26px;padding:0px 10px 0px; 5px;
 }
 
 .tab:hover {
@@ -573,14 +570,16 @@ header {
 }
 
 .tab span {
-    font-size: 14px;
+	position:fixed;
+	margin-left:50px;
+    font-size: 16px;
     font-weight: 500;
 }
 
 /* Container untuk semua Tab */
 #tabs {
     position: fixed; /* Posisi tetap untuk menghindari pengaruh pada tata letak lainnya */
-    top: 55px; /* Jarak dari atas */
+    top: 50px; /* Jarak dari atas */
     padding:5px 5px 0px 5px;
     max-width:390px;
     width: 100%; /* Lebar kontainer */
@@ -1156,7 +1155,7 @@ header {
     max-width: 400px;
     font-family: 'Arial', sans-serif;
     width: 100%;
-    background: rgba(30, 144, 255, 0.8); /* Warna blue dengan transparansi 0.8 */
+    background: rgba(30, 144, 255, 1); /* Warna blue dengan transparansi 0.8 */
     height: auto; /* Sesuaikan tinggi secara otomatis */
     position: fixed;
     top: 55px;
@@ -1208,7 +1207,7 @@ header {
         }
 
         .menu1A ul li {
-            padding: 10px 25px;
+            padding: 5px 20px;
             margin-bottom: 15px;
             border-bottom: 2px solid #7c4dff;
             position: relative;
@@ -1797,19 +1796,19 @@ margin: 0;
 <div class="tab-container">
     <div id="tabs"> <!-- Kontainer untuk tab -->
         <button class="tab active-tab" data-category="jersey">
-            <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Jersey" class="tab-icon">
+            <i class="fas fa-tshirt"></i>
             <span>Jersey</span>
         </button>
         <button class="tab" data-category="stiker">
-            <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Stiker" class="tab-icon">
+            <i class="fas fa-sticky-note"></i>
             <span>Stiker</span>
         </button>
         <button class="tab" data-category="nota">
-            <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Nota" class="tab-icon">
+            <i class="fas fa-receipt"></i> <!-- Ikon Nota -->
             <span>Nota</span>
         </button>
         <button class="tab" data-category="sablon">
-            <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Sablon" class="tab-icon">
+            <i class="fas fa-print"></i> <!-- Ikon Sablon -->
             <span>Sablon</span>
         </button>
     </div>
@@ -2582,10 +2581,10 @@ margin: 0;
     <div class="sidebar1A" id="sidebar1A">
         <nav class="menu1A">
             <ul>
-                <li><a href="#profil-p">Profil</a></li>
-                <li><a href="#gallery-p">Gallery</a></li>
-                <li><a href="#layanan-p">Layanan</a></li>
-                <li><a href="#contact-p">Kontak</a></li>
+                <li><a href="#profil-p"><i class="fas fa-user">&nbsp&nbsp&nbsp</i>Profil</a></li>
+                <li><a href="#gallery-p"><i class="fas fa-images">&nbsp&nbsp&nbsp</i>Gallery</a></li>
+                <li><a href="#layanan-p"><i class="fas fa-toolbox">&nbsp&nbsp&nbsp</i>Layanan</a></li>
+                <li><a href="#contact-p"><i class="fas fa-envelope">&nbsp&nbsp&nbsp</i>Kontak</a></li>
             </ul>
         </nav>
     </div>
