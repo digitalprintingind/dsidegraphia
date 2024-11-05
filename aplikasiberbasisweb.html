@@ -435,7 +435,7 @@ body {
             display: flex;
             align-items: center;
             cursor: pointer;
-			width: 150px;
+			width: 200px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             z-index: 1000;
         }
@@ -3156,14 +3156,14 @@ document.addEventListener('click', (event) => {
             fullscreenIcon.classList.remove('fa-expand');
             fullscreenIcon.classList.add('fa-compress'); // Ikon fullscreen aktif
             notification.innerHTML = `<i id="fullscreen-icon" class="fas fa-compress fullscreen-icon"></i>
-                                      <div class="fullscreen-button">mode Normal</div>`;
+                                      <div class="fullscreen-button">Klik mode Normal</div>`;
         } else {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
                 fullscreenIcon.classList.remove('fa-compress');
                 fullscreenIcon.classList.add('fa-expand'); // Ikon fullscreen non-aktif
                 notification.innerHTML = `<i id="fullscreen-icon" class="fas fa-expand fullscreen-icon"></i>
-                                          <div class="fullscreen-button">mode Full Screen</div>`;
+                                          <div class="fullscreen-button">Klik mode Full Screen</div>`;
             }
         }
     });
