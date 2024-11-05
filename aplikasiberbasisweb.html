@@ -2844,7 +2844,7 @@ function updateCart() {
             </div>
             <div class="item-details">
                 <span>${item.name}</span>
-                <span>Rp ${item.price * item.qty}</span>
+                <span>Rp ${(item.price * item.qty).toLocaleString('id-ID')}</span> <!-- Pemisah ribuan -->
             </div>
             <div class="item-controls">
                 <button class="decrease-btn" onclick="decreaseQty('${item.name}', event)">-</button>
@@ -2855,7 +2855,7 @@ function updateCart() {
         `;
         cartItemsContainer.appendChild(cartItem);
     });
-    subtotalElement.innerText = subtotal.toLocaleString();
+    subtotalElement.innerText = subtotal.toLocaleString('id-ID'); // Pemisah ribuan
     cartCount.innerText = itemCount;
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
@@ -2907,7 +2907,7 @@ function showPaymentPopup() {
     paymentPopup.classList.add('popup-show'); // Tambahkan kelas animasi
     const paymentDetails = paymentPopup.querySelector('.payment-details');
     paymentDetails.innerHTML = `
-        <p><strong><h1 style="margin-top:-10px;margin-bottom:30px;">Rp ${subtotal.toLocaleString()}</h1></strong></p>
+        <p><strong><h1 style="margin-top:-10px;margin-bottom:30px;">Rp ${subtotal.toLocaleString('id-ID')}</h1></strong></p> <!-- Pemisah ribuan -->
         <p>Pilih metode pembayaran:</p>
         <ul>
             <li><h3>a.n <b>PT. DSAIN KREASI MANDIRI</h3></b></li>
@@ -2927,9 +2927,9 @@ function hidePaymentPopup() {
 function sendOrderToWhatsApp() {
     let message = "Pesanan Anda:\n--------------------------------------\n";
     cartItems.forEach(item => {
-        message += `${item.name} - Qty: ${item.qty} - Rp ${item.price * item.qty}\n`;
+        message += `${item.name} - Qty: ${item.qty} - Rp ${(item.price * item.qty).toLocaleString('id-ID')}\n`; // Pemisah ribuan
     });
-    message += `--------------------------------------\nSubtotal: Rp ${cartItems.reduce((total, item) => total + item.price * item.qty, 0).toLocaleString()}`;
+    message += `--------------------------------------\nSubtotal: Rp ${cartItems.reduce((total, item) => total + item.price * item.qty, 0).toLocaleString('id-ID')}`; // Pemisah ribuan
 
     const encodedMessage = encodeURIComponent(message);
     const phoneNumber = '6285172288904';
