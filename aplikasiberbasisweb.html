@@ -1,17 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>D'Side Graphia</title>
-	<link rel="icon" href="https://i.imgur.com/RHbQRX3.png" type="image/x-icon">
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Header</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+<style>
+body {
+			margin:0;
+        	font-family: 'Arial', sans-serif;
+      		padding: 0;
+}
+
+.bottom{margin-bottom:70px;}
+.bottom-content{margin-bottom:20px;}
+</style>
+
+
+    
+    <style>/*Contact Form*/
+        /* Styling khusus untuk form kontak */
+        .contact-containerCF {
+            margin: 5px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1CF {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .contact-formCF {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .input-boxCF {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .input-boxCF input, 
+        .input-boxCF textarea {
+            width: 100%;
+            padding: 10px 15px;
+            font-size: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        /* Placeholder akan muncul saat hover */
+        .input-boxCF input:hover::placeholder,
+        .input-boxCF textarea:hover::placeholder {
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        .input-boxCF input::placeholder,
+        .input-boxCF textarea::placeholder {
+            opacity: 0; /* Awalnya disembunyikan */
+            transition: opacity 0.3s ease;
+        }
+
+        /* Label dan transisi */
+        .input-boxCF label {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #999;
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+
+        .input-boxCF input:focus ~ label,
+        .input-boxCF input:not(:placeholder-shown) ~ label,
+        .input-boxCF textarea:focus ~ label,
+        .input-boxCF textarea:not(:placeholder-shown) ~ label {
+            top: -10px;
+            left: 10px;
+            font-size: 0.8em;
+            color: #0072ff;
+        }
+
+        .input-boxCF .focus-borderCF {
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: #0072ff;
+            transition: 0.4s;
+        }
+
+        .input-boxCF input:focus ~ .focus-borderCF,
+        .input-boxCF textarea:focus ~ .focus-borderCF {
+            width: 100%;
+            left: 0;
+        }
+
+        .submit-btnCF {
+            padding: 10px 20px;
+            font-size: 1.1em;
+            color: #fff;
+            background: linear-gradient(135deg, #0072ff, #00c6ff);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btnCF:hover {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+        }
+
+        .submit-btnCF:active {
+            transform: scale(0.98);
+        }
+    </style>
+    
+    
 <style> /* Floating button container */
     .whatsapp-float-container {
         position: fixed;
-        bottom: 140px;
+        bottom: 100px;
         right: 25px;
         display: flex;
         align-items: center;
@@ -46,7 +171,7 @@
 
     .whatsapp-card {
         position: fixed;
-        bottom: 140px;
+        bottom: 100px;
         right: 20px;
         background-color: white;
         border-radius: 8px;
@@ -184,6 +309,145 @@
     }
 </style>
 
+<style> /* Styling Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 55px;
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        /* Styling Logo */
+        .logo img{
+            height:30px;
+            width:auto;
+            font-weight: bold;
+            margin-left: 0;
+        }
+
+        /* Styling Icon Container */
+        .icon-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .icon-container i {
+            font-size: 20px;
+            color: #fff;
+            margin-right: 40px;
+            margin-left: -20px;
+            cursor: pointer;
+        }
+        
+       .fullscreen-icon {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+    </style>
+
+<style>    /* Menu bottom bar container */
+
+	  /* Container bottom bar */
+	  .bottom-barH3 {
+	    position: fixed;
+	    bottom: 0;
+	    width: 100%;
+	    display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	    background-color: #ffffff;
+	    border-radius: 20px 20px 0 0;
+	    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+	    padding: 0;
+	    overflow: hidden;
+	z-index:1000;
+	  }
+
+	  /* Style setiap tab */
+	  .tab-itemH3 {
+	    flex-grow: 1;
+	    text-align: center;
+	    color: #777;
+	    cursor: pointer;
+	    font-size: 12px;
+	    transition: color 0.3s ease;
+	    position: relative;
+	  }
+
+	  .tab-itemH3 i {
+	    font-size: 24px;
+	    color: #777;
+	    transition: color 1s;
+	  }
+
+	  .tab-itemH3.homeH3 i {
+	    font-size: 24px;
+	    color: #fff;
+	    transition: color 1s;
+	  }
+
+	  /* Efek hover dan tab aktif */
+	  .tab-itemH3:hover, .tab-itemH3.activeH3 {
+	    color: blue;
+	    transform: scale(1.1);
+	  }
+
+	  .tab-itemH3:hover i, .tab-itemH3.activeH3 i {
+	    color: blue;
+	    transform: scale(1.1);
+	  }
+
+	  .tab-itemH3.homeH3:hover i, .tab-itemH3.homeH3.activeH3 i {
+	    color: #fff;
+	  }
+
+	  /* Desain khusus untuk tab tengah */
+	  .tab-itemH3.homeH3 {
+	    position: relative;
+	    top: 0;
+	    background: blue;
+	    border-radius: 50%;
+	    padding: 15px;
+	    color: #fff;
+	    font-size: 16px;
+	    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+	    transition: transform 0.3s ease;
+	  }
+
+	  .tab-itemH3.homeH3:hover {
+	    transform: scale(1.1);
+	  }
+	
+
+	  .tab-itemH3 span {
+	    display: block;
+	    margin-top: 5px;
+	    font-size: 12px;
+	  }
+
+	  /* Content display */
+	  .contentH3 {
+	    margin-top: 20px;
+	    text-align: center;
+	    font-size: 20px;
+	    color: blue;
+	    display: none;
+	  }
+
+	  .contentH3.activeH3 {
+	    display: block;
+	  }
+</style>
+
 <style> /* Style for popup payment animation */
 .popup-hidden {
     display: none;
@@ -243,293 +507,9 @@ button:hover {
 }
 </style>
 
-<style>/*Contact Service*/
-.boxlayanan {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding:10px;
-            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
-        }
-        
-        .services-container {
-            max-width: 400px;
-            width: 100%;
-            padding: 10px;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        
-        .services-container h2 {
-            font-size: 28px;
-            margin-bottom: 1rem;
-            color: #00796b;
-        }
-        
-        .service-card {
-            display: flex;
-            align-items: center;
-            padding: 1.5rem;
-            background: #f5f5f5;
-            border-radius: 8px;
-            margin: 1rem 0;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .icon1 {
-            font-size: 30px;
-            color: #4db6ac;
-            margin-right: 1rem;
-        }
-        
-        .service-content h3 {
-            font-size: 20px;
-            color: #333;
-            margin-bottom: 0.5rem;
-        }
-        
-        .service-content p {
-            font-size: 14px;
-            color: #555;
-        }
-    </style>
-    
-    <style>/*Contact Form*/
-        /* Styling khusus untuk form kontak */
-        .contact-containerCF {
-            margin: 5px;
-            padding: 20px;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        h1CF {
-            font-size: 36px;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .contact-formCF {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .input-boxCF {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .input-boxCF input, 
-        .input-boxCF textarea {
-            width: 100%;
-            padding: 10px 15px;
-            font-size: 20px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            outline: none;
-            transition: border-color 0.3s, background-color 0.3s;
-        }
-
-        /* Placeholder akan muncul saat hover */
-        .input-boxCF input:hover::placeholder,
-        .input-boxCF textarea:hover::placeholder {
-            opacity: 0.6;
-            transition: opacity 0.3s ease;
-        }
-
-        .input-boxCF input::placeholder,
-        .input-boxCF textarea::placeholder {
-            opacity: 0; /* Awalnya disembunyikan */
-            transition: opacity 0.3s ease;
-        }
-
-        /* Label dan transisi */
-        .input-boxCF label {
-            position: absolute;
-            top: 50%;
-            left: 15px;
-            transform: translateY(-50%);
-            color: #999;
-            pointer-events: none;
-            transition: all 0.3s;
-        }
-
-        .input-boxCF input:focus ~ label,
-        .input-boxCF input:not(:placeholder-shown) ~ label,
-        .input-boxCF textarea:focus ~ label,
-        .input-boxCF textarea:not(:placeholder-shown) ~ label {
-            top: -10px;
-            left: 10px;
-            font-size: 0.8em;
-            color: #0072ff;
-        }
-
-        .input-boxCF .focus-borderCF {
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 50%;
-            background: #0072ff;
-            transition: 0.4s;
-        }
-
-        .input-boxCF input:focus ~ .focus-borderCF,
-        .input-boxCF textarea:focus ~ .focus-borderCF {
-            width: 100%;
-            left: 0;
-        }
-
-        .submit-btnCF {
-            padding: 10px 20px;
-            font-size: 1.1em;
-            color: #fff;
-            background: linear-gradient(135deg, #0072ff, #00c6ff);
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .submit-btnCF:hover {
-            background: linear-gradient(135deg, #00c6ff, #0072ff);
-        }
-
-        .submit-btnCF:active {
-            transform: scale(0.98);
-        }
-    </style>
-
-<style>
-body {
-        font-family: 'Arial', sans-serif;
-		max-width: 400px;
-      margin: 0;
-      padding: 0;
-      }
-.bottom{margin-bottom:70px}
-</style>
-
-    <style> /* TOMBOL FULLSCREEN */
-        .notification {
-            position: relative;
-            top: 50px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-			width: 200px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-        }
-
-        .notification::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: -10px;
-            margin-top: -5px;
-            border: 5px solid transparent;
-            border-right-color: rgba(0, 0, 0, 0.8);
-        }
-
-        .fullscreen-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-        }
-
-        .fullscreen-icon {
-            margin-right: 8px;
-            font-size: 20px;
-        }
-    </style>
-
-<style> /* Style untuk header */
-header {
-		position: fixed;
-	    overflow: hidden;
-	    top: 0;
-	    width: 100%;
-	    max-width: 400px;
-	    background-color: blue;
-	    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-	   	 max-width: 400px;
-            display: flex;
-            align-items: center;
-            height: 55px; /* Tinggi header */
-		z-index:100;
-        }
-        .logo-left img {
-            flex: 1;
-            height:35px;
-            padding: 10px; /* Padding untuk kolom kiri */
-            display: flex;
-            align-items: left;
-            justify-content: left;
-        }
-        .icon-right {
-            flex: 1;
-            margin-top:10px;
-            padding: 0px; /* Padding untuk kolom kanan */
-            display: flex;
-            align-items: right;
-            justify-content: right;
-        }
-
-		
-@media only screen and (max-width: 768px) {body {width: 100%;}}
-@media only screen and (min-width: 768px) {body {width: 400px;margin: 0 auto;overflow-x: hidden;}}
-.menu-show-left {
-		position: fixed;
-		top:70px;
-		width:55px;height: 35px;	
-	    max-width: 400px;
-		color:blue;
-	    display: flex;
-	    overflow: hidden;
-    	margin-left:15px;
-		z-index:10;}
-
-.logo-icon {
-		object-fit: contain;
-            color: blue;
-            font-size: 30px;
-            cursor: pointer;
-            margin:0;
-            transition: transform 0.4s ease, color 0.3s ease;
-        }
-        
-.logo-icon:hover {
-            color: blue;
-            transform: rotate(90deg); /* Rotate effect on hover */
-        }
-</style>
-
-
-<style>
-/* Container untuk Tab */
+<style> /* Menu Category Product*/
 .tab-container {
     position: fixed;
-    max-width: 400px;
     border-radius: 15px;
     overflow: hidden;
     z-index: 1000;
@@ -581,7 +561,6 @@ header {
     position: fixed; /* Posisi tetap untuk menghindari pengaruh pada tata letak lainnya */
     top: 50px; /* Jarak dari atas */
     padding:5px 5px 0px 5px;
-    max-width:390px;
     width: 100%; /* Lebar kontainer */
     background: rgba(30, 144, 255, 0.3); /* Warna blue dengan transparansi 0.8 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bayangan untuk efek kedalaman */
@@ -596,6 +575,30 @@ header {
     opacity: 1; /* Tampilkan slider */
     visibility: visible; /* Ubah visibility menjadi terlihat */
 }
+
+.menu-show-left {
+		position: fixed;
+		top:70px;
+		width:55px;height: 35px;
+		color:blue;
+	    display: flex;
+	    overflow: hidden;
+    	margin-left:15px;
+		z-index:10;}
+
+.logo-icon {
+		object-fit: contain;
+            color: blue;
+            font-size: 30px;
+            cursor: pointer;
+            margin:0;
+            transition: transform 0.4s ease, color 0.3s ease;
+        }
+        
+.logo-icon:hover {
+            color: blue;
+            transform: rotate(90deg); /* Rotate effect on hover */
+        }
 </style>
 
 
@@ -605,7 +608,6 @@ header {
         flex-wrap: wrap; /* Membuat kolom dapat membungkus ke baris baru */
         justify-content: center;align-items: center;
         gap: 20px;
-        max-width: 400px;
         margin-top:70px;
     }
 
@@ -780,12 +782,12 @@ header {
     }
 
     /* Gaya untuk jumlah item di ikon keranjang */
-    #cart-count {position:relative;
+    #cart-count {position:fixed;
         font-family: 'Arial', sans-serif;
         width: 20px;
         height: 10px;
-        top: -15px;
-        right: 15px;
+        top: 5px;
+        right: 5px;
         background-color: red;
         color: white;
         border-radius: 7px;
@@ -800,9 +802,8 @@ header {
     font-family: 'Arial', sans-serif;
         position: fixed;
         top: 55px;
-        
-        width: 95%;
-        max-width:380px;
+        right:0;
+        width: 340px;
         max-height: 400px;
         overflow-y: auto;
         background-color: rgba(255, 255, 255, 0.93);
@@ -934,465 +935,617 @@ header {
 </style>
 
 
-<style>    /* Menu bottom bar container */
+<style> /*Banner Utama*/
+    .slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    height: 500px;
+    overflow: hidden;
+    margin: 0 auto;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
 
-	  /* Container bottom bar */
-	  .bottom-barH3 {
-	    position: fixed;
-	    bottom: 0;
-	    width: 100%;
-	    max-width: 400px;
-	    display: flex;
-	    justify-content: space-between;
-	    align-items: center;
-	    background-color: #ffffff;
-	    border-radius: 20px 20px 0 0;
-	    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-	    padding: 0;
-	    overflow: hidden;
-	z-index:1000;
-	  }
+    .slider {
+        display: flex;
+        transition: transform 1s ease-in-out;
+    }
 
-	  /* Style setiap tab */
-	  .tab-itemH3 {
-	    flex-grow: 1;
-	    text-align: center;
-	    color: #777;
-	    cursor: pointer;
-	    font-size: 12px;
-	    transition: color 0.3s ease;
-	    position: relative;
-	  }
+    .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center; /* Center secara horizontal */
+    align-items: center; /* Center secara vertikal */
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
 
-	  .tab-itemH3 i {
-	    font-size: 24px;
-	    color: #777;
-	    transition: color 1s;
-	  }
+    .slide.active {
+        opacity: 1; /* Fade-in aktif */
+    }
 
-	  .tab-itemH3.homeH3 i {
-	    font-size: 24px;
-	    color: #fff;
-	    transition: color 1s;
-	  }
-
-	  /* Efek hover dan tab aktif */
-	  .tab-itemH3:hover, .tab-itemH3.activeH3 {
-	    color: blue;
-	    transform: scale(1.1);
-	  }
-
-	  .tab-itemH3:hover i, .tab-itemH3.activeH3 i {
-	    color: blue;
-	    transform: scale(1.1);
-	  }
-
-	  .tab-itemH3.homeH3:hover i, .tab-itemH3.homeH3.activeH3 i {
-	    color: #fff;
-	  }
-
-	  /* Desain khusus untuk tab tengah */
-	  .tab-itemH3.homeH3 {
-	    position: relative;
-	    top: 0;
-	    background: blue;
-	    border-radius: 50%;
-	    padding: 15px;
-	    color: #fff;
-	    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-	    transition: transform 0.3s ease;
-	  }
-
-	  .tab-itemH3.homeH3:hover {
-	    transform: scale(1.3);
-	  }
-
-	  .tab-itemH3 span {
-	    display: block;
-	    margin-top: 5px;
-	    font-size: 12px;
-	  }
-
-	  /* Content display */
-	  .contentH3 {
-	    margin-top: 20px;
-	    text-align: center;
-	    font-size: 20px;
-	    color: blue;
-	    display: none;
-	  }
-
-	  .contentH3.activeH3 {
-	    display: block;
-	  }
-</style>
+    /* Overlay dengan pola titik */
+.content-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Hitam transparan */
+    z-index: 1;
+}
 
 
-<style> /*MENU TAB PROFILE*/
-        .profile-card {
-            margin-top: 55px;
-            width: 100%;
-            max-width: 400px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            text-align: center;
+    .content {
+    width: 80%;
+    max-width: 100%;
+    text-align: center;
+line-height:1.5;
+    color: white;
+    z-index: 2;
+    opacity: 0; /* Efek fade */
+    transform: none; /* Hilangkan transform jika tidak diperlukan */
+    transition: opacity 1s ease-in-out;
+}
+
+    .slide.active .content {
+        opacity: 1;
+        transform: translateX(0); /* Konten bergerak dari kiri ke tengah */
+    }
+
+    .content h2 {
+        font-size: 50px;
+        margin-bottom: 30px;
+        line-height:1.2;
+        font-weight:bold;
+    }
+
+    .content p {
+        font-size: 25px;
+        margin-bottom: 20px;
+        font-weight:bold;
+    }
+.content h2, .content p, .content a {
+    opacity: 0;
+    transform: translateX(-100px); /* Mulai dari posisi di sebelah kiri */
+    animation: slide-left 1s forwards; /* Gunakan animasi slide-left */
+}
+
+/* Animasi bergerak dari kiri */
+@keyframes slide-left {
+    to {
+        opacity: 1;
+        transform: translateX(0); /* Berakhir di posisi normal */
+    }
+}
+
+    .content a {
+        background: linear-gradient(135deg, #ff7e00, #ffb733); /* Gradasi oranye */
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        transition: background 0.3s ease;
+    }
+
+    .content a:hover {
+        background-color: #ff7f50;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+        transition: all 0.3s ease;
+    }
+
+/* Atur posisi dan tampilan dots */
+.dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 12px; /* Jarak antar dots */
+    z-index: 11; /* Pastikan dots di atas elemen lain */
+}
+
+/* Style untuk setiap tombol dots dengan border */
+.dots button {
+    background-color: transparent; /* Warna dalam transparan */
+    border: 2px solid rgba(255, 255, 255, 0.6); /* Garis pinggir berwarna putih transparan */
+    border-radius: 50%; /* Membuat dots berbentuk lingkaran */
+    width: 12px; /* Lebar titik */
+    height: 12px; /* Tinggi titik */
+    padding: 5px; /* Jarak antara titik dan border */
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease; /* Transisi untuk efek smooth */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* Bayangan halus */
+}
+
+/* Efek ketika tombol dots aktif */
+.dots button.active {
+    background-color: orange; /* Isi titik saat aktif */
+    border-color: orange; /* Garis pinggir berwarna oranye */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Tambahkan bayangan saat aktif */
+}
+
+/* Efek hover pada dots */
+.dots button:hover {
+    transform: scale(1.2); /* Memperbesar ukuran saat hover */
+    border-color: #ff7f50; /* Ubah warna garis pinggir saat hover */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4); /* Efek bayangan lebih kuat */
+    transition: all 0.3s ease; /* Transisi untuk memperhalus efek hover */
+}
+
+
+
+    /* Progress bar */
+    .progress-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        z-index: 10;
+        height: 5px;
+        background-color: orange;
+        animation: progress 10s linear infinite;
+    }
+
+    @keyframes progress {
+        0% { width: 0; }
+        100% { width: 100%; }
+    }
+
+    @media (max-width: 600px) {
+        .slider-container {
+            height: 300px;
         }
 
-        /* Bagian header dengan gambar background */
-        .profile-header {
-            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNDgsiuO-Ks6G1Y1oZtWbEAOJbhr31ANZfcd0A7u6BzIywtpAzFTwquZQH');
-            background-size: cover;
-            background-position: center;
-            height: 150px;
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
+        .content h2 {
+            font-size: 20px;
+        }
+
+        .content p {
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .content a {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+    }
+</style>
+
+<style> /* Client */
+.client-banner {
+    display: flex;
+    max-width: 1024px;
+    flex-wrap: wrap; /* Membuat item responsif */
+    justify-content: center; /* Memusatkan konten */
+}
+
+/* Styling for the banner layout */
+.client-banner-layout {
+    background: linear-gradient(135deg, #ff8a00, #e52e71); /* Gradient background */
+    border-radius: 10px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1); /* Initial box shadow */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Memusatkan gambar secara vertikal */
+    align-items: center; /* Memusatkan gambar secara horizontal */
+    background: var(--post-one-color);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(205, 222, 247, 0.08);
+    width: calc(20% - 10px); /* Set each item to take 20% of the width, so 5 items fit per row */
+    margin: 5px;
+    box-sizing: border-box;
+}
+
+/* Styling untuk gambar */
+.client-banner-layout img {
+    width: 50%; /* Semua gambar akan memiliki lebar yang sama */
+    height: auto; /* Tinggi menyesuaikan dengan proporsi gambar */
+    object-fit: contain; /* Menjaga rasio gambar agar tidak terdistorsi */
+    border-radius: 5px; /* Membuat gambar dengan sudut melengkung */
+}
+
+/* Slider Container */
+.client-slider-container {
+    overflow: hidden;
+    max-width: 100%;
+    position: relative;
+}
+
+/* Slider Track */
+.client-slider-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 300%; /* Since we have 3 slides, we set the width to 300% */
+}
+
+/* Arrow buttons */
+.client-slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.client-prev-btn {
+    left: 0;
+}
+
+.client-next-btn {
+    right: 0;
+}
+
+@media (max-width: 768px) {
+    .client-banner-layout img {
+        width: 100%;
+    }
+}
+
+    </style>
+    
+<style> /* Layanan Product */
+        .layanan2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2px;
+            padding: 2px;
+            max-width: 1700px;
+        }
+
+        .grid-layanan2 {
             position: relative;
+            text-align: center;
+            color: white;
+            width: 100%;
+            padding-top: 100%; /* Menjaga aspek rasio 1:1 (persegi) */
+            overflow: hidden; /* Agar gambar tidak melampaui batas */
+        }
+
+        .grid-layanan2 img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Menjaga gambar agar selalu fit dalam kotak persegi */
+            transition: transform 0.3s ease; /* Animasi saat di-hover */
+        }
+
+        .grid-layanan2:hover img {
+            transform: scale(1.1); /* Gambar diperbesar saat di-hover */
+        }
+
+        .overlay2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease; /* Animasi perubahan warna overlay2 */
+        }
+
+        .grid-layanan2:hover .overlay2 {
+            background-color: rgba(0, 0, 0, 0.7); /* overlay2 lebih gelap saat di-hover */
+        }
+
+        .overlay2-content {
+            position: absolute;
+            top: 35px;
+            left: 35px;
+            right: 35px;
+            bottom: 35px;
+            opacity: 0;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .profile-image-container {
-            position: absolute;
-            top: 90px;
-            border-radius: 50%;
-            overflow: hidden;
-            width: 100px;
-            height: 100px;
-            border: 5px solid #fff;
-            background-color: #ddd;
+        .grid-layanan2:hover .overlay2-content {
+            opacity: 1; /* Konten overlay2 muncul saat di-hover */
+            border-color: yellow; /* Border muncul saat di-hover */
+            transform: scale(1.05); /* Animasi scale agar terlihat hidup */
         }
 
-        .profile-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    .animated-border:before, 
+    .animated-border:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        border: 2px solid transparent;
+        box-sizing: border-box;
+    }
 
-        /* Bagian informasi profil */
-        .profile-info {
-            padding-top: 60px;
-        }
+    .animated-border:before {
+        border-top: 2px solid yellow;
+        border-bottom: 2px solid yellow;
+        animation: border-horizontal 2s ease-in-out infinite;
+    }
 
-        .profile-name {
-            font-size: 22px;
-            font-weight: bold;
-            color: #333;
-            margin: 5px 0;
-        }
+    .animated-border:after {
+        border-left: 2px solid yellow;
+        border-right: 2px solid yellow;
+        animation: border-vertical 2s ease-in-out infinite;
+    }
 
-        .profile-title {
-            color: #777;
-            font-size: 14px;
-            margin: 5px 0;
-        }
-
-        .profile-location {
-            color: #888;
-            font-size: 13px;
-            margin-bottom: 20px;
-        }
-
-        /* Tab galeri */
-        .gallery-tabs-container {
-            overflow-x: auto; /* membuat galeri dapat digulir ke samping */
-            white-space: nowrap; /* mencegah tab baris baru */
-            border-bottom: 1px solid #4A90E2;
-            margin: 15px 0;
-        }
-
-        .gallery-tabs {
-            display: flex;
-            justify-content: flex-start;
-        }
-
-        .gallery-tab {
-            font-size: 0.9rem;
-            color: #666;
-            padding: 10px 15px;
-            cursor: pointer;
-            transition: color 0.3s, border-bottom 0.3s;
-            border-bottom: 3px solid transparent; /* Untuk efek aktif */
-        }
-
-        .gallery-tab:hover,
-        .gallery-tab.active {
-            color: #333;
-            font-weight: bold;
-            border-bottom: 3px solid red;
-        }
-
-        /* Bagian galeri */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            padding: 0 15px 15px;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 150px;
-            border-radius: 10px;
-            transition: transform 0.3s;
-        }
-
-        .gallery-item img:hover {
-            transform: scale(1.05);
-        }
-
-        /* Hidden class */
-        .hidden {
-            display: none;
-        }
-    </style>
-
-<style> /* MENU PROFILE */
-/* Gaya Sidebar */
-.sidebar1A {
-    max-width: 400px;
-    font-family: 'Arial', sans-serif;
-    width: 100%;
-    background: rgba(30, 144, 255, 1); /* Warna blue dengan transparansi 0.8 */
-    height: auto; /* Sesuaikan tinggi secara otomatis */
-    position: fixed;
-    top: 55px;
-    align-items: center;
-    justify-content: center;
-    opacity: 0; /* Mulai dengan opacity 0 */
-    visibility: hidden; /* Sembunyikan dengan visibility */
-    transition: opacity 0.6s ease, visibility 0s 0.6s; /* Transisi untuk opacity dan visibility */
-    z-index: 1009;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
-    padding-top: 20px;
-    text-align: left;
-    overflow: hidden;
-}
-
-/* Aktifkan sidebar dengan fade in */
-.sidebar1A.active1A {
-    opacity: 1; /* Ubah menjadi 1 saat aktif */
-    visibility: visible; /* Tampilkan saat aktif */
-    transition: opacity 0.6s ease; /* Transisi opacity tanpa delay */
-}
-
-/* Gaya Overlay */
-.overlay1A {
-    max-width: 400px;
-    position: absolute;
-    top: 55px;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    display: none;
-    z-index: 1;
-    opacity: 0; /* Mulai dengan opacity 0 */
-    transition: opacity 0.6s ease; /* Transisi untuk opacity */
-}
-
-/* Overlay saat aktif */
-.overlay1A.active1A {
-    display: block; /* Tampilkan saat aktif */
-    opacity: 1; /* Ubah menjadi 1 saat aktif */
-    transition: opacity 0.6s ease; /* Transisi opacity tanpa delay */
-}
-
-        /* Menu Styling */
-        .menu1A ul {
-            list-style-type: none;
-            padding: 0;
-            margin-top: -10px;
-        }
-
-        .menu1A ul li {
-            padding: 5px 20px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #7c4dff;
-            position: relative;
-            transition: background-color 0.4s ease;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .menu1A ul li a {
-            color: #f4f7fa;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 500;
-            display: block;
-            position: relative;
-            z-index: 1;
-            transition: color 0.4s ease;
-        }
-
-        .menu1A ul li::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+    @keyframes border-horizontal {
+        0%, 100% {
             width: 0%;
-            height: 100%;
-            background: linear-gradient(135deg, #7c4dff, #16a085); /* Gradasi hijau */
-            z-index: 0;
-            transition: width 0.4s ease;
-            border-radius: 10px;
         }
-
-        .menu1A ul li:hover::before {
+        50% {
             width: 100%;
         }
+    }
 
-        .menu1A ul li:hover a {
-            color: #fff; /* Change text color on hover */
+    @keyframes border-vertical {
+        0%, 100% {
+            height: 0%;
+        }
+        50% {
+            height: 100%;
+        }
+    }
+
+
+        .overlay2-text {
+            font-size: 2.5rem;
+            font-weight: bold;
+line-height:1;
+            transition: transform 0.5s ease, color 0.5s ease; /* Animasi untuk ukuran dan warna */
         }
 
-        /* Toggle Icon */
-        .toggle1A {
-            font-size: 30px;
-            cursor: pointer;
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            color: #fff;
-            z-index: 1000;
-            transition: transform 0.4s ease, color 0.3s ease;
+        .grid-layanan2:hover .overlay2-text {
+            transform: scale(1.1); /* Teks diperbesar saat di-hover */
+            color: white; /* Teks berubah warna menjadi emas saat di-hover */
+            transform: translateY(-15px); /* Animasi teks naik saat muncul */
         }
 
-        .toggle1A:hover {
-            color: #1abc9c;
-            transform: rotate(90deg); /* Rotate effect on hover */
+        .detail-text {
+            font-size: 1rem;
+            font-weight: normal;
+			color:yellow;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
+        .grid-layanan2:hover .detail-text {
+            opacity: 1; /* Teks "Lihat Detail" muncul saat di-hover */
+            transform: translateY(40px); /* Animasi teks naik saat muncul */
+        }
+
+        @media (max-width: 600px) {
+            .layanan2 {
+                grid-template-columns: repeat(2, 1fr); /* Minimal 2 kolom pada tampilan mobile */
+            }
+
+            .overlay2-text {
+                font-size: 1.5rem;
+            }
+
+            .detail-text {
+                font-size: 0.8rem;
+            }
+
+        .grid-layanan2:hover .detail-text {
+            opacity: 1; /* Teks "Lihat Detail" muncul saat di-hover */
+            transform: translateY(20px); /* Animasi teks naik saat muncul */
+        }
+        }
     </style>
 
-
-<style> /*MENU TAB HOME*/
-    /* Resetting margin and padding */
-.fullscreen {
-    position: fixed; /* Menjaga elemen ini di tempatnya */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden; /* Menghindari scrollbar */
-}
-
-    .slider-containerH1 {
-      position: relative;
-      width: 100vw; /* Full width */
-      height: 100vh; /* Full height */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-margin: 0;
-      padding: 0;
-      overflow: hidden; /* Ensuring no overflow */
-    }
-
-    .sliderH1 {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    .slideH1 {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-size: cover; /* Ensure background covers */
-      background-position: center; /* Center the background */
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
-    }
-
-    .slideH1.active {
-      opacity: 1;
-    }
-
-    .overlayH1 {
-      position: relative; /* Changed to relative for proper overlay placement */
-      width: 75%;
-	  max-width: 300px;
-      padding: 20px;
-      margin-top:-5em;
-      background: rgba(0, 0, 0, 0.7);
-      box-shadow: 0px 0px 50px rgba(225, 225, 0, 5);
-      color: #fff;
-      border-radius: 15px;
-      text-align: center;
-      z-index: 100;
-    }
-
-    .profile-imageH1 {
-      width: 250px;
-      height: 120px;
-      border-radius: 20px;
-      margin: 10px auto;
-      background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNDgsiuO-Ks6G1Y1oZtWbEAOJbhr31ANZfcd0A7u6BzIywtpAzFTwquZQH') center/cover no-repeat;
-      border: 3px solid #fff;
-    }
-
-    h1 {
-      font-size: 28px;
-      margin-bottom: -15px;
-    }
-
-    .descriptionH1 {
-      font-size: 18px;
-      margin-bottom: 25px;
-      color: #ccc;
-    }
-
-    .contact-infoH1 {
-      display: flex;
-      width:100%;
-      justify-content: center;
-      gap:20px;
-      margin-bottom: 15px;
-      font-size: 20px;
-    }
-
-    .contact-infoH1 a {
-      color: #fff;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .contact-infoH1 a:hover {
-      color: #00bcd4;
-    }
-
-    .noteH1 {
-      background: rgba(255, 255, 255, 0.2);
-      color: #f1f1f1;
-      font-size: 14px;
-      padding: 5px;
-      border-radius: 10px;
-      margin-top: 15px;
-    }
-
-    /* Footer */
-    .footerH1 {
-    	position:fixed;
-      font-family: 'Arial', sans-serif;
-      width: 100%;
-      color: #fff;
-      padding: 0;
-      text-align: center;
-      font-size: 14px;
-      bottom: 80px; /* Align to the bottom */
-    }
-  </style>
-  
-<style> /*MENU TAB ULASAN*/
-    .containerU1 {
+<style>  /* MENU TAB ARTIKEL */
+    .containerA2 {
+        display: flex;
+        flex-wrap: wrap; /* Membuat kolom dapat membungkus ke baris baru */
+        justify-content: center;
+		align-items: center;
+        gap: 10px;
         font-family: Arial, sans-serif;
         margin: auto;
         text-align: center;
-        max-width: 400px;
+    }
+
+    .articlesA2 {
+        margin-top: 55px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 15px;
+    }
+
+    .article-cardA2 {
+        background: linear-gradient(135deg, #e0f7fa, #e1bee7);
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+        overflow: hidden;
+        position: relative;
+        text-align: left;
+        border: 1px solid transparent;
+        height: auto;
+    }
+
+    .article-cardA2:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        border: 1px solid #7e57c2;
+    }
+
+    .article-headerA2 {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .profile-picA2 {
+        width: 50px;
+        height: 50px;
+        background-image: url('https://i.imgur.com/RHbQRX3.png');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .authorA2 {
+        font-size: 14px;
+        color: #555;
+    }
+
+    .article-cardA2 h2 {
+        margin: 0;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .contentA2 {
+        color: #666;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2; /* Batasi menjadi 2 baris */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 14px;
+        line-height: 1.4;
+        margin-top: 15px;
+    }
+
+    .lightboxA2 {
+        display: none;
+        position: fixed;
+        text-align: left;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 99;
+        backdrop-filter: blur(5px);
+        animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .lightbox-contentA2 {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        max-width: 600px;
+        max-height: 70vh;
+        overflow-y: auto;
+        animation: slideIn 0.5s forwards;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .close-btnA2 {
+        background: #ff6b6b;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        float: right;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .close-btnA2:hover {
+        background: #ff4d4d;
+        transform: scale(1.05);
+    }
+
+    #popup-titleA2 {
+        margin: 0;
+        font-size: 0.9em;
+        color: #333;
+    }
+
+    #popup-authorA2 {
+        color: #777;
+        font-size: 0.8em;
+        margin-top: 5px;
+    }
+
+    #popup-contentA2 {
+        color: #666;
+        font-size: 0.8em;
+        line-height: 1.5;
+        margin-top: 10px;
+    }
+
+    /* Gaya untuk media (foto atau video) */
+    .mediaA2 {
+        width: 100%;
+        max-height: 300px;
+        margin-top: 15px;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+    .thumbnailA2 {
+        width: 100%;
+        max-height: 200px;
+        border-radius: 10px;
+        margin-top: 10px;
+        object-fit: cover;
+    }
+</style>
+
+
+<style> /*MENU TAB ULASAN*/
+    .containerU1 {
+        display: flex;
+        flex-wrap: wrap; /* Membuat kolom dapat membungkus ke baris baru */
+        justify-content: center;
+		align-items: center;
+        gap: 10px;
+        font-family: Arial, sans-serif;
+        margin: auto;
+        text-align: center;
     }
 
     .reviewsU1 {
@@ -1524,195 +1677,221 @@ margin: 0;
         margin-top: 10px;
     }
 </style>
-    
 
-<style>  /* MENU TAB ARTIKEL */
-    .containerA2 {
-        font-family: Arial, sans-serif;
-        margin: auto;
-        text-align: center;
-        max-width: 400px;
-    }
-
-    .articlesA2 {
-        margin-top: 55px;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 15px;
-    }
-
-    .article-cardA2 {
-        background: linear-gradient(135deg, #e0f7fa, #e1bee7);
-        border-radius: 15px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        transition: transform 0.3s, box-shadow 0.3s;
-        cursor: pointer;
-        overflow: hidden;
-        position: relative;
-        text-align: left;
-        border: 1px solid transparent;
-        height: auto;
-    }
-
-    .article-cardA2:hover {
-        transform: translateY(-5px) scale(1.02);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        border: 1px solid #7e57c2;
-    }
-
-    .article-headerA2 {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .profile-picA2 {
-        width: 50px;
-        height: 50px;
-        background-image: url('https://i.imgur.com/RHbQRX3.png');
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
-
-    .authorA2 {
-        font-size: 0.8em;
-        color: #555;
-    }
-
-    .article-cardA2 h2 {
-        margin: 0;
-        font-size: 0.9em;
-        color: #333;
-    }
-
-    .contentA2 {
-        color: #666;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2; /* Batasi menjadi 2 baris */
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-size: 0.8em;
-        line-height: 1.4;
-        margin-top: 15px;
-    }
-
-    .lightboxA2 {
-        display: none;
-        position: fixed;
-        text-align: left;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        justify-content: center;
-        align-items: center;
-        z-index: 99;
-        backdrop-filter: blur(5px);
-        animation: fadeIn 0.3s;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
+<style>  /* Profile Team */
+        #team-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--text-font-color);
+            position: relative;
         }
-        to {
+
+        #team-title::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 3px;
+            background: var(--text-font-color);
+            color: var(--text-font-color);
+            margin: 10px auto 0;
+        }
+
+        .team-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .team-card {
+            width: 100%;
+            background-color: var(--post-one-color);
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .team-card img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 5px solid #3190E7;
+        }
+
+        .team-info h3 {
+            margin: 10px 0;
+            font-size: 20px;
+            color: var(--text-font-color);
+        }
+
+        .team-info p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .team-info .role {
+            background-color: #3190E7;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 10px;
+            width: 80%;
+            display: inline-block;
+        }
+
+        .team-card.active {
             opacity: 1;
-        }
-    }
-
-    .lightbox-contentA2 {
-        background: white;
-        border-radius: 15px;
-        padding: 30px;
-        max-width: 600px;
-        max-height: 70vh;
-        overflow-y: auto;
-        animation: slideIn 0.5s forwards;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    @keyframes slideIn {
-        from {
-            transform: translateY(-50px);
-            opacity: 0;
-        }
-        to {
+            position: relative;
             transform: translateY(0);
-            opacity: 1;
         }
-    }
 
-    .close-btnA2 {
-        background: #ff6b6b;
-        border: none;
-        color: white;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-        float: right;
-        transition: background-color 0.3s, transform 0.3s;
-    }
+        /* RESPONSIVE LAYOUT */
+        @media (min-width: 768px) {
+            /* Tampilan Desktop: Tampilkan semua card secara grid */
+            .team-card {
+                position: relative;
+                width: calc(250px - 40px);
+                opacity: 1;
+                transition: none;
+            }
 
-    .close-btnA2:hover {
-        background: #ff4d4d;
-        transform: scale(1.05);
-    }
+            .team-container {
+                flex-wrap: wrap;
+            }
 
-    #popup-titleA2 {
-        margin: 0;
-        font-size: 0.9em;
-        color: #333;
-    }
+        }
 
-    #popup-authorA2 {
-        color: #777;
-        font-size: 0.8em;
-        margin-top: 5px;
-    }
+        @media (max-width: 768px) {
+            /* Tampilan Mobile: Hanya tampilkan satu card dengan transisi */
+            .team-container {
+                flex-direction: column;
+                position: relative;
+            }
 
-    #popup-contentA2 {
-        color: #666;
-        font-size: 0.8em;
-        line-height: 1.5;
-        margin-top: 10px;
-    }
+            .team-card {
+                width: 95%;
+                position: absolute;
+                opacity: 0;
+                transform: translateY(30px);
+            }
 
-    /* Gaya untuk media (foto atau video) */
-    .mediaA2 {
-        width: 100%;
-        max-height: 300px;
-        margin-top: 15px;
-        border-radius: 10px;
-        object-fit: cover;
-    }
-
-    .thumbnailA2 {
-        width: 100%;
-        max-height: 200px;
-        border-radius: 10px;
-        margin-top: 10px;
-        object-fit: cover;
-    }
+            .team-card.active {
+                opacity: 1;
+                position: relative;
+                transform: translateY(0);
+            }
+        }
 </style>
+    
+<style> /* Katalog */
+        .image-viewer-containerKT {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90%;
+            width:auto;
+            margin: 0;
+        }
 
+        /* Thumbnail Style */
+        .thumbnailKT {
+            width: 320px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
+        .thumbnailKT:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Popup Overlay Style */
+        .overlayKT {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; 
+            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.3); /* Menghapus background blur */
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            padding-top: 50px;
+            padding-bottom: 70px;
+            box-sizing: border-box;
+            opacity: 0; /* Mulai dengan transparansi */
+        }
+
+        /* Popup Image Container */
+        .popup-containerKT {
+            position: relative;
+            width: 100%;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            opacity: 0; /* Mulai dengan transparansi */
+        }
+
+        .popup-imageKT {
+            width: 100vw; /* Lebar penuh dengan jarak kiri-kanan 20px */
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Navigation Buttons - Positioned inside the image */
+        .nav-buttonKT {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            color: white;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.1);
+            border: none;
+            cursor: pointer;
+            z-index: 2;
+            display: none; /* Menyembunyikan tombol navigasi */
+        }
+
+        .nav-buttonKT:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Positioning of navigation buttons inside the image */
+        .prev-buttonKT {
+            left: 0;
+        }
+
+        .next-buttonKT {
+            right: 0;
+        }
+
+        /* Hidden images (not displayed) */
+        .hidden-imageKT {
+            display: none;
+        }
+    </style>
+    
+    
 </head>
 <body>
-    
-<header>
-    <div class="logo-left">
-        <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
-    </div>
-    <div class="icon-right" id="cart-icon">
-		<i class="fas fa-shopping-cart"></i>
-    	<span id="cart-count">0</span>
-	</div>
-</header>
-
 
 <!-- Floating Button Container -->
 <div class="whatsapp-float-container" id="whatsappFloatContainer" onclick="toggleWhatsAppCard(event)">
@@ -1765,6 +1944,22 @@ margin: 0;
     </div>
 </div>
 
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">
+        	<img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
+		</div>
+        
+        <!-- Icons Section -->
+        <div class="icon-container">
+    		<i id="fullscreen-icon" class="fas fa-expand"></i>
+            <i class="fas fa-list" onclick="activateTabH3(this, 'content-katalogH3')"></i>           <!-- Icon Katalog -->
+            <div id="cart-icon">
+            	<i class="fas fa-shopping-cart"></i> <!-- Icon Keranjang -->
+    			<span id="cart-count">0</span>
+			</div>
+        </div>
+    </header>
 
 <!-- HTML for Payment Popup -->
 <div id="payment-popup" class="popup-hidden">
@@ -1778,7 +1973,7 @@ margin: 0;
 
 <!-- Cart Popup -->
 <div id="cart-popup" class="popup-hidden">
-<div class="header-cart"><img src="https://img.icons8.com/ios-filled/50/000000/shopping-cart.png" />
+<div class="header-cart" onclick="activateTabH3(this, 'content-productH3')"><img src="https://img.icons8.com/ios-filled/50/000000/shopping-cart.png" />
         <h3>Keranjang Belanja</h3>
 </div>
         <div id="cart-items"></div>
@@ -1790,8 +1985,8 @@ margin: 0;
 
 <!-- Content sections for each tab -->
 <div class="contentH3" id="content-productH3"><!--MENU TAB PRODUCT-->
+	
 <div class="menu-show-left"><div class="logo-icon" id="icon"><i class="fas fa-bars"></i></div></div>
-
 
 <div class="tab-container">
     <div id="tabs"> <!-- Kontainer untuk tab -->
@@ -2183,7 +2378,6 @@ margin: 0;
 <div class="bottom" ></div>
 </div>
 
-
 <div class="contentH3" id="content-portofolioH3"><!--MENU TAB PAYMENT-->
 
 <div class="containerA2">
@@ -2360,7 +2554,6 @@ margin: 0;
     <p class="contentA2">D'Side Graphia memberikan solusi D'Side Graphia yang disesuaikan untuk memenuhi kebutuhan spesifik Anda.</p>
 </div>
 
-
     </div>
 </div>
 
@@ -2376,52 +2569,253 @@ margin: 0;
     </div>
 </div>
 
-	<div class="bottom" ></div>
+<div class="bottom" ></div>
 </div>
 
 <div class="contentH3 activeH3" id="content-homeH3"><!--MENU TAB HOME-->
+    <div class="slider-container">
+        <div class="slider">
+            <!-- Slide 1 -->
+            <div class="slide active" style="background-image: url('https://semestaadvertising.id/wp-content/uploads/2023/03/slide-utama-jasa-advertising-s.jpg');">
+                <div class="content-overlay"></div>
+                <div class="content">
+                    <h2>Jasa Advertising</h2>
+                    <p>Kami Melayani Jasa Pembuatan Neon
+Box, Letter Sign, Signage, Pylon Sign.
+Videotron dan Lain-lain</p>
+                    <a onclick="toggleWhatsAppCard(event)">Klik Disini</a>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="slide" style="background-image: url('https://semestaadvertising.id/wp-content/uploads/2023/03/slide-utama-jasa-lettersign2-s.jpg');">
+                <div class="content-overlay"></div>
+                <div class="content">
+                    <h2>Jasa Pembuatan
+Letter Sign</h2>
+                    <p>Kami Melayani, Jasa Pembuatan Neon
+Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
+                    <a onclick="toggleWhatsAppCard(event)">Klik Disini</a>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="slide" style="background-image: url('https://semestaadvertising.id/wp-content/uploads/revslider/slide-utama-jasa-neonbox.gif">
+                <div class="content-overlay"></div>
+                <div class="content">
+                    <h2>Jasa Pembuatan Neon Box</h2>
+                    <p>Kami Melayani Jasa Pembuatan Neon Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain.</p>
+                    <a onclick="toggleWhatsAppCard(event)">Klik Disini</a>
+                </div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="slide" style="background-image: url('https://semestaadvertising.id/wp-content/uploads/2023/03/slide-utama-jasa-umbul2b-s.jpg">
+                <div class="content-overlay"></div>
+                <div class="content">
+                    <h2>Jasa Pasang dan Perizianan Umbul Umbul/TBanner</h2>
+                    <p>Kami Melayani Jasa Cetak dan Pasang Umbul-Umbul, Spanduk, Baliho dan Billboard</p>
+                    <a onclick="toggleWhatsAppCard(event)">Klik Disini</a>
+                </div>
+            </div>
+        </div>
+        <div class="dots">
+            <button class="active"></button>
+            <button></button>
+            <button></button>
+            <button></button>
+        </div>
+        <div class="progress-bar"></div>
+    </div>
+    
+    
+<center><h5 style="font-weight: bold;margin-bottom:5px;">Dipercaya Ratusan Perusahaan</h5>
+    <div class="client-slider-container">
+        <div class="client-slider-track">
+            <!-- Slide 1 (5 images) -->
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjn-wElIrEh-badYyytQHAcj_TB4qHkuxATMGDcxdRM5H9zTgXdWuw8Ccq5l42dO3gcXUIjRb8tF-VWSkOeioKCMwIyVIEFqt563UUMBA9roMAp3X5H4RAy5W0nAcn_1Xm5kaQBnQiOP910T4CSAOjuLc7nboEdqAMStPGOzbpOjSEX4BsFgfL7uILpffKI/s512/client_client-03.jpg" />
+            </div>
 
-<div class="notification" id="notification">
-    <i id="fullscreen-icon" class="fas fa-expand fullscreen-icon"></i>
-    <div class="fullscreen-button">Full Screen</div>
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg2ET8dl1lc0K0MfsREEwq5hsEBto0VTxFvN9g8-StO_bOCrGvxTFBVhMeSSqjIrbHE8EzftFLADq3QsHIOPJL64i-th9YZHdpoYSpY-dgMR08BtWq3hEthyphenhyphenz4uVH1aIcK2u-E-0rNe0i2XZbyFFQHrPED5pdxTcRhcMC1aZAB_UV4n9tm9lf1Bq-jp4m9P/s512/client_client-05.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjASKhDmXrs9l3l9lOUfn47JPH88qFPZw7IA13mT6YDlMbdMT7Iyvd6veaOEYobKUAeL5eeT3x0UKIUKBgGfaEjNuvfK6swmtK1l4FN3dSAbPQojGPbuJtfN7vBMYvpzbHC7RP588EuKtOGW46tzLV77C3GKQUC9yeWF3Jbx2A3YTqTXcdzeQOEw3R1D_tk/s512/client_client-06.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhq8cNdtJoVkl0ZggO1IDgyxB6zj5k4kVFTrTXKsJnqe-nOtXMRZKJThnv6jN5eN2obUxz7zA50wSH_yfUO2qykjxetupjW6Cud1O5GyyVNBaTeh_5echfSeegeC-VZLoXNjvnAxACuuT2YQmol7_C_VsxBK-8ZMNR-mWEICAtUwJfF1exG9Qp86hiXehxC/s512/client-logo-03.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiJENMX6IvjlFHIaRUhrPl7V41Gd_nB7L_uVGH0O8kFUEv0nx4udnFfLZc4yY6mg1NEfeJromKTPN9_6-zGvyGMIxVfxDbeYgNaAwIWsB7tk336uBJTCNRFmtaDcifH00jhU2qTmk2Sh-_vo2brbEcIT0svYN1dZpnbSPiUkBVxZBs6E_2uine7O2HxP7bH/s512/client-logo-04.jpg" />
+            </div>
+
+            <!-- Slide 2 (5 images) -->
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgpTvDSaOabAaxTENSXme9rJbaoA0FYNe-my72hAInJdSrEnH_XVK2xLZKY9Qg_NaRQGO9Jt0ndgdiJYDQE3FNF9okxJpG78jCwQTbkK0LcdrhfQxuTs2p4z3BjktlwMj1mdJOh2xu1HgndOEzFjvua0L6HIkBt38meJ7xYcISmhNGdL9_wl8GQINwmjcpD/s512/client-logo-05.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiE-F6-xuHraKVxfU0FsQHNzCj-TjobXtrRbu3_Uj2DfrnDCIHvM8MxQ61Kb59Gvb3GnWR22qg2affITIgAEBtHhkEkRYKeMf2Itxsrfpc49XEj8LbtrhwaaWNjPaNMSHewO73UYRwostK-F39k3H27AeRZ8ywIcY5m0rI8XoocYur5XRb4MIUhkztB_4LG/s512/client-logo-06.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiravBj2dPC2G3zfWFZEIGQTCxP578a71JDF0TyN3w4e0e-1S0Fuy70fnme-FPtGmKwmHI38-ZqY8SSFKC3PFEv1-r6ad2sNrfAMiKn9L9cOLlfWn2c4LhPNogpBefGS2D6fBWBbEe9WeLFEJMA7OtzvI-p1_1kTlePy5JyklTYZ0JuJ5yqfLzp1WsDM31U/s512/client-logo-07.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjf9JtKlLWhJW33VPNMfnOKZvSfRgUYq6RoJo5G2ZAk1T9Sj6pFM6oTWYj5vB9KQ6N0x-h4yJ_eeHSDauKqJtym6CK8n4R1vmneWobyYjlhy2Fg5ZEpO828sGdmjv66lB99gj6raFmDRWNM063zXdBt9xxHkpR2zYXwg6Nct4slox5D12d1ThsiXPyhYNuQ/s512/client-logo-08.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQhUhCbnmld8rsfwm_PuxCBE2FviOQMylpAJbjBxQq3BpICbXfggn_e0JSRTJ9dxSi1pP8DeXwQNPtWJ2GCFi6g1X6ubxtTRvbmM8NAmwFbKPtLKbAGxjOljzwoJtYrJVcClrgeD1EqlWmP3GnRbc2paLlIIOZX6q2lBuH7T-mf1kuI_ksPCXAU8dGtFJC/s512/client_client-01.jpg" />
+            </div>
+
+            <!-- Slide 3 (5 images) -->
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiZRMUK3DQ0OZp5ibf8gRRhwbMItCjPx8I2YRmsoJihZtczeD7aJ0yqWwei7yPYONIk-kWLkAiyCt-WOa6mtsiaToLB_-HjYSXzofznqv8f_p-hJAyDaak7pUgHiIviCLMpoXxJeGVvQq2KaG_5ltgZGa9tVR4pHuwJqusaVPFkIjwzEhbGGCBko4W9EKKd/s512/client_client-02.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhEKXgciAIru7qpoiF1f53_WgURBdqoGtjnjiUEoTy6Sfi5yjrInIbWdU6QpGc9u7t79vHglx3JGsBcnFgSTGWkGknp_yeC-YowoEXQqffCEYH_V_4S6kr5r3azfxnW0BC8KsniQqgheG96P7BETHMfykZ0walt_tTzz6Geg31vX415XgyW7yGhqukqb5mE/s512/client_client-04.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiKtlEjEO-CoIvc7RusyHrgg21sTV3Ldh9cSbTnsXHWYIeD8jH53-E2RmuDrVwBxl6dEIhH-F0mTkomlO-7IolvJXCP-raud5hI2YRWFZbJLTvmieqzKSNadnpL4uVMCutJW7kjtTZhju7G_sogrrh1QPqOPcV34w_achYzqOhbEW2S8WiEQhRt2MI6zxss/s739/images%20(2).png" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQouFV5-jsKLUFiza8B-W5yCqCzLMDzHNxk2A&usqp=CAU" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW1KvJN5d8SwYdTBfhekmCEJ1drK63D5fLcg&usqp=CAU" />
+            </div>
+        </div>
+    </div>
+</center>
+
+<div class="bottom-content" ></div>
+
+<center>
+<div class="layanan2">
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2024/08/1.jpg" alt="Neon Box" />
+        <div class="overlay2">
+            <div class="overlay2-text">Neon Box</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2024/09/21.jpg" alt="Letter Sign" />
+        <div class="overlay2">
+            <div class="overlay2-text">Letter Sign</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/videotron_thumb.jpg" alt="Videotron" />
+        <div class="overlay2">
+            <div class="overlay2-text">Videotron</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/billboard_thumb.jpg" alt="Billboard" />
+        <div class="overlay2">
+            <div class="overlay2-text">Billboard</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/spanduk_thumb.jpg" alt="Spanduk" />
+        <div class="overlay2">
+            <div class="overlay2-text">Spanduk</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2024/10/2.jpg" alt="Umbul-Umbul" />
+        <div class="overlay2">
+            <div class="overlay2-text">Umbul-Umbul</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2024/07/Desain-tanpa-judul-74.jpg" alt="Baliho" />
+        <div class="overlay2">
+            <div class="overlay2-text">Baliho</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/digital_printing13.jpg" alt="Digital Printing" />
+        <div class="overlay2">
+            <div class="overlay2-text">Digital Printing</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/pylonsign_img-01b.jpg" alt="Pylon Sign" />
+        <div class="overlay2">
+            <div class="overlay2-text">Pylon Sign</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/pole-sign_img-02.jpg" alt="Pole Sign" />
+        <div class="overlay2">
+            <div class="overlay2-text">Pole Sign</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/laser-acrylic.gif" alt="Iklan di Transportasi" />
+        <div class="overlay2">
+            <div class="overlay2-text">Iklan di Transportasi</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/perizinan_iklan_7b.jpg" alt="Perizinan Reklame" />
+        <div class="overlay2">
+            <div class="overlay2-text">Perizinan Reklame</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
 </div>
+</center>
 
-<div class="containerH1 specific-element fullscreen">	
-  <div class="slider-containerH1">
-    <div class="sliderH1">
-      <div class="slideH1 active" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ477AyzO-1bGhGGgvHXLiiopwZTOP5oLONG2162ZqWQtR1hTs77QjIGRM&s=10');"></div>
-      <div class="slideH1" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9EAd4Zd_PoiQxo9H74ULZMTn-K5JGgdigsg&usqp=CAU');"></div>
-      <div class="slideH1" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq6o7DA5x1okfNwIrtP_3wsY0Bt6QhiAKHOIqZb9NqNebf8PIwdb1NI-4&s=10');"></div>
-      <div class="slideH1" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlf4CvkF46daWhq3u66T1Kt060EWfmQtCeJ1DIg2RDc0Mp2I3hi_EinE8&s=10');"></div>
-      <div class="slideH1" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnyxwVKB74qZh54HeWYi1kYbheEV2nFmjniA&usqp=CAU');"></div>
-    </div>
 
-    <!-- Overlay Content -->
-    <div class="overlayH1">
-      <div class="profile-imageH1"></div>
-      <h1>D'Side Graphia</h1>
-      <p class="descriptionH1">Digital Printing</p>
-      <div class="contact-infoH1">
-        <a href="mailto:dsidegraphia@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-        <a href="https://digitalprintingind.github.io/dsidegraphia/aplikasiberbasisweb.html" title="Website"><i class="fas fa-globe"></i></a>
-        <a href="https://wa.me/6287838333993" title="Phone"><i class="fas fa-phone-alt"></i></a>
-        <a href="https://maps.app.goo.gl/eE41yqyzMuWuLkY17" title="Location"><i class="fas fa-map-marker-alt"></i></a>
-      </div>
-      <div class="noteH1">
-        <p>Aplikasi berbasis web masih dalam proses MAINTENANCE berkala</p>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footerH1">
-      &copy; 2024 <b>D'Side Graphia</b> Design by <b>Ridwan</b>. All rights reserved.
-    </div>
-  </div>
-</div>
 <div class="bottom" ></div>
 </div>
 
 <div class="contentH3" id="content-ulasanH3"><!--MENU TAB CONTACT FORM-->
+
    
     <div class="containerU1">
         <div class="reviewsU1">
@@ -2572,123 +2966,43 @@ margin: 0;
 <div class="bottom" ></div>
 </div>
 
+</div>
+
 <div class="contentH3" id="content-profileH3"> <!--MENU TAB PROFILE-->
-<div class="menu-show-left"><div class="logo-icon" id="toggle1A">&#9776;</div></div>
+    <!-- Judul Team -->
+    <h3 id="team-title">Team Support</h3>
 
-    <!-- Overlay for outside click to close sidebar -->
-    <div class="overlay1A" id="overlay1A"></div>
-
-    <div class="sidebar1A" id="sidebar1A">
-        <nav class="menu1A">
-            <ul>
-                <li><a href="#profil-p"><i class="fas fa-user">&nbsp&nbsp&nbsp</i>Profil</a></li>
-                <li><a href="#gallery-p"><i class="fas fa-images">&nbsp&nbsp&nbsp</i>Gallery</a></li>
-                <li><a href="#layanan-p"><i class="fas fa-toolbox">&nbsp&nbsp&nbsp</i>Layanan</a></li>
-                <li><a href="#contact-p"><i class="fas fa-envelope">&nbsp&nbsp&nbsp</i>Kontak</a></li>
-            </ul>
-        </nav>
-    </div>
-    
-    <div id="profil-p" class="profile-card">
-        <div class="profile-header">
-            <div class="profile-image-container">
-                <img src="https://i.imgur.com/RHbQRX3.png" alt="Profile Image" class="profile-image">
+    <div class="team-container">
+        <div class="team-card active">
+            <img src="https://via.placeholder.com/150" alt="Team Member" />
+            <div class="team-info">
+                <h3>John Doe</h3>
+                <p class="role">CEO</p>
             </div>
         </div>
-        <div class="profile-info">
-            <h2 class="profile-name">D'Side Graphia</h2>
-            <p class="profile-title">Digital Printing</p>
-            <p class="profile-location">📍 Jln. Bypass Desa Cadangpinggan Kec. Kertasemaya Kab. Indramayu</p>
-        </div>
-
-        <!-- Tab galeri kategori -->
-   <div id="gallery-p" class="gallery-tabs-container">
-        <div class="gallery-tabs">
-            <div class="gallery-tab active" onclick="showTab('spanduk')">Spanduk</div>
-            <div class="gallery-tab" onclick="showTab('jersey')">Jersey</div>
-            <div class="gallery-tab" onclick="showTab('nota')">Nota</div>
-            <div class="gallery-tab" onclick="showTab('stiker')">Stiker</div>
-            <div class="gallery-tab" onclick="showTab('sablon')">Sablon</div>
-            <div class="gallery-tab" onclick="showTab('merchandice')">Merchandice</div>
-            <div class="gallery-tab" onclick="showTab('cutting')">Cutting</div>
-        </div>
-   </div>
-
-        <!-- Galeri Photos -->
-        <div id="spanduk" class="gallery">
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 1"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 2"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 3"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 1"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 2"></div>
-        </div>
-
-        <!-- Galeri Likes -->
-        <div id="jersey" class="gallery hidden">
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 4"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 5"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 6"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 4"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 5"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 6"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 4"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 5"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 4"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 5"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 6"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 4"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 5"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 6"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 4"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 5"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 6"></div>
-        </div>
-
-        <!-- Galeri Likes -->
-        <div id="nota" class="gallery hidden">
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 4"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 5"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 6"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 4"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 5"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 6"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 4"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 5"></div>
-            <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdULnYgpJB3HvAnzmk25jSyYA4NXX_iRIQcPLjIGCGjXAB16JDZJqKemo&s=10" alt="Gallery Image 6"></div>
-        </div>
-    </div>
-    
-<div id="layanan-p">
-<div class="boxlayanan">
-    <div class="services-container">
-        <h2>Our Services</h2>
-
-        <div class="service-card">
-            <div class="icon1">📈</div>
-            <div class="service-content">
-                <h3>Digital Marketing</h3>
-                <p>We help grow your business online with targeted ads, SEO, and content strategies.</p>
+        <div class="team-card">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjEZnWrwVv0Gmc1c3MvN1SQhyphenhyphenVYYloTkL82d0QK6MrHlijHQlJxGguPDuyuG8844L1AOPtwZtYlFM4YaRT5tIQ-XNoTUItvXHlIoSl-1lKbviAyLFnXZMNAq9CPomyukfKMqbR3udEzUl8erjUljw3WAHRAQScpl_CPaZMVRnLv5FjRLAO00ieHu_Ia3xLw/s320/494a57eb-c897-4e97-a7c2-0c0d97dd0238.jpeg" alt="Team Member" />
+            <div class="team-info">
+                <h3>Ridwan Dermawan</h3>
+                <p class="role">IT</p>
             </div>
         </div>
-
-        <div class="service-card">
-            <div class="icon1">🌐</div>
-            <div class="service-content">
-                <h3>Web Development</h3>
-                <p>From idea to launch, we build responsive, engaging, and user-friendly websites.</p>
+        <div class="team-card">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyO-YvScPmkalb0F-7oaICn3cBc0jRyWXxom6VeLL1NKBafCiMSYx02IsbyZYFlVxmJkiDq-GmK17oBswBxIEW1Nb41loVhp6kZRzmoul6h2OWzpt9ZbFG30hA0TL7U3PMYuuJ_Q-g4XmNWQfIAV4YbdhAa9zsjaG4U3gkFZt0IbrWfoPY-uHVaLGu5h9F/s320/Capture.JPG" alt="Team Member" />
+            <div class="team-info">
+                <h3>Agung Thomas</h3>
+                <p class="role">Development</p>
             </div>
         </div>
-
-        <div class="service-card">
-            <div class="icon1">🎨</div>
-            <div class="service-content">
-                <h3>Graphic Design</h3>
-                <p>Our designers create stunning visuals that make your brand stand out.</p>
+        <div class="team-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgjyViF7Fi9KT-4qaXstGp6uPECbTnkPIMaw&s" alt="Team Member" />
+            <div class="team-info">
+                <h3>Sutomo Pratama</h3>
+                <p class="role">Staff</p>
             </div>
         </div>
     </div>
-</div>
-</div>
+
     
 <div id="contact-p" >
     <div class="contact-containerCF">
@@ -2717,6 +3031,39 @@ margin: 0;
 <div class="bottom" ></div>
 </div>
 
+<div class="contentH3" id="content-katalogH3"> <!--MENU TAB KATALOG-->
+<!-- Container khusus untuk Image Viewer -->
+<div class="image-viewer-containerKT">
+    <!-- Thumbnail with data-image attribute holding image URL -->
+    <img class="thumbnailKT" src="https://imgur.com/ycn3yPo.png" alt="Thumbnail" onclick="openPopup(0)">
+</div>
+
+<!-- Hidden images (not displayed) -->
+<img class="hidden-imageKT" src="https://imgur.com/ycn3yPo.png" />
+<img class="hidden-imageKT" src="https://imgur.com/T8NfegK.png" />
+<img class="hidden-imageKT" src="https://imgur.com/wXuRRuH.png" />
+<img class="hidden-imageKT" src="https://imgur.com/q2wI4BM.png" />
+<img class="hidden-imageKT" src="https://imgur.com/WwpPOA7.png" />
+<img class="hidden-imageKT" src="https://imgur.com/mMSVv69.png" />
+<img class="hidden-imageKT" src="https://imgur.com/oKjMPKE.png" />
+<img class="hidden-imageKT" src="https://imgur.com/7VWFo57.png" />
+<img class="hidden-imageKT" src="https://imgur.com/1zEB5qv.png" />
+<img class="hidden-imageKT" src="https://imgur.com/ZUUwgmp.png" />
+<img class="hidden-imageKT" src="https://imgur.com/2vR9ZQl.png" />
+<img class="hidden-imageKT" src="https://imgur.com/jbiwCml.png" />
+<img class="hidden-imageKT" src="https://imgur.com/hljVWB3.png" />
+<img class="hidden-imageKT" src="https://imgur.com/YGzQspS.png" />
+
+<!-- Overlay Popup -->
+<div class="overlayKT" id="overlayKT" onclick="closePopup()">
+    <div class="popup-containerKT" onclick="event.stopPropagation();">
+        <button class="nav-buttonKT prev-buttonKT" onclick="prevImage()"></button>
+        <img id="popupImageKT" class="popup-imageKT" src="" alt="Popup Image">
+        <button class="nav-buttonKT next-buttonKT" onclick="nextImage()"></button>
+    </div>
+</div>
+</div>
+
 
 <!-- Bottom menu bar -->
 <div class="bottom-barH3">
@@ -2741,6 +3088,38 @@ margin: 0;
     <span>Profile</span>
   </div>
 </div>
+
+
+ <!--TOMBOL FULLSCREEN --> 
+    <script>
+        const fullscreenIcon = document.getElementById("fullscreen-icon");
+
+        // Fungsi untuk toggle full screen
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen(); // Masuk full screen
+                fullscreenIcon.classList.remove("fa-expand"); // Ubah ikon
+                fullscreenIcon.classList.add("fa-compress");
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen(); // Keluar dari full screen
+                    fullscreenIcon.classList.remove("fa-compress"); // Kembali ke ikon awal
+                    fullscreenIcon.classList.add("fa-expand");
+                }
+            }
+        }
+
+        // Event listener untuk ikon
+        fullscreenIcon.addEventListener("click", toggleFullScreen);
+
+        // Event listener untuk deteksi perubahan status full screen
+        document.addEventListener("fullscreenchange", () => {
+            if (!document.fullscreenElement) {
+                fullscreenIcon.classList.remove("fa-compress");
+                fullscreenIcon.classList.add("fa-expand");
+            }
+        });
+    </script>
 
 <!--MENU TAB PRODUCT-->
 <script>
@@ -2960,6 +3339,7 @@ window.addEventListener('click', function(event) {
 updateCart();
 </script>
 
+
 <!--MENU BOTTOM TAB--> 
 <script>
   // JavaScript untuk menangani aktivasi tab
@@ -2978,97 +3358,119 @@ updateCart();
 </script>
 
 
+ <!-- Popup Whatsapp --> 
+<script>
+    function toggleWhatsAppCard(event) {
+        var card = document.getElementById("whatsappCard");
+        var floatIcon = document.getElementById("floatIcon");
+        var floatContainer = document.getElementById("whatsappFloatContainer");
+        var helpText = document.getElementById("helpText");
 
-<!--MENU TAB PROFILE GALLERY TAB PROFILE-->
-<script> 
-            // Sembunyikan semua konten galeri
-        function showTab(tabId) {
-            // Hapus kelas 'active' dari semua tab
-            document.querySelectorAll('.gallery-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            // Sembunyikan semua konten galeri
-            document.querySelectorAll('.gallery').forEach(gallery => {
-                gallery.classList.add('hidden');
-            });
-
-            // Tampilkan konten yang sesuai dan tambahkan kelas 'active' ke tab yang dipilih
-            document.getElementById(tabId).classList.remove('hidden');
-            document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+        if (card.style.display === "none" || card.style.display === "") {
+            card.style.display = "block";
+            floatContainer.classList.add("hidden"); // Sembunyikan ikon saat kartu terbuka
+            helpText.style.display = "none"; // Sembunyikan teks saat kartu terbuka
+            setTimeout(function() {
+                card.classList.add("active");
+                floatIcon.style.transform = "rotate(180deg)"; // Rotasi saat kartu muncul
+            }, 10);
+        } else {
+            card.classList.remove("active");
+            floatIcon.style.transform = "rotate(0deg)"; // Kembali ke posisi semula
+            setTimeout(function() {
+                card.style.display = "none";
+                floatContainer.classList.remove("hidden"); // Tampilkan ikon saat kartu tertutup
+                helpText.style.display = "block"; // Tampilkan teks saat kartu tertutup
+            }, 400); // Sesuaikan dengan durasi transisi
         }
+
+        event.stopPropagation(); // Mencegah event bubbling
+    }
+
+    // Menambahkan event listener untuk klik di luar card
+    document.addEventListener('click', function(event) {
+        var card = document.getElementById("whatsappCard");
+        var floatButton = document.getElementById("whatsappFloat");
+        var floatContainer = document.getElementById("whatsappFloatContainer");
+        var helpText = document.getElementById("helpText");
+
+        // Mengecek apakah klik di luar card dan tombol
+        if (!card.contains(event.target) && !floatButton.contains(event.target) && card.style.display === "block") {
+            card.classList.remove("active");
+            floatIcon.style.transform = "rotate(0deg)"; // Kembali ke posisi semula
+            setTimeout(function() {
+                card.style.display = "none";
+                floatContainer.classList.remove("hidden"); // Tampilkan ikon saat kartu tertutup
+                helpText.style.display = "block"; // Tampilkan teks saat kartu tertutup
+            }, 400); // Sesuaikan dengan durasi transisi
+        }
+    });
 </script>
 
+ <!-- Katalog --> 
+<script>
+    // Array gambar untuk navigasi
+    const hiddenImages = document.querySelectorAll('.hidden-imageKT');
 
-
-<!-- MENU TAB PROFILE TOGGLE -->
-    <script>
-// MENU TAB PROFILE TOGGLE
-const toggle1A = document.getElementById('toggle1A');
-const sidebar1A = document.getElementById('sidebar1A');
-const overlay1A = document.getElementById('overlay1A');
-
-// Toggle sidebar open/close
-toggle1A.addEventListener('click', () => {
-    if (sidebar1A.classList.contains('active1A')) {
-        sidebar1A.classList.remove('active1A');
-        overlay1A.classList.remove('active1A');
-        setTimeout(() => {
-            overlay1A.style.display = 'none'; // Sembunyikan overlay setelah efek selesai
-        }, 600); // Waktu sesuai dengan durasi transisi
-    } else {
-        overlay1A.style.display = 'block'; // Tampilkan overlay sebelum efek fade
-        setTimeout(() => {
-            sidebar1A.classList.add('active1A');
-            overlay1A.classList.add('active1A');
-        }, 20); // Delay kecil untuk memastikan overlay ditampilkan terlebih dahulu
-    }
-});
-
-// Close sidebar when clicking outside
-overlay1A.addEventListener('click', () => {
-    sidebar1A.classList.remove('active1A');
-    overlay1A.classList.remove('active1A');
-    setTimeout(() => {
-        overlay1A.style.display = 'none'; // Sembunyikan overlay setelah efek selesai
-    }, 600);
-});
-
-// Close sidebar when clicking anywhere outside the sidebar
-document.addEventListener('click', (event) => {
-    if (!sidebar1A.contains(event.target) && !toggle1A.contains(event.target) && sidebar1A.classList.contains('active1A')) {
-        sidebar1A.classList.remove('active1A');
-        overlay1A.classList.remove('active1A');
-        setTimeout(() => {
-            overlay1A.style.display = 'none'; // Sembunyikan overlay setelah efek selesai
-        }, 600);
-    }
-});
-    </script>
-    
-
-<!--MENU TAB HOME COVER SLIDE-->
-  <script>
-    const slides = document.querySelectorAll('.slideH1');
     let currentIndex = 0;
 
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.remove('active');
-        if (i === index) {
-          slide.classList.add('active');
-        }
-      });
+    // Fungsi untuk membuka popup dan menampilkan gambar yang dipilih
+    function openPopup(index) {
+        // Menampilkan gambar yang sesuai dengan index yang dipilih
+        const imageUrl = hiddenImages[index].src;
+        document.getElementById('popupImageKT').src = imageUrl;
+
+        // Menampilkan overlay dengan animasi opacity
+        const overlay = document.getElementById('overlayKT');
+        overlay.style.display = 'flex';
+        setTimeout(() => {
+            overlay.style.opacity = 1;  // Menambahkan animasi transisi
+        }, 10);
+
+        // Menampilkan kontainer gambar dengan animasi scale dan opacity
+        const popupContainer = document.querySelector('.popup-containerKT');
+        setTimeout(() => {
+            popupContainer.style.opacity = 1;  // Mengubah transparansi
+            popupContainer.style.transform = 'scale(1)';  // Membesarkan ukuran
+        }, 10);
+
+        // Set index gambar yang sedang ditampilkan
+        currentIndex = index;
+
+        // Tampilkan tombol navigasi (next dan prev)
+        document.querySelector('.prev-buttonKT').style.display = 'block';
+        document.querySelector('.next-buttonKT').style.display = 'block';
     }
 
-    function nextSlide() {
-      currentIndex = (currentIndex + 1) % slides.length;
-      showSlide(currentIndex);
+    // Fungsi untuk menutup popup
+    function closePopup() {
+        const overlay = document.getElementById('overlayKT');
+        const popupContainer = document.querySelector('.popup-containerKT');
+
+        // Menyembunyikan overlay dan kontainer gambar dengan transisi
+        overlay.style.opacity = 0;
+        popupContainer.style.opacity = 0;
+        popupContainer.style.transform = 'scale(0.9)';
+        
+        // Menyembunyikan overlay setelah animasi selesai
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 300);  // Waktu yang sama dengan durasi transisi
     }
 
-    setInterval(nextSlide, 4000); // Change slide every 4 seconds
-  </script>
-  
+    // Fungsi untuk menampilkan gambar sebelumnya
+    function prevImage() {
+        currentIndex = (currentIndex === 0) ? hiddenImages.length - 1 : currentIndex - 1;
+        document.getElementById('popupImageKT').src = hiddenImages[currentIndex].src;
+    }
+
+    // Fungsi untuk menampilkan gambar berikutnya
+    function nextImage() {
+        currentIndex = (currentIndex === hiddenImages.length - 1) ? 0 : currentIndex + 1;
+        document.getElementById('popupImageKT').src = hiddenImages[currentIndex].src;
+    }
+</script>
+
  <!--MENU TAB ULASAN--> 
       <script>
         // Menampilkan popup lightbox saat card diklik
@@ -3145,31 +3547,101 @@ document.addEventListener('click', (event) => {
     }
 </script>
 
- <!--TOMBOL FULLSCREEN --> 
+<!--Banner Utama-->
 <script>
-    const notification = document.getElementById('notification');
-    const fullscreenIcon = document.getElementById('fullscreen-icon');
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dots button');
+    const progressBar = document.querySelector('.progress-bar');
 
-    notification.addEventListener('click', () => {
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen();
-            fullscreenIcon.classList.remove('fa-expand');
-            fullscreenIcon.classList.add('fa-compress'); // Ikon fullscreen aktif
-            notification.innerHTML = `<i id="fullscreen-icon" class="fas fa-compress fullscreen-icon"></i>
-                                      <div class="fullscreen-button">Klik mode Normal</div>`;
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-                fullscreenIcon.classList.remove('fa-compress');
-                fullscreenIcon.classList.add('fa-expand'); // Ikon fullscreen non-aktif
-                notification.innerHTML = `<i id="fullscreen-icon" class="fas fa-expand fullscreen-icon"></i>
-                                          <div class="fullscreen-button">Klik mode Full Screen</div>`;
-            }
-        }
+    function showSlide(index) {
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    
+    // Ubah slide
+    currentSlide = index;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+
+    // Reset progress bar
+    progressBar.style.width = '0';
+    setTimeout(() => {
+        progressBar.style.width = '100%';
+    }, 100);
+
+    // Reset dan retrigger animasi teks
+    const content = slides[currentSlide].querySelectorAll('.content h2, .content p, .content a');
+    content.forEach(element => {
+        element.style.opacity = '0';  // Reset opacity ke 0
+        element.style.transform = 'translateX(-100px)';  // Reset posisi awal ke kiri
+        element.style.animation = 'none';  // Matikan animasi sebelumnya
+        setTimeout(() => {
+            element.style.animation = '';  // Aktifkan animasi kembali
+        }, 10);
     });
+}
+
+// Fungsi untuk beralih ke slide berikutnya
+function showNextSlide() {
+    const nextSlide = (currentSlide + 1) % slides.length;
+    showSlide(nextSlide);
+}
+
+// Event listener untuk dots (indikator slide)
+dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        showSlide(index);
+    });
+});
+
+// Set interval untuk otomatis ganti slide setiap 10 detik
+setInterval(showNextSlide, 10000); 
+
 </script>
 
 
+<!--Client-->
+<script>
+    // Ganti variabel track dengan nama yang lebih unik
+    const clientTrack = document.querySelector('.client-slider-track');
+    let clientCurrentSlide = 0;
+    const clientTotalSlides = 3; // 3 slides, each containing 5 images
+
+    // Ganti fungsi moveToNextSlide dengan nama yang lebih unik
+    function clientMoveToNextSlide() {
+        clientCurrentSlide = (clientCurrentSlide + 1) % clientTotalSlides; // Cycle back to the first slide after the last
+        clientTrack.style.transform = `translateX(-${clientCurrentSlide * 100 / clientTotalSlides}%)`;
+    }
+
+    // Automatically move to the next slide every 3 seconds
+    setInterval(clientMoveToNextSlide, 3000);
+</script>
+
+
+<!--Team-->
+    <script>
+        // JavaScript untuk transisi mobile
+        if (window.innerWidth <= 768) {
+            let currentIndex = 0;
+            const cards = document.querySelectorAll('.team-card');
+            const totalCards = cards.length;
+
+            function showNextCard() {
+                // Hilangkan class active dari card saat ini
+                cards[currentIndex].classList.remove('active');
+
+                // Hitung index card berikutnya
+                currentIndex = (currentIndex + 1) % totalCards;
+
+                // Tambahkan class active ke card berikutnya
+                cards[currentIndex].classList.add('active');
+            }
+
+            // Interval untuk mengubah card setiap 4 detik
+            setInterval(showNextCard, 4000);
+        }
+    </script>
+    
  <!--CONTACT FORM --> 
     <script>
         document.querySelector(".contact-formCF").addEventListener("submit", function(event) {
@@ -3177,55 +3649,6 @@ document.addEventListener('click', (event) => {
             alert("Message Sent!");
         });
     </script>
-
-
- <!-- Popup Whatsapp --> 
-<script>
-    function toggleWhatsAppCard(event) {
-        var card = document.getElementById("whatsappCard");
-        var floatIcon = document.getElementById("floatIcon");
-        var floatContainer = document.getElementById("whatsappFloatContainer");
-        var helpText = document.getElementById("helpText");
-
-        if (card.style.display === "none" || card.style.display === "") {
-            card.style.display = "block";
-            floatContainer.classList.add("hidden"); // Sembunyikan ikon saat kartu terbuka
-            helpText.style.display = "none"; // Sembunyikan teks saat kartu terbuka
-            setTimeout(function() {
-                card.classList.add("active");
-                floatIcon.style.transform = "rotate(180deg)"; // Rotasi saat kartu muncul
-            }, 10);
-        } else {
-            card.classList.remove("active");
-            floatIcon.style.transform = "rotate(0deg)"; // Kembali ke posisi semula
-            setTimeout(function() {
-                card.style.display = "none";
-                floatContainer.classList.remove("hidden"); // Tampilkan ikon saat kartu tertutup
-                helpText.style.display = "block"; // Tampilkan teks saat kartu tertutup
-            }, 400); // Sesuaikan dengan durasi transisi
-        }
-
-        event.stopPropagation(); // Mencegah event bubbling
-    }
-
-    // Menambahkan event listener untuk klik di luar card
-    document.addEventListener('click', function(event) {
-        var card = document.getElementById("whatsappCard");
-        var floatButton = document.getElementById("whatsappFloat");
-        var floatContainer = document.getElementById("whatsappFloatContainer");
-        var helpText = document.getElementById("helpText");
-
-        // Mengecek apakah klik di luar card dan tombol
-        if (!card.contains(event.target) && !floatButton.contains(event.target) && card.style.display === "block") {
-            card.classList.remove("active");
-            floatIcon.style.transform = "rotate(0deg)"; // Kembali ke posisi semula
-            setTimeout(function() {
-                card.style.display = "none";
-                floatContainer.classList.remove("hidden"); // Tampilkan ikon saat kartu tertutup
-                helpText.style.display = "block"; // Tampilkan teks saat kartu tertutup
-            }, 400); // Sesuaikan dengan durasi transisi
-        }
-    });
-</script>
-  </body>
+    
+</body>
 </html>
