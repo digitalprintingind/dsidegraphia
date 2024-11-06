@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixed Header</title>
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<title>D'Side Graphia</title>
+	<link rel="icon" href="https://i.imgur.com/RHbQRX3.png" type="image/x-icon">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <style>
 body {
@@ -1795,99 +1795,109 @@ line-height:1;
         }
 </style>
     
-<style> /* Katalog */
-        .image-viewer-containerKT {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 90%;
-            width:auto;
-            margin: 0;
-        }
+<style>
+    /* Katalog */
+    .image-viewer-containerKT {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Centered vertically */
+        width: 100%; 
+        margin: 0;
+    }
 
-        /* Thumbnail Style */
-        .thumbnailKT {
-            width: 320px;
-            cursor: pointer;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+    /* Thumbnail Style */
+    .thumbnailKT {
+        width: 320px;
+        cursor: pointer;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        
+    }
 
-        .thumbnailKT:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
+    .thumbnailKT:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
 
-        /* Popup Overlay Style */
-        .overlayKT {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%; 
-            backdrop-filter: blur(5px);
-            background: rgba(0, 0, 0, 0.3); /* Menghapus background blur */
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-            padding-top: 50px;
-            padding-bottom: 70px;
-            box-sizing: border-box;
-            opacity: 0; /* Mulai dengan transparansi */
-        }
+    /* Popup Overlay Style */
+    .overlayKT {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(5px);
+        background: rgba(0, 0, 0, 0.3);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+        opacity: 0;
+    }
 
-        /* Popup Image Container */
-        .popup-containerKT {
-            position: relative;
-            width: 100%;
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            opacity: 0; /* Mulai dengan transparansi */
-        }
+/* Popup Image Container */
+.popup-containerKT {
+    position: relative;
+    width: calc(100vw - 40px); /* Lebar penuh dengan jarak kiri-kanan 10px */
+    height: calc(100vh - 200px); /* Tinggi penuh dikurangi margin atas-bawah */
+    margin-top: 55px;
+    margin-bottom: 75px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .popup-imageKT {
-            width: 100vw; /* Lebar penuh dengan jarak kiri-kanan 20px */
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
+/* Popup Image */
+.popup-imageKT {
+    max-width: 100%; /* Membatasi lebar maksimal sesuai kontainer */
+    max-height: 100%; /* Membatasi tinggi maksimal sesuai kontainer */
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-        /* Navigation Buttons - Positioned inside the image */
-        .nav-buttonKT {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            color: white;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.1);
-            border: none;
-            cursor: pointer;
-            z-index: 2;
-            display: none; /* Menyembunyikan tombol navigasi */
-        }
+    /* Navigation Buttons */
+    .nav-buttonKT {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 5em;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.01);
+        color: white;
+        border: none;
+        cursor: pointer;
+        z-index: 2;
+        display: none;
+    }
 
-        .nav-buttonKT:hover {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
+    .nav-buttonKT:hover {
+        background-color: rgba(0, 0, 0, 0.01);
+    }
 
-        /* Positioning of navigation buttons inside the image */
-        .prev-buttonKT {
-            left: 0;
-        }
+    /* Positioning of navigation buttons inside the image */
+    .prev-buttonKT {
+        left: 0;
+    }
 
-        .next-buttonKT {
-            right: 0;
-        }
+    .next-buttonKT {
+        right: 0;
+    }
 
-        /* Hidden images (not displayed) */
-        .hidden-imageKT {
-            display: none;
-        }
-    </style>
+    /* Hidden images (not displayed) */
+    .hidden-imageKT {
+        display: none;
+    }
+</style>
     
     
 </head>
@@ -3062,6 +3072,7 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
         <button class="nav-buttonKT next-buttonKT" onclick="nextImage()"></button>
     </div>
 </div>
+
 </div>
 
 
@@ -3409,62 +3420,49 @@ updateCart();
 
  <!-- Katalog --> 
 <script>
-    // Array gambar untuk navigasi
     const hiddenImages = document.querySelectorAll('.hidden-imageKT');
-
     let currentIndex = 0;
 
-    // Fungsi untuk membuka popup dan menampilkan gambar yang dipilih
     function openPopup(index) {
-        // Menampilkan gambar yang sesuai dengan index yang dipilih
         const imageUrl = hiddenImages[index].src;
         document.getElementById('popupImageKT').src = imageUrl;
 
-        // Menampilkan overlay dengan animasi opacity
         const overlay = document.getElementById('overlayKT');
         overlay.style.display = 'flex';
         setTimeout(() => {
-            overlay.style.opacity = 1;  // Menambahkan animasi transisi
+            overlay.style.opacity = 1;
         }, 10);
 
-        // Menampilkan kontainer gambar dengan animasi scale dan opacity
         const popupContainer = document.querySelector('.popup-containerKT');
         setTimeout(() => {
-            popupContainer.style.opacity = 1;  // Mengubah transparansi
-            popupContainer.style.transform = 'scale(1)';  // Membesarkan ukuran
+            popupContainer.style.opacity = 1;
+            popupContainer.style.transform = 'scale(1)';
         }, 10);
 
-        // Set index gambar yang sedang ditampilkan
         currentIndex = index;
 
-        // Tampilkan tombol navigasi (next dan prev)
         document.querySelector('.prev-buttonKT').style.display = 'block';
         document.querySelector('.next-buttonKT').style.display = 'block';
     }
 
-    // Fungsi untuk menutup popup
     function closePopup() {
         const overlay = document.getElementById('overlayKT');
         const popupContainer = document.querySelector('.popup-containerKT');
 
-        // Menyembunyikan overlay dan kontainer gambar dengan transisi
         overlay.style.opacity = 0;
         popupContainer.style.opacity = 0;
         popupContainer.style.transform = 'scale(0.9)';
         
-        // Menyembunyikan overlay setelah animasi selesai
         setTimeout(() => {
             overlay.style.display = 'none';
-        }, 300);  // Waktu yang sama dengan durasi transisi
+        }, 300);
     }
 
-    // Fungsi untuk menampilkan gambar sebelumnya
     function prevImage() {
         currentIndex = (currentIndex === 0) ? hiddenImages.length - 1 : currentIndex - 1;
         document.getElementById('popupImageKT').src = hiddenImages[currentIndex].src;
     }
 
-    // Fungsi untuk menampilkan gambar berikutnya
     function nextImage() {
         currentIndex = (currentIndex === hiddenImages.length - 1) ? 0 : currentIndex + 1;
         document.getElementById('popupImageKT').src = hiddenImages[currentIndex].src;
