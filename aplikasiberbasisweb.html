@@ -499,27 +499,74 @@ button:hover {
         }
 </style>
 
+<style> /* Lightbox Product */
+.lightboxPL {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.lightbox-contentPL {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    border-radius: 8px;
+    position: relative;
+    max-height: 70vh;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+	overflow-y: auto;animation: slideIn 0.5s forwards;
+}
+
+.lightboxPL img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+
+.lightbox-detailsPL h2, .lightbox-detailsPL p {
+    margin: 10px 0;color:#000;
+}
+
+    /* Media Queries untuk responsive */
+@media (max-width: 768px) {
+.lightbox-contentPL {
+    max-width: 250px;
+}}
+</style>
 
 <style> /*Card Product*/
     .card2-container {
         display: flex;
         flex-wrap: wrap; /* Membuat kolom dapat membungkus ke baris baru */
         justify-content: center;align-items: center;
-        gap: 20px;
+        gap: 10px;
         margin-top:100px;
     }
 
     .product-card2 {
     display: none;
-        min-width: 280px; /* Menyusun semua card2 dengan lebar 100% secara default */
-        max-width: 280px; /* Maksimal lebar setiap card2 */
+        min-width: 160px; /* Menyusun semua card2 dengan lebar 100% secara default */
+        max-width: 160px; /* Maksimal lebar setiap card2 */
         background-color: #292929;
         border-radius: 20px;
         color: #fff;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         overflow: hidden;
         position: relative;
-        padding: 1.25rem; /* Padding 20px setara dengan 1.25rem */
+        padding: 10px;
         flex: 1 1 calc(25% - 20px); /* 4 kolom di desktop */
         box-sizing: border-box; /* Menghitung padding dalam lebar total */
     }
@@ -549,9 +596,9 @@ button:hover {
 
     .card2-header {
         font-family: 'Arial', sans-serif;
-        padding: 1.25rem; /* Padding 20px setara dengan 1.25rem */
+        padding: 20px; /* Padding 20px setara dengan 1.25rem */
         text-align: center;
-        height: 180px;
+        height: 85px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -561,22 +608,22 @@ button:hover {
     }
 
     .card2-header img {
-        width: 100%;
-        height: auto;
-        border-radius: 15px;
+        width: 140px;
+        height: 135px;
+        border-radius: 0 0 15px 15px;
     }
 
     .card2-price {
         font-family: 'Arial', sans-serif;
         position: absolute;
-        top: 0.8rem; /* 10px setara dengan 0.625rem */
+        top: 10px; /* 10px setara dengan 0.625rem */
         right: 0; /* 10px setara dengan 0.625rem */
-        background-color: rgba(0, 0, 0, 0.3);
+        background-color: rgba(0, 0, 0, 0.5);
         color: #fff;
-        padding: 0.3125rem 0.9375rem; /* 5px 15px setara dengan 0.3125rem 0.9375rem */
+        padding: 5px 15px; /* 5px 15px setara dengan 0.3125rem 0.9375rem */
         border-radius: 20px 0 0 20px;
         font-weight: bold;
-        font-size: 1.125rem; /* 18px setara dengan 1.125rem */
+        font-size: 14px; /* 18px setara dengan 1.125rem */
     }
 
     .card2-body {
@@ -585,62 +632,41 @@ button:hover {
         justify-content: space-between;
         align-items: flex-start;
         font-family: 'Arial', sans-serif;
-        margin-top: 0.8rem;
+        margin-top: 18px;
         text-align:left;
     }
 
     .card2-left {
-        width: 50%;
+        width: 100%;
     }
 
     .card2-title {
-        font-size: 0.8rem; /* 18px setara dengan 1.125rem */
+        font-size: 14px; /* 18px setara dengan 1.125rem */
         font-weight: bold;
-        margin-bottom: 0.625rem; /* 10px setara dengan 0.625rem */
+        margin-bottom: 10px; /* 10px setara dengan 0.625rem */
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1; /* Batasi ke 2 baris */
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .card2-description {
-        font-size: 0.8rem; /* 14px setara dengan 0.875rem */
+        font-size: 14px; /* 14px setara dengan 0.875rem */
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2; /* Batasi ke 2 baris */
+        overflow: hidden;
+        text-overflow: ellipsis;
         color: #ccc;
         line-height: 1.5;
-        margin-bottom: 0.9375rem; /* 15px setara dengan 0.9375rem */
-    }
-
-    .card2-rating {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        margin-bottom: 0.9375rem; /* 15px setara dengan 0.9375rem */
-    }
-
-    .card2-rating .stars {
-        color: orange;
-        font-size: 1.125rem; /* 18px setara dengan 1.125rem */
-    }
-
-    .card2-right {
-        width: 50%;
-        border-left: 2px solid orange;
-        padding-left: 0.8rem; /* 20px setara dengan 1.25rem */
-        font-size: 0.7rem; /* 14px setara dengan 0.875rem */
-    }
-
-    .card2-right span {
-        display: block;
-        margin-bottom: 0.625rem; /* 10px setara dengan 0.625rem */
-        color: orange;
-        font-weight: bold;
-    }
-
-    .card2-right p {
-        margin-top: -0.625rem; /* -10px setara dengan -0.625rem */
-        color: #ccc;
+        margin-bottom: 10px;
     }
 
     .add-btn {
         display: block;
         width: 100%;
-        padding: 0.5rem; /* 12px setara dengan 0.75rem */
+        padding: 5px; /* 12px setara dengan 0.75rem */
         border-radius: 30px;
         background-color: orange;
         color: #000;
@@ -648,8 +674,8 @@ button:hover {
         border: none;
         cursor: pointer;
         font-weight: bold;
-        margin-top: 0.5rem; /* 15px setara dengan 0.9375rem */
-        font-size: 1rem; /* 16px setara dengan 1rem */
+        margin-top: 10px; /* 15px setara dengan 0.9375rem */
+        font-size: 12px; /* 16px setara dengan 1rem */
         transition: background-color 0.3s ease;
     }
 
@@ -766,7 +792,7 @@ button:hover {
 /* Harga produk */
 .product-price {
     color: #888;
-    font-size: 0.9em;
+    font-size: 16px;
     margin-top: 5px; /* Jarak antara nama produk dan harga */
 }
 
@@ -785,7 +811,7 @@ button:hover {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 0.9em;
+    font-size: 16px;
 }
 
 .remove-btn {
@@ -800,7 +826,7 @@ button:hover {
         right:0;
         width: 340px;
         max-height: 400px;
-        overflow-y: auto;
+        overflow-y: auto;animation: slideIn 0.5s forwards;
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(15px);
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -1786,7 +1812,20 @@ line-height:1;
 
 <!-- Content sections for each tab -->
 <div class="contentH3" id="content-productH3"><!--MENU TAB PRODUCT-->
-	
+
+<!-- Popup Lightbox -->
+<div id="lightboxPL" class="lightboxPL">
+    <div class="lightbox-contentPL">
+        <span class="close-btnPL"></span>
+        <img id="lightbox-imgPL" src="" alt="Product Image">
+        <div class="lightbox-detailsPL">
+            <h2 id="lightbox-titlePL"></h2>
+            <p id="lightbox-pricePL"></p>
+            <p id="lightbox-descriptionPL"></p>
+        </div>
+    </div>
+</div>
+
 <div class="menu-show-left"><div class="logo-icon" id="icon"><i class="fas fa-bars"></i></div></div>
 
 <div class="tab-container">
@@ -1820,18 +1859,7 @@ line-height:1;
         <div class="card2-body">
             <div class="card2-left">
                 <div class="card2-title">Grade A</div>
-                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                <div class="card2-rating">
-                    <div class="stars">★★★★☆</div>
-                </div>
-            </div>
-            <div class="card2-right">
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
             </div>
         </div>
         <button class="add-btn">ADD TO CART</button>
@@ -1847,17 +1875,6 @@ line-height:1;
             <div class="card2-left">
                 <div class="card2-title">Grade B</div>
                 <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                <div class="card2-rating">
-                    <div class="stars">★★★★☆</div>
-                </div>
-            </div>
-            <div class="card2-right">
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
             </div>
         </div>
         <button class="add-btn">ADD TO CART</button>
@@ -1873,17 +1890,6 @@ line-height:1;
             <div class="card2-left">
                 <div class="card2-title">Grade C</div>
                 <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                <div class="card2-rating">
-                    <div class="stars">★★★★★</div>
-                </div>
-            </div>
-            <div class="card2-right">
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
             </div>
         </div>
         <button class="add-btn">ADD TO CART</button>
@@ -1899,17 +1905,6 @@ line-height:1;
             <div class="card2-left">
                 <div class="card2-title">Stiker Cromo</div>
                 <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                <div class="card2-rating">
-                    <div class="stars">★★★★☆</div>
-                </div>
-            </div>
-            <div class="card2-right">
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
             </div>
         </div>
         <button class="add-btn">ADD TO CART</button>
@@ -1925,17 +1920,6 @@ line-height:1;
             <div class="card2-left">
                 <div class="card2-title">Stiker Vinyl</div>
                 <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                <div class="card2-rating">
-                    <div class="stars">★★★★☆</div>
-                </div>
-            </div>
-            <div class="card2-right">
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
             </div>
         </div>
         <button class="add-btn">ADD TO CART</button>
@@ -1951,17 +1935,6 @@ line-height:1;
             <div class="card2-left">
                 <div class="card2-title">Stiker Transparant</div>
                 <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                <div class="card2-rating">
-                    <div class="stars">★★★★☆</div>
-                </div>
-            </div>
-            <div class="card2-right">
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
             </div>
         </div>
         <button class="add-btn">ADD TO CART</button>
@@ -1977,17 +1950,6 @@ line-height:1;
             <div class="card2-left">
                 <div class="card2-title">Stiker Hologram</div>
                 <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                <div class="card2-rating">
-                    <div class="stars">★★★★☆</div>
-                </div>
-            </div>
-            <div class="card2-right">
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
             </div>
         </div>
         <button class="add-btn">ADD TO CART</button>
@@ -2003,17 +1965,6 @@ line-height:1;
             <div class="card2-left">
                 <div class="card2-title">Nota A</div>
                 <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                <div class="card2-rating">
-                    <div class="stars">★★★★★</div>
-                </div>
-            </div>
-            <div class="card2-right">
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
             </div>
         </div>
         <button class="add-btn">ADD TO CART</button>
@@ -2029,17 +1980,6 @@ line-height:1;
             <div class="card2-left">
                 <div class="card2-title">Nota B</div>
                 <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                <div class="card2-rating">
-                    <div class="stars">★★★★☆</div>
-                </div>
-            </div>
-            <div class="card2-right">
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
             </div>
         </div>
         <button class="add-btn">ADD TO CART</button>
@@ -2055,17 +1995,6 @@ line-height:1;
             <div class="card2-left">
                 <div class="card2-title">Nota C</div>
                 <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                <div class="card2-rating">
-                    <div class="stars">★★★★☆</div>
-                </div>
-            </div>
-            <div class="card2-right">
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
             </div>
         </div>
         <button class="add-btn">ADD TO CART</button>
@@ -2081,17 +2010,6 @@ line-height:1;
             <div class="card2-left">
                 <div class="card2-title">Nota D</div>
                 <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                <div class="card2-rating">
-                    <div class="stars">★★★★★</div>
-                </div>
-            </div>
-            <div class="card2-right">
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
             </div>
         </div>
         <button class="add-btn">ADD TO CART</button>
@@ -2107,17 +2025,6 @@ line-height:1;
             <div class="card2-left">
                 <div class="card2-title">Nota E</div>
                 <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                <div class="card2-rating">
-                    <div class="stars">★★★★☆</div>
-                </div>
-            </div>
-            <div class="card2-right">
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
             </div>
         </div>
         <button class="add-btn">ADD TO CART</button>
@@ -2133,17 +2040,6 @@ line-height:1;
             <div class="card2-left">
                 <div class="card2-title">Sablon DTF</div>
                 <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                <div class="card2-rating">
-                    <div class="stars">★★★★☆</div>
-                </div>
-            </div>
-            <div class="card2-right">
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
             </div>
         </div>
         <button class="add-btn">ADD TO CART</button>
@@ -2159,17 +2055,6 @@ line-height:1;
             <div class="card2-left">
                 <div class="card2-title">Sablon Polyester</div>
                 <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                <div class="card2-rating">
-                    <div class="stars">★★★★★</div>
-                </div>
-            </div>
-            <div class="card2-right">
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                <span>YOUR TITLE</span>
-                <p>Lorem ipsum dolor sit amet, consectetur</p>
             </div>
         </div>
         <button class="add-btn">ADD TO CART</button>
@@ -2915,7 +2800,44 @@ tabs.forEach(tab => {
 // Menampilkan produk kategori pertama saat halaman dimuat
 document.querySelector('.tab[data-category="jersey"]').click();
 </script>
-	
+
+<!--LIGHTBOX DETAIL PRODUCT-->
+<script>
+// JavaScript for opening and closing the lightbox
+document.querySelectorAll('.product-card2 .card2-header, .product-card2 .card2-body').forEach(card => {
+    card.addEventListener('click', function() {
+        const productCard = this.closest('.product-card2');
+
+        // Get product details directly from the elements
+        const imgSrc = productCard.querySelector('.card2-header img').src;
+        const title = productCard.querySelector('.card2-title').textContent;
+        const price = productCard.querySelector('.card2-price').textContent;
+        const description = productCard.querySelector('.card2-description').textContent;
+
+        // Set lightbox content
+        document.getElementById('lightbox-imgPL').src = imgSrc;
+        document.getElementById('lightbox-titlePL').textContent = title;
+        document.getElementById('lightbox-pricePL').textContent = price;
+        document.getElementById('lightbox-descriptionPL').textContent = description;
+
+        // Show lightbox
+        document.getElementById('lightboxPL').style.display = 'flex';
+    });
+});
+
+// Close button functionality
+document.querySelector('.close-btnPL').addEventListener('click', function() {
+    document.getElementById('lightboxPL').style.display = 'none';
+});
+
+// Close lightbox on outside click
+window.addEventListener('click', function(event) {
+    if (event.target === document.getElementById('lightboxPL')) {
+        document.getElementById('lightboxPL').style.display = 'none';
+    }
+});
+</script>
+
 	
 <!--MENU TAB PRODUCT CART-->
 <script>
