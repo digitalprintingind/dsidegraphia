@@ -366,8 +366,6 @@ body {
     </style>
 
 <style>    /* Menu bottom bar container */
-
-/* Bottom bar dengan efek glassmorphism */
 .bottom-barH3 {
     position: fixed;
     bottom: 0;
@@ -375,8 +373,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(15px);
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
     border-radius: 20px 20px 0 0;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     padding: 0;
@@ -389,7 +386,7 @@ body {
 	  .tab-itemH3 {
 	    flex-grow: 1;
 	    text-align: center;
-	    color: #000;
+	    color: #fff;
 	    cursor: pointer;
 	    font-size: 12px;
 	    transition: color 0.3s ease;
@@ -398,7 +395,7 @@ body {
 
 	  .tab-itemH3 i {
 	    font-size: 24px;
-	    color: #777;
+	    color: #fff;
 	    transition: color 1s;
 	  }
 
@@ -410,12 +407,12 @@ body {
 
 	  /* Efek hover dan tab aktif */
 	  .tab-itemH3:hover, .tab-itemH3.activeH3 {
-	    color: blue;
+	    color: red;
 	    transform: scale(1.1);
 	  }
 
 	  .tab-itemH3:hover i, .tab-itemH3.activeH3 i {
-	    color: blue;
+	    color: red;
 	    transform: scale(1.1);
 	  }
 
@@ -428,6 +425,7 @@ body {
 	    position: relative;
 	    top: 0;
 	    background: blue;
+	max-width:70px;
 	    border-radius: 50%;
 	    padding: 15px;
 	    color: #fff;
