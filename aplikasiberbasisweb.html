@@ -472,6 +472,9 @@ button:hover {
 #tabs.show {
     opacity: 1; /* Tampilkan slider */
     visibility: visible; /* Ubah visibility menjadi terlihat */
+	animation: slideIn 0.5s forwards;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
 }
 
 .menu-show-left {
@@ -524,8 +527,9 @@ button:hover {
     border-radius: 8px;
     position: relative;
     max-height: 60vh;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-	overflow-y: auto;animation: slideIn 0.5s forwards;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+	overflow-y: auto;
+	animation: slideIn 0.5s forwards;
 }
 
 .lightboxPL img {
