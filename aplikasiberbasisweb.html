@@ -517,13 +517,13 @@ button:hover {
 .lightbox-contentPL {
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(15px);
-    padding: 20px;
+    padding: 10px;
     max-width: 500px;
     width: 90%;
     text-align: center;
     border-radius: 8px;
     position: relative;
-    max-height: 70vh;
+    max-height: 60vh;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 	overflow-y: auto;animation: slideIn 0.5s forwards;
 }
@@ -532,12 +532,57 @@ button:hover {
     width: 100%;
     height: auto;
     border-radius: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 
 .lightbox-detailsPL h2, .lightbox-detailsPL p {
     margin: 10px 0;color:#000;
+}
+
+/* Styling for left-aligned description and enlarged price */
+#lightbox-titlePL {
+    text-align: center;
+    font-size:20px;
+}
+
+#lightbox-pricePL {
+    font-size: 1.5em; /* Adjust the font size as needed */
+    font-weight: bold;
+}
+
+/* Styling for left-aligned description and enlarged price */
+#lightbox-descriptionPL {
+    text-align: justify;
+    font-size:14px;
+}
+
+/* Styles for improved appearance of the note guide table */
+.note-guide {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.note-guide th, .note-guide td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.note-guide th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+.note-guide tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.note-guide tr:hover {
+    background-color: #ddd;
 }
 
     /* Media Queries untuk responsive */
@@ -1822,6 +1867,9 @@ line-height:1;
             <h2 id="lightbox-titlePL"></h2>
             <p id="lightbox-pricePL"></p>
             <p id="lightbox-descriptionPL"></p>
+            
+            <!-- Placeholder for Note Guide Table -->
+            <div id="lightbox-guidePL"></div>
         </div>
     </div>
 </div>
@@ -1859,11 +1907,25 @@ line-height:1;
         <div class="card2-body">
             <div class="card2-left">
                 <div class="card2-title">Grade A</div>
-                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                <!-- Hidden Note Guide Table -->
+                <table class="note-guide">
+                    <thead>
+                        <tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>S</td><td>90</td><td>65</td></tr>
+                        <tr><td>M</td><td>90</td><td>65</td></tr>
+                        <tr><td>L</td><td>90</td><td>65</td></tr>
+                        <tr><td>XL</td><td>90</td><td>65</td></tr>
+                    </tbody>
+                </table>
+                
             </div>
         </div>
-        <button class="add-btn">ADD TO CART</button>
     </div>
+    <button class="add-btn">ADD TO CART</button>
+</div>
 
     <!-- Product card2 2 -->
     <div class="product-card2"  data-category="jersey">
@@ -2812,13 +2874,23 @@ document.querySelectorAll('.product-card2 .card2-header, .product-card2 .card2-b
         const imgSrc = productCard.querySelector('.card2-header img').src;
         const title = productCard.querySelector('.card2-title').textContent;
         const price = productCard.querySelector('.card2-price').textContent;
-        const description = productCard.querySelector('.card2-description').textContent;
+        const description = productCard.querySelector('.card2-description').childNodes[0].textContent.trim();
 
         // Set lightbox content
         document.getElementById('lightbox-imgPL').src = imgSrc;
         document.getElementById('lightbox-titlePL').textContent = title;
         document.getElementById('lightbox-pricePL').textContent = price;
         document.getElementById('lightbox-descriptionPL').textContent = description;
+
+        // Check for note-guide table and insert it into the lightbox if it exists
+        const guideTable = productCard.querySelector('.note-guide');
+        if (guideTable) {
+            document.getElementById('lightbox-guidePL').innerHTML = guideTable.outerHTML;
+            document.querySelector('#lightbox-guidePL .note-guide').classList.add('note-guide'); // Apply styles
+            document.getElementById('lightbox-guidePL').style.display = 'block';
+        } else {
+            document.getElementById('lightbox-guidePL').style.display = 'none'; // Hide if no table
+        }
 
         // Show lightbox
         document.getElementById('lightboxPL').style.display = 'flex';
@@ -2828,12 +2900,14 @@ document.querySelectorAll('.product-card2 .card2-header, .product-card2 .card2-b
 // Close button functionality
 document.querySelector('.close-btnPL').addEventListener('click', function() {
     document.getElementById('lightboxPL').style.display = 'none';
+    document.getElementById('lightbox-guidePL').innerHTML = ''; // Clear table on close
 });
 
 // Close lightbox on outside click
 window.addEventListener('click', function(event) {
     if (event.target === document.getElementById('lightboxPL')) {
         document.getElementById('lightboxPL').style.display = 'none';
+        document.getElementById('lightbox-guidePL').innerHTML = ''; // Clear table on close
     }
 });
 </script>
