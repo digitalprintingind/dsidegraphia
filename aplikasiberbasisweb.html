@@ -10,9 +10,18 @@
 
 <style>
 body {
-			margin:0;
-        	font-family: 'Arial', sans-serif;
-      		padding: 0;
+		margin:0;
+    	font-family: 'Poppins', sans-serif;
+		padding: 0;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    animation: gradientAnimation 15s ease infinite;
+}
+
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .bottom{margin-bottom:70px;}
@@ -173,7 +182,8 @@ body {
         position: fixed;
         bottom: 100px;
         right: 20px;
-        background-color: white;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         width: 320px;
@@ -213,15 +223,15 @@ body {
     .whatsapp-content p {
         margin: 10px 0;
         font-size: 14px;
-        color: #666;
+        color: #fff;
     }
 
     .contact-box {
         display: flex;
         align-items: center;
         padding: 10px;
-        background-color: #f9f9f9;
-        border: 1px solid #e0e0e0;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
         border-radius: 8px;
         margin-bottom: 10px;
     }
@@ -246,7 +256,7 @@ body {
 
     .contact-info .admin-description {
         font-size: 12px;
-        color: #888;
+        color: #fff;
     }
 
 .whatsapp-icon {
@@ -265,7 +275,7 @@ body {
     .powered-by {
         text-align: left;
         font-size: 12px;
-        color: #888;
+        color: #fff;
         padding: 10px 5px;
     }
 
@@ -316,13 +326,14 @@ body {
             left: 0;
             width: 100%;
             height: 55px;
-            background-color: #333;
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
             color: #fff;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 15px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+    		transition: transform 0.3s ease, background 0.3s ease;
             z-index: 1000;
         }
 
@@ -356,19 +367,21 @@ body {
 
 <style>    /* Menu bottom bar container */
 
-	  /* Container bottom bar */
-	  .bottom-barH3 {
-	    position: fixed;
-	    bottom: 0;
-	    width: 100%;
-	    display: flex;
-	    justify-content: space-between;
-	    align-items: center;
-	    background-color: #ffffff;
-	    border-radius: 20px 20px 0 0;
-	    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-	    padding: 0;
-	    overflow: hidden;
+/* Bottom bar dengan efek glassmorphism */
+.bottom-barH3 {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 0;
+    z-index: 10;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 	z-index:1000;
 	  }
 
@@ -376,7 +389,7 @@ body {
 	  .tab-itemH3 {
 	    flex-grow: 1;
 	    text-align: center;
-	    color: #777;
+	    color: #000;
 	    cursor: pointer;
 	    font-size: 12px;
 	    transition: color 0.3s ease;
@@ -457,7 +470,8 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.9);
-    background-color: #ffffff;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
@@ -474,7 +488,7 @@ body {
 .payment-content h2 {
     font-size: 20px;
     margin-bottom: 15px;
-    color: #333;
+    color: #fff;
 }
 .payment-details ul {
     list-style-type: none;
@@ -484,7 +498,7 @@ body {
 .payment-details li {
     margin: 5px 0;
     font-size: 14px;
-    color: #555;
+    color: #fff;
 }
 button {
     margin: 0;
@@ -496,7 +510,7 @@ button {
 }
 #cancel-btn {
     background-color: #e74c3c;
-    color: white;
+    color: #fff;
 }
 #next-btn {
     background-color: #3498db;
@@ -797,41 +811,26 @@ button:hover {
         text-align: center;
     }
 
-    /* Gaya untuk popup cart-container */
-    #cart-popup {
-    font-family: 'Arial', sans-serif;
-        position: fixed;
-        top: 55px;
-        right:0;
-        width: 340px;
-        max-height: 400px;
-        overflow-y: auto;
-        background-color: rgba(255, 255, 255, 0.93);
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        border-radius: 8px;
-        padding: 10px;
-        z-index: 1001;
-        transition: opacity 0.3s ease-in-out;
-    }
-    /* Sembunyikan popup secara default */
-    .popup-hidden {
-        display: none;
-    }
-
 .header-cart{
     	margin-top: -10px;
         display: grid;
         grid-template-columns: 20px 1fr;
         align-items: center;
 }
-.header-cart img{
-    width: 30px;
-    height: 30px;
+
+.header-cart i{
+        display: grid;
+        color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+        grid-template-columns: 20px 1fr;
+        align-items: center;
 }
+
 .header-cart h3{
     display: flex;
     font-family: 'Arial', sans-serif;
-    color: black;
+    color: #fff;
     margin-left: 20px;
 }
 
@@ -841,10 +840,11 @@ button:hover {
         grid-template-columns: 1fr 2fr 1fr;
         align-items: center;
         margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
         padding: 10px;
-        border: 1px solid #ccc;
         border-radius: 5px;
-        color:black;
+        color:#fff;
     }
 
     .item-image img {
@@ -876,7 +876,7 @@ button:hover {
 /* Nama produk */
 .product-name {
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 20px;
 }
 
 /* Harga produk */
@@ -908,6 +908,28 @@ button:hover {
     background-color: #f44336; /* Warna merah untuk tombol hapus */
 }
 
+    /* Gaya untuk popup cart-container */
+    #cart-popup {
+    font-family: 'Arial', sans-serif;
+        position: fixed;
+        top: 55px;
+        right:0;
+        width: 340px;
+        max-height: 400px;
+        overflow-y: auto;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        padding: 10px;
+        z-index: 1001;
+        transition: opacity 0.3s ease-in-out;
+    }
+    /* Sembunyikan popup secara default */
+    .popup-hidden {
+        display: none;
+    }
+    
     /* Scroll bar untuk popup */
     #cart-popup::-webkit-scrollbar {
         width: 6px;
@@ -1984,12 +2006,12 @@ line-height:1;
 
 <!-- Cart Popup -->
 <div id="cart-popup" class="popup-hidden">
-<div class="header-cart" onclick="activateTabH3(this, 'content-productH3')"><img src="https://img.icons8.com/ios-filled/50/000000/shopping-cart.png" />
+<div class="header-cart" onclick="activateTabH3(this, 'content-productH3')"><i class="fas fa-shopping-cart"></i>
         <h3>Keranjang Belanja</h3>
 </div>
         <div id="cart-items"></div>
         <div id="subtotal-container">
-            <strong>Subtotal: Rp <span id="subtotal">0</span></strong>
+            <strong style="color:#fff;">Subtotal: Rp <span id="subtotal">0</span></strong>
         </div>
         <button id="checkout-btn">Checkout</button>
 </div>
