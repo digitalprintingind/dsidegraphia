@@ -1872,6 +1872,144 @@ line-height:1;
     }
 </style>
 
+    <style> /* Footer */
+.footerFTR {
+	top:55px;
+    background-color: #2b2e38;
+    color: #e3e3e3;
+    padding: 15px; /* Menggunakan px */
+    text-align: center;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.footerFTR img {
+    height: 30px;
+    width: auto;
+    justify-content: center;
+    item-align: center;
+    margin-bottom: 16px; /* Menggunakan px */
+}
+
+.footerFTR p {
+    color: #b0b0b0;
+    margin-bottom: 16px; /* Menggunakan px */
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.headerFTR p {
+    	font-family: 'Poppins', sans-serif;
+	font-size: 14px;
+    margin-bottom: 16px; /* Menggunakan px */
+}
+
+/* Social Icons */
+.social-iconsFTR {
+    display: flex;
+    justify-content: center;
+    gap: 24px; /* Menggunakan px */
+    margin-bottom: 32px; /* Menggunakan px */
+}
+
+.social-iconsFTR a {
+    color: #ffffff;
+    font-size: 28px; /* Menggunakan px */
+    transition: transform 0.3s ease;
+}
+
+.social-iconsFTR a:hover {
+    color: #ff4949;
+    transform: scale(1.2);
+}
+
+/* Columns for Services and Links */
+.footer-columnsFTR {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px; /* Menggunakan px */
+    max-width: 1200px;
+    margin: 32px auto; /* Menggunakan px */
+}
+
+.footer-columnFTR {
+    flex: 1 1 22%;
+    padding: 0 16px; /* Menggunakan px */
+    background-color: #343845;
+    border-radius: 10px;
+    text-align: left;
+    min-width: 220px;
+}
+
+.footer-columnFTR h3 {
+    margin-bottom: 8px; /* Menggunakan px */
+    font-size: 22px; /* Menggunakan px */
+    text-align: center;
+}
+
+.footer-columnFTR p {
+    text-align: center;
+}
+
+.footer-columnFTR ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-columnFTR ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px; /* Menggunakan px */
+    font-size: 16px; /* Menggunakan px */
+}
+
+.footer-columnFTR ul li i {
+    margin-right: 8px; /* Menggunakan px */
+    color: #3ac7ff;
+}
+
+/* Contact Section */
+.contact-infoFTR {
+    background-color: #ffb742;
+    color: #333;
+    padding: 12px; /* Menggunakan px */
+    text-align: center;
+    border-radius: 5px;
+    margin: 8px 0; /* Menggunakan px */
+    font-size: 18px;
+}
+
+/* Copyright Section */
+.copyrightFTR {
+    background-color: #2b2e38;
+    color: #b0b0b0;
+    padding-top: 16px; /* Menggunakan px */
+    text-align: center;
+    font-size: 16px; /* Menggunakan px */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-columnsFTR {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-columnFTR {
+        width: 90%; /* Menggunakan px */
+        margin: 8px 0; /* Menggunakan px */
+    }
+
+    .footer-columnFTR:nth-child(1),
+    .footer-columnFTR:nth-child(2),
+    .footer-columnFTR:nth-child(3),
+    .copyrightFTR:nth-child(4) {
+        order: unset;
+    }
+}
+    </style>
+    
     
 </head>
 <body>
@@ -2204,6 +2342,61 @@ line-height:1;
 
 </div>
 <div class="bottom" ></div>
+
+    <footer class="footerFTR">
+        <!-- Header Section -->
+        <div class="headerFTR">
+            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
+            <p>D'Side Graphia melayani jasa Penempatan Media Outdoor dengan lingkup Nasional. Billboard, Videotron, Spanduk, Baliho, Umbul-Umbul, T-Banner, Neon Box, Letter Sign, Signage, Pylon Sign, Signboard.</p>
+        </div>
+
+        <!-- Social Icons -->
+        <div class="social-iconsFTR">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <!-- Footer Columns -->
+        <div class="footer-columnsFTR">
+            <!-- Column 1 -->
+            <div class="footer-columnFTR">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><i class="fas fa-bullhorn"></i> Outdoor Advertising</li>
+                    <li><i class="fas fa-ad"></i> Pemasangan Iklan</li>
+                    <li><i class="fas fa-file-signature"></i> Perizinan Iklan</li>
+                    <li><i class="fas fa-print"></i> Digital Printing</li>
+                    <li><i class="fas fa-comments"></i> Konsultasi Gratis</li>
+                </ul>
+            </div>
+            <!-- Column 2 -->
+            <div class="footer-columnFTR">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><i class="fas fa-info-circle"></i> About Us</li>
+                    <li><i class="fas fa-video"></i> Productions</li>
+                    <li><i class="fas fa-images"></i> Gallery</li>
+                    <li><i class="fas fa-briefcase"></i> Portofolio</li>
+                    <li><i class="fas fa-phone-alt"></i> Contact Us</li>
+                </ul>
+            </div>
+            <!-- Column 3 -->
+            <div class="footer-columnFTR">
+                <h3>Hubungi Kami</h3>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0856-888-6990</div>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0838-2550-2972</div>
+                <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
+            </div>
+            <!-- Column 4 (Hak Cipta) -->
+            <div class="copyrightFTR">
+                <p>&copy; 2024 D'Side Graphia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<div class="bottom" ></div>
 </div>
 
 <div class="contentH3" id="content-portofolioH3"><!--MENU TAB PAYMENT-->
@@ -2397,6 +2590,59 @@ line-height:1;
     </div>
 </div>
 
+    <footer class="footerFTR">
+        <!-- Header Section -->
+        <div class="headerFTR">
+            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
+            <p>D'Side Graphia melayani jasa Penempatan Media Outdoor dengan lingkup Nasional. Billboard, Videotron, Spanduk, Baliho, Umbul-Umbul, T-Banner, Neon Box, Letter Sign, Signage, Pylon Sign, Signboard.</p>
+        </div>
+
+        <!-- Social Icons -->
+        <div class="social-iconsFTR">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <!-- Footer Columns -->
+        <div class="footer-columnsFTR">
+            <!-- Column 1 -->
+            <div class="footer-columnFTR">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><i class="fas fa-bullhorn"></i> Outdoor Advertising</li>
+                    <li><i class="fas fa-ad"></i> Pemasangan Iklan</li>
+                    <li><i class="fas fa-file-signature"></i> Perizinan Iklan</li>
+                    <li><i class="fas fa-print"></i> Digital Printing</li>
+                    <li><i class="fas fa-comments"></i> Konsultasi Gratis</li>
+                </ul>
+            </div>
+            <!-- Column 2 -->
+            <div class="footer-columnFTR">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><i class="fas fa-info-circle"></i> About Us</li>
+                    <li><i class="fas fa-video"></i> Productions</li>
+                    <li><i class="fas fa-images"></i> Gallery</li>
+                    <li><i class="fas fa-briefcase"></i> Portofolio</li>
+                    <li><i class="fas fa-phone-alt"></i> Contact Us</li>
+                </ul>
+            </div>
+            <!-- Column 3 -->
+            <div class="footer-columnFTR">
+                <h3>Hubungi Kami</h3>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0856-888-6990</div>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0838-2550-2972</div>
+                <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
+            </div>
+            <!-- Column 4 (Hak Cipta) -->
+            <div class="copyrightFTR">
+                <p>&copy; 2024 D'Side Graphia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
 <div class="bottom" ></div>
 </div>
 
@@ -2506,7 +2752,7 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
     </div>
     
     
-<center><h5 style="font-weight: bold;margin-bottom:5px;">Dipercaya Ratusan Perusahaan</h5>
+<center><h5 style="font-weight: bold;margin-bottom:5px;color:#fff;">Dipercaya Ratusan Perusahaan</h5>
     <div class="client-slider-container">
         <div class="client-slider-track">
             <!-- Slide 1 (5 images) -->
@@ -2690,6 +2936,60 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
 </div>
 </center>
 
+<div class="bottom" ></div>
+
+    <footer class="footerFTR">
+        <!-- Header Section -->
+        <div class="headerFTR">
+            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
+            <p>D'Side Graphia melayani jasa Penempatan Media Outdoor dengan lingkup Nasional. Billboard, Videotron, Spanduk, Baliho, Umbul-Umbul, T-Banner, Neon Box, Letter Sign, Signage, Pylon Sign, Signboard.</p>
+        </div>
+
+        <!-- Social Icons -->
+        <div class="social-iconsFTR">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <!-- Footer Columns -->
+        <div class="footer-columnsFTR">
+            <!-- Column 1 -->
+            <div class="footer-columnFTR">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><i class="fas fa-bullhorn"></i> Outdoor Advertising</li>
+                    <li><i class="fas fa-ad"></i> Pemasangan Iklan</li>
+                    <li><i class="fas fa-file-signature"></i> Perizinan Iklan</li>
+                    <li><i class="fas fa-print"></i> Digital Printing</li>
+                    <li><i class="fas fa-comments"></i> Konsultasi Gratis</li>
+                </ul>
+            </div>
+            <!-- Column 2 -->
+            <div class="footer-columnFTR">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><i class="fas fa-info-circle"></i> About Us</li>
+                    <li><i class="fas fa-video"></i> Productions</li>
+                    <li><i class="fas fa-images"></i> Gallery</li>
+                    <li><i class="fas fa-briefcase"></i> Portofolio</li>
+                    <li><i class="fas fa-phone-alt"></i> Contact Us</li>
+                </ul>
+            </div>
+            <!-- Column 3 -->
+            <div class="footer-columnFTR">
+                <h3>Hubungi Kami</h3>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0856-888-6990</div>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0838-2550-2972</div>
+                <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
+            </div>
+            <!-- Column 4 (Hak Cipta) -->
+            <div class="copyrightFTR">
+                <p>&copy; 2024 D'Side Graphia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
 <div class="bottom" ></div>
 </div>
@@ -2843,12 +3143,120 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
         </div>
     </div>
 
+    <footer class="footerFTR">
+        <!-- Header Section -->
+        <div class="headerFTR">
+            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
+            <p>D'Side Graphia melayani jasa Penempatan Media Outdoor dengan lingkup Nasional. Billboard, Videotron, Spanduk, Baliho, Umbul-Umbul, T-Banner, Neon Box, Letter Sign, Signage, Pylon Sign, Signboard.</p>
+        </div>
+
+        <!-- Social Icons -->
+        <div class="social-iconsFTR">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <!-- Footer Columns -->
+        <div class="footer-columnsFTR">
+            <!-- Column 1 -->
+            <div class="footer-columnFTR">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><i class="fas fa-bullhorn"></i> Outdoor Advertising</li>
+                    <li><i class="fas fa-ad"></i> Pemasangan Iklan</li>
+                    <li><i class="fas fa-file-signature"></i> Perizinan Iklan</li>
+                    <li><i class="fas fa-print"></i> Digital Printing</li>
+                    <li><i class="fas fa-comments"></i> Konsultasi Gratis</li>
+                </ul>
+            </div>
+            <!-- Column 2 -->
+            <div class="footer-columnFTR">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><i class="fas fa-info-circle"></i> About Us</li>
+                    <li><i class="fas fa-video"></i> Productions</li>
+                    <li><i class="fas fa-images"></i> Gallery</li>
+                    <li><i class="fas fa-briefcase"></i> Portofolio</li>
+                    <li><i class="fas fa-phone-alt"></i> Contact Us</li>
+                </ul>
+            </div>
+            <!-- Column 3 -->
+            <div class="footer-columnFTR">
+                <h3>Hubungi Kami</h3>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0856-888-6990</div>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0838-2550-2972</div>
+                <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
+            </div>
+            <!-- Column 4 (Hak Cipta) -->
+            <div class="copyrightFTR">
+                <p>&copy; 2024 D'Side Graphia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
 <div class="bottom" ></div>
 </div>
 
 </div>
 
 <div class="contentH3" id="content-profileH3"> <!--MENU TAB PROFILE-->
+
+<div class="bottom" ></div>
+    <footer class="footerFTR">
+        <!-- Header Section -->
+        <div class="headerFTR">
+            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
+            <p>D'Side Graphia melayani jasa Penempatan Media Outdoor dengan lingkup Nasional. Billboard, Videotron, Spanduk, Baliho, Umbul-Umbul, T-Banner, Neon Box, Letter Sign, Signage, Pylon Sign, Signboard.</p>
+        </div>
+
+        <!-- Social Icons -->
+        <div class="social-iconsFTR">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <!-- Footer Columns -->
+        <div class="footer-columnsFTR">
+            <!-- Column 1 -->
+            <div class="footer-columnFTR">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><i class="fas fa-bullhorn"></i> Outdoor Advertising</li>
+                    <li><i class="fas fa-ad"></i> Pemasangan Iklan</li>
+                    <li><i class="fas fa-file-signature"></i> Perizinan Iklan</li>
+                    <li><i class="fas fa-print"></i> Digital Printing</li>
+                    <li><i class="fas fa-comments"></i> Konsultasi Gratis</li>
+                </ul>
+            </div>
+            <!-- Column 2 -->
+            <div class="footer-columnFTR">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><i class="fas fa-info-circle"></i> About Us</li>
+                    <li><i class="fas fa-video"></i> Productions</li>
+                    <li><i class="fas fa-images"></i> Gallery</li>
+                    <li><i class="fas fa-briefcase"></i> Portofolio</li>
+                    <li><i class="fas fa-phone-alt"></i> Contact Us</li>
+                </ul>
+            </div>
+            <!-- Column 3 -->
+            <div class="footer-columnFTR">
+                <h3>Hubungi Kami</h3>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0856-888-6990</div>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0838-2550-2972</div>
+                <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
+            </div>
+            <!-- Column 4 (Hak Cipta) -->
+            <div class="copyrightFTR">
+                <p>&copy; 2024 D'Side Graphia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
 <!--END MENU TAB PROFILE-->
 <div class="bottom" ></div>
