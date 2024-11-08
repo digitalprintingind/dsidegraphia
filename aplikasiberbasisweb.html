@@ -802,7 +802,7 @@ button:hover {
         margin-bottom: 10px; /* 10px setara dengan 0.625rem */
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        -webkit-line-clamp: 1; /* Batasi ke 2 baris */
+        -webkit-line-clamp: 1; /* Batasi ke 1 baris */
         overflow: hidden;
         text-overflow: ellipsis;
     }
@@ -2010,6 +2010,172 @@ line-height:1;
 }
     </style>
     
+<style>   /* Konsulsati Layanan */
+        .banner-wrapperKY {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: linear-gradient(45deg, #ffcc00, #ff6699, #66ccff);
+            background-size: 400% 400%;
+            animation: gradientBGKY 10s ease infinite;
+        }
+
+        /* Banner utama dengan kolom */
+        .bannercontactKY {
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            flex-wrap: wrap;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 100%;
+            padding: 10px;
+        }
+
+        /* Gaya kolom umum */
+        .columnKY {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* Kolom logo dan caption bersebelahan di desktop */
+        .column-logo-captionKY {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: row;
+            width: 100%;
+        }
+
+        /* Gaya logo */
+        .logoKY {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+            color: white;
+            margin-right: 10px;
+            border-radius: 50%;
+            animation: bounceKY 2s infinite;
+        }
+
+        /* Gaya caption */
+        .captionKY {
+            text-align: left;
+            font-weight: bold;
+            font-size: 20px;
+            color: #333;
+            line-height: 1.5;
+            flex-grow: 2; /* Caption mengambil lebih banyak ruang */
+        }
+
+        /* Gaya button */
+        .button-columnKY {
+            flex-basis: 250px; /* Lebar kolom button */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .buttonKY {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0 auto;
+            animation: pulseKY 2s infinite;
+        }
+
+        .buttonKY:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive untuk mobile */
+        @media (max-width: 768px) {
+            /* Kolom berubah menjadi satu baris di mobile */
+            .columnKY {
+                flex-basis: 100%;
+                margin: 0;
+                padding: 5px;
+            }
+
+            /* Kolom logo dan caption menjadi vertikal */
+            .column-logo-captionKY {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            /* Posisi logo dan caption di tengah pada mobile */
+            .logoKY {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .captionKY {
+                text-align: center;
+                padding-left: 0;
+            }
+
+            /* Button di tengah pada tampilan mobile */
+            .button-columnKY {
+                flex-basis: 100%;
+            }
+
+            .buttonKY {
+                display: block;
+                margin: 10px auto 0 auto;
+            }
+        }
+
+        /* Animasi untuk background */
+        @keyframes gradientBGKY {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Animasi bounce untuk logo */
+        @keyframes bounceKY {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        /* Animasi pulse untuk button */
+        @keyframes pulseKY {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+
     
 </head>
 <body>
@@ -2343,6 +2509,20 @@ line-height:1;
 </div>
 <div class="bottom" ></div>
 
+<div class="banner-wrapperKY">
+	<div class="bannercontactKY">
+		<!-- Kolom Pertama (Logo + Caption, Bersebelahan di Desktop) -->
+		<div class="columnKY column-logo-captionKY">
+			<div class="logoKY">📢</div>
+            <div class="captionKY">
+             Konsultasikan kebutuhan Advertising dan Promosi Anda sekarang juga! Tim customer service kami siap membantu.
+			</div>
+            <div class="columnKY button-columnKY"><button class="buttonKY" onclick="toggleWhatsAppCard(event)">Hubungi Kami</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <footer class="footerFTR">
         <!-- Header Section -->
         <div class="headerFTR">
@@ -2591,6 +2771,20 @@ line-height:1;
 </div>
 
 <div class="bottom" ></div>
+
+<div class="banner-wrapperKY">
+	<div class="bannercontactKY">
+		<!-- Kolom Pertama (Logo + Caption, Bersebelahan di Desktop) -->
+		<div class="columnKY column-logo-captionKY">
+			<div class="logoKY">📢</div>
+            <div class="captionKY">
+             Konsultasikan kebutuhan Advertising dan Promosi Anda sekarang juga! Tim customer service kami siap membantu.
+			</div>
+            <div class="columnKY button-columnKY"><button class="buttonKY" onclick="toggleWhatsAppCard(event)">Hubungi Kami</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     <footer class="footerFTR">
         <!-- Header Section -->
@@ -2940,6 +3134,20 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
 
 <div class="bottom" ></div>
 
+<div class="banner-wrapperKY">
+	<div class="bannercontactKY">
+		<!-- Kolom Pertama (Logo + Caption, Bersebelahan di Desktop) -->
+		<div class="columnKY column-logo-captionKY">
+			<div class="logoKY">📢</div>
+            <div class="captionKY">
+             Konsultasikan kebutuhan Advertising dan Promosi Anda sekarang juga! Tim customer service kami siap membantu.
+			</div>
+            <div class="columnKY button-columnKY"><button class="buttonKY" onclick="toggleWhatsAppCard(event)">Hubungi Kami</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <footer class="footerFTR">
         <!-- Header Section -->
         <div class="headerFTR">
@@ -3146,6 +3354,20 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
 
 <div class="bottom" ></div>
 
+<div class="banner-wrapperKY">
+	<div class="bannercontactKY">
+		<!-- Kolom Pertama (Logo + Caption, Bersebelahan di Desktop) -->
+		<div class="columnKY column-logo-captionKY">
+			<div class="logoKY">📢</div>
+            <div class="captionKY">
+             Konsultasikan kebutuhan Advertising dan Promosi Anda sekarang juga! Tim customer service kami siap membantu.
+			</div>
+            <div class="columnKY button-columnKY"><button class="buttonKY" onclick="toggleWhatsAppCard(event)">Hubungi Kami</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <footer class="footerFTR">
         <!-- Header Section -->
         <div class="headerFTR">
@@ -3207,6 +3429,21 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
 <div class="contentH3" id="content-profileH3"> <!--MENU TAB PROFILE-->
 
 <div class="bottom" ></div>
+
+<div class="banner-wrapperKY">
+	<div class="bannercontactKY">
+		<!-- Kolom Pertama (Logo + Caption, Bersebelahan di Desktop) -->
+		<div class="columnKY column-logo-captionKY">
+			<div class="logoKY">📢</div>
+            <div class="captionKY">
+             Konsultasikan kebutuhan Advertising dan Promosi Anda sekarang juga! Tim customer service kami siap membantu.
+			</div>
+            <div class="columnKY button-columnKY"><button class="buttonKY" onclick="toggleWhatsAppCard(event)">Hubungi Kami</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <footer class="footerFTR">
         <!-- Header Section -->
         <div class="headerFTR">
