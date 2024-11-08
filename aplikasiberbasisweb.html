@@ -29,6 +29,110 @@ body {
 </style>
 
 
+  <style>
+
+    buttonNT {
+      margin: 10px;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .notifNT {
+      position: fixed;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+      color: white;
+      padding: 5px 20px;
+      border-radius: 10px;
+      display: none;
+      z-index: 1005;
+    }
+    
+        /* Posisi untuk panah segitiga */
+    .notifNT:after {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+		backdrop-filter: blur(15px);
+      transform: translateX(-50%);  /* Penyesuaian untuk benar-benar rata tengah */
+    }
+    
+        /* Posisi untuk panah segitiga */
+    .top-rightNT:after {
+      content: '';
+      border-bottom: 8px solid rgba(255, 255, 255, 0.2); /* Panah mengarah ke atas */
+      top: -8px; /* Tempatkan panah di atas notifikasi */
+      right: 10px;  /* Di tengah-tengah secara horizontal */
+    }
+
+    .top-leftNT {
+      top: 67px;
+      left: 45px;
+      font-size:16px;
+    }
+
+    .bottom-leftNT {
+      bottom: 20px;
+      left: 20px;
+    }
+
+    .top-rightNT {
+      top: 47px;
+      right: 47px;
+    }
+
+    .bottom-rightNT {
+      bottom: 20px;
+      right: 20px;
+    }
+
+    .top-leftNT, .top-rightNT {
+      animation: slideInFromTop 0.5s ease-in-out;
+    }
+
+    .bottom-leftNT, .bottom-rightNT {
+      animation: slideInFromBottom 0.5s ease-in-out;
+    }
+
+    @keyframes slideInFromTop {
+      from {
+        transform: translateY(-100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInFromBottom {
+      from {
+        transform: translateY(100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInFromRight {
+      from {
+        transform: translateX(100%);
+      }
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInFromLeft {
+      from {
+        transform: translateX(-100%);
+      }
+      to {
+        transform: translateX(0);
+      }
+    }
+  </style>
+
 <style> /* Floating button container */
     .whatsapp-float-container {
         position: fixed;
@@ -46,7 +150,6 @@ body {
         border-radius: 50%;
         width: 45px;
         height: 45px;
-        text-align: center;
         font-size: 30px;
         display: flex;
         justify-content: center;
@@ -95,6 +198,7 @@ body {
         font-weight: bold;
         display: flex;
         align-items: center;
+        text-align: left;
     }
 
     .whatsapp-header img {
@@ -105,6 +209,7 @@ body {
 
     .whatsapp-content {
         padding: 10px;
+        text-align: left;
     }
 
     .whatsapp-content p {
@@ -409,7 +514,7 @@ button:hover {
     position: fixed;
     border-radius: 15px;
     overflow: hidden;
-    z-index: 1000;
+    z-index: 1006;
 }
 
 /* Styling untuk Tab */
@@ -1768,57 +1873,26 @@ line-height:1;
     
 </head>
 <body>
+	
+	
+  <!-- Elemen-elemen notifikasi
+  <button onclick="showNotif('notif1')">Tampilkan Notifikasi (Atas)</button>
+  <button onclick="showNotif('notif2')">Tampilkan Notifikasi (Bawah)</button>
+  <button onclick="showNotif('notif3')">Tampilkan Notifikasi (Kanan)</button>
+  <button onclick="showNotif('notif4')">Tampilkan Notifikasi (Kiri)</button>
+  <button onclick="showNotif('notif5')">Tampilkan Notifikasi (Sudut)</button>
 
-<!-- Floating Button Container -->
-<div class="whatsapp-float-container" id="whatsappFloatContainer" onclick="toggleWhatsAppCard(event)">
-    <span class="help-text" id="helpText">Ada yang bisa kami bantu?<br /><b>Hubungi kami<b></b></b></span>
-    <div class="whatsapp-float" id="whatsappFloat">
-        <img id="floatIcon" src="https://ouch-cdn2.icons8.com/1oizdSHZL50V6Q9nrhAoQ1yymCfuay57pGsUUgpdOKo/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTY0/L2U0NTdjYWFlLWMy/MWUtNDU5Yi1iMzcy/LTQ4OWIwM2U5ZDgw/OC5wbmc.png" alt="WhatsApp Icon" />
-    </div>
-</div>
-
-<!-- Floating WhatsApp Card -->
-<div class="whatsapp-card" id="whatsappCard">
-    <div class="whatsapp-header">
-        <img src="https://ouch-cdn2.icons8.com/1oizdSHZL50V6Q9nrhAoQ1yymCfuay57pGsUUgpdOKo/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTY0/L2U0NTdjYWFlLWMy/MWUtNDU5Yi1iMzcy/LTQ4OWIwM2U5ZDgw/OC5wbmc.png" alt="WhatsApp Icon" />
-        Konsultasi Gratis!
-    </div>
-    <div class="whatsapp-content">
-        <p>Klik salah satu team kami untuk berkonsultasi via WhatsApp.</p>
-
-        <!-- Admin 1 -->
-        <div class="contact-box">
-            <img src="https://i.imgur.com/RHbQRX3.png" alt="WhatsApp Icon" />
-            <div class="contact-info">
-                <div>
-                    <span class="admin-name1">Admin</span><br />
-                    <span class="admin-description">Office D'Side Graphia</span>
-                </div>
-                <a href="https://wa.me/6287838333993?text=Hallo,%20*D'Side%20Graphia*%0ASaya%20mau%20konsultasi,%20bisa?" target="_blank">
-                    <img class="whatsapp-icon" src="https://ouch-cdn2.icons8.com/1oizdSHZL50V6Q9nrhAoQ1yymCfuay57pGsUUgpdOKo/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTY0/L2U0NTdjYWFlLWMy/MWUtNDU5Yi1iMzcy/LTQ4OWIwM2U5ZDgw/OC5wbmc.png" alt="WhatsApp Icon" />
-                </a>
-            </div>
-        </div>
-
-        <!-- Admin 2 -->
-        <div class="contact-box">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRjiu7YrDulEiHgcvyxUqfqUQkD6ZBPr6gCQ&amp;usqp=CAU" alt="WhatsApp Icon" />
-            <div class="contact-info">
-                <div>
-                    <span class="admin-name1">Customer Service</span><br />
-                    <span class="admin-description">Marketing Online</span>
-                </div>
-                <a href="https://wa.me/6285172288904?text=Hallo,%20*D'Side%20Graphia*%0ASaya%20mau%20konsultasi,%20bisa?" target="_blank">
-                    <img class="whatsapp-icon" src="https://ouch-cdn2.icons8.com/1oizdSHZL50V6Q9nrhAoQ1yymCfuay57pGsUUgpdOKo/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTY0/L2U0NTdjYWFlLWMy/MWUtNDU5Yi1iMzcy/LTQ4OWIwM2U5ZDgw/OC5wbmc.png" alt="WhatsApp Icon" />
-                </a>
-            </div>
-        </div>
-
-        <div class="powered-by">
-            <i>Powered By </i>: Digital Printing
-        </div>
-    </div>
-</div>
+  
+  <div id="notif1" class="notifNT top-leftNT">Notifikasi Atas</div>
+  <div id="notif2" class="notifNT bottom-leftNT">Notifikasi Bawah</div>
+  <div id="notif3" class="notifNT top-rightNT">Notifikasi Kanan</div>
+  <div id="notif4" class="notifNT bottom-rightNT">Notifikasi Kiri</div>
+  <div id="notif5" class="notifNT top-rightNT">Notifikasi Sudut</div>
+  
+  Elemen-elemen notifikasi -->
+  	
+  <!-- Notifikasi yang selalu muncul dan tidak hilang (Standby) -->
+  <div id="notif1" class="notifNT top-rightNT" style="display: block;">Katalog</div>
 
     <!-- Header Section -->
     <header class="header">
@@ -1879,6 +1953,8 @@ line-height:1;
 </div>
 
 <div class="menu-show-left"><div class="logo-icon" id="icon"><i class="fas fa-bars"></i></div></div>
+  <!-- Notifikasi yang selalu muncul dan tidak hilang (Standby) -->
+  <div id="notif2" class="notifNT top-leftNT" style="display: block;"><i class="fas fa-arrow-left"></i>  Kategori Product</div>
 
 <div class="tab-container">
     <div id="tabs"> <!-- Kontainer untuk tab -->
@@ -2325,6 +2401,58 @@ line-height:1;
 </div>
 
 <div class="contentH3 activeH3" id="content-homeH3"><!--MENU TAB HOME-->
+
+<!-- Floating Button Container -->
+<div class="whatsapp-float-container" id="whatsappFloatContainer" onclick="toggleWhatsAppCard(event)">
+    <span class="help-text" id="helpText">Ada yang bisa kami bantu?<br /><b>Hubungi kami<b></b></b></span>
+    <div class="whatsapp-float" id="whatsappFloat">
+        <img id="floatIcon" src="https://ouch-cdn2.icons8.com/1oizdSHZL50V6Q9nrhAoQ1yymCfuay57pGsUUgpdOKo/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTY0/L2U0NTdjYWFlLWMy/MWUtNDU5Yi1iMzcy/LTQ4OWIwM2U5ZDgw/OC5wbmc.png" alt="WhatsApp Icon" />
+    </div>
+</div>
+
+<!-- Floating WhatsApp Card -->
+<div class="whatsapp-card" id="whatsappCard">
+    <div class="whatsapp-header">
+        <img src="https://ouch-cdn2.icons8.com/1oizdSHZL50V6Q9nrhAoQ1yymCfuay57pGsUUgpdOKo/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTY0/L2U0NTdjYWFlLWMy/MWUtNDU5Yi1iMzcy/LTQ4OWIwM2U5ZDgw/OC5wbmc.png" alt="WhatsApp Icon" />
+        Konsultasi Gratis!
+    </div>
+    <div class="whatsapp-content">
+        <p>Klik salah satu team kami untuk berkonsultasi via WhatsApp.</p>
+
+        <!-- Admin 1 -->
+        <div class="contact-box">
+            <img src="https://i.imgur.com/RHbQRX3.png" alt="WhatsApp Icon" />
+            <div class="contact-info">
+                <div>
+                    <span class="admin-name1">Admin</span><br />
+                    <span class="admin-description">Office D'Side Graphia</span>
+                </div>
+                <a href="https://wa.me/6287838333993?text=Hallo,%20*D'Side%20Graphia*%0ASaya%20mau%20konsultasi,%20bisa?" target="_blank">
+                    <img class="whatsapp-icon" src="https://ouch-cdn2.icons8.com/1oizdSHZL50V6Q9nrhAoQ1yymCfuay57pGsUUgpdOKo/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTY0/L2U0NTdjYWFlLWMy/MWUtNDU5Yi1iMzcy/LTQ4OWIwM2U5ZDgw/OC5wbmc.png" alt="WhatsApp Icon" />
+                </a>
+            </div>
+        </div>
+
+        <!-- Admin 2 -->
+        <div class="contact-box">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRjiu7YrDulEiHgcvyxUqfqUQkD6ZBPr6gCQ&amp;usqp=CAU" alt="WhatsApp Icon" />
+            <div class="contact-info">
+                <div>
+                    <span class="admin-name1">Customer Service</span><br />
+                    <span class="admin-description">Marketing Online</span>
+                </div>
+                <a href="https://wa.me/6285172288904?text=Hallo,%20*D'Side%20Graphia*%0ASaya%20mau%20konsultasi,%20bisa?" target="_blank">
+                    <img class="whatsapp-icon" src="https://ouch-cdn2.icons8.com/1oizdSHZL50V6Q9nrhAoQ1yymCfuay57pGsUUgpdOKo/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTY0/L2U0NTdjYWFlLWMy/MWUtNDU5Yi1iMzcy/LTQ4OWIwM2U5ZDgw/OC5wbmc.png" alt="WhatsApp Icon" />
+                </a>
+            </div>
+        </div>
+
+        <div class="powered-by">
+            <i>Powered By </i>: Digital Printing
+        </div>
+    </div>
+</div>
+
     <div class="slider-container">
         <div class="slider">
             <!-- Slide 1 -->
@@ -3381,6 +3509,22 @@ setInterval(showNextSlide, 10000);
             alert("Message Sent!");
         });
     </script>
+
+ <!--NOTIF MENGAMBANG --> 
+  <script>
+    // Menampilkan notifikasi berdasarkan ID
+    function showNotif(id) {
+      const notifNT = document.getElementById(id);
+      
+      // Tampilkan notifikasi
+      notifNT.style.display = 'block';
+
+      // Setelah 3 detik, sembunyikan notifikasi
+      setTimeout(() => {
+        notifNT.style.display = 'none';
+      }, 3000);
+    }
+  </script>
     
 </body>
 </html>
