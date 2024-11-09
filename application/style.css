@@ -1,4 +1,4 @@
-<style>
+
 body {
 		margin:0;
     	font-family: 'Poppins', sans-serif;
@@ -16,10 +16,10 @@ body {
 
 .bottom{margin-bottom:70px;}
 .bottom-content{margin-bottom:20px;}
-</style>
 
 
-  <style>
+
+  
 
     buttonNT {
       margin: 10px;
@@ -121,9 +121,9 @@ body {
         transform: translateX(0);
       }
     }
-  </style>
+  
 
-<style> /* Floating button container */
+ /* Floating button container */
     .whatsapp-float-container {
         position: fixed;
         bottom: 100px;
@@ -301,9 +301,9 @@ body {
     .whatsapp-float.active + .help-text {
         display: block; /* Tampilkan teks saat ikon aktif */
     }
-</style>
 
-<style> /* Styling Header */
+
+ /* Styling Header */
         .header {
             position: fixed;
             top: 0;
@@ -347,9 +347,9 @@ body {
             margin-right: 8px;
             font-size: 20px;
         }
-    </style>
+    
 
-<style>    /* Menu bottom bar container */
+    /* Menu bottom bar container */
 .bottom-barH3 {
     position: fixed;
     bottom: 0;
@@ -439,9 +439,9 @@ body {
 	  .contentH3.activeH3 {
 	    display: block;
 	  }
-</style>
 
-<style> /* Style for popup payment animation */
+
+ /* Style for popup payment animation */
 .popup-hidden {
     display: none;
 }
@@ -499,9 +499,9 @@ button {
 button:hover {
     opacity: 0.8;
 }
-</style>
 
-<style> /* Menu Category Product*/
+
+ /* Menu Category Product*/
 .tab-container {
     position: fixed;
     border-radius: 15px;
@@ -597,9 +597,9 @@ button:hover {
             color: blue;
             transform: rotate(90deg); /* Rotate effect on hover */
         }
-</style>
 
-<style> /* Lightbox Product */
+
+ /* Lightbox Product */
 .lightboxPL {
     display: none; /* Hidden by default */
     position: fixed;
@@ -691,9 +691,9 @@ button:hover {
 .lightbox-contentPL {
     max-width: 250px;
 }}
-</style>
 
-<style> /*Card Product*/
+
+ /*Card Product*/
     .card2-container {
         display: flex;
         flex-wrap: wrap; /* Membuat kolom dapat membungkus ke baris baru */
@@ -835,10 +835,10 @@ button:hover {
             flex: 1 1 100%; /* 1 kolom di mobile */
         }
     }
-</style>
 
 
-<style>/* Daftar item di keranjang */
+
+/* Daftar item di keranjang */
 #cart-items {
     max-height: 260px; /* Sesuaikan tinggi maksimum sesuai keinginan */
     overflow-y: auto; /* Aktifkan scroll vertikal */
@@ -1010,10 +1010,10 @@ button:hover {
         width: 100%;
     }
     #subtotal-container{margin-bottom:5px;}
-</style>
 
 
-<style> /*Banner Utama*/
+
+ /*Banner Utama*/
     .slider-container {
     position: relative;
     width: 100%;
@@ -1202,9 +1202,9 @@ line-height:1.5;
             font-size: 14px;
         }
     }
-</style>
 
-<style> /* Client */
+
+ /* Client */
 .client-banner {
     display: flex;
     max-width: 1024px;
@@ -1277,9 +1277,9 @@ line-height:1.5;
     }
 }
 
-    </style>
     
-<style> /* Layanan Product */
+    
+ /* Layanan Product */
         .layanan2 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -1434,9 +1434,9 @@ line-height:1;
             transform: translateY(20px); /* Animasi teks naik saat muncul */
         }
         }
-    </style>
+    
 
-<style>  /* MENU TAB ARTIKEL */
+  /* MENU TAB ARTIKEL */
     .containerA2 {
         display: flex;
         flex-wrap: wrap; /* Membuat kolom dapat membungkus ke baris baru */
@@ -1611,12 +1611,12 @@ line-height:1;
         margin-top: 10px;
         object-fit: cover;
     }
-</style>
 
 
 
 
-<style>
+
+
     /* Katalog */
     .image-viewer-containerKT {
         display: flex;
@@ -1719,9 +1719,9 @@ line-height:1;
     .hidden-imageKT {
         display: none;
     }
-</style>
 
-    <style> /* Footer */
+
+     /* Footer */
 .footerFTR {
 	top:55px;
     background-color: #2b2e38;
@@ -1857,9 +1857,9 @@ line-height:1;
         order: unset;
     }
 }
-    </style>
     
-<style>   /* Konsulsati Layanan */
+    
+   /* Konsulsati Layanan */
         .banner-wrapperKY {
             display: flex;
             justify-content: center;
@@ -2023,10 +2023,10 @@ line-height:1;
                 transform: scale(1);
             }
         }
-    </style>
+    
 
 
-<style>     /* Contact Us */
+     /* Contact Us */
 
     .containerCU1 {
         display: flex;
@@ -2142,10 +2142,10 @@ line-height:1;
     .admin-btnCU1 span:hover {
     	background-color: green;
     }
-</style>
 
 
-<style> /* About Me */
+
+ /* About Me */
 .containerAU {
     font-family: 'Poppins', sans-serif;
     width: 95%;
@@ -2277,10 +2277,10 @@ line-height:1;
         max-width: 300px;
     }
 }
-</style>
 
 
-    <style>     /* Popup Maintenance */
+
+         /* Popup Maintenance */
         .popup-overlayMT {
             position: fixed;
             top: 0;
@@ -2381,4 +2381,4 @@ line-height:1;
             color: #ff6347;
             transform: rotate(180deg);
         }
-    </style>
+    
