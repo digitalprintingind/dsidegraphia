@@ -1624,147 +1624,6 @@ line-height:1;
 </style>
 
 
-<style> /*MENU TAB ULASAN*/
-    .containerU1 {
-        display: flex;
-        flex-wrap: wrap; /* Membuat kolom dapat membungkus ke baris baru */
-        justify-content: center;
-		align-items: center;
-        gap: 10px;
-        font-family: Arial, sans-serif;
-        margin: auto;
-        text-align: center;
-    }
-
-    .reviewsU1 {
-        margin-top: 55px;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 15px;
-    }
-
-    .review-cardU1 {
-        background: linear-gradient(135deg, #ffffff, #e9e9e9);
-        border-radius: 15px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-        cursor: pointer;
-        height: 100px;
-        overflow: hidden;
-        position: relative;
-        text-align: left;
-        border: 1px solid transparent;
-    }
-
-    .review-cardU1:hover {
-        transform: translateY(-5px) scale(1.02);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        border: 1px solid #ffbc00;
-        background: linear-gradient(135deg, #f0f8ff, #e6e6e6);
-    }
-
-    .review-cardU1 h2 {
-        margin-bottom: 3px;
-        font-size: 0.9em;
-        color: #333;
-    }
-
-    .ratingU1 {
-        font-size: 0.8em;
-        color: #ffbc00;
-        margin: 0;
-    }
-
-    /* Batasan 2 baris untuk teks ulasan */
-    .review-cardU1 p {
-        color: #666;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2; /* Batasi ke 2 baris */
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-size: 0.8em;
-        line-height: 1.4;
-    }
-
-    .lightboxU1 {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        justify-content: center;
-        align-items: center;
-        z-index: 99;
-        backdrop-filter: blur(5px);
-        animation: fadeIn 0.3s;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-
-    .lightbox-contentU1 {
-        background: white;
-        border-radius: 15px;
-        padding: 30px;
-        max-width: 600px;
-        max-height: 80vh; /* Batas tinggi maksimal lightbox */
-        overflow-y: auto; /* Scroll aktif jika konten panjang */
-        animation: slideIn 0.5s forwards;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        text-align:justify;
-        font-size: 0.8em;
-    }
-
-    @keyframes slideIn {
-        from {
-            transform: translateY(-50px);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
-
-    .close-btnU1 {
-        background: #ff6b6b;
-        border: none;
-        color: white;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-        float: right;
-        transition: background-color 0.3s, transform 0.3s;
-    }
-
-    .close-btnU1:hover {
-        background: #ff4d4d;
-        transform: scale(1.05);
-    }
-
-    #popup-titleU1 {
-        margin: 0;
-        font-size: 1.1em;
-        color: #333;
-    }
-
-    #popup-descriptionU1 {
-        color: #666;
-        font-size: 1em;
-        line-height: 1.5;
-        margin-top: 10px;
-    }
-</style>
 
 
 <style>
@@ -2176,7 +2035,259 @@ line-height:1;
         }
     </style>
 
+
+<style>     /* Contact Us */
+
+    .containerCU1 {
+        display: flex;
+        justify-content: center;
+        align-items: stretch; /* Membuat tinggi elemen sama */
+        padding: 20px;
+        gap: 20px;
+        background-color: #f4f4f9;
+        flex-wrap: wrap;
+        font-family: 'Poppins', sans-serif;
+        margin:0;
+    }
+
+    /* Contact Card dan Contact Section */
+    .contact-cardCU1, .contact-sectionCU1 {
+        background-color: #1c2947;
+        color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        width: 100%;
+        max-width: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .contact-sectionCU1 {
+        background-color: #ffffff;
+        color: #1c2947;
+    }
+
+    /* Bagian Logo */
+    .logo-sectionCU1 img {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 40px;
+        width: auto;
+        margin-bottom: 10px;
+    }
+
+    .logoCU1 {
+        width: 50px;
+    }
+
+    /* Informasi Kantor */
+    .office-infoCU1 h3 {
+        margin: 0 0 10px 0;
+        font-size: 18px;
+        font-weight: 600;
+        text-align: left;
+    }
+
+    .office-infoCU1 p {
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 5px 0; /* Jarak spasi yang konsisten */
+        display: flex;
+        align-items: center;
+        text-align: left;
+    }
+
+    .office-infoCU1 p i {
+        margin-right: 8px;
+    }
+
+    /* Contact Us */
+    .contact-sectionCU1 h2 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        margin-top: 0;
+    }
+
+    .contact-sectionCU1 p {
+        font-size: 14px;
+        color: #333333;
+        margin-bottom: 20px;
+        text-align: justify;
+        line-height: 1.5;
+    }
+
+    /* Tombol Admin */
+    .admin-contactCU1 {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .admin-btnCU1 {
+        background-color: #e6f0ff;
+        color: #1c2947;
+        border: none;
+        border-radius: 8px;
+        padding: 10px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .admin-btnCU1 span {
+        display: block;
+        background-color: #1c2947;
+        color: #ffffff;
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+</style>
+
+
+<style>
+/* Styling Kontainer Utama */
+.containerAU {
+    font-family: 'Poppins', sans-serif;
+    width: 95%;
+    margin: 0 auto;
+    border-radius: 15px;
+}
+
+/* Deskripsi Utama */
+.main-descriptionAU {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    padding: 10px 10px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.main-descriptionAU img {
+	height:40px;
+	width:auto;
+}
+
+/* Visi & Misi */
+.vision-mission {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.vision, .mission {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex: 1 1 30%; /* Buat tiga kolom di desktop */
+}
+
+.vision h3, .mission h3, .main-descriptionAU h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.vision p, .mission p, .main-descriptionAU p {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.vision li, .mission li {
+    font-size: 14px;
+    color: #fff;
+    text-align:left;
+    left:-20px;
+    margin-bottom: 15px;
+}
+
+/* Nilai / Budaya */
+.values-culture {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.values-culture h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.value-card {
+    background: linear-gradient(135deg, #ffd700, #ffbb33);
+    padding: 10px;
+    border-radius: 12px;
+    width: 18%; /* Lima kolom di desktop */
+    max-width: 180px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.value-card i {
+    font-size: 35px;
+    color: #2c3e50;
+    margin-bottom: -20px;
+}
+
+.value-card h5 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.value-card p {
+    font-size: 14px;
+    color: #2c3e50;
+    line-height: 1.4;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    .main-descriptionAU, .vision, .mission {
+        flex: 1 1 100%; /* Jadikan satu kolom pada tampilan mobile */
+    }
     
+    .values {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .value-card {
+        width: 80%; /* Lebar penuh pada tampilan mobile */
+        max-width: 300px;
+    }
+}
+</style>
+
 </head>
 <body>
 	
@@ -3204,155 +3315,33 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
 <div class="bottom" ></div>
 </div>
 
-<div class="contentH3" id="content-ulasanH3"><!--MENU TAB CONTACT FORM-->
-   
-    <div class="containerU1">
-        <div class="reviewsU1">
-            <!-- Review 1 -->
-            <div class="review-cardU1" data-review="Pelayanan yang sangat baik, hasil cetakan tajam dan jelas.">
-                <h2>Andi Prasetyo</h2>
-                <div class="ratingU1">⭐⭐⭐⭐⭐</div>
-                <p>Pelayanan yang sangat baik, hasil cetakan tajam dan jelas.</p>
-            </div>
-            <!-- Review 2 -->
-            <div class="review-cardU1" data-review="Cetakan brosur kami sangat memuaskan, tepat waktu dan berkualitas.">
-                <h2>Rina Susanti</h2>
-                <div class="ratingU1">⭐⭐⭐⭐</div>
-                <p>Cetakan brosur kami sangat memuaskan, tepat waktu dan berkualitas.</p>
-            </div>
-            <!-- Review 3 -->
-            <div class="review-cardU1" data-review="Sangat terkesan dengan kecepatan dan ketepatan layanan mereka.">
-                <h2>Budi Santoso</h2>
-                <div class="ratingU1">⭐⭐⭐⭐⭐</div>
-                <p>Sangat terkesan dengan kecepatan dan ketepatan layanan mereka.</p>
-            </div>
-            <!-- Review 4 -->
-            <div class="review-cardU1" data-review="Hasil cetakan kemasan produk kami luar biasa, sangat direkomendasikan.">
-                <h2>Wati Amalia</h2>
-                <div class="ratingU1">⭐⭐⭐⭐</div>
-                <p>Hasil cetakan kemasan produk kami luar biasa, sangat direkomendasikan.</p>
-            </div>
-            <!-- Review 5 -->
-            <div class="review-cardU1" data-review="Layanan pelanggan yang ramah dan hasil cetakan yang memuaskan!">
-                <h2>Faisal Hakim</h2>
-                <div class="ratingU1">⭐⭐⭐⭐⭐</div>
-                <p>Layanan pelanggan yang ramah dan hasil cetakan yang memuaskan!</p>
-            </div>
-            <!-- Review 6 -->
-            <div class="review-cardU1" data-review="Hasil cetakan kartu nama kami sangat profesional dan menarik.">
-                <h2>Putri Maulida</h2>
-                <div class="ratingU1">⭐⭐⭐⭐</div>
-                <p>Hasil cetakan kartu nama kami sangat profesional dan menarik.</p>
-            </div>
-            <!-- Review 7 -->
-            <div class="review-cardU1" data-review="Cetakan banner yang kami pesan sangat cerah dan menarik perhatian!">
-                <h2>Arief Nugroho</h2>
-                <div class="ratingU1">⭐⭐⭐⭐⭐</div>
-                <p>Cetakan banner yang kami pesan sangat cerah dan menarik perhatian!</p>
-            </div>
-            <!-- Review 8 -->
-            <div class="review-cardU1" data-review="Kualitas cetakan yang sangat baik dan pengiriman tepat waktu.">
-                <h2>Siti Nurhaliza</h2>
-                <div class="ratingU1">⭐⭐⭐⭐⭐</div>
-                <p>Kualitas cetakan yang sangat baik dan pengiriman tepat waktu.</p>
-            </div>
-            <!-- Review 9 -->
-            <div class="review-cardU1" data-review="Layanan yang sangat responsif dan hasil cetakan luar biasa!">
-                <h2>Rizky Pratama</h2>
-                <div class="ratingU1">⭐⭐⭐⭐</div>
-                <p>Layanan yang sangat responsif dan hasil cetakan luar biasa!</p>
-            </div>
-            <!-- Review 10 -->
-            <div class="review-cardU1" data-review="Sangat puas dengan hasil cetakan dan pelayanan dari tim.">
-                <h2>Yuniarti Dewi</h2>
-                <div class="ratingU1">⭐⭐⭐⭐⭐</div>
-                <p>Sangat puas dengan hasil cetakan dan pelayanan dari tim.</p>
-            </div>
-            <!-- Review 11 -->
-            <div class="review-cardU1" data-review="Proses pemesanan yang mudah dan hasil cetakan sesuai harapan.">
-                <h2>Joko Susilo</h2>
-                <div class="ratingU1">⭐⭐⭐⭐</div>
-                <p>Proses pemesanan yang mudah dan hasil cetakan sesuai harapan.</p>
-            </div>
-            <!-- Review 12 -->
-            <div class="review-cardU1" data-review="Tim sangat profesional dan hasil cetakan sangat memuaskan!">
-                <h2>Desi Oktaviani</h2>
-                <div class="ratingU1">⭐⭐⭐⭐⭐</div>
-                <p>Tim sangat profesional dan hasil cetakan sangat memuaskan!</p>
-            </div>
-            <!-- Review 13 -->
-            <div class="review-cardU1" data-review="Hasil cetakan produk kami selalu konsisten dan berkualitas tinggi.">
-                <h2>Agus Subroto</h2>
-                <div class="ratingU1">⭐⭐⭐⭐</div>
-                <p>Hasil cetakan produk kami selalu konsisten dan berkualitas tinggi.</p>
-            </div>
-            <!-- Review 14 -->
-            <div class="review-cardU1" data-review="Pelayanan yang cepat dan hasil cetakan yang sangat memuaskan!">
-                <h2>Lina Kurniasih</h2>
-                <div class="ratingU1">⭐⭐⭐⭐⭐</div>
-                <p>Pelayanan yang cepat dan hasil cetakan yang sangat memuaskan!</p>
-            </div>
-            <!-- Review 15 -->
-            <div class="review-cardU1" data-review="Sangat recomended untuk semua kebutuhan percetakan Anda!">
-                <h2>Rudi Setiawan</h2>
-                <div class="ratingU1">⭐⭐⭐⭐</div>
-                <p>Sangat recomended untuk semua kebutuhan percetakan Anda!</p>
-            </div>
-            <!-- Review 16 -->
-            <div class="review-cardU1" data-review="Kualitas cetakan sangat memuaskan, hasilnya melebihi ekspektasi.">
-                <h2>Fitria Melati</h2>
-                <div class="ratingU1">⭐⭐⭐⭐⭐</div>
-                <p>Kualitas cetakan sangat memuaskan, hasilnya melebihi ekspektasi.</p>
-            </div>
-            <!-- Review 17 -->
-            <div class="review-cardU1" data-review="Sangat puas dengan hasil cetakan majalah kami, cepat dan tepat!">
-                <h2>Hendro Purnomo</h2>
-                <div class="ratingU1">⭐⭐⭐⭐</div>
-                <p>Sangat puas dengan hasil cetakan majalah kami, cepat dan tepat!</p>
-            </div>
-            <!-- Review 18 -->
-            <div class="review-cardU1" data-review="Pengalaman yang luar biasa, hasil cetakan sangat detail!">
-                <h2>Vina Novita</h2>
-                <div class="ratingU1">⭐⭐⭐⭐⭐</div>
-                <p>Pengalaman yang luar biasa, hasil cetakan sangat detail!</p>
-            </div>
-            <!-- Review 19 -->
-            <div class="review-cardU1" data-review="Hasil cetakan label produk kami sangat baik dan sesuai permintaan.">
-                <h2>Ferry Kurniawan</h2>
-                <div class="ratingU1">⭐⭐⭐⭐</div>
-                <p>Hasil cetakan label produk kami sangat baik dan sesuai permintaan.</p>
-            </div>
-            <!-- Review 20 -->
-            <div class="review-cardU1" data-review="Hasil cetakan spanduk yang kami pesan sangat memuaskan, detail yang jelas!">
-                <h2>Martha Sari</h2>
-                <div class="ratingU1">⭐⭐⭐⭐⭐</div>
-                <p>Hasil cetakan spanduk yang kami pesan sangat memuaskan, detail yang jelas!</p>
-            </div>
-            <!-- Review 21 -->
-            <div class="review-cardU1" data-review="Tim yang sangat profesional dan hasil cetakan sangat memuaskan!Tim yang sangat profesional dan hasil cetakan sangat memuaskan!Tim yang sangat profesional dan hasil cetakan sangat memuaskan!Tim yang sangat profesional dan hasil cetakan sangat memuaskan!Tim yang sangat profesional dan hasil cetakan sangat memuaskan!!">
-                <h2>Reza Pradana</h2>
-                <div class="ratingU1">⭐⭐⭐⭐</div>
-                <p>Tim yang sangat profesional dan hasil cetakan sangat memuaskan!Tim yang sangat profesional dan hasil cetakan sangat memuaskan!Tim yang sangat profesional dan hasil cetakan sangat memuaskan!Tim yang sangat profesional dan hasil cetakan sangat memuaskan!Tim yang sangat profesional dan hasil cetakan sangat memuaskan!</p>
-            </div>
-            <!-- Review 22 -->
-            <div class="review-cardU1" data-review="Layanan yang cepat dan hasil cetakan yang sesuai harapan!">
-                <h2>Intan Permatasari</h2>
-                <div class="ratingU1">⭐⭐⭐⭐⭐</div>
-                <p>Layanan yang cepat dan hasil cetakan yang sesuai harapan!</p>
-            </div>
-        </div>
-    </div>
+<div class="contentH3" id="content-contactusH3"><!--MENU TAB CONTACT FORM-->
 
-    <!-- Popup Lightbox -->
-    <div class="lightboxU1" id="lightboxU1">
-        <div class="lightbox-contentU1">
-            <button class="close-btnU1" id="close-btnU1"></button>
-            <h2 id="popup-titleU1">Judul Review</h2>
-            <p id="popup-descriptionU1">Detail review akan ditampilkan di sini.</p>
-        </div>
-    </div>
 
 <div class="bottom" ></div>
+
+<div class="containerCU1">
+    <div class="contact-cardCU1">
+        <div class="logo-sectionCU1">
+            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo D'Side Graphia" class="logoCU1">
+        </div>
+        <div class="office-infoCU1">
+            <h3>Head Office</h3>
+            <p>Jl. Waru 3 No.26, Jatimulya, Kec. Tambun Sel., Kabupaten Bekasi, Jawa Barat 17510</p>
+            <p><i class="fas fa-phone"></i> 0851-6261-6668</p>
+            <p><i class="fas fa-phone"></i> 0857-1543-9772</p>
+            <p><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</p>
+        </div>
+    </div>
+    <div class="contact-sectionCU1">
+        <h2>Contact Us</h2>
+        <p>Jika memiliki pertanyaan mengenai jasa advertising silahkan menghubungi kontak cabang kami yang terdekat dengan lokasi Anda, Kami akan membalas setiap pesan dengan segera!</p>
+        <div class="admin-contactCU1">
+            <button class="admin-btnCU1">Admin 1<br><span>Chat WhatsApp</span></button>
+            <button class="admin-btnCU1">Admin 2<br><span>Chat WhatsApp</span></button>
+        </div>
+    </div>
+</div>
 
 <div class="banner-wrapperKY">
 	<div class="bannercontactKY">
@@ -3427,6 +3416,73 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
 </div>
 
 <div class="contentH3" id="content-profileH3"> <!--MENU TAB PROFILE-->
+
+<div class="bottom" ></div>
+<div class="containerAU">
+    <!-- Section: Deskripsi Utama -->
+    <div class="main-descriptionAU">
+        <h2>KENALI ESENSI D'SIDE GRAPHIA</h2>
+        <p>Kami akan melayani konsumen dengan ramah. Order konsumen akan dikerjakan dengan tenaga profesional dan mesin berteknologi modern. Dan order printing konsumen pasti akan selesai di waktu yang sepakati.</p>
+        <div class="image-sectionAU">
+            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Produk Contoh">
+        </div>
+    </div>
+
+    <!-- Section: Visi & Misi -->
+    <div class="vision-mission">
+        <div class="vision">
+            <h3>VISI</h3>
+            <p><strong>– BERGUNA –</strong></p>
+            <ul>
+                <li>Memenuhi Kebutuhan Pelanggan dengan memberikan solusi Printing yang terbaik.</li>
+                <li>Menjadi tempat untuk setiap TIM GUNAJAYA berkembang.</li>
+            </ul>
+            <p><strong>– BERJAYA –</strong></p>
+            <p>Menjadi Perusahaan Printing yang berdaya saing secara Nasional.</p>
+        </div>
+        <div class="mission">
+            <h3>MISI</h3>
+            <ul>
+                <li>Menjunjung Tinggi Nilai Ketuhanan.</li>
+                <li>Memberikan Kepuasan kepada Pelanggan dalam segi hasil dan ketepatan waktu.</li>
+                <li>Menambah Kemampuan dan Pengetahuan Tim secara berkesinambungan.</li>
+                <li>Taat Pada Prosedur yang ada.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Section: Nilai / Budaya -->
+    <div class="values-culture">
+        <h3>NILAI / BUDAYA</h3>
+        <div class="values">
+            <div class="value-card">
+                <i class="fas fa-arrow-up"></i>
+                <h5>Growth</h5>
+                <p>Ke tumbuh an berlandaskan inovasi, komunikasi dan loyalitas dalam perusahaan maupun pribadi.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-smile"></i>
+                <h5>Enjoy</h5>
+                <p>Menjaga Ukhwah dan Kenikmatan organisasi untuk menolong dan menjaga apa yang dititahkan masyarakat.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-hands-helping"></i>
+                <h5>Service</h5>
+                <p>Mengutamakan pelayanan terbaik melalui kolaborasi dengan semua tim.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-shield-alt"></i>
+                <h5>Integrity</h5>
+                <p>Memiliki nilai dan prinsip yang kokoh.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-users"></i>
+                <h5>Teamwork</h5>
+                <p>Mengutamakan kerjasama untuk memberikan solusi pelanggan maupun dengan rekan sejawat.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="bottom" ></div>
 
@@ -3550,9 +3606,9 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
     <i class="fas fa-home"></i>
     <span>Home</span>
   </div>
-  <div class="tab-itemH3" onclick="activateTabH3(this, 'content-ulasanH3')">
-    <i class="fas fa-star fa-spin"></i>
-    <span>Ulasan</span>
+  <div class="tab-itemH3" onclick="activateTabH3(this, 'content-contactusH3')">
+    <i class="fas fa-phone"></i>
+    <span>Contact Us</span>
   </div>
   <div class="tab-itemH3" onclick="activateTabH3(this, 'content-profileH3')">
     <i class="fas fa-user"></i>
@@ -3977,34 +4033,6 @@ updateCart();
         document.getElementById('popupImageKT').src = hiddenImages[currentIndex].src;
     }
 </script>
-
- <!--MENU TAB ULASAN--> 
-      <script>
-        // Menampilkan popup lightbox saat card diklik
-        document.querySelectorAll('.review-cardU1').forEach(card => {
-            card.addEventListener('click', () => {
-                const reviewDetail = card.getAttribute('data-review');
-                const clientName = card.querySelector('h2').innerText;
-
-                document.getElementById('popup-titleU1').innerText = clientName;
-                document.getElementById('popup-descriptionU1').innerText = reviewDetail;
-
-                document.getElementById('lightboxU1').style.display = 'flex';
-            });
-        });
-
-        // Menutup popup lightbox
-        document.getElementById('close-btnU1').addEventListener('click', () => {
-            document.getElementById('lightboxU1').style.display = 'none';
-        });
-
-        // Menutup popup saat mengklik di luar konten
-        document.getElementById('lightboxU1').addEventListener('click', (event) => {
-            if (event.target === document.getElementById('lightboxU1')) {
-                document.getElementById('lightboxU1').style.display = 'none';
-            }
-        });
-    </script>
 
 
  <!--MENU TAB PROTOFOLIO --> 
