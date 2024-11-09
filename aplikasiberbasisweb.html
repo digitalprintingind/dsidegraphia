@@ -2155,8 +2155,7 @@ line-height:1;
 </style>
 
 
-<style>
-/* Styling Kontainer Utama */
+<style> /* About Me */
 .containerAU {
     font-family: 'Poppins', sans-serif;
     width: 95%;
@@ -2242,7 +2241,7 @@ line-height:1;
     padding: 10px;
     border-radius: 12px;
     width: 100%; /* Lima kolom di desktop */
-    max-width: 150px;
+    max-width: 15%;
     text-align: center;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -2290,8 +2289,125 @@ line-height:1;
 }
 </style>
 
+
+    <style>     /* Popup Maintenance */
+        .popup-overlayMT {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            transition: opacity 0.5s ease, backdrop-filter 0.5s ease;
+        }
+
+        .popup-overlayMT.activeMT {
+            display: block;
+            opacity: 1;
+            backdrop-filter: blur(15px); /* Blur semakin kuat ketika popup muncul */
+        }
+
+        .popup-contentMT {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 80%;
+            max-width: 650px;
+            animation: popUp 0.7s ease-out forwards, shadowPulse 1s infinite alternate;
+            color: #fff;
+        }
+
+        /* Animasi untuk popup */
+        @keyframes popUp {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0;
+            }
+            60% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Animasi untuk shadow pulsing */
+        @keyframes shadowPulse {
+            0% {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            }
+            100% {
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        .popup-contentMT p {
+            font-size: 20px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        .popup-contentMT .icon {
+            font-size: 70px;
+            margin-bottom: 25px;
+            animation: rotateIcon 2s linear infinite;
+        }
+
+        /* Animasi rotasi ikon */
+        @keyframes rotateIcon {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .popup-contentMT .close-btn {
+            font-size: 28px;
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .popup-contentMT .close-btn:hover {
+            color: #ff6347;
+            transform: rotate(180deg);
+        }
+    </style>
+    
+    
 </head>
 <body>
+
+<!-- Pooup Maintenance -->
+    <div class="popup-overlayMT" id="maintenance-popupMT">
+        <div class="popup-contentMT">
+            <i class="fas fa-cogs icon"></i>
+            <h2>Website Sedang dalam Pengembangan</h2>
+            <p>Proses pengembangan website kami sedang berlangsung, dan kami akan segera kembali dengan fitur-fitur baru yang lebih menarik dan lebih baik.</p>
+            <p>Silahkan Close Informasi ini. Untuk melanjutkan</p>
+            <button class="close-btn" id="close-popupMT"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+
 
 <!-- Floating WhatsApp Card -->
 <div class="whatsapp-card" id="whatsappCard">
@@ -4201,6 +4317,28 @@ setInterval(showNextSlide, 10000);
       }, 3000);
     }
   </script>
+
+ <!--POPUP MAINTENANCE --> 
+    <script>
+        // Menampilkan popup saat halaman dimuat
+        window.addEventListener("load", function() {
+            const popup = document.getElementById('maintenance-popupMT');
+            popup.classList.add('activeMT');
+        });
+
+        // Menutup popup saat tombol close diklik
+        document.getElementById('close-popupMT').addEventListener('click', function() {
+            const popup = document.getElementById('maintenance-popupMT');
+            popup.classList.remove('activeMT');
+        });
+
+        // Menutup popup jika diklik di luar area popup
+        document.getElementById('maintenance-popupMT').addEventListener('click', function(event) {
+            if (event.target === this) {
+                this.classList.remove('activeMT');
+            }
+        });
+    </script>
     
 </body>
 </html>
