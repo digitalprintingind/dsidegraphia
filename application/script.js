@@ -1,5 +1,5 @@
  <!--TOMBOL FULLSCREEN --> 
-    <script>
+    
         const fullscreenIcon = document.getElementById("fullscreen-icon");
 
         // Fungsi untuk toggle full screen
@@ -27,10 +27,10 @@
                 fullscreenIcon.classList.add("fa-expand");
             }
         });
-    </script>
+    
 
 <!--MENU TAB PRODUCT-->
-<script>
+
 // Toggle untuk menampilkan dan menyembunyikan tab dengan efek fade in dan fade out
 const toggleIcon = document.getElementById('icon');
 const tabsContainer = document.getElementById('tabs');
@@ -77,10 +77,10 @@ tabs.forEach(tab => {
 
 // Menampilkan produk kategori pertama saat halaman dimuat
 document.querySelector('.tab[data-category="jersey"]').click();
-</script>
+
 
 <!--LIGHTBOX DETAIL PRODUCT-->
-<script>
+
 // JavaScript for opening and closing the lightbox
 document.querySelectorAll('.product-card2 .card2-header, .product-card2 .card2-body').forEach(card => {
     card.addEventListener('click', function() {
@@ -126,11 +126,11 @@ window.addEventListener('click', function(event) {
         document.getElementById('lightbox-guidePL').innerHTML = ''; // Clear table on close
     }
 });
-</script>
+
 
 	
 <!--MENU TAB PRODUCT CART-->
-<script>
+
 // Ambil elemen keranjang dan checkout
 const cartItemsContainer = document.getElementById('cart-items');
 const checkoutBtn = document.getElementById('checkout-btn');
@@ -294,11 +294,11 @@ window.addEventListener('click', function(event) {
 
 // Call updateCart to load items from local storage on page load
 updateCart();
-</script>
+
 
 
 <!--MENU BOTTOM TAB--> 
-<script>
+
   // JavaScript untuk menangani aktivasi tab
   function activateTabH3(element, contentId) {
     const tabs = document.querySelectorAll('.tab-itemH3');
@@ -312,11 +312,11 @@ updateCart();
     element.classList.add('activeH3');
     document.getElementById(contentId).classList.add('activeH3');
   }
-</script>
+
 
 
  <!-- Popup Whatsapp --> 
-<script>
+
     function toggleWhatsAppCard(event) {
         var card = document.getElementById("whatsappCard");
         var floatIcon = document.getElementById("floatIcon");
@@ -362,10 +362,10 @@ updateCart();
             }, 400); // Sesuaikan dengan durasi transisi
         }
     });
-</script>
+
 
  <!-- Katalog --> 
-<script>
+
     const hiddenImages = document.querySelectorAll('.hidden-imageKT');
     let currentIndex = 0;
 
@@ -413,11 +413,11 @@ updateCart();
         currentIndex = (currentIndex === hiddenImages.length - 1) ? 0 : currentIndex + 1;
         document.getElementById('popupImageKT').src = hiddenImages[currentIndex].src;
     }
-</script>
+
 
 
  <!--MENU TAB PROTOFOLIO --> 
-<script>
+
     // Menampilkan thumbnail dan popup lightbox saat card diklik
     document.querySelectorAll('.article-cardA2').forEach(card => {
         const mediaUrl = card.getAttribute('data-media');
@@ -461,10 +461,10 @@ updateCart();
         document.getElementById('popup-imageA2').style.display = 'none';
         document.getElementById('popup-videoA2').style.display = 'none';
     }
-</script>
+
 
 <!--Banner Utama-->
-<script>
+
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dots button');
@@ -513,11 +513,11 @@ dots.forEach((dot, index) => {
 // Set interval untuk otomatis ganti slide setiap 10 detik
 setInterval(showNextSlide, 10000); 
 
-</script>
+
 
 
 <!--Client-->
-<script>
+
     // Ganti variabel track dengan nama yang lebih unik
     const clientTrack = document.querySelector('.client-slider-track');
     let clientCurrentSlide = 0;
@@ -531,11 +531,11 @@ setInterval(showNextSlide, 10000);
 
     // Automatically move to the next slide every 3 seconds
     setInterval(clientMoveToNextSlide, 3000);
-</script>
+
 
 
 <!--Team-->
-    <script>
+    
         // JavaScript untuk transisi mobile
         if (window.innerWidth <= 768) {
             let currentIndex = 0;
@@ -556,18 +556,18 @@ setInterval(showNextSlide, 10000);
             // Interval untuk mengubah card setiap 4 detik
             setInterval(showNextCard, 4000);
         }
-    </script>
+    
     
  <!--CONTACT FORM --> 
-    <script>
+    
         document.querySelector(".contact-formCF").addEventListener("submit", function(event) {
             event.preventDefault();
             alert("Message Sent!");
         });
-    </script>
+    
 
  <!--NOTIF MENGAMBANG --> 
-  <script>
+  
     // Menampilkan notifikasi berdasarkan ID
     function showNotif(id) {
       const notifNT = document.getElementById(id);
@@ -580,10 +580,10 @@ setInterval(showNextSlide, 10000);
         notifNT.style.display = 'none';
       }, 3000);
     }
-  </script>
+  
 
  <!--POPUP MAINTENANCE --> 
-    <script>
+    
         // Menampilkan popup saat halaman dimuat
         window.addEventListener("load", function() {
             const popup = document.getElementById('maintenance-popupMT');
@@ -602,4 +602,4 @@ setInterval(showNextSlide, 10000);
                 this.classList.remove('activeMT');
             }
         });
-    </script>
+    
