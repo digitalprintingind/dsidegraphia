@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>D'Side Graphia</title>
+	<link rel="icon" href="https://i.imgur.com/RHbQRX3.png" type="image/x-icon">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<!-- Pooup Maintenance -->
+    <div class="popup-overlayMT" id="maintenance-popupMT">
+        <div class="popup-contentMT">
+            <i class="fas fa-cogs icon"></i>
+            <h2>Website Sedang dalam Pengembangan</h2>
+            <p>Proses pengembangan website kami sedang berlangsung, dan kami akan segera kembali dengan fitur-fitur baru yang lebih menarik dan lebih baik.</p>
+            <p>Silahkan Close Informasi ini. Untuk melanjutkan</p>
+            <button class="close-btn" id="close-popupMT"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+
+
+<!-- Floating WhatsApp Card -->
+<div class="whatsapp-card" id="whatsappCard">
+    <div class="whatsapp-header">
+        <img src="https://ouch-cdn2.icons8.com/1oizdSHZL50V6Q9nrhAoQ1yymCfuay57pGsUUgpdOKo/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTY0/L2U0NTdjYWFlLWMy/MWUtNDU5Yi1iMzcy/LTQ4OWIwM2U5ZDgw/OC5wbmc.png" alt="WhatsApp Icon" />
+        Konsultasi Gratis!
+    </div>
+    <div class="whatsapp-content">
+        <p>Klik salah satu team kami untuk berkonsultasi via WhatsApp.</p>
+
+        <!-- Admin 1 -->
+        <div class="contact-box">
+            <img src="https://i.imgur.com/RHbQRX3.png" alt="WhatsApp Icon" />
+            <div class="contact-info">
+                <div>
+                    <span class="admin-name1">Admin</span><br />
+                    <span class="admin-description">Office D'Side Graphia</span>
+                </div>
+                <a href="https://wa.me/6287838333993?text=Hallo,%20*D'Side%20Graphia*%0ASaya%20mau%20konsultasi,%20bisa?" target="_blank">
+                    <img class="whatsapp-icon" src="https://ouch-cdn2.icons8.com/1oizdSHZL50V6Q9nrhAoQ1yymCfuay57pGsUUgpdOKo/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTY0/L2U0NTdjYWFlLWMy/MWUtNDU5Yi1iMzcy/LTQ4OWIwM2U5ZDgw/OC5wbmc.png" alt="WhatsApp Icon" />
+                </a>
+            </div>
+        </div>
+
+        <!-- Admin 2 -->
+        <div class="contact-box">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRjiu7YrDulEiHgcvyxUqfqUQkD6ZBPr6gCQ&amp;usqp=CAU" alt="WhatsApp Icon" />
+            <div class="contact-info">
+                <div>
+                    <span class="admin-name1">Customer Service</span><br />
+                    <span class="admin-description">Marketing Online</span>
+                </div>
+                <a href="https://wa.me/6285172288904?text=Hallo,%20*D'Side%20Graphia*%0ASaya%20mau%20konsultasi,%20bisa?" target="_blank">
+                    <img class="whatsapp-icon" src="https://ouch-cdn2.icons8.com/1oizdSHZL50V6Q9nrhAoQ1yymCfuay57pGsUUgpdOKo/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTY0/L2U0NTdjYWFlLWMy/MWUtNDU5Yi1iMzcy/LTQ4OWIwM2U5ZDgw/OC5wbmc.png" alt="WhatsApp Icon" />
+                </a>
+            </div>
+        </div>
+
+        <div class="powered-by">
+            <i>Powered By </i>: Digital Printing
+        </div>
+    </div>
+</div>
+	
+  <!-- Elemen-elemen notifikasi
+  <button onclick="showNotif('notif1')">Tampilkan Notifikasi (Atas)</button>
+  <button onclick="showNotif('notif2')">Tampilkan Notifikasi (Bawah)</button>
+  <button onclick="showNotif('notif3')">Tampilkan Notifikasi (Kanan)</button>
+  <button onclick="showNotif('notif4')">Tampilkan Notifikasi (Kiri)</button>
+  <button onclick="showNotif('notif5')">Tampilkan Notifikasi (Sudut)</button>
+
+  
+  <div id="notif1" class="notifNT top-leftNT">Notifikasi Atas</div>
+  <div id="notif2" class="notifNT bottom-leftNT">Notifikasi Bawah</div>
+  <div id="notif3" class="notifNT top-rightNT">Notifikasi Kanan</div>
+  <div id="notif4" class="notifNT bottom-rightNT">Notifikasi Kiri</div>
+  <div id="notif5" class="notifNT top-rightNT">Notifikasi Sudut</div>
+  
+  Elemen-elemen notifikasi -->
+  	
+  <!-- Notifikasi yang selalu muncul dan tidak hilang (Standby) -->
+  <div id="notif1" class="notifNT top-rightNT" style="display: block;">Katalog</div>
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">
+        	<a href="https://digitalprintingind.github.io/dsidegraphia/aplikasiberbasisweb.html"><img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" /></a>
+		</div>
+        
+        <!-- Icons Section -->
+        <div class="icon-container">
+    		<i id="fullscreen-icon" class="fas fa-expand"></i>
+            <i class="fas fa-list" onclick="activateTabH3(this, 'content-katalogH3')"></i>           <!-- Icon Katalog -->
+            <div id="cart-icon">
+            	<i class="fas fa-shopping-cart"></i> <!-- Icon Keranjang -->
+    			<span id="cart-count">0</span>
+			</div>
+        </div>
+    </header>
+
+<!-- HTML for Payment Popup -->
+<div id="payment-popup" class="popup-hidden">
+    <div class="payment-content">
+        <h3>Total Tagihan</h3>
+        <div class="payment-details"></div>
+        <button id="cancel-btn">Cancel</button>
+        <button id="next-btn">Next</button>
+    </div>
+</div>
+
+<!-- Cart Popup -->
+<div id="cart-popup" class="popup-hidden">
+<div class="header-cart" onclick="activateTabH3(this, 'content-productH3')"><i class="fas fa-shopping-cart"></i>
+        <h3>Keranjang Belanja</h3>
+</div>
+        <div id="cart-items"></div>
+        <div id="subtotal-container">
+            <strong style="color:#fff;">Subtotal: Rp <span id="subtotal">0</span></strong>
+        </div>
+        <button id="checkout-btn">Checkout</button>
+</div>
+
+<!-- Content sections for each tab -->
+<div class="contentH3" id="content-productH3"><!--MENU TAB PRODUCT-->
+
+<!-- Popup Lightbox -->
+<div id="lightboxPL" class="lightboxPL">
+    <div class="lightbox-contentPL">
+        <span class="close-btnPL"></span>
+        <img id="lightbox-imgPL" src="" alt="Product Image">
+        <div class="lightbox-detailsPL">
+            <h2 id="lightbox-titlePL"></h2>
+            <p id="lightbox-pricePL"></p>
+            <p id="lightbox-descriptionPL"></p>
+            
+            <!-- Placeholder for Note Guide Table -->
+            <div id="lightbox-guidePL"></div>
+        </div>
+    </div>
+</div>
+
+<div class="menu-show-left"><div class="logo-icon" id="icon"><i class="fas fa-bars"></i></div></div>
+
+<div class="tab-container">
+    <div id="tabs"> <!-- Kontainer untuk tab -->
+        <button class="tab active-tab" data-category="jersey">
+            <i class="fas fa-tshirt"></i>
+            <span>Jersey</span>
+        </button>
+        <button class="tab" data-category="stiker">
+            <i class="fas fa-sticky-note"></i>
+            <span>Stiker</span>
+        </button>
+        <button class="tab" data-category="nota">
+            <i class="fas fa-receipt"></i> <!-- Ikon Nota -->
+            <span>Nota</span>
+        </button>
+        <button class="tab" data-category="sablon">
+            <i class="fas fa-print"></i> <!-- Ikon Sablon -->
+            <span>Sablon</span>
+        </button>
+    </div>
+</div>
+
+<div class="card2-container">
+    <!-- Product card2 1 -->
+    <div class="product-card2"  data-category="jersey">
+        <div class="card2-header">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAh7b9wMDVsomFhYbnDApcZxrVc59jQ3CILlhk31JD9-Xfb5ZzESNUyaZ3&s=10" alt="Smart Watch">
+        </div>
+        <div class="card2-price">Rp 135.000</div>
+        <div class="card2-body">
+            <div class="card2-left">
+                <div class="card2-title">Grade A</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                <!-- Hidden Note Guide Table -->
+                <table class="note-guide">
+                    <thead>
+                        <tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>S</td><td>90</td><td>65</td></tr>
+                        <tr><td>M</td><td>90</td><td>65</td></tr>
+                        <tr><td>L</td><td>90</td><td>65</td></tr>
+                        <tr><td>XL</td><td>90</td><td>65</td></tr>
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+    <button class="add-btn">ADD TO CART</button>
+</div>
+
+    <!-- Product card2 2 -->
+    <div class="product-card2"  data-category="jersey">
+        <div class="card2-header">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGPuAagReq0wrv5z8oy9I1nIFoT6cDd1eWy3qMzUH3XbSL5fjkeGSQgM&s=10" alt="Headphones">
+        </div>
+        <div class="card2-price">Rp 110.000</div>
+        <div class="card2-body">
+            <div class="card2-left">
+                <div class="card2-title">Grade B</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+        </div>
+        <button class="add-btn">ADD TO CART</button>
+    </div>
+
+    <!-- Product card2 3 -->
+    <div class="product-card2"  data-category="jersey">
+        <div class="card2-header">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc6FDAaWD4TzL8n8P-Eajo1YB9KWvDoNhQegCQj2NZa3HjKlPQHnwo-9I&s=10" alt="Game Controller">
+        </div>
+        <div class="card2-price">Rp 105.000</div>
+        <div class="card2-body">
+            <div class="card2-left">
+                <div class="card2-title">Grade C</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+        </div>
+        <button class="add-btn">ADD TO CART</button>
+    </div>
+
+    <!-- Product card2 1 -->
+    <div class="product-card2"  data-category="stiker">
+        <div class="card2-header">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStmjlxToDjJjgCrIcNdVnHCFxJiCH8egls6f33UqXXBSrvq-B1hx7psVzI&s=10" alt="Smart Watch">
+        </div>
+        <div class="card2-price">Rp 9.000</div>
+        <div class="card2-body">
+            <div class="card2-left">
+                <div class="card2-title">Stiker Cromo</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+        </div>
+        <button class="add-btn">ADD TO CART</button>
+    </div>
+
+    <!-- Product card2 2 -->
+    <div class="product-card2"  data-category="stiker">
+        <div class="card2-header">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeSMrcpS8m5biiToQtxySF4Rqw4sCc3uKn9eVdgytBNCcdOBSu9Av0nFRp&s=10" alt="Headphones">
+        </div>
+        <div class="card2-price">Rp 11.000</div>
+        <div class="card2-body">
+            <div class="card2-left">
+                <div class="card2-title">Stiker Vinyl</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+        </div>
+        <button class="add-btn">ADD TO CART</button>
+    </div>
+
+    <!-- Product card2 2 -->
+    <div class="product-card2"  data-category="stiker">
+        <div class="card2-header">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPgHjw7OQ0ee--zyuVFeA-JJFr3yIjygBFxu0Q_Ci0L8kaet5vt0Jhmcjy&s=10" alt="Headphones">
+        </div>
+        <div class="card2-price">Rp 11.000</div>
+        <div class="card2-body">
+            <div class="card2-left">
+                <div class="card2-title">Stiker Transparant</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+        </div>
+        <button class="add-btn">ADD TO CART</button>
+    </div>
+
+    <!-- Product card2 2 -->
+    <div class="product-card2"  data-category="stiker">
+        <div class="card2-header">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9E2PDJESPERYf-cMQ-JVfTa_7rAdm0BDrjbkOfrXMjWASC7r6mJmOKTQ&s=10" alt="Headphones">
+        </div>
+        <div class="card2-price">Rp 14.000</div>
+        <div class="card2-body">
+            <div class="card2-left">
+                <div class="card2-title">Stiker Hologram</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+        </div>
+        <button class="add-btn">ADD TO CART</button>
+    </div>
+
+    <!-- Product card2 3 -->
+    <div class="product-card2"  data-category="nota">
+        <div class="card2-header">
+            <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Game Controller">
+        </div>
+        <div class="card2-price">Rp 2.500</div>
+        <div class="card2-body">
+            <div class="card2-left">
+                <div class="card2-title">Nota A</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+        </div>
+        <button class="add-btn">ADD TO CART</button>
+    </div>
+
+    <!-- Product card2 1 -->
+    <div class="product-card2"  data-category="nota">
+        <div class="card2-header">
+            <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Smart Watch">
+        </div>
+        <div class="card2-price">Rp 1.500.000</div>
+        <div class="card2-body">
+            <div class="card2-left">
+                <div class="card2-title">Nota B</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+        </div>
+        <button class="add-btn">ADD TO CART</button>
+    </div>
+
+    <!-- Product card2 2 -->
+    <div class="product-card2"  data-category="nota">
+        <div class="card2-header">
+            <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Headphones">
+        </div>
+        <div class="card2-price">Rp 1.200.000</div>
+        <div class="card2-body">
+            <div class="card2-left">
+                <div class="card2-title">Nota C</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+        </div>
+        <button class="add-btn">ADD TO CART</button>
+    </div>
+
+    <!-- Product card2 3 -->
+    <div class="product-card2"  data-category="nota">
+        <div class="card2-header">
+            <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Game Controller">
+        </div>
+        <div class="card2-price">Rp 2.500.000</div>
+        <div class="card2-body">
+            <div class="card2-left">
+                <div class="card2-title">Nota D</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+        </div>
+        <button class="add-btn">ADD TO CART</button>
+    </div>
+
+    <!-- Product card2 1 -->
+    <div class="product-card2"  data-category="nota">
+        <div class="card2-header">
+            <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Smart Watch">
+        </div>
+        <div class="card2-price">Rp 1.500.000</div>
+        <div class="card2-body">
+            <div class="card2-left">
+                <div class="card2-title">Nota E</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+        </div>
+        <button class="add-btn">ADD TO CART</button>
+    </div>
+
+    <!-- Product card2 2 -->
+    <div class="product-card2"  data-category="sablon">
+        <div class="card2-header">
+            <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Headphones">
+        </div>
+        <div class="card2-price">Rp 1.200.000</div>
+        <div class="card2-body">
+            <div class="card2-left">
+                <div class="card2-title">Sablon DTF</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+        </div>
+        <button class="add-btn">ADD TO CART</button>
+    </div>
+
+    <!-- Product card2 3 -->
+    <div class="product-card2"  data-category="sablon">
+        <div class="card2-header">
+            <img src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-white-and-blue-sports-jersey-mockup-front-and-back-view-generative-png-image_11520507.png" alt="Game Controller">
+        </div>
+        <div class="card2-price">Rp 2.500.000</div>
+        <div class="card2-body">
+            <div class="card2-left">
+                <div class="card2-title">Sablon Polyester</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </div>
+        </div>
+        <button class="add-btn">ADD TO CART</button>
+    </div>
+
+</div>
+<div class="bottom" ></div>
+
+<div class="banner-wrapperKY">
+	<div class="bannercontactKY">
+		<!-- Kolom Pertama (Logo + Caption, Bersebelahan di Desktop) -->
+		<div class="columnKY column-logo-captionKY">
+			<div class="logoKY">📢</div>
+            <div class="captionKY">
+             Konsultasikan kebutuhan Advertising dan Promosi Anda sekarang juga! Tim customer service kami siap membantu.
+			</div>
+            <div class="columnKY button-columnKY"><button class="buttonKY" onclick="toggleWhatsAppCard(event)">Hubungi Kami</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <footer class="footerFTR">
+        <!-- Header Section -->
+        <div class="headerFTR">
+            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
+            <p>D'Side Graphia melayani jasa Penempatan Media Outdoor dengan lingkup Nasional. Billboard, Videotron, Spanduk, Baliho, Umbul-Umbul, T-Banner, Neon Box, Letter Sign, Signage, Pylon Sign, Signboard.</p>
+        </div>
+
+        <!-- Social Icons -->
+        <div class="social-iconsFTR">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <!-- Footer Columns -->
+        <div class="footer-columnsFTR">
+            <!-- Column 1 -->
+            <div class="footer-columnFTR">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><i class="fas fa-bullhorn"></i> Outdoor Advertising</li>
+                    <li><i class="fas fa-ad"></i> Pemasangan Iklan</li>
+                    <li><i class="fas fa-file-signature"></i> Perizinan Iklan</li>
+                    <li><i class="fas fa-print"></i> Digital Printing</li>
+                    <li><i class="fas fa-comments"></i> Konsultasi Gratis</li>
+                </ul>
+            </div>
+            <!-- Column 2 -->
+            <div class="footer-columnFTR">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><i class="fas fa-info-circle"></i> About Us</li>
+                    <li><i class="fas fa-video"></i> Productions</li>
+                    <li><i class="fas fa-images"></i> Gallery</li>
+                    <li><i class="fas fa-briefcase"></i> Portofolio</li>
+                    <li onclick="activateTabH3(this, 'content-contactusH3')"><i class="fas fa-phone-alt"></i> Contact Us</li>
+                </ul>
+            </div>
+            <!-- Column 3 -->
+            <div class="footer-columnFTR">
+                <h3>Hubungi Kami</h3>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0856-888-6990</div>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0838-2550-2972</div>
+                <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
+            </div>
+            <!-- Column 4 (Hak Cipta) -->
+            <div class="copyrightFTR">
+                <p>&copy; 2024 D'Side Graphia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<div class="bottom" ></div>
+</div>
+
+<div class="contentH3" id="content-portofolioH3"><!--MENU TAB PAYMENT-->
+
+<div class="containerA2">
+    <div class="articlesA2">
+        <!-- Daftar artikel tentang D'Side Graphia dan percetakan -->
+<div class="article-cardA2" data-media="https://www.youtube.com/watch?v=example20" data-type="video">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Teknik D'Side Graphia yang Efisien</h2>
+            <div class="authorA2">Penulis: Admin</div>
+        </div>
+    </div>
+    <p class="contentA2">D'Side Graphia menggunakan teknik D'Side Graphia yang efisien untuk menghasilkan produk berkualitas.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image19.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Memahami Proses Cetak Digital</h2>
+            <div class="authorA2">Penulis: Admin</div>
+        </div>
+    </div>
+    <p class="contentA2">Proses cetak digital di D'Side Graphia mencakup berbagai tahap untuk memastikan kualitas.</p>
+</div>
+<div class="article-cardA2" data-media="https://www.youtube.com/watch?v=example23" data-type="video">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Peran Desain dalam Percetakan Digital</h2>
+            <div class="authorA2">Penulis: Admin</div>
+        </div>
+    </div>
+    <p class="contentA2">Desain yang baik adalah kunci untuk hasil cetak yang memuaskan. D'Side Graphia memahami pentingnya desain.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image21.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>D'Side Graphia untuk Branding yang Kuat</h2>
+            <div class="authorA2">Penulis: Admin</div>
+        </div>
+    </div>
+    <p class="contentA2">D'Side Graphia menawarkan solusi D'Side Graphia untuk memperkuat branding Anda.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image22.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Bahan Baku untuk Percetakan Digital</h2>
+            <div class="authorA2">Penulis: Admin</div>
+        </div>
+    </div>
+    <p class="contentA2">Pilihan bahan baku sangat mempengaruhi hasil cetakan. D'Side Graphia selalu memilih yang terbaik.</p>
+</div>
+<div class="article-cardA2" data-media="https://www.youtube.com/watch?v=example26" data-type="video">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Cetak Bahan Pemasaran yang Efektif</h2>
+            <div class="authorA2">Penulis: Admin</div>
+        </div>
+    </div>
+    <p class="contentA2">Pelajari bagaimana D'Side Graphia mencetak bahan pemasaran yang efektif untuk berbagai bisnis.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image24.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Inovasi dalam Finishing Produk Cetak</h2>
+            <div class="authorA2">Penulis: Admin</div>
+        </div>
+    </div>
+    <p class="contentA2">Finishing produk cetak adalah tahap akhir yang krusial. D'Side Graphia memiliki berbagai opsi finishing.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image25.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Kreativitas dalam Desain Packaging</h2>
+            <div class="authorA2">Penulis: Admin</div>
+        </div>
+    </div>
+    <p class="contentA2">D'Side Graphia membantu menciptakan desain kemasan yang menarik dan fungsional.</p>
+</div>
+<div class="article-cardA2" data-media="https://www.youtube.com/watch?v=example29" data-type="video">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Mengatasi Tantangan dalam D'Side Graphia</h2>
+            <div class="authorA2">Penulis: Admin</div>
+        </div>
+    </div>
+    <p class="contentA2">Pelajari cara D'Side Graphia mengatasi berbagai tantangan dalam D'Side Graphia.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image27.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Mengenal Percetakan 3D</h2>
+            <div class="authorA2">Penulis: Admin</div>
+        </div>
+    </div>
+    <p class="contentA2">D'Side Graphia juga menjelajahi percetakan 3D untuk memenuhi permintaan pasar yang terus berkembang.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image28.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Perkembangan Percetakan di Era Digital</h2>
+            <div class="authorA2">Penulis: Admin</div>
+        </div>
+    </div>
+    <p class="contentA2">D'Side Graphia mengikuti perkembangan percetakan di era digital untuk tetap relevan.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image30.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Cetakan Berkualitas untuk Event Khusus</h2>
+            <div class="authorA2">Penulis: Admin</div>
+        </div>
+    </div>
+    <p class="contentA2">D'Side Graphia menyediakan cetakan berkualitas tinggi untuk berbagai acara khusus.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image31.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Keunggulan D'Side Graphia dalam Bisnis Kecil</h2>
+            <div class="authorA2">Penulis: Admin</div>
+        </div>
+    </div>
+    <p class="contentA2">D'Side Graphia memberikan banyak keuntungan bagi bisnis kecil. D'Side Graphia membantu Anda memanfaatkannya.</p>
+</div>
+<div class="article-cardA2" data-media="https://www.youtube.com/watch?v=example31" data-type="video">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Masa Depan Percetakan dengan Teknologi AI</h2>
+            <div class="authorA2">Penulis: Admin</div>
+        </div>
+    </div>
+    <p class="contentA2">D'Side Graphia menjelajahi bagaimana teknologi AI dapat mengubah industri percetakan.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image32.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Kustomisasi dalam D'Side Graphia</h2>
+            <div class="authorA2">Penulis: Admin</div>
+        </div>
+    </div>
+    <p class="contentA2">D'Side Graphia menawarkan berbagai opsi kustomisasi untuk produk cetakan Anda.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image33.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Manfaat D'Side Graphia untuk Event dan Promosi</h2>
+            <div class="authorA2">Penulis: Admin</div>
+        </div>
+    </div>
+    <p class="contentA2">D'Side Graphia membantu Anda mendapatkan manfaat maksimal dari D'Side Graphia untuk event dan promosi.</p>
+</div>
+<div class="article-cardA2" data-media="https://example.com/image34.jpg" data-type="image">
+    <div class="article-headerA2">
+        <div class="profile-picA2"></div>
+        <div>
+            <h2>Solusi D'Side Graphia untuk Kebutuhan Spesifik</h2>
+            <div class="authorA2">Penulis: Admin</div>
+        </div>
+    </div>
+    <p class="contentA2">D'Side Graphia memberikan solusi D'Side Graphia yang disesuaikan untuk memenuhi kebutuhan spesifik Anda.</p>
+</div>
+
+    </div>
+</div>
+
+<!-- Popup Lightbox -->
+<div class="lightboxA2" id="lightboxA2">
+    <div class="lightbox-contentA2">
+        <button class="close-btnA2" id="close-btnA2">Tutup</button>
+        <h2 id="popup-titleA2">Judul Artikel</h2>
+        <div id="popup-authorA2">Penulis: Admin</div>
+        <p id="popup-contentA2">Detail artikel akan ditampilkan di sini.</p>
+        <img id="popup-imageA2" class="mediaA2" style="display: none;" alt="Media" />
+        <iframe id="popup-videoA2" class="mediaA2" width="100%" height="315" style="display: none;" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+</div>
+
+<div class="bottom" ></div>
+
+<div class="banner-wrapperKY">
+	<div class="bannercontactKY">
+		<!-- Kolom Pertama (Logo + Caption, Bersebelahan di Desktop) -->
+		<div class="columnKY column-logo-captionKY">
+			<div class="logoKY">📢</div>
+            <div class="captionKY">
+             Konsultasikan kebutuhan Advertising dan Promosi Anda sekarang juga! Tim customer service kami siap membantu.
+			</div>
+            <div class="columnKY button-columnKY"><button class="buttonKY" onclick="toggleWhatsAppCard(event)">Hubungi Kami</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <footer class="footerFTR">
+        <!-- Header Section -->
+        <div class="headerFTR">
+            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
+            <p>D'Side Graphia melayani jasa Penempatan Media Outdoor dengan lingkup Nasional. Billboard, Videotron, Spanduk, Baliho, Umbul-Umbul, T-Banner, Neon Box, Letter Sign, Signage, Pylon Sign, Signboard.</p>
+        </div>
+
+        <!-- Social Icons -->
+        <div class="social-iconsFTR">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <!-- Footer Columns -->
+        <div class="footer-columnsFTR">
+            <!-- Column 1 -->
+            <div class="footer-columnFTR">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><i class="fas fa-bullhorn"></i> Outdoor Advertising</li>
+                    <li><i class="fas fa-ad"></i> Pemasangan Iklan</li>
+                    <li><i class="fas fa-file-signature"></i> Perizinan Iklan</li>
+                    <li><i class="fas fa-print"></i> Digital Printing</li>
+                    <li><i class="fas fa-comments"></i> Konsultasi Gratis</li>
+                </ul>
+            </div>
+            <!-- Column 2 -->
+            <div class="footer-columnFTR">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><i class="fas fa-info-circle"></i> About Us</li>
+                    <li><i class="fas fa-video"></i> Productions</li>
+                    <li><i class="fas fa-images"></i> Gallery</li>
+                    <li><i class="fas fa-briefcase"></i> Portofolio</li>
+                    <li onclick="activateTabH3(this, 'content-contactusH3')"><i class="fas fa-phone-alt"></i> Contact Us</li>
+                </ul>
+            </div>
+            <!-- Column 3 -->
+            <div class="footer-columnFTR">
+                <h3>Hubungi Kami</h3>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0856-888-6990</div>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0838-2550-2972</div>
+                <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
+            </div>
+            <!-- Column 4 (Hak Cipta) -->
+            <div class="copyrightFTR">
+                <p>&copy; 2024 D'Side Graphia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<div class="bottom" ></div>
+</div>
+
+<div class="contentH3 activeH3" id="content-homeH3"><!--MENU TAB HOME-->
+
+<!-- Floating Button Container -->
+<div class="whatsapp-float-container" id="whatsappFloatContainer" onclick="toggleWhatsAppCard(event)">
+    <span class="help-text" id="helpText">Ada yang bisa kami bantu?<br /><b>Hubungi kami<b></b></b></span>
+    <div class="whatsapp-float" id="whatsappFloat">
+        <img id="floatIcon" src="https://ouch-cdn2.icons8.com/1oizdSHZL50V6Q9nrhAoQ1yymCfuay57pGsUUgpdOKo/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTY0/L2U0NTdjYWFlLWMy/MWUtNDU5Yi1iMzcy/LTQ4OWIwM2U5ZDgw/OC5wbmc.png" alt="WhatsApp Icon" />
+    </div>
+</div>
+
+    <div class="slider-container">
+        <div class="slider">
+            <!-- Slide 1 -->
+            <div class="slide active" style="background-image: url('https://semestaadvertising.id/wp-content/uploads/2023/03/slide-utama-jasa-advertising-s.jpg');">
+                <div class="content-overlay"></div>
+                <div class="content">
+                    <h2>Jasa Advertising</h2>
+                    <p>Kami Melayani Jasa Pembuatan Neon
+Box, Letter Sign, Signage, Pylon Sign.
+Videotron dan Lain-lain</p>
+                    <a onclick="toggleWhatsAppCard(event)">Klik Disini</a>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="slide" style="background-image: url('https://semestaadvertising.id/wp-content/uploads/2023/03/slide-utama-jasa-lettersign2-s.jpg');">
+                <div class="content-overlay"></div>
+                <div class="content">
+                    <h2>Jasa Pembuatan
+Letter Sign</h2>
+                    <p>Kami Melayani, Jasa Pembuatan Neon
+Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
+                    <a onclick="toggleWhatsAppCard(event)">Klik Disini</a>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="slide" style="background-image: url('https://semestaadvertising.id/wp-content/uploads/revslider/slide-utama-jasa-neonbox.gif">
+                <div class="content-overlay"></div>
+                <div class="content">
+                    <h2>Jasa Pembuatan Neon Box</h2>
+                    <p>Kami Melayani Jasa Pembuatan Neon Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain.</p>
+                    <a onclick="toggleWhatsAppCard(event)">Klik Disini</a>
+                </div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="slide" style="background-image: url('https://semestaadvertising.id/wp-content/uploads/2023/03/slide-utama-jasa-umbul2b-s.jpg">
+                <div class="content-overlay"></div>
+                <div class="content">
+                    <h2>Jasa Pasang dan Perizianan Umbul Umbul/TBanner</h2>
+                    <p>Kami Melayani Jasa Cetak dan Pasang Umbul-Umbul, Spanduk, Baliho dan Billboard</p>
+                    <a onclick="toggleWhatsAppCard(event)">Klik Disini</a>
+                </div>
+            </div>
+        </div>
+        <div class="dots">
+            <button class="active"></button>
+            <button></button>
+            <button></button>
+            <button></button>
+        </div>
+        <div class="progress-bar"></div>
+    </div>
+    
+    
+<center><h5 style="font-weight: bold;margin-bottom:5px;color:#fff;">Dipercaya Ratusan Perusahaan</h5>
+    <div class="client-slider-container">
+        <div class="client-slider-track">
+            <!-- Slide 1 (5 images) -->
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjn-wElIrEh-badYyytQHAcj_TB4qHkuxATMGDcxdRM5H9zTgXdWuw8Ccq5l42dO3gcXUIjRb8tF-VWSkOeioKCMwIyVIEFqt563UUMBA9roMAp3X5H4RAy5W0nAcn_1Xm5kaQBnQiOP910T4CSAOjuLc7nboEdqAMStPGOzbpOjSEX4BsFgfL7uILpffKI/s512/client_client-03.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg2ET8dl1lc0K0MfsREEwq5hsEBto0VTxFvN9g8-StO_bOCrGvxTFBVhMeSSqjIrbHE8EzftFLADq3QsHIOPJL64i-th9YZHdpoYSpY-dgMR08BtWq3hEthyphenhyphenz4uVH1aIcK2u-E-0rNe0i2XZbyFFQHrPED5pdxTcRhcMC1aZAB_UV4n9tm9lf1Bq-jp4m9P/s512/client_client-05.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjASKhDmXrs9l3l9lOUfn47JPH88qFPZw7IA13mT6YDlMbdMT7Iyvd6veaOEYobKUAeL5eeT3x0UKIUKBgGfaEjNuvfK6swmtK1l4FN3dSAbPQojGPbuJtfN7vBMYvpzbHC7RP588EuKtOGW46tzLV77C3GKQUC9yeWF3Jbx2A3YTqTXcdzeQOEw3R1D_tk/s512/client_client-06.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhq8cNdtJoVkl0ZggO1IDgyxB6zj5k4kVFTrTXKsJnqe-nOtXMRZKJThnv6jN5eN2obUxz7zA50wSH_yfUO2qykjxetupjW6Cud1O5GyyVNBaTeh_5echfSeegeC-VZLoXNjvnAxACuuT2YQmol7_C_VsxBK-8ZMNR-mWEICAtUwJfF1exG9Qp86hiXehxC/s512/client-logo-03.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiJENMX6IvjlFHIaRUhrPl7V41Gd_nB7L_uVGH0O8kFUEv0nx4udnFfLZc4yY6mg1NEfeJromKTPN9_6-zGvyGMIxVfxDbeYgNaAwIWsB7tk336uBJTCNRFmtaDcifH00jhU2qTmk2Sh-_vo2brbEcIT0svYN1dZpnbSPiUkBVxZBs6E_2uine7O2HxP7bH/s512/client-logo-04.jpg" />
+            </div>
+
+            <!-- Slide 2 (5 images) -->
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgpTvDSaOabAaxTENSXme9rJbaoA0FYNe-my72hAInJdSrEnH_XVK2xLZKY9Qg_NaRQGO9Jt0ndgdiJYDQE3FNF9okxJpG78jCwQTbkK0LcdrhfQxuTs2p4z3BjktlwMj1mdJOh2xu1HgndOEzFjvua0L6HIkBt38meJ7xYcISmhNGdL9_wl8GQINwmjcpD/s512/client-logo-05.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiE-F6-xuHraKVxfU0FsQHNzCj-TjobXtrRbu3_Uj2DfrnDCIHvM8MxQ61Kb59Gvb3GnWR22qg2affITIgAEBtHhkEkRYKeMf2Itxsrfpc49XEj8LbtrhwaaWNjPaNMSHewO73UYRwostK-F39k3H27AeRZ8ywIcY5m0rI8XoocYur5XRb4MIUhkztB_4LG/s512/client-logo-06.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiravBj2dPC2G3zfWFZEIGQTCxP578a71JDF0TyN3w4e0e-1S0Fuy70fnme-FPtGmKwmHI38-ZqY8SSFKC3PFEv1-r6ad2sNrfAMiKn9L9cOLlfWn2c4LhPNogpBefGS2D6fBWBbEe9WeLFEJMA7OtzvI-p1_1kTlePy5JyklTYZ0JuJ5yqfLzp1WsDM31U/s512/client-logo-07.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjf9JtKlLWhJW33VPNMfnOKZvSfRgUYq6RoJo5G2ZAk1T9Sj6pFM6oTWYj5vB9KQ6N0x-h4yJ_eeHSDauKqJtym6CK8n4R1vmneWobyYjlhy2Fg5ZEpO828sGdmjv66lB99gj6raFmDRWNM063zXdBt9xxHkpR2zYXwg6Nct4slox5D12d1ThsiXPyhYNuQ/s512/client-logo-08.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQhUhCbnmld8rsfwm_PuxCBE2FviOQMylpAJbjBxQq3BpICbXfggn_e0JSRTJ9dxSi1pP8DeXwQNPtWJ2GCFi6g1X6ubxtTRvbmM8NAmwFbKPtLKbAGxjOljzwoJtYrJVcClrgeD1EqlWmP3GnRbc2paLlIIOZX6q2lBuH7T-mf1kuI_ksPCXAU8dGtFJC/s512/client_client-01.jpg" />
+            </div>
+
+            <!-- Slide 3 (5 images) -->
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiZRMUK3DQ0OZp5ibf8gRRhwbMItCjPx8I2YRmsoJihZtczeD7aJ0yqWwei7yPYONIk-kWLkAiyCt-WOa6mtsiaToLB_-HjYSXzofznqv8f_p-hJAyDaak7pUgHiIviCLMpoXxJeGVvQq2KaG_5ltgZGa9tVR4pHuwJqusaVPFkIjwzEhbGGCBko4W9EKKd/s512/client_client-02.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhEKXgciAIru7qpoiF1f53_WgURBdqoGtjnjiUEoTy6Sfi5yjrInIbWdU6QpGc9u7t79vHglx3JGsBcnFgSTGWkGknp_yeC-YowoEXQqffCEYH_V_4S6kr5r3azfxnW0BC8KsniQqgheG96P7BETHMfykZ0walt_tTzz6Geg31vX415XgyW7yGhqukqb5mE/s512/client_client-04.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiKtlEjEO-CoIvc7RusyHrgg21sTV3Ldh9cSbTnsXHWYIeD8jH53-E2RmuDrVwBxl6dEIhH-F0mTkomlO-7IolvJXCP-raud5hI2YRWFZbJLTvmieqzKSNadnpL4uVMCutJW7kjtTZhju7G_sogrrh1QPqOPcV34w_achYzqOhbEW2S8WiEQhRt2MI6zxss/s739/images%20(2).png" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQouFV5-jsKLUFiza8B-W5yCqCzLMDzHNxk2A&usqp=CAU" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW1KvJN5d8SwYdTBfhekmCEJ1drK63D5fLcg&usqp=CAU" />
+            </div>
+        </div>
+    </div>
+</center>
+
+<div class="bottom-content" ></div>
+
+<center>
+<div class="layanan2">
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2024/08/1.jpg" alt="Neon Box" />
+        <div class="overlay2">
+            <div class="overlay2-text">Neon Box</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2024/09/21.jpg" alt="Letter Sign" />
+        <div class="overlay2">
+            <div class="overlay2-text">Letter Sign</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/videotron_thumb.jpg" alt="Videotron" />
+        <div class="overlay2">
+            <div class="overlay2-text">Videotron</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/billboard_thumb.jpg" alt="Billboard" />
+        <div class="overlay2">
+            <div class="overlay2-text">Billboard</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/spanduk_thumb.jpg" alt="Spanduk" />
+        <div class="overlay2">
+            <div class="overlay2-text">Spanduk</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2024/10/2.jpg" alt="Umbul-Umbul" />
+        <div class="overlay2">
+            <div class="overlay2-text">Umbul-Umbul</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2024/07/Desain-tanpa-judul-74.jpg" alt="Baliho" />
+        <div class="overlay2">
+            <div class="overlay2-text">Baliho</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/digital_printing13.jpg" alt="Digital Printing" />
+        <div class="overlay2">
+            <div class="overlay2-text">Digital Printing</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/pylonsign_img-01b.jpg" alt="Pylon Sign" />
+        <div class="overlay2">
+            <div class="overlay2-text">Pylon Sign</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/pole-sign_img-02.jpg" alt="Pole Sign" />
+        <div class="overlay2">
+            <div class="overlay2-text">Pole Sign</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/laser-acrylic.gif" alt="Iklan di Transportasi" />
+        <div class="overlay2">
+            <div class="overlay2-text">Iklan di Transportasi</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/perizinan_iklan_7b.jpg" alt="Perizinan Reklame" />
+        <div class="overlay2">
+            <div class="overlay2-text">Perizinan Reklame</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+</div>
+</center>
+
+<div class="bottom" ></div>
+
+<div class="banner-wrapperKY">
+	<div class="bannercontactKY">
+		<!-- Kolom Pertama (Logo + Caption, Bersebelahan di Desktop) -->
+		<div class="columnKY column-logo-captionKY">
+			<div class="logoKY">📢</div>
+            <div class="captionKY">
+             Konsultasikan kebutuhan Advertising dan Promosi Anda sekarang juga! Tim customer service kami siap membantu.
+			</div>
+            <div class="columnKY button-columnKY"><button class="buttonKY" onclick="toggleWhatsAppCard(event)">Hubungi Kami</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <footer class="footerFTR">
+        <!-- Header Section -->
+        <div class="headerFTR">
+            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
+            <p>D'Side Graphia melayani jasa Penempatan Media Outdoor dengan lingkup Nasional. Billboard, Videotron, Spanduk, Baliho, Umbul-Umbul, T-Banner, Neon Box, Letter Sign, Signage, Pylon Sign, Signboard.</p>
+        </div>
+
+        <!-- Social Icons -->
+        <div class="social-iconsFTR">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <!-- Footer Columns -->
+        <div class="footer-columnsFTR">
+            <!-- Column 1 -->
+            <div class="footer-columnFTR">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><i class="fas fa-bullhorn"></i> Outdoor Advertising</li>
+                    <li><i class="fas fa-ad"></i> Pemasangan Iklan</li>
+                    <li><i class="fas fa-file-signature"></i> Perizinan Iklan</li>
+                    <li><i class="fas fa-print"></i> Digital Printing</li>
+                    <li><i class="fas fa-comments"></i> Konsultasi Gratis</li>
+                </ul>
+            </div>
+            <!-- Column 2 -->
+            <div class="footer-columnFTR">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><i class="fas fa-info-circle"></i> About Us</li>
+                    <li><i class="fas fa-video"></i> Productions</li>
+                    <li><i class="fas fa-images"></i> Gallery</li>
+                    <li><i class="fas fa-briefcase"></i> Portofolio</li>
+                    <li onclick="activateTabH3(this, 'content-contactusH3')"><i class="fas fa-phone-alt"></i> Contact Us</li>
+                </ul>
+            </div>
+            <!-- Column 3 -->
+            <div class="footer-columnFTR">
+                <h3>Hubungi Kami</h3>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0856-888-6990</div>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0838-2550-2972</div>
+                <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
+            </div>
+            <!-- Column 4 (Hak Cipta) -->
+            <div class="copyrightFTR">
+                <p>&copy; 2024 D'Side Graphia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<div class="bottom" ></div>
+</div>
+
+<div class="contentH3" id="content-contactusH3"><!--MENU TAB CONTACT FORM-->
+
+
+<div class="bottom" ></div>
+
+<div class="containerCU1">
+    <div class="contact-cardCU1">
+        <div class="logo-sectionCU1">
+            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo D'Side Graphia" class="logoCU1">
+        </div>
+        <div class="office-infoCU1">
+            <h3>Head Office</h3>
+            <p>Jl. Waru 3 No.26, Jatimulya, Kec. Tambun Sel., Kabupaten Bekasi, Jawa Barat 17510</p>
+            <p><i class="fas fa-phone"></i> 087-838-333-993</p>
+            <p><i class="fas fa-phone"></i> 08517-2288-904</p>
+            <p><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</p>
+        </div>
+    </div>
+    <div class="contact-sectionCU1">
+        <h2>Contact Us</h2>
+        <p>Jika memiliki pertanyaan mengenai jasa advertising silahkan menghubungi kontak cabang kami yang terdekat dengan lokasi Anda, Kami akan membalas setiap pesan dengan segera!</p>
+        <div class="admin-contactCU1">
+            <button class="admin-btnCU1">Admin 1<br><a target="_blank" href="https://wa.me/6287838333993?text=Hallo,%20*D'Side%20Graphia*%0ASaya%20mau%20konsultasi,%20bisa?"><span>Chat WhatsApp</span></a></button>
+            <button class="admin-btnCU1">Customer Service<br><a target="_blank" href="https://wa.me/6285172288904?text=Hallo,%20*D'Side%20Graphia*%0ASaya%20mau%20konsultasi,%20bisa?"><span>Chat WhatsApp</span></a></button>
+        </div>
+    </div>
+</div>
+
+<div class="banner-wrapperKY">
+	<div class="bannercontactKY">
+		<!-- Kolom Pertama (Logo + Caption, Bersebelahan di Desktop) -->
+		<div class="columnKY column-logo-captionKY">
+			<div class="logoKY">📢</div>
+            <div class="captionKY">
+             Konsultasikan kebutuhan Advertising dan Promosi Anda sekarang juga! Tim customer service kami siap membantu.
+			</div>
+            <div class="columnKY button-columnKY"><button class="buttonKY" onclick="toggleWhatsAppCard(event)">Hubungi Kami</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <footer class="footerFTR">
+        <!-- Header Section -->
+        <div class="headerFTR">
+            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
+            <p>D'Side Graphia melayani jasa Penempatan Media Outdoor dengan lingkup Nasional. Billboard, Videotron, Spanduk, Baliho, Umbul-Umbul, T-Banner, Neon Box, Letter Sign, Signage, Pylon Sign, Signboard.</p>
+        </div>
+
+        <!-- Social Icons -->
+        <div class="social-iconsFTR">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <!-- Footer Columns -->
+        <div class="footer-columnsFTR">
+            <!-- Column 1 -->
+            <div class="footer-columnFTR">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><i class="fas fa-bullhorn"></i> Outdoor Advertising</li>
+                    <li><i class="fas fa-ad"></i> Pemasangan Iklan</li>
+                    <li><i class="fas fa-file-signature"></i> Perizinan Iklan</li>
+                    <li><i class="fas fa-print"></i> Digital Printing</li>
+                    <li><i class="fas fa-comments"></i> Konsultasi Gratis</li>
+                </ul>
+            </div>
+            <!-- Column 2 -->
+            <div class="footer-columnFTR">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><i class="fas fa-info-circle"></i> About Us</li>
+                    <li><i class="fas fa-video"></i> Productions</li>
+                    <li><i class="fas fa-images"></i> Gallery</li>
+                    <li><i class="fas fa-briefcase"></i> Portofolio</li>
+                    <li onclick="activateTabH3(this, 'content-contactusH3')"><i class="fas fa-phone-alt"></i> Contact Us</li>
+                </ul>
+            </div>
+            <!-- Column 3 -->
+            <div class="footer-columnFTR">
+                <h3>Hubungi Kami</h3>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0856-888-6990</div>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0838-2550-2972</div>
+                <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
+            </div>
+            <!-- Column 4 (Hak Cipta) -->
+            <div class="copyrightFTR">
+                <p>&copy; 2024 D'Side Graphia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<div class="bottom" ></div>
+</div>
+
+</div>
+
+<div class="contentH3" id="content-aboutmeH3"> <!--MENU TAB PROFILE-->
+
+<div class="bottom" ></div>
+<div class="containerAU">
+    <!-- Section: Deskripsi Utama -->
+    <div class="main-descriptionAU">
+        <h2>KENALI ESENSI D'SIDE GRAPHIA</h2>
+        <p>Kami akan melayani konsumen dengan ramah. Order konsumen akan dikerjakan dengan tenaga profesional dan mesin berteknologi modern. Dan order printing konsumen pasti akan selesai di waktu yang sepakati.</p>
+        <div class="image-sectionAU">
+            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Produk Contoh">
+        </div>
+    </div>
+
+    <!-- Section: Visi & Misi -->
+    <div class="vision-mission">
+        <div class="vision">
+            <h3>VISI</h3>
+            <p><strong>– BERGUNA –</strong></p>
+            <ul>
+                <li>Memenuhi Kebutuhan Pelanggan dengan memberikan solusi Printing yang terbaik.</li>
+                <li>Menjadi tempat untuk setiap TIM GUNAJAYA berkembang.</li>
+            </ul>
+            <p><strong>– BERJAYA –</strong></p>
+            <p>Menjadi Perusahaan Printing yang berdaya saing secara Nasional.</p>
+        </div>
+        <div class="mission">
+            <h3>MISI</h3>
+            <ul>
+                <li>Menjunjung Tinggi Nilai Ketuhanan.</li>
+                <li>Memberikan Kepuasan kepada Pelanggan dalam segi hasil dan ketepatan waktu.</li>
+                <li>Menambah Kemampuan dan Pengetahuan Tim secara berkesinambungan.</li>
+                <li>Taat Pada Prosedur yang ada.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Section: Nilai / Budaya -->
+    <div class="values-culture">
+        <h3>NILAI / BUDAYA</h3>
+        <div class="values">
+            <div class="value-card">
+                <i class="fas fa-arrow-up"></i>
+                <h5>Growth</h5>
+                <p>Ke tumbuh an berlandaskan inovasi, komunikasi dan loyalitas dalam perusahaan maupun pribadi.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-smile"></i>
+                <h5>Enjoy</h5>
+                <p>Menjaga Ukhwah dan Kenikmatan organisasi untuk menolong dan menjaga apa yang dititahkan masyarakat.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-hands-helping"></i>
+                <h5>Service</h5>
+                <p>Mengutamakan pelayanan terbaik melalui kolaborasi dengan semua tim.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-shield-alt"></i>
+                <h5>Integrity</h5>
+                <p>Memiliki nilai dan prinsip yang kokoh.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-users"></i>
+                <h5>Teamwork</h5>
+                <p>Mengutamakan kerjasama untuk memberikan solusi pelanggan maupun dengan rekan sejawat.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bottom" ></div>
+
+<div class="banner-wrapperKY">
+	<div class="bannercontactKY">
+		<!-- Kolom Pertama (Logo + Caption, Bersebelahan di Desktop) -->
+		<div class="columnKY column-logo-captionKY">
+			<div class="logoKY">📢</div>
+            <div class="captionKY">
+             Konsultasikan kebutuhan Advertising dan Promosi Anda sekarang juga! Tim customer service kami siap membantu.
+			</div>
+            <div class="columnKY button-columnKY"><button class="buttonKY" onclick="toggleWhatsAppCard(event)">Hubungi Kami</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <footer class="footerFTR">
+        <!-- Header Section -->
+        <div class="headerFTR">
+            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
+            <p>D'Side Graphia melayani jasa Penempatan Media Outdoor dengan lingkup Nasional. Billboard, Videotron, Spanduk, Baliho, Umbul-Umbul, T-Banner, Neon Box, Letter Sign, Signage, Pylon Sign, Signboard.</p>
+        </div>
+
+        <!-- Social Icons -->
+        <div class="social-iconsFTR">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <!-- Footer Columns -->
+        <div class="footer-columnsFTR">
+            <!-- Column 1 -->
+            <div class="footer-columnFTR">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><i class="fas fa-bullhorn"></i> Outdoor Advertising</li>
+                    <li><i class="fas fa-ad"></i> Pemasangan Iklan</li>
+                    <li><i class="fas fa-file-signature"></i> Perizinan Iklan</li>
+                    <li><i class="fas fa-print"></i> Digital Printing</li>
+                    <li><i class="fas fa-comments"></i> Konsultasi Gratis</li>
+                </ul>
+            </div>
+            <!-- Column 2 -->
+            <div class="footer-columnFTR">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><i class="fas fa-info-circle"></i> About Us</li>
+                    <li><i class="fas fa-video"></i> Productions</li>
+                    <li><i class="fas fa-images"></i> Gallery</li>
+                    <li><i class="fas fa-briefcase"></i> Portofolio</li>
+                    <li onclick="activateTabH3(this, 'content-contactusH3')"><i class="fas fa-phone-alt"></i> Contact Us</li>
+                </ul>
+            </div>
+            <!-- Column 3 -->
+            <div class="footer-columnFTR">
+                <h3>Hubungi Kami</h3>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0856-888-6990</div>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0838-2550-2972</div>
+                <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
+            </div>
+            <!-- Column 4 (Hak Cipta) -->
+            <div class="copyrightFTR">
+                <p>&copy; 2024 D'Side Graphia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<!--END MENU TAB PROFILE-->
+<div class="bottom" ></div>
+</div>
+
+<div class="contentH3" id="content-katalogH3"> <!--MENU TAB KATALOG-->
+<!-- Container khusus untuk Image Viewer -->
+<div class="image-viewer-containerKT">
+    <!-- Thumbnail with data-image attribute holding image URL -->
+    <img class="thumbnailKT" src="https://imgur.com/ycn3yPo.png" alt="Thumbnail" onclick="openPopup(0)">
+</div>
+
+<!-- Hidden images (not displayed) -->
+<img class="hidden-imageKT" src="https://imgur.com/ycn3yPo.png" />
+<img class="hidden-imageKT" src="https://imgur.com/T8NfegK.png" />
+<img class="hidden-imageKT" src="https://imgur.com/wXuRRuH.png" />
+<img class="hidden-imageKT" src="https://imgur.com/q2wI4BM.png" />
+<img class="hidden-imageKT" src="https://imgur.com/WwpPOA7.png" />
+<img class="hidden-imageKT" src="https://imgur.com/mMSVv69.png" />
+<img class="hidden-imageKT" src="https://imgur.com/oKjMPKE.png" />
+<img class="hidden-imageKT" src="https://imgur.com/7VWFo57.png" />
+<img class="hidden-imageKT" src="https://imgur.com/1zEB5qv.png" />
+<img class="hidden-imageKT" src="https://imgur.com/ZUUwgmp.png" />
+<img class="hidden-imageKT" src="https://imgur.com/2vR9ZQl.png" />
+<img class="hidden-imageKT" src="https://imgur.com/jbiwCml.png" />
+<img class="hidden-imageKT" src="https://imgur.com/hljVWB3.png" />
+<img class="hidden-imageKT" src="https://imgur.com/YGzQspS.png" />
+
+<!-- Overlay Popup -->
+<div class="overlayKT" id="overlayKT" onclick="closePopup()">
+    <div class="popup-containerKT" onclick="event.stopPropagation();">
+        <button class="nav-buttonKT prev-buttonKT" onclick="prevImage()"></button>
+        <img id="popupImageKT" class="popup-imageKT" src="" alt="Popup Image">
+        <button class="nav-buttonKT next-buttonKT" onclick="nextImage()"></button>
+    </div>
+</div>
+
+</div>
+
+
+<!-- Bottom menu bar -->
+<div class="bottom-barH3">
+  <div class="tab-itemH3" onclick="activateTabH3(this, 'content-productH3')">
+    <i class="fas fa-box-open"></i>
+    <span>Product</span>
+  </div>
+  <div class="tab-itemH3" onclick="activateTabH3(this, 'content-portofolioH3')">
+    <i class="fas fa-sync-alt fa-spin"></i>
+    <span>Portofolio</span>
+  </div>
+  <div class="tab-itemH3 homeH3" onclick="activateTabH3(this, 'content-homeH3')">
+    <i class="fas fa-home"></i>
+    <span>Home</span>
+  </div>
+  <div class="tab-itemH3" onclick="activateTabH3(this, 'content-contactusH3')">
+    <i class="fas fa-phone"></i>
+    <span>Contact Us</span>
+  </div>
+  <div class="tab-itemH3" onclick="activateTabH3(this, 'content-aboutmeH3')">
+    <i class="fas fa-user"></i>
+    <span>About Me</span>
+  </div>
+</div>
+
+<script src="script.js"></script> <!-- Link ke file JavaScript -->
+    
+</body>
+</html>
