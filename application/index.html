@@ -2567,12 +2567,12 @@ line-height:1;
     <div class="card2-header">
         <img src="https://imgur.com/CVYGUMr.png" alt="Smart Watch">
     </div>
-    <div class="card2-price">Rp 85.000</div>
+    <div class="card2-price" id="product-price">Rp 85.000</div>
     <div class="card2-body">
         <div class="card2-left">
             <div class="card2-title">Jersey (Atasan Full Printing)</div>
             <div class="card2-description">
-                Bahan Drifit Milano Grade A ( pembelian >12 pcs GRATIS DESAIN )
+                Bahan Drifit Milano Grade A (pembelian >12 pcs GRATIS DESAIN)
                 <table class="note-guide">
                     <thead>
                         <tr><th width="65%">Catatan</th><th width="35%">Tambahan Harga</th></tr>
@@ -2593,12 +2593,13 @@ line-height:1;
                 <label for="size">Ukuran:</label>
                 <select class="product-size">
                     <option value="Pilih" selected>Pilih</option>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                    <option value="XXXL">XXXL</option>
+                    <option value="S" data-price="0">S</option>
+                    <option value="M" data-price="0">M</option>
+                    <option value="L" data-price="0">L</option>
+                    <option value="XL" data-price="0">XL</option>
+                    <option value="XXL" data-price="5000">XXL (+Rp 5.000)</option>
+                    <option value="XXXL" data-price="10000">XXXL (+Rp 10.000)</option>
+                    <option value="XXXXL" data-price="15000">XXXXL (+Rp 15.000)</option>
                 </select>
             </div>
 
@@ -2614,7 +2615,6 @@ line-height:1;
                     <option value="Hijau">Hijau</option>
                 </select>
             </div>
-
         </div>
     </div>
     <button class="add-btn">ADD TO CART</button>
@@ -4176,6 +4176,9 @@ const paymentPopup = document.getElementById('payment-popup');
 
 let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
+// Harga dasar produk
+const basePrice = 85000; // Contoh harga dasar, sesuaikan dengan harga produk
+
 // Toggle visibility of cart popup
 cartIcon.addEventListener('click', function() {
     cartPopup.classList.toggle('popup-hidden');
@@ -4189,13 +4192,22 @@ function addToCart(productName, productPrice, productImg, size, color, event, si
     if (size === "Pilih" || size === "") size = '';
     if (color === "Pilih" || color === "") color = '';
 
+    // Menentukan harga tambahan berdasarkan ukuran
+    let additionalPrice = 0;
+    if (size === "XXL") additionalPrice = 5000;
+    else if (size === "XXXL") additionalPrice = 10000;
+    else if (size === "XXXXL") additionalPrice = 15000;
+
+    // Total harga berdasarkan ukuran yang dipilih
+    const totalPrice = basePrice + additionalPrice;
+
     const item = cartItems.find(cartItem => cartItem.name === productName && cartItem.size === size && cartItem.color === color);
     if (item) {
         item.qty += 1;
     } else {
         cartItems.push({
             name: productName,
-            price: productPrice,
+            price: totalPrice,  // Menggunakan harga yang sudah ditambah ukuran
             img: productImg,
             qty: 1,
             size: size,
@@ -4327,14 +4339,14 @@ function sendOrderToWhatsApp() {
     message += `--------------------------------------\nSubtotal: Rp ${cartItems.reduce((total, item) => total + item.price * item.qty, 0).toLocaleString('id-ID')}`; // Pemisah ribuan
 
     const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = '6285172288904';
+    const phoneNumber = '6285172288904'; // Nomor WhatsApp tujuan
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
-    window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, '_blank'); // Membuka WhatsApp untuk mengirim pesan
 
-    cartItems = [];
-    updateCart();
-    hidePaymentPopup();
+    cartItems = []; // Kosongkan keranjang setelah pengiriman
+    updateCart(); // Update tampilan keranjang
+    hidePaymentPopup(); // Sembunyikan popup pembayaran
 }
 
 // Event listener untuk tombol checkout
