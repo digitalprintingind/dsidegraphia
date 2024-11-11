@@ -945,14 +945,6 @@ button:hover {
     font-size: 20px;
 }
 
-.item-details span {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 1; /* Batasi ke 1 baris */
-        overflow: hidden;
-        text-overflow: ellipsis;
-}
-
 /* Harga produk */
 .product-price {
     color: #888;
@@ -1028,69 +1020,6 @@ button:hover {
         width: 100%;
     }
     #subtotal-container{margin-bottom:5px;}
-    
-    /* Styling untuk container dropdown */
-.dropdown-style {
-    margin-bottom: 10px;
-    font-family: 'Arial', sans-serif;
-}
-
-/* Styling label */
-.dropdown-style label {
-    display: block;
-    font-size: 14px;
-    color: #333;
-    margin-bottom: 0px;
-    font-weight: 600;
-}
-
-/* Styling untuk select element */
-.product-size {
-    width: 100%;
-    font-size: 14px;
-    color: #555;
-    background-color: #f8f8f8;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-/* Gaya saat hover pada select */
-.product-size:hover {
-    border-color: #007bff;
-}
-
-/* Gaya saat select dalam fokus */
-.product-size:focus {
-    border-color: #0056b3;
-    background-color: #ffffff;
-}
-
-/* Styling untuk option */
-    .product-size option {
-        padding: 10px;
-        background: white;
-        color: #333;
-    }
-
-/* Mengubah tampilan pada opsi yang dipilih */
-.product-size option:checked {
-    background-color: #007bff;
-    color: white;
-}
-
-/* Styling untuk opsi dengan harga tambahan */
-.product-size option[data-price] {
-    color: #ff5722;
-}
-
-/* Styling untuk opsi yang dipilih dengan harga tambahan */
-.product-size option[data-price]:checked {
-    background-color: #ff5722;
-    color: white;
-}
-
 </style>
 
 
@@ -2472,7 +2401,8 @@ line-height:1;
     <div class="popup-overlayMT" id="maintenance-popupMT">
         <div class="popup-contentMT">
             <i class="fas fa-cogs icon"></i>
-            <h2>WEBSITE SEDANG DALAM PENGEMBANGAN</h2>
+            <h2>Website Sedang dalam Pengembangan</h2>
+            <p>Proses pengembangan website kami sedang berlangsung, dan kami akan segera kembali dengan fitur-fitur baru yang lebih menarik dan lebih baik.</p>
             <p>Silahkan Close Informasi ini. Untuk melanjutkan</p>
             <button class="close-btn" id="close-popupMT"><i class="fas fa-times"></i></button>
         </div>
@@ -2544,7 +2474,7 @@ line-height:1;
     <!-- Header Section -->
     <header class="header">
         <div class="logo">
-        	<a href="https://digitalprintingind.github.io/dsidegraphia/application/"><img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" /></a>
+        	<a href="https://digitalprintingind.github.io/dsidegraphia/aplikasiberbasisweb.html"><img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" /></a>
 		</div>
         
         <!-- Icons Section -->
@@ -2570,17 +2500,15 @@ line-height:1;
 
 <!-- Cart Popup -->
 <div id="cart-popup" class="popup-hidden">
-    <div class="header-cart" onclick="activateTabH3(this, 'content-productH3')">
-        <i class="fas fa-shopping-cart"></i>
+<div class="header-cart" onclick="activateTabH3(this, 'content-productH3')"><i class="fas fa-shopping-cart"></i>
         <h3>Keranjang Belanja</h3>
-    </div>
-    <div id="cart-items"></div>
-    <div id="subtotal-container">
-        <strong style="color:#fff;">Subtotal: Rp <span id="subtotal">0</span></strong>
-    </div>
-    <button id="checkout-btn">Checkout</button>
 </div>
-
+        <div id="cart-items"></div>
+        <div id="subtotal-container">
+            <strong style="color:#fff;">Subtotal: Rp <span id="subtotal">0</span></strong>
+        </div>
+        <button id="checkout-btn">Checkout</button>
+</div>
 
 <!-- Content sections for each tab -->
 <div class="contentH3" id="content-productH3"><!--MENU TAB PRODUCT-->
@@ -2626,57 +2554,28 @@ line-height:1;
 
 <div class="card2-container">
     <!-- Product card2 1 -->
-<div class="product-card2" data-category="jersey">
-    <div class="card2-header">
-        <img src="https://imgur.com/CVYGUMr.png" alt="Smart Watch">
-    </div>
-    <div class="card2-price" id="product-price">Rp 85.000</div>
-    <div class="card2-body">
-        <div class="card2-left">
-            <div class="card2-title">Jersey (Atasan Full Printing)</div>
-            <div class="card2-description">
-                Bahan Drifit Milano Grade A (pembelian >12 pcs GRATIS DESAIN)
+    <div class="product-card2"  data-category="jersey">
+        <div class="card2-header">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAh7b9wMDVsomFhYbnDApcZxrVc59jQ3CILlhk31JD9-Xfb5ZzESNUyaZ3&s=10" alt="Smart Watch">
+        </div>
+        <div class="card2-price">Rp 135.000</div>
+        <div class="card2-body">
+            <div class="card2-left">
+                <div class="card2-title">Grade A</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                <!-- Hidden Note Guide Table -->
                 <table class="note-guide">
                     <thead>
-                        <tr><th width="65%">Catatan</th><th width="35%">Tambahan Harga</th></tr>
+                        <tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td>Lengan Panjang</td><td>10.000</td></tr>
-                        <tr><td>Kerah Kancing</td><td>5.000</td></tr>
-                        <tr><td>Pola Reglan</td><td>10.000</td></tr>
-                        <tr><td>XXL</td><td>5.000</td></tr>
-                        <tr><td>XXXL</td><td>10.000</td></tr>
-                        <tr><td>XXXXL</td><td>15.000</td></tr>
+                        <tr><td>S</td><td>90</td><td>65</td></tr>
+                        <tr><td>M</td><td>90</td><td>65</td></tr>
+                        <tr><td>L</td><td>90</td><td>65</td></tr>
+                        <tr><td>XL</td><td>90</td><td>65</td></tr>
                     </tbody>
                 </table>
-            </div>
-
-            <!-- Dropdown for Size -->
-            <div class="dropdown-style" style="display:block;">
-                <label for="size">Ukuran:</label>
-                <select class="product-size">
-                    <option value="Pilih" selected>Pilih</option>
-                    <option value="S" data-price="0">S</option>
-                    <option value="M" data-price="0">M</option>
-                    <option value="L" data-price="0">L</option>
-                    <option value="XL" data-price="0">XL</option>
-                    <option value="XXL" data-price="5000">XXL</option>
-                    <option value="XXXL" data-price="10000">XXXL</option>
-                    <option value="XXXXL" data-price="15000">XXXXL</option>
-                </select>
-            </div>
-
-            <!-- Dropdown for Color -->
-            <div class="dropdown-style" style="display:block;">
-                <label for="color">Warna:</label>
-                <select class="product-color">
-                    <option value="Pilih" selected>Pilih</option>
-                    <option value="Merah">Merah</option>
-                    <option value="Biru">Biru</option>
-                    <option value="Hitam">Hitam</option>
-                    <option value="Putih">Putih</option>
-                    <option value="Hijau">Hijau</option>
-                </select>
+                
             </div>
         </div>
     </div>
@@ -2686,292 +2585,32 @@ line-height:1;
     <!-- Product card2 2 -->
     <div class="product-card2"  data-category="jersey">
         <div class="card2-header">
-            <img src="https://imgur.com/7HC1BjI.png" alt="Smart Watch">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGPuAagReq0wrv5z8oy9I1nIFoT6cDd1eWy3qMzUH3XbSL5fjkeGSQgM&s=10" alt="Headphones">
         </div>
         <div class="card2-price">Rp 110.000</div>
         <div class="card2-body">
             <div class="card2-left">
-                <div class="card2-title">Jersey (Atasan Full Printing dan Celana Non Printing)</div>
-            <div class="card2-description">
-                Bahan Drifit Milano Grade A ( pembelian >12 pcs GRATIS DESAIN )
-                <table class="note-guide">
-                    <thead>
-                        <tr><th width="65%">Catatan</th><th width="35%">Tambahan Harga</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Lengan Panjang</td><td>10.000</td></tr>
-                        <tr><td>Kerah Kancing</td><td>5.000</td></tr>
-                        <tr><td>Pola Reglan</td><td>10.000</td></tr>
-                        <tr><td>XXL</td><td>7.000</td></tr>
-                        <tr><td>XXXL</td><td>12.000</td></tr>
-                        <tr><td>XXXXL</td><td>17.000</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Dropdown for Size -->
-            <div class="dropdown-style" style="display:block;">
-                <label for="size">Ukuran:</label>
-                <select class="product-size">
-                    <option value="Pilih" selected>Pilih</option>
-                    <option value="S" data-price="0">S</option>
-                    <option value="M" data-price="0">M</option>
-                    <option value="L" data-price="0">L</option>
-                    <option value="XL" data-price="0">XL</option>
-                    <option value="XXL" data-price="7000">XXL</option>
-                    <option value="XXXL" data-price="12000">XXXL</option>
-                    <option value="XXXXL" data-price="17000">XXXXL</option>
-                </select>
-            </div>
-
-            <!-- Dropdown for Color -->
-            <div class="dropdown-style" style="display:block;">
-                <label for="color">Warna:</label>
-                <select class="product-color">
-                    <option value="Pilih" selected>Pilih</option>
-                    <option value="Merah">Merah</option>
-                    <option value="Biru">Biru</option>
-                    <option value="Hitam">Hitam</option>
-                    <option value="Putih">Putih</option>
-                    <option value="Hijau">Hijau</option>
-                </select>
+                <div class="card2-title">Grade B</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
             </div>
         </div>
+        <button class="add-btn">ADD TO CART</button>
     </div>
-    <button class="add-btn">ADD TO CART</button>
-</div>
 
     <!-- Product card2 3 -->
     <div class="product-card2"  data-category="jersey">
         <div class="card2-header">
-            <img src="https://imgur.com/CVYGUMr.png" alt="Smart Watch">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc6FDAaWD4TzL8n8P-Eajo1YB9KWvDoNhQegCQj2NZa3HjKlPQHnwo-9I&s=10" alt="Game Controller">
         </div>
-        <div class="card2-price">Rp 85.000</div>
+        <div class="card2-price">Rp 105.000</div>
         <div class="card2-body">
             <div class="card2-left">
-                <div class="card2-title">Jersey3 (Atasan Full Printing)</div>
-            <div class="card2-description">
-                Bahan Drifit Milano Grade A ( pembelian >12 pcs GRATIS DESAIN )
-                <table class="note-guide">
-                    <thead>
-                        <tr><th width="65%">Catatan</th><th width="35%">Tambahan Harga</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Lengan Panjang</td><td>10.000</td></tr>
-                        <tr><td>Kerah Kancing</td><td>5.000</td></tr>
-                        <tr><td>Pola Reglan</td><td>10.000</td></tr>
-                        <tr><td>XXL</td><td>5.000</td></tr>
-                        <tr><td>XXXL</td><td>10.000</td></tr>
-                        <tr><td>XXXXL</td><td>15.000</td></tr>
-                    </tbody>
-                </table>
+                <div class="card2-title">Grade C</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
             </div>
-
-            <!-- Dropdown for Size -->
-            <div class="dropdown-style" style="display:block;"> 
-                <label for="size">Ukuran:</label>
-                <select class="product-size">
-                    <option value="Pilih" selected>Pilih</option>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                    <option value="XXXL">XXXL</option>
-                </select>
-            </div>
-
-            <!-- Dropdown for Color -->
-            <div class="dropdown-style" style="display:block;">
-                <label for="color">Warna:</label>
-                <select class="product-color">
-                    <option value="Pilih" selected>Pilih</option>
-                    <option value="Merah">Merah</option>
-                    <option value="Biru">Biru</option>
-                    <option value="Hitam">Hitam</option>
-                    <option value="Putih">Putih</option>
-                    <option value="Hijau">Hijau</option>
-                </select>
-            </div>
-
         </div>
+        <button class="add-btn">ADD TO CART</button>
     </div>
-    <button class="add-btn">ADD TO CART</button>
-</div>
-
-    <!-- Product card2 3 -->
-    <div class="product-card2"  data-category="jersey">
-        <div class="card2-header">
-            <img src="https://imgur.com/CVYGUMr.png" alt="Smart Watch">
-        </div>
-        <div class="card2-price">Rp 85.000</div>
-        <div class="card2-body">
-            <div class="card2-left">
-                <div class="card2-title">Jersey4 (Atasan Full Printing)</div>
-            <div class="card2-description">
-                Bahan Drifit Milano Grade A ( pembelian >12 pcs GRATIS DESAIN )
-                <table class="note-guide">
-                    <thead>
-                        <tr><th width="65%">Catatan</th><th width="35%">Tambahan Harga</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Lengan Panjang</td><td>10.000</td></tr>
-                        <tr><td>Kerah Kancing</td><td>5.000</td></tr>
-                        <tr><td>Pola Reglan</td><td>10.000</td></tr>
-                        <tr><td>XXL</td><td>5.000</td></tr>
-                        <tr><td>XXXL</td><td>10.000</td></tr>
-                        <tr><td>XXXXL</td><td>15.000</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Dropdown for Size -->
-            <div class="dropdown-style" style="display:block;">
-                <label for="size">Ukuran:</label>
-                <select class="product-size">
-                    <option value="Pilih" selected>Pilih</option>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                    <option value="XXXL">XXXL</option>
-                </select>
-            </div>
-
-            <!-- Dropdown for Color -->
-            <div class="dropdown-style" style="display:block;">
-                <label for="color">Warna:</label>
-                <select class="product-color">
-                    <option value="Pilih" selected>Pilih</option>
-                    <option value="Merah">Merah</option>
-                    <option value="Biru">Biru</option>
-                    <option value="Hitam">Hitam</option>
-                    <option value="Putih">Putih</option>
-                    <option value="Hijau">Hijau</option>
-                </select>
-            </div>
-
-        </div>
-    </div>
-    <button class="add-btn">ADD TO CART</button>
-</div>
-
-    <!-- Product card2 3 -->
-    <div class="product-card2"  data-category="jersey">
-        <div class="card2-header">
-            <img src="https://imgur.com/CVYGUMr.png" alt="Smart Watch">
-        </div>
-        <div class="card2-price">Rp 85.000</div>
-        <div class="card2-body">
-            <div class="card2-left">
-                <div class="card2-title">Jersey5 (Atasan Full Printing)</div>
-            <div class="card2-description">
-                Bahan Drifit Milano Grade A ( pembelian >12 pcs GRATIS DESAIN )
-                <table class="note-guide">
-                    <thead>
-                        <tr><th width="65%">Catatan</th><th width="35%">Tambahan Harga</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Lengan Panjang</td><td>10.000</td></tr>
-                        <tr><td>Kerah Kancing</td><td>5.000</td></tr>
-                        <tr><td>Pola Reglan</td><td>10.000</td></tr>
-                        <tr><td>XXL</td><td>5.000</td></tr>
-                        <tr><td>XXXL</td><td>10.000</td></tr>
-                        <tr><td>XXXXL</td><td>15.000</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Dropdown for Size -->
-            <div class="dropdown-style" style="display:block;">
-                <label for="size">Ukuran:</label>
-                <select class="product-size">
-                    <option value="Pilih" selected>Pilih</option>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                    <option value="XXXL">XXXL</option>
-                </select>
-            </div>
-
-            <!-- Dropdown for Color -->
-            <div class="dropdown-style" style="display:block;">
-                <label for="color">Warna:</label>
-                <select class="product-color">
-                    <option value="Pilih" selected>Pilih</option>
-                    <option value="Merah">Merah</option>
-                    <option value="Biru">Biru</option>
-                    <option value="Hitam">Hitam</option>
-                    <option value="Putih">Putih</option>
-                    <option value="Hijau">Hijau</option>
-                </select>
-            </div>
-
-        </div>
-    </div>
-    <button class="add-btn">ADD TO CART</button>
-</div>
-
-    <!-- Product card2 3 -->
-    <div class="product-card2"  data-category="jersey">
-        <div class="card2-header">
-            <img src="https://imgur.com/CVYGUMr.png" alt="Smart Watch">
-        </div>
-        <div class="card2-price">Rp 85.000</div>
-        <div class="card2-body">
-            <div class="card2-left">
-                <div class="card2-title">Jersey6 (Atasan Full Printing)</div>
-            <div class="card2-description">
-                Bahan Drifit Milano Grade A ( pembelian >12 pcs GRATIS DESAIN )
-                <table class="note-guide">
-                    <thead>
-                        <tr><th width="65%">Catatan</th><th width="35%">Tambahan Harga</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Lengan Panjang</td><td>10.000</td></tr>
-                        <tr><td>Kerah Kancing</td><td>5.000</td></tr>
-                        <tr><td>Pola Reglan</td><td>10.000</td></tr>
-                        <tr><td>XXL</td><td>5.000</td></tr>
-                        <tr><td>XXXL</td><td>10.000</td></tr>
-                        <tr><td>XXXXL</td><td>15.000</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Dropdown for Size -->
-            <div class="dropdown-style" style="display:block;">
-                 <label for="size">Ukuran:</label>
-                <select class="product-size">
-                    <option value="Pilih" selected>Pilih</option>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                    <option value="XXXL">XXXL</option>
-                </select>
-            </div>
-
-            <!-- Dropdown for Color -->
-            <div class="dropdown-style" style="display:block;">
-                 <label for="color">Warna:</label>
-                <select class="product-color">
-                    <option value="Pilih" selected>Pilih</option>
-                    <option value="Merah">Merah</option>
-                    <option value="Biru">Biru</option>
-                    <option value="Hitam">Hitam</option>
-                    <option value="Putih">Putih</option>
-                    <option value="Hijau">Hijau</option>
-                </select>
-            </div>
-
-        </div>
-    </div>
-    <button class="add-btn">ADD TO CART</button>
-</div>
 
     <!-- Product card2 1 -->
     <div class="product-card2"  data-category="stiker">
@@ -4179,7 +3818,7 @@ document.querySelector('.tab[data-category="jersey"]').click();
 <!--LIGHTBOX DETAIL PRODUCT-->
 <script>
 // JavaScript for opening and closing the lightbox
-document.querySelectorAll('.product-card2 .card2-header').forEach(card => {
+document.querySelectorAll('.product-card2 .card2-header, .product-card2 .card2-body').forEach(card => {
     card.addEventListener('click', function() {
         const productCard = this.closest('.product-card2');
 
@@ -4244,51 +3883,18 @@ cartIcon.addEventListener('click', function() {
     cartPopup.classList.toggle('popup-hidden');
 });
 
-// Tutup cart-popup saat klik di luar area popup
-window.addEventListener('click', function(event) {
-    if (!cartPopup.contains(event.target) && event.target !== cartIcon) {
-        cartPopup.classList.add('popup-hidden');
-    }
-});
-
 // Function to add item to cart
-function addToCart(productName, productPrice, productImg, size, color, event, sizeLabel, colorLabel) {
+function addToCart(productName, productPrice, productImg, event) {
     event.stopPropagation();
-
-    // Periksa jika size kosong atau "Pilih" dan tampilkan peringatan
-    if (size === "Pilih" || size === "") {
-        alert("Silakan pilih ukuran sebelum menambahkan ke keranjang.");
-        return;
-    }
-
-    // Jika warna kosong atau "Pilih", atur warna sebagai string kosong
-    if (color === "Pilih" || color === "") color = '';
-
-    // Ambil harga tambahan dari data-price berdasarkan card2-price
-    const productCard = event.target.closest('.product-card2');
-    const sizeOption = productCard.querySelector(`.product-size option[value="${size}"]`);
-    const additionalPrice = sizeOption ? parseInt(sizeOption.getAttribute("data-price")) : 0;
-
-    // Ambil harga dasar dari card yang dipilih
-    const basePriceText = productCard.querySelector('.card2-price').innerText.replace(/Rp |[.]/g, '');
-    const basePrice = parseInt(basePriceText) || 0;
-
-    // Total harga berdasarkan ukuran yang dipilih
-    const totalPrice = basePrice + additionalPrice;
-
-    const item = cartItems.find(cartItem => cartItem.name === productName && cartItem.size === size && cartItem.color === color);
+    const item = cartItems.find(cartItem => cartItem.name === productName);
     if (item) {
         item.qty += 1;
     } else {
         cartItems.push({
             name: productName,
-            price: totalPrice,
+            price: productPrice,
             img: productImg,
-            qty: 1,
-            size: size,
-            color: color,
-            sizeLabel: sizeLabel,
-            colorLabel: colorLabel
+            qty: 1
         });
     }
     updateCart();
@@ -4310,55 +3916,48 @@ function updateCart() {
             </div>
             <div class="item-details">
                 <span>${item.name}</span>
-                ${item.size ? `<span>${item.sizeLabel} ${item.size}</span>` : ''}
-                ${item.color ? `<span>${item.colorLabel} ${item.color}</span>` : ''}
-                <span>Rp ${(item.price * item.qty).toLocaleString('id-ID')}</span>
+                <span>Rp ${(item.price * item.qty).toLocaleString('id-ID')}</span> <!-- Pemisah ribuan -->
             </div>
             <div class="item-controls">
-                <button class="decrease-btn" onclick="decreaseQty('${item.name}', '${item.size}', '${item.color}', event)">-</button>
+                <button class="decrease-btn" onclick="decreaseQty('${item.name}', event)">-</button>
                 ${item.qty}
-                <button class="increase-btn" onclick="addToCart('${item.name}', ${item.price}, '${item.img}', '${item.size}', '${item.color}', event, '${item.sizeLabel}', '${item.colorLabel}')">+</button>
-                <button class="remove-btn" onclick="removeFromCart('${item.name}', '${item.size}', '${item.color}', event)">X</button>
+                <button class="increase-btn" onclick="addToCart('${item.name}', ${item.price}, '${item.img}', event)">+</button>
+                <button class="remove-btn" onclick="removeFromCart('${item.name}', event)">X</button>
             </div>
         `;
         cartItemsContainer.appendChild(cartItem);
     });
-    subtotalElement.innerText = subtotal.toLocaleString('id-ID');
+    subtotalElement.innerText = subtotal.toLocaleString('id-ID'); // Pemisah ribuan
     cartCount.innerText = itemCount;
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
 
 // Function to add product from button click
 document.querySelectorAll('.add-btn').forEach(btn => {
-    btn.addEventListener('click', function (event) {
+    btn.addEventListener('click', function () {
         const productCard = btn.closest('.product-card2');
         const productName = productCard.querySelector('.card2-title').innerText;
         const productPrice = parseInt(productCard.querySelector('.card2-price').innerText.replace(/Rp |[.]/g, ''));
         const productImg = productCard.querySelector('.card2-header img').src;
-        const size = productCard.querySelector('.product-size').value;
-        const color = productCard.querySelector('.product-color').value;
-        const sizeLabel = productCard.querySelector('label[for="size"]').textContent.trim();
-        const colorLabel = productCard.querySelector('label[for="color"]').textContent.trim();
-        
-        addToCart(productName, productPrice, productImg, size, color, event, sizeLabel, colorLabel);
+        addToCart(productName, productPrice, productImg, event);
     });
 });
 
 // Functions for increasing, decreasing and removing items
-function decreaseQty(productName, size, color, event) {
+function decreaseQty(productName, event) {
     event.stopPropagation();
-    const item = cartItems.find(cartItem => cartItem.name === productName && cartItem.size === size && cartItem.color === color);
+    const item = cartItems.find(cartItem => cartItem.name === productName);
     if (item && item.qty > 1) {
         item.qty -= 1;
     } else if (item) {
-        cartItems = cartItems.filter(cartItem => cartItem.name !== productName || cartItem.size !== size || cartItem.color !== color);
+        cartItems = cartItems.filter(cartItem => cartItem.name !== productName);
     }
     updateCart();
 }
 
-function removeFromCart(productName, size, color, event) {
+function removeFromCart(productName, event) {
     event.stopPropagation();
-    cartItems = cartItems.filter(cartItem => cartItem.name !== productName || cartItem.size !== size || cartItem.color !== color);
+    cartItems = cartItems.filter(cartItem => cartItem.name !== productName);
     updateCart();
 }
 
@@ -4376,11 +3975,11 @@ function checkout() {
 // Show payment popup
 function showPaymentPopup() {
     const subtotal = cartItems.reduce((total, item) => total + item.price * item.qty, 0);
-    paymentPopup.classList.remove('popup-hidden');
-    paymentPopup.classList.add('popup-show');
+    paymentPopup.classList.remove('popup-hidden'); // Tampilkan popup
+    paymentPopup.classList.add('popup-show'); // Tambahkan kelas animasi
     const paymentDetails = paymentPopup.querySelector('.payment-details');
     paymentDetails.innerHTML = `
-        <p><strong><h1 style="margin-top:-10px;margin-bottom:30px;">Rp ${subtotal.toLocaleString('id-ID')}</h1></strong></p>
+        <p><strong><h1 style="margin-top:-10px;margin-bottom:30px;">Rp ${subtotal.toLocaleString('id-ID')}</h1></strong></p> <!-- Pemisah ribuan -->
         <p>Pilih metode pembayaran:</p>
         <ul>
             <li><h3>a.n <b>PT. DSAIN KREASI MANDIRI</h3></b></li>
@@ -4392,7 +3991,7 @@ function showPaymentPopup() {
 
 // Hide payment popup
 function hidePaymentPopup() {
-    paymentPopup.classList.remove('popup-show');
+    paymentPopup.classList.remove('popup-show'); // Hapus kelas animasi
     paymentPopup.classList.add('popup-hidden');
 }
 
@@ -4400,23 +3999,16 @@ function hidePaymentPopup() {
 function sendOrderToWhatsApp() {
     let message = "Pesanan Anda:\n--------------------------------------\n";
     cartItems.forEach(item => {
-        if (item.size && item.color) {
-            message += `${item.name} - ${item.sizeLabel}: ${item.size} - ${item.colorLabel}: ${item.color} - Qty: ${item.qty} - Rp ${(item.price * item.qty).toLocaleString('id-ID')}\n`;
-        } else if (item.size) {
-            message += `${item.name} - ${item.sizeLabel}: ${item.size} - Qty: ${item.qty} - Rp ${(item.price * item.qty).toLocaleString('id-ID')}\n`;
-        } else if (item.color) {
-            message += `${item.name} - ${item.colorLabel}: ${item.color} - Qty: ${item.qty} - Rp ${(item.price * item.qty).toLocaleString('id-ID')}\n`;
-        } else {
-            message += `${item.name} - Qty: ${item.qty} - Rp ${(item.price * item.qty).toLocaleString('id-ID')}\n`;
-        }
+        message += `${item.name} - Qty: ${item.qty} - Rp ${(item.price * item.qty).toLocaleString('id-ID')}\n`; // Pemisah ribuan
     });
-    message += `--------------------------------------\nSubtotal: Rp ${cartItems.reduce((total, item) => total + item.price * item.qty, 0).toLocaleString('id-ID')}`;
+    message += `--------------------------------------\nSubtotal: Rp ${cartItems.reduce((total, item) => total + item.price * item.qty, 0).toLocaleString('id-ID')}`; // Pemisah ribuan
 
     const encodedMessage = encodeURIComponent(message);
     const phoneNumber = '6285172288904';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
     window.open(whatsappUrl, '_blank');
+
     cartItems = [];
     updateCart();
     hidePaymentPopup();
@@ -4427,9 +4019,16 @@ checkoutBtn.addEventListener('click', checkout);
 
 // Event listeners untuk tombol pada popup pembayaran
 document.getElementById('cancel-btn').addEventListener('click', hidePaymentPopup);
-document.getElementById('send-whatsapp-btn').addEventListener('click', sendOrderToWhatsApp);
+document.getElementById('next-btn').addEventListener('click', sendOrderToWhatsApp);
 
-// Initial call to load cart items from local storage
+// Close cart popup when clicking outside of it
+window.addEventListener('click', function(event) {
+    if (!cartPopup.classList.contains('popup-hidden') && !cartIcon.contains(event.target) && !cartPopup.contains(event.target)) {
+        cartPopup.classList.add('popup-hidden');
+    }
+});
+
+// Call updateCart to load items from local storage on page load
 updateCart();
 </script>
 
@@ -4447,18 +4046,7 @@ updateCart();
     
     // Tambah kelas aktif ke tab dan konten yang dipilih
     element.classList.add('activeH3');
-    const activeContent = document.getElementById(contentId);
-    activeContent.classList.add('activeH3');
-
-    // Mendapatkan posisi elemen relatif terhadap bagian atas halaman
-    const jarakAtas = 100; // Jarak tetap yang diinginkan
-    const posisiAkhir = activeContent.getBoundingClientRect().top + window.scrollY - jarakAtas;
-
-    // Scroll ke posisi akhir yang sudah disesuaikan dengan jarak atas tetap
-    window.scrollTo({
-      top: posisiAkhir,
-      behavior: "smooth"
-    });
+    document.getElementById(contentId).classList.add('activeH3');
   }
 </script>
 
@@ -4706,7 +4294,13 @@ setInterval(showNextSlide, 10000);
         }
     </script>
     
-
+ <!--CONTACT FORM --> 
+    <script>
+        document.querySelector(".contact-formCF").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Message Sent!");
+        });
+    </script>
 
  <!--NOTIF MENGAMBANG --> 
   <script>
