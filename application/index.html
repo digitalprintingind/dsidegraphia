@@ -1028,6 +1028,69 @@ button:hover {
         width: 100%;
     }
     #subtotal-container{margin-bottom:5px;}
+    
+    /* Styling untuk container dropdown */
+.dropdown-style {
+    margin-bottom: 10px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Styling label */
+.dropdown-style label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 0px;
+    font-weight: 600;
+}
+
+/* Styling untuk select element */
+.product-size {
+    width: 100%;
+    font-size: 14px;
+    color: #555;
+    background-color: #f8f8f8;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Gaya saat hover pada select */
+.product-size:hover {
+    border-color: #007bff;
+}
+
+/* Gaya saat select dalam fokus */
+.product-size:focus {
+    border-color: #0056b3;
+    background-color: #ffffff;
+}
+
+/* Styling untuk option */
+    .product-size option {
+        padding: 10px;
+        background: white;
+        color: #333;
+    }
+
+/* Mengubah tampilan pada opsi yang dipilih */
+.product-size option:checked {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Styling untuk opsi dengan harga tambahan */
+.product-size option[data-price] {
+    color: #ff5722;
+}
+
+/* Styling untuk opsi yang dipilih dengan harga tambahan */
+.product-size option[data-price]:checked {
+    background-color: #ff5722;
+    color: white;
+}
+
 </style>
 
 
@@ -2597,9 +2660,9 @@ line-height:1;
                     <option value="M" data-price="0">M</option>
                     <option value="L" data-price="0">L</option>
                     <option value="XL" data-price="0">XL</option>
-                    <option value="XXL" data-price="5000">XXL (+Rp 5.000)</option>
-                    <option value="XXXL" data-price="10000">XXXL (+Rp 10.000)</option>
-                    <option value="XXXXL" data-price="15000">XXXXL (+Rp 15.000)</option>
+                    <option value="XXL" data-price="5000">XXL</option>
+                    <option value="XXXL" data-price="10000">XXXL</option>
+                    <option value="XXXXL" data-price="15000">XXXXL</option>
                 </select>
             </div>
 
@@ -2639,29 +2702,30 @@ line-height:1;
                         <tr><td>Lengan Panjang</td><td>10.000</td></tr>
                         <tr><td>Kerah Kancing</td><td>5.000</td></tr>
                         <tr><td>Pola Reglan</td><td>10.000</td></tr>
-                        <tr><td>XXL</td><td>5.000</td></tr>
-                        <tr><td>XXXL</td><td>10.000</td></tr>
-                        <tr><td>XXXXL</td><td>15.000</td></tr>
+                        <tr><td>XXL</td><td>7.000</td></tr>
+                        <tr><td>XXXL</td><td>12.000</td></tr>
+                        <tr><td>XXXXL</td><td>17.000</td></tr>
                     </tbody>
                 </table>
             </div>
 
             <!-- Dropdown for Size -->
-            <div class="dropdown-style" style="display:block;"> 
+            <div class="dropdown-style" style="display:block;">
                 <label for="size">Ukuran:</label>
                 <select class="product-size">
                     <option value="Pilih" selected>Pilih</option>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                    <option value="XXXL">XXXL</option>
+                    <option value="S" data-price="0">S</option>
+                    <option value="M" data-price="0">M</option>
+                    <option value="L" data-price="0">L</option>
+                    <option value="XL" data-price="0">XL</option>
+                    <option value="XXL" data-price="7000">XXL</option>
+                    <option value="XXXL" data-price="12000">XXXL</option>
+                    <option value="XXXXL" data-price="17000">XXXXL</option>
                 </select>
             </div>
 
             <!-- Dropdown for Color -->
-            <div class="dropdown-style" style="display:block;"> 
+            <div class="dropdown-style" style="display:block;">
                 <label for="color">Warna:</label>
                 <select class="product-color">
                     <option value="Pilih" selected>Pilih</option>
@@ -2672,7 +2736,6 @@ line-height:1;
                     <option value="Hijau">Hijau</option>
                 </select>
             </div>
-
         </div>
     </div>
     <button class="add-btn">ADD TO CART</button>
@@ -4176,27 +4239,39 @@ const paymentPopup = document.getElementById('payment-popup');
 
 let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-// Harga dasar produk
-const basePrice = 85000; // Contoh harga dasar, sesuaikan dengan harga produk
-
 // Toggle visibility of cart popup
 cartIcon.addEventListener('click', function() {
     cartPopup.classList.toggle('popup-hidden');
 });
 
+// Tutup cart-popup saat klik di luar area popup
+window.addEventListener('click', function(event) {
+    if (!cartPopup.contains(event.target) && event.target !== cartIcon) {
+        cartPopup.classList.add('popup-hidden');
+    }
+});
+
 // Function to add item to cart
 function addToCart(productName, productPrice, productImg, size, color, event, sizeLabel, colorLabel) {
     event.stopPropagation();
-    
-    // Jika ukuran atau warna kosong atau "Pilih", kosongkan nilai untuk tidak ditampilkan
-    if (size === "Pilih" || size === "") size = '';
+
+    // Periksa jika size kosong atau "Pilih" dan tampilkan peringatan
+    if (size === "Pilih" || size === "") {
+        alert("Silakan pilih ukuran sebelum menambahkan ke keranjang.");
+        return;
+    }
+
+    // Jika warna kosong atau "Pilih", atur warna sebagai string kosong
     if (color === "Pilih" || color === "") color = '';
 
-    // Menentukan harga tambahan berdasarkan ukuran
-    let additionalPrice = 0;
-    if (size === "XXL") additionalPrice = 5000;
-    else if (size === "XXXL") additionalPrice = 10000;
-    else if (size === "XXXXL") additionalPrice = 15000;
+    // Ambil harga tambahan dari data-price berdasarkan card2-price
+    const productCard = event.target.closest('.product-card2');
+    const sizeOption = productCard.querySelector(`.product-size option[value="${size}"]`);
+    const additionalPrice = sizeOption ? parseInt(sizeOption.getAttribute("data-price")) : 0;
+
+    // Ambil harga dasar dari card yang dipilih
+    const basePriceText = productCard.querySelector('.card2-price').innerText.replace(/Rp |[.]/g, '');
+    const basePrice = parseInt(basePriceText) || 0;
 
     // Total harga berdasarkan ukuran yang dipilih
     const totalPrice = basePrice + additionalPrice;
@@ -4207,13 +4282,13 @@ function addToCart(productName, productPrice, productImg, size, color, event, si
     } else {
         cartItems.push({
             name: productName,
-            price: totalPrice,  // Menggunakan harga yang sudah ditambah ukuran
+            price: totalPrice,
             img: productImg,
             qty: 1,
             size: size,
             color: color,
-            sizeLabel: sizeLabel,  // Simpan label ukuran
-            colorLabel: colorLabel // Simpan label warna
+            sizeLabel: sizeLabel,
+            colorLabel: colorLabel
         });
     }
     updateCart();
@@ -4235,9 +4310,9 @@ function updateCart() {
             </div>
             <div class="item-details">
                 <span>${item.name}</span>
-                ${item.size ? `<span>${item.sizeLabel} ${item.size}</span>` : ''} <!-- Menampilkan ukuran jika ada -->
-                ${item.color ? `<span>${item.colorLabel} ${item.color}</span>` : ''} <!-- Menampilkan warna jika ada -->
-                <span>Rp ${(item.price * item.qty).toLocaleString('id-ID')}</span> <!-- Pemisah ribuan -->
+                ${item.size ? `<span>${item.sizeLabel} ${item.size}</span>` : ''}
+                ${item.color ? `<span>${item.colorLabel} ${item.color}</span>` : ''}
+                <span>Rp ${(item.price * item.qty).toLocaleString('id-ID')}</span>
             </div>
             <div class="item-controls">
                 <button class="decrease-btn" onclick="decreaseQty('${item.name}', '${item.size}', '${item.color}', event)">-</button>
@@ -4248,7 +4323,7 @@ function updateCart() {
         `;
         cartItemsContainer.appendChild(cartItem);
     });
-    subtotalElement.innerText = subtotal.toLocaleString('id-ID'); // Pemisah ribuan
+    subtotalElement.innerText = subtotal.toLocaleString('id-ID');
     cartCount.innerText = itemCount;
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
@@ -4260,10 +4335,10 @@ document.querySelectorAll('.add-btn').forEach(btn => {
         const productName = productCard.querySelector('.card2-title').innerText;
         const productPrice = parseInt(productCard.querySelector('.card2-price').innerText.replace(/Rp |[.]/g, ''));
         const productImg = productCard.querySelector('.card2-header img').src;
-        const size = productCard.querySelector('.product-size').value; // Get selected size
-        const color = productCard.querySelector('.product-color').value; // Get selected color
-        const sizeLabel = productCard.querySelector('label[for="size"]').textContent.trim(); // Ambil label ukuran
-        const colorLabel = productCard.querySelector('label[for="color"]').textContent.trim(); // Ambil label warna
+        const size = productCard.querySelector('.product-size').value;
+        const color = productCard.querySelector('.product-color').value;
+        const sizeLabel = productCard.querySelector('label[for="size"]').textContent.trim();
+        const colorLabel = productCard.querySelector('label[for="color"]').textContent.trim();
         
         addToCart(productName, productPrice, productImg, size, color, event, sizeLabel, colorLabel);
     });
@@ -4301,11 +4376,11 @@ function checkout() {
 // Show payment popup
 function showPaymentPopup() {
     const subtotal = cartItems.reduce((total, item) => total + item.price * item.qty, 0);
-    paymentPopup.classList.remove('popup-hidden'); // Tampilkan popup
-    paymentPopup.classList.add('popup-show'); // Tambahkan kelas animasi
+    paymentPopup.classList.remove('popup-hidden');
+    paymentPopup.classList.add('popup-show');
     const paymentDetails = paymentPopup.querySelector('.payment-details');
     paymentDetails.innerHTML = `
-        <p><strong><h1 style="margin-top:-10px;margin-bottom:30px;">Rp ${subtotal.toLocaleString('id-ID')}</h1></strong></p> <!-- Pemisah ribuan -->
+        <p><strong><h1 style="margin-top:-10px;margin-bottom:30px;">Rp ${subtotal.toLocaleString('id-ID')}</h1></strong></p>
         <p>Pilih metode pembayaran:</p>
         <ul>
             <li><h3>a.n <b>PT. DSAIN KREASI MANDIRI</h3></b></li>
@@ -4317,7 +4392,7 @@ function showPaymentPopup() {
 
 // Hide payment popup
 function hidePaymentPopup() {
-    paymentPopup.classList.remove('popup-show'); // Hapus kelas animasi
+    paymentPopup.classList.remove('popup-show');
     paymentPopup.classList.add('popup-hidden');
 }
 
@@ -4325,9 +4400,8 @@ function hidePaymentPopup() {
 function sendOrderToWhatsApp() {
     let message = "Pesanan Anda:\n--------------------------------------\n";
     cartItems.forEach(item => {
-        // Menangani kondisi jika hanya size atau hanya color yang dipilih
         if (item.size && item.color) {
-            message += `${item.name} - ${item.sizeLabel}: ${item.size} - ${item.colorLabel}: ${item.color} - Qty: ${item.qty} - Rp ${(item.price * item.qty).toLocaleString('id-ID')}\n`; // Pemisah ribuan
+            message += `${item.name} - ${item.sizeLabel}: ${item.size} - ${item.colorLabel}: ${item.color} - Qty: ${item.qty} - Rp ${(item.price * item.qty).toLocaleString('id-ID')}\n`;
         } else if (item.size) {
             message += `${item.name} - ${item.sizeLabel}: ${item.size} - Qty: ${item.qty} - Rp ${(item.price * item.qty).toLocaleString('id-ID')}\n`;
         } else if (item.color) {
@@ -4336,17 +4410,16 @@ function sendOrderToWhatsApp() {
             message += `${item.name} - Qty: ${item.qty} - Rp ${(item.price * item.qty).toLocaleString('id-ID')}\n`;
         }
     });
-    message += `--------------------------------------\nSubtotal: Rp ${cartItems.reduce((total, item) => total + item.price * item.qty, 0).toLocaleString('id-ID')}`; // Pemisah ribuan
+    message += `--------------------------------------\nSubtotal: Rp ${cartItems.reduce((total, item) => total + item.price * item.qty, 0).toLocaleString('id-ID')}`;
 
     const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = '6285172288904'; // Nomor WhatsApp tujuan
+    const phoneNumber = '6285172288904';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
-    window.open(whatsappUrl, '_blank'); // Membuka WhatsApp untuk mengirim pesan
-
-    cartItems = []; // Kosongkan keranjang setelah pengiriman
-    updateCart(); // Update tampilan keranjang
-    hidePaymentPopup(); // Sembunyikan popup pembayaran
+    window.open(whatsappUrl, '_blank');
+    cartItems = [];
+    updateCart();
+    hidePaymentPopup();
 }
 
 // Event listener untuk tombol checkout
@@ -4354,16 +4427,9 @@ checkoutBtn.addEventListener('click', checkout);
 
 // Event listeners untuk tombol pada popup pembayaran
 document.getElementById('cancel-btn').addEventListener('click', hidePaymentPopup);
-document.getElementById('next-btn').addEventListener('click', sendOrderToWhatsApp);
+document.getElementById('send-whatsapp-btn').addEventListener('click', sendOrderToWhatsApp);
 
-// Close cart popup when clicking outside of it
-window.addEventListener('click', function(event) {
-    if (!cartPopup.classList.contains('popup-hidden') && !cartIcon.contains(event.target) && !cartPopup.contains(event.target)) {
-        cartPopup.classList.add('popup-hidden');
-    }
-});
-
-// Call updateCart to load items from local storage on page load
+// Initial call to load cart items from local storage
 updateCart();
 </script>
 
