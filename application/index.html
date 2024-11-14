@@ -4142,6 +4142,115 @@ tabs.forEach(tab => {
 document.querySelector('.tab[data-category="jersey"]').click();
 </script>
 
+<!-- LIGHTBOX ATC -->
+<script>
+document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
+    card.addEventListener('click', function() {
+        const productCard = this.closest('.product-card2');
+
+        // Ambil detail produk langsung dari elemen
+        const imgSrc = productCard.querySelector('.card2-header img').src;
+        const title = productCard.querySelector('.card2-title').textContent;
+        const price = productCard.querySelector('.card2-price').textContent;
+
+        // Atur konten lightbox
+        document.getElementById('lightbox-imgATC').src = imgSrc;
+        document.getElementById('lightbox-titleATC').textContent = title;
+        document.getElementById('lightbox-priceATC').textContent = price;
+
+        // Bersihkan opsi yang ada sebelumnya
+        const optionsContainer = document.querySelector('.popup-options');
+        optionsContainer.innerHTML = '';
+
+        // Ambil dan tambahkan grup opsi secara dinamis dari product card
+        const optionGroups = productCard.querySelectorAll('.option-group');
+        optionGroups.forEach(group => {
+            const labelText = group.querySelector('label').textContent;
+            const options = group.querySelectorAll('.options .option1, .options .option2');
+
+            const optionGroupElement = document.createElement('div');
+            optionGroupElement.classList.add('option-group');
+            const labelElement = document.createElement('label');
+            labelElement.textContent = labelText;
+            optionGroupElement.appendChild(labelElement);
+
+            const optionsContainerInGroup = document.createElement('div');
+            optionsContainerInGroup.classList.add('options');
+
+            options.forEach(option => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add(option.classList[0]);
+                optionElement.textContent = option.textContent;
+
+                // Event listener untuk memastikan hanya satu opsi yang aktif
+                optionElement.addEventListener('click', function() {
+                    // Kembalikan semua opsi dalam grup yang sama ke warna normal
+                    optionsContainerInGroup.querySelectorAll('.active').forEach(activeOption => {
+                        activeOption.classList.remove('active');
+                    });
+
+                    // Set opsi yang diklik sebagai aktif
+                    optionElement.classList.add('active');
+                });
+
+                optionsContainerInGroup.appendChild(optionElement);
+            });
+
+            optionGroupElement.appendChild(optionsContainerInGroup);
+            optionsContainer.appendChild(optionGroupElement);
+        });
+
+        // Tampilkan lightbox
+        document.getElementById('lightboxATC').style.display = 'flex';
+
+        // Inisialisasi quantity
+        const qtyInput = document.querySelector('.popup-footer input');
+        let quantity = 1;
+
+        // Fungsi tambah dan kurang quantity
+        document.querySelector('.popup-footer button:nth-child(1)').addEventListener('click', function() {
+            if (quantity > 1) {
+                quantity--;
+                qtyInput.value = quantity;
+            }
+        });
+
+        document.querySelector('.popup-footer button:nth-child(3)').addEventListener('click', function() {
+            quantity++;
+            qtyInput.value = quantity;
+        });
+
+        // Fungsi tombol add-to-cart tanpa chart item
+        document.querySelector('.add-to-cart-button').addEventListener('click', function() {
+            const selectedOptions = [];
+            // Ambil opsi yang dipilih
+            document.querySelectorAll('.options .active').forEach(option => {
+                selectedOptions.push(option.textContent);
+            });
+
+            // Tindakan setelah memilih tanpa menambahkan ke cart item
+
+            // Tutup lightbox
+            document.getElementById('lightboxATC').style.display = 'none';
+        });
+    });
+});
+
+// Fungsi tombol tutup
+document.querySelector('.close-btnATC').addEventListener('click', function() {
+    document.getElementById('lightboxATC').style.display = 'none';
+    document.querySelector('.popup-options').innerHTML = '';
+});
+
+// Tutup lightbox saat mengklik di luar area
+window.addEventListener('click', function(event) {
+    if (event.target === document.getElementById('lightboxATC')) {
+        document.getElementById('lightboxATC').style.display = 'none';
+        document.querySelector('.popup-options').innerHTML = '';
+    }
+});
+</script>
+
 <!--LIGHTBOX DETAIL PRODUCT-->
 <script>
 // JavaScript for opening and closing the lightbox
@@ -4194,7 +4303,7 @@ window.addEventListener('click', function(event) {
 	
 <!--MENU TAB PRODUCT CART-->
 <script>
-// Elemen keranjang, checkout, dan elemen lainnya
+// Ambil elemen keranjang dan checkout
 const cartItemsContainer = document.getElementById('cart-items');
 const checkoutBtn = document.getElementById('checkout-btn');
 const subtotalElement = document.getElementById('subtotal');
@@ -4355,112 +4464,8 @@ window.addEventListener('click', function(event) {
     }
 });
 
-// Lightbox functionality for adding to cart
-document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
-    card.addEventListener('click', function() {
-        const productCard = this.closest('.product-card2');
-
-        // Ambil detail produk langsung dari elemen
-        const imgSrc = productCard.querySelector('.card2-header img').src;
-        const title = productCard.querySelector('.card2-title').textContent;
-        const price = productCard.querySelector('.card2-price').textContent;
-
-        // Atur konten lightbox
-        document.getElementById('lightbox-imgATC').src = imgSrc;
-        document.getElementById('lightbox-titleATC').textContent = title;
-        document.getElementById('lightbox-priceATC').textContent = price;
-
-        // Bersihkan opsi yang ada sebelumnya
-        const optionsContainer = document.querySelector('.popup-options');
-        optionsContainer.innerHTML = '';
-
-        // Ambil dan tambahkan grup opsi secara dinamis dari product card
-        const optionGroups = productCard.querySelectorAll('.option-group');
-        optionGroups.forEach(group => {
-            const labelText = group.querySelector('label').textContent;
-            const options = group.querySelectorAll('.options .option1, .options .option2');
-
-            const optionGroupElement = document.createElement('div');
-            optionGroupElement.classList.add('option-group');
-            const labelElement = document.createElement('label');
-            labelElement.textContent = labelText;
-            optionGroupElement.appendChild(labelElement);
-
-            const optionsContainerInGroup = document.createElement('div');
-            optionsContainerInGroup.classList.add('options');
-
-            options.forEach(option => {
-                const optionElement = document.createElement('div');
-                optionElement.classList.add(option.classList[0]);
-                optionElement.textContent = option.textContent;
-
-                // Event listener untuk memastikan hanya satu opsi yang aktif
-                optionElement.addEventListener('click', function() {
-                    // Kembalikan semua opsi dalam grup yang sama ke warna normal
-                    optionsContainerInGroup.querySelectorAll('.active').forEach(activeOption => {
-                        activeOption.classList.remove('active');
-                    });
-
-                    // Set opsi yang diklik sebagai aktif
-                    optionElement.classList.add('active');
-                });
-
-                optionsContainerInGroup.appendChild(optionElement);
-            });
-
-            optionGroupElement.appendChild(optionsContainerInGroup);
-            optionsContainer.appendChild(optionGroupElement);
-        });
-
-        // Tampilkan lightbox
-        document.getElementById('lightboxATC').style.display = 'flex';
-
-        // Inisialisasi quantity
-        const qtyInput = document.querySelector('.popup-footer input');
-        let quantity = 1;
-
-        // Fungsi tambah dan kurang quantity
-        document.querySelector('.popup-footer button:nth-child(1)').addEventListener('click', function() {
-            if (quantity > 1) {
-                quantity--;
-                qtyInput.value = quantity;
-            }
-        });
-
-        document.querySelector('.popup-footer button:nth-child(3)').addEventListener('click', function() {
-            quantity++;
-            qtyInput.value = quantity;
-        });
-
-        // Fungsi tombol add-to-cart tanpa chart item
-        document.querySelector('.add-to-cart-button').addEventListener('click', function() {
-            const selectedOptions = [];
-            // Ambil opsi yang dipilih
-            document.querySelectorAll('.options .active').forEach(option => {
-                selectedOptions.push(option.textContent);
-            });
-
-            // Tindakan setelah memilih tanpa menambahkan ke cart item
-
-            // Tutup lightbox
-            document.getElementById('lightboxATC').style.display = 'none';
-        });
-    });
-});
-
-// Fungsi tombol tutup
-document.querySelector('.close-btnATC').addEventListener('click', function() {
-    document.getElementById('lightboxATC').style.display = 'none';
-    document.querySelector('.popup-options').innerHTML = ''; // Kosongkan opsi lightbox saat ditutup
-});
-
-// Tutup lightbox saat mengklik di luar area
-window.addEventListener('click', function(event) {
-    if (event.target === document.getElementById('lightboxATC')) {
-        document.getElementById('lightboxATC').style.display = 'none';
-        document.querySelector('.popup-options').innerHTML = ''; // Bersihkan opsi
-    }
-});
+// Call updateCart to load items from local storage on page load
+updateCart();
 </script>
 
 
