@@ -4222,7 +4222,19 @@ function updateCart() {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
 
-// Lightbox ATC handler
+// Function to decrease quantity
+function decreaseQty(productName, options, event) {
+    event.stopPropagation();
+    const item = cartItems.find(cartItem => cartItem.name === productName && cartItem.options === options);
+    if (item && item.qty > 1) {
+        item.qty -= 1;
+    } else if (item) {
+        cartItems = cartItems.filter(cartItem => !(cartItem.name === productName && cartItem.options === options));
+    }
+    updateCart();
+}
+
+// Fungsi untuk menampilkan lightbox ATC dan memilih opsi
 document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
     card.addEventListener('click', function() {
         const productCard = this.closest('.product-card2');
@@ -4230,12 +4242,14 @@ document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
         // Ambil detail produk dari lightbox
         const imgSrc = productCard.querySelector('.card2-header img').src;
         const title = productCard.querySelector('.card2-title').textContent;
-        const price = productCard.querySelector('.card2-price').textContent;
+        const basePrice = parseInt(productCard.querySelector('.card2-price').textContent.replace(/Rp |[.]/g, '')); // Harga dasar tanpa tambahan opsi
 
         // Atur konten lightbox
         lightboxImg.src = imgSrc;
         lightboxTitle.textContent = title;
-        lightboxPrice.textContent = price;
+        lightboxPrice.textContent = `Rp ${basePrice.toLocaleString('id-ID')}`;
+
+        let totalPrice = basePrice; // Inisialisasi total harga
 
         // Bersihkan opsi yang ada sebelumnya
         const optionsContainer = document.querySelector('.popup-options');
@@ -4261,12 +4275,25 @@ document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
                 optionElement.classList.add(option.classList[0]);
                 optionElement.textContent = option.textContent;
 
-                // Event listener untuk memastikan hanya satu opsi yang aktif
+                const addPrice = parseInt(option.getAttribute('add-price')) || 0;
+
+                // Event listener untuk memilih atau membatalkan opsi
                 optionElement.addEventListener('click', function() {
-                    optionsContainerInGroup.querySelectorAll('.active').forEach(activeOption => {
-                        activeOption.classList.remove('active');
-                    });
-                    optionElement.classList.add('active');
+                    if (optionElement.classList.contains('active')) {
+                        optionElement.classList.remove('active');
+                        totalPrice -= addPrice; // Kurangi harga tambahan saat opsi dibatalkan
+                    } else {
+                        optionsContainerInGroup.querySelectorAll('.active').forEach(activeOption => {
+                            const activeAddPrice = parseInt(activeOption.getAttribute('add-price')) || 0;
+                            totalPrice -= activeAddPrice; // Kurangi harga tambahan sebelumnya
+                            activeOption.classList.remove('active');
+                        });
+                        optionElement.classList.add('active');
+                        totalPrice += addPrice; // Tambahkan harga tambahan saat opsi dipilih
+                    }
+
+                    // Update tampilan harga total di lightbox
+                    lightboxPrice.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
                 });
 
                 optionsContainerInGroup.appendChild(optionElement);
@@ -4294,21 +4321,23 @@ document.querySelector('.popup-footer button:nth-child(3)').addEventListener('cl
     qtyInput.value = parseInt(qtyInput.value) + 1;
 });
 
-// Tambah produk ke cart dari lightbox
+// Tambah produk ke cart dari lightbox dengan opsi tambahan
 document.querySelector('.add-to-cart-button').addEventListener('click', function(event) {
     const productName = lightboxTitle.textContent;
     const productImg = lightboxImg.src;
-    const productPrice = parseInt(lightboxPrice.textContent.replace(/Rp |[.]/g, ''));
     const quantity = parseInt(qtyInput.value);
 
+    // Gunakan total harga yang sudah diperbarui sesuai opsi yang dipilih
+    const finalPrice = parseInt(lightboxPrice.textContent.replace(/Rp |[.]/g, ''));
+    
     // Ambil opsi yang dipilih
     const selectedOptions = [];
     document.querySelectorAll('.options .active').forEach(option => {
         selectedOptions.push(option.textContent);
     });
 
-    // Tambahkan produk ke keranjang dengan opsi yang dipilih
-    addToCart(productName, productPrice, productImg, quantity, selectedOptions, event);
+    // Tambahkan produk ke keranjang dengan opsi dan harga akhir yang dipilih
+    addToCart(productName, finalPrice, productImg, quantity, selectedOptions, event);
 
     // Tutup lightbox
     document.getElementById('lightboxATC').style.display = 'none';
@@ -4328,6 +4357,16 @@ window.addEventListener('click', function(event) {
         document.querySelector('.popup-options').innerHTML = '';
     }
 });
+
+// Tutup cart popup saat mengklik di luar area
+window.addEventListener('click', function(event) {
+    if (!cartPopup.classList.contains('popup-hidden') && !cartIcon.contains(event.target) && !cartPopup.contains(event.target)) {
+        cartPopup.classList.add('popup-hidden');
+    }
+});
+
+// Call updateCart to load items from local storage on page load
+updateCart();
 </script>
 
 <!--LIGHTBOX DETAIL PRODUCT-->
@@ -4391,7 +4430,7 @@ const cartIcon = document.getElementById('cart-icon');
 const cartPopup = document.getElementById('cart-popup');
 const paymentPopup = document.getElementById('payment-popup');
 
-let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+// Hapus cartItems karena sudah ada di JavaScript 2
 
 // Toggle visibility of cart popup
 cartIcon.addEventListener('click', function() {
