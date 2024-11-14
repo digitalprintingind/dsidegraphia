@@ -4403,9 +4403,9 @@ function hidePaymentPopup() {
 function sendOrderToWhatsApp() {
     let message = "Pesanan Anda:\n--------------------------------------\n";
     cartItems.forEach(item => {
-        message += `${item.name} - Qty: ${item.qty} - Rp ${(item.price * item.qty).toLocaleString('id-ID')}\n`; // Pemisah ribuan
+        message += `${item.name} - Qty: ${item.qty} - Rp ${(item.price * item.qty).toLocaleString('id-ID')}\nDetail : ${item.options}\n--------------------------------------\n`; // Pemisah ribuan
     });
-    message += `--------------------------------------\nSubtotal: Rp ${cartItems.reduce((total, item) => total + item.price * item.qty, 0).toLocaleString('id-ID')}`; // Pemisah ribuan
+    message += `Subtotal: Rp ${cartItems.reduce((total, item) => total + item.price * item.qty, 0).toLocaleString('id-ID')}`; // Pemisah ribuan
 
     const encodedMessage = encodeURIComponent(message);
     const phoneNumber = '6285172288904';
