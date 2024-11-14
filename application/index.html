@@ -2888,7 +2888,6 @@ line-height:1;
         </div>
     </div>
     <button class="atc-btn">ADD TO CART</button>
-    <button class="add-btn">ADD TO CART</button>
 </div>
 
     <!-- Product card2 2 -->
@@ -2921,7 +2920,6 @@ line-height:1;
         </div>
     </div>
     <button class="atc-btn">ADD TO CART</button>
-    <button class="add-btn">ADD TO CART</button>
 </div>
 
     <!-- Product card2 3 -->
@@ -4144,19 +4142,100 @@ document.querySelector('.tab[data-category="jersey"]').click();
 
 <!-- LIGHTBOX ATC -->
 <script>
+// Ambil elemen keranjang dan checkout
+const cartItemsContainer = document.getElementById('cart-items');
+const checkoutBtn = document.getElementById('checkout-btn');
+const subtotalElement = document.getElementById('subtotal');
+const cartCount = document.getElementById('cart-count');
+const cartIcon = document.getElementById('cart-icon');
+const cartPopup = document.getElementById('cart-popup');
+const paymentPopup = document.getElementById('payment-popup');
+
+// Ambil elemen lightbox
+const qtyInput = document.querySelector('.popup-footer input');
+const lightboxTitle = document.getElementById('lightbox-titleATC');
+const lightboxImg = document.getElementById('lightbox-imgATC');
+const lightboxPrice = document.getElementById('lightbox-priceATC');
+
+let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+// Toggle visibility of cart popup
+cartIcon.addEventListener('click', function() {
+    cartPopup.classList.toggle('popup-hidden');
+});
+
+// Function to add item to cart
+function addToCart(productName, productPrice, productImg, quantity, selectedOptions, event) {
+    event.stopPropagation();
+    const item = cartItems.find(cartItem => cartItem.name === productName && cartItem.options === selectedOptions.join(', '));
+    if (item) {
+        item.qty += quantity;
+    } else {
+        cartItems.push({
+            name: productName,
+            price: productPrice,
+            img: productImg,
+            qty: quantity,
+            options: selectedOptions.join(', ')
+        });
+    }
+    updateCart();
+}
+
+// Function to remove item from cart
+function removeFromCart(productName, options, event) {
+    event.stopPropagation();
+    cartItems = cartItems.filter(cartItem => !(cartItem.name === productName && cartItem.options === options));
+    updateCart();
+}
+
+// Update cart display and save to local storage
+function updateCart() {
+    cartItemsContainer.innerHTML = '';
+    let subtotal = 0;
+    let itemCount = 0;
+    cartItems.forEach(item => {
+        subtotal += item.price * item.qty;
+        itemCount += item.qty;
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
+        cartItem.innerHTML = `
+            <div class="item-image">
+                <img src="${item.img}" alt="${item.name}">
+            </div>
+            <div class="item-details">
+                <span>${item.name}</span>
+                <span class="item-options">${item.options}</span> <!-- Menampilkan opsi yang dipilih -->
+                <span>Rp ${(item.price * item.qty).toLocaleString('id-ID')}</span>
+            </div>
+            <div class="item-controls">
+                <button class="decrease-btn" onclick="decreaseQty('${item.name}', '${item.options}', event)">-</button>
+                ${item.qty}
+                <button class="increase-btn" onclick="addToCart('${item.name}', ${item.price}, '${item.img}', 1, ['${item.options}'], event)">+</button>
+                <button class="remove-btn" onclick="removeFromCart('${item.name}', '${item.options}', event)">X</button>
+            </div>
+        `;
+        cartItemsContainer.appendChild(cartItem);
+    });
+    subtotalElement.innerText = subtotal.toLocaleString('id-ID');
+    cartCount.innerText = itemCount;
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+}
+
+// Lightbox ATC handler
 document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
     card.addEventListener('click', function() {
         const productCard = this.closest('.product-card2');
 
-        // Ambil detail produk langsung dari elemen
+        // Ambil detail produk dari lightbox
         const imgSrc = productCard.querySelector('.card2-header img').src;
         const title = productCard.querySelector('.card2-title').textContent;
         const price = productCard.querySelector('.card2-price').textContent;
 
         // Atur konten lightbox
-        document.getElementById('lightbox-imgATC').src = imgSrc;
-        document.getElementById('lightbox-titleATC').textContent = title;
-        document.getElementById('lightbox-priceATC').textContent = price;
+        lightboxImg.src = imgSrc;
+        lightboxTitle.textContent = title;
+        lightboxPrice.textContent = price;
 
         // Bersihkan opsi yang ada sebelumnya
         const optionsContainer = document.querySelector('.popup-options');
@@ -4184,12 +4263,9 @@ document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
 
                 // Event listener untuk memastikan hanya satu opsi yang aktif
                 optionElement.addEventListener('click', function() {
-                    // Kembalikan semua opsi dalam grup yang sama ke warna normal
                     optionsContainerInGroup.querySelectorAll('.active').forEach(activeOption => {
                         activeOption.classList.remove('active');
                     });
-
-                    // Set opsi yang diklik sebagai aktif
                     optionElement.classList.add('active');
                 });
 
@@ -4200,40 +4276,43 @@ document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
             optionsContainer.appendChild(optionGroupElement);
         });
 
-        // Tampilkan lightbox
         document.getElementById('lightboxATC').style.display = 'flex';
 
-        // Inisialisasi quantity
-        const qtyInput = document.querySelector('.popup-footer input');
-        let quantity = 1;
-
-        // Fungsi tambah dan kurang quantity
-        document.querySelector('.popup-footer button:nth-child(1)').addEventListener('click', function() {
-            if (quantity > 1) {
-                quantity--;
-                qtyInput.value = quantity;
-            }
-        });
-
-        document.querySelector('.popup-footer button:nth-child(3)').addEventListener('click', function() {
-            quantity++;
-            qtyInput.value = quantity;
-        });
-
-        // Fungsi tombol add-to-cart tanpa chart item
-        document.querySelector('.add-to-cart-button').addEventListener('click', function() {
-            const selectedOptions = [];
-            // Ambil opsi yang dipilih
-            document.querySelectorAll('.options .active').forEach(option => {
-                selectedOptions.push(option.textContent);
-            });
-
-            // Tindakan setelah memilih tanpa menambahkan ke cart item
-
-            // Tutup lightbox
-            document.getElementById('lightboxATC').style.display = 'none';
-        });
+        // Reset quantity
+        qtyInput.value = 1;
     });
+});
+
+// Fungsi tombol tambah dan kurang quantity
+document.querySelector('.popup-footer button:nth-child(1)').addEventListener('click', function() {
+    if (qtyInput.value > 1) {
+        qtyInput.value = parseInt(qtyInput.value) - 1;
+    }
+});
+
+document.querySelector('.popup-footer button:nth-child(3)').addEventListener('click', function() {
+    qtyInput.value = parseInt(qtyInput.value) + 1;
+});
+
+// Tambah produk ke cart dari lightbox
+document.querySelector('.add-to-cart-button').addEventListener('click', function(event) {
+    const productName = lightboxTitle.textContent;
+    const productImg = lightboxImg.src;
+    const productPrice = parseInt(lightboxPrice.textContent.replace(/Rp |[.]/g, ''));
+    const quantity = parseInt(qtyInput.value);
+
+    // Ambil opsi yang dipilih
+    const selectedOptions = [];
+    document.querySelectorAll('.options .active').forEach(option => {
+        selectedOptions.push(option.textContent);
+    });
+
+    // Tambahkan produk ke keranjang dengan opsi yang dipilih
+    addToCart(productName, productPrice, productImg, quantity, selectedOptions, event);
+
+    // Tutup lightbox
+    document.getElementById('lightboxATC').style.display = 'none';
+    document.querySelector('.popup-options').innerHTML = '';
 });
 
 // Fungsi tombol tutup
@@ -4319,23 +4398,6 @@ cartIcon.addEventListener('click', function() {
     cartPopup.classList.toggle('popup-hidden');
 });
 
-// Function to add item to cart
-function addToCart(productName, productPrice, productImg, event) {
-    event.stopPropagation();
-    const item = cartItems.find(cartItem => cartItem.name === productName);
-    if (item) {
-        item.qty += 1;
-    } else {
-        cartItems.push({
-            name: productName,
-            price: productPrice,
-            img: productImg,
-            qty: 1
-        });
-    }
-    updateCart();
-}
-
 // Update cart display and save to local storage
 function updateCart() {
     cartItemsContainer.innerHTML = '';
@@ -4357,7 +4419,7 @@ function updateCart() {
             <div class="item-controls">
                 <button class="decrease-btn" onclick="decreaseQty('${item.name}', event)">-</button>
                 ${item.qty}
-                <button class="increase-btn" onclick="addToCart('${item.name}', ${item.price}, '${item.img}', event)">+</button>
+                <button class="increase-btn" onclick="increaseQty('${item.name}', event)">+</button>
                 <button class="remove-btn" onclick="removeFromCart('${item.name}', event)">X</button>
             </div>
         `;
@@ -4368,18 +4430,7 @@ function updateCart() {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
 
-// Function to add product from button click
-document.querySelectorAll('.add-btn').forEach(btn => {
-    btn.addEventListener('click', function () {
-        const productCard = btn.closest('.product-card2');
-        const productName = productCard.querySelector('.card2-title').innerText;
-        const productPrice = parseInt(productCard.querySelector('.card2-price').innerText.replace(/Rp |[.]/g, ''));
-        const productImg = productCard.querySelector('.card2-header img').src;
-        addToCart(productName, productPrice, productImg, event);
-    });
-});
-
-// Functions for increasing, decreasing and removing items
+// Functions for increasing, decreasing, and removing items
 function decreaseQty(productName, event) {
     event.stopPropagation();
     const item = cartItems.find(cartItem => cartItem.name === productName);
@@ -4387,6 +4438,15 @@ function decreaseQty(productName, event) {
         item.qty -= 1;
     } else if (item) {
         cartItems = cartItems.filter(cartItem => cartItem.name !== productName);
+    }
+    updateCart();
+}
+
+function increaseQty(productName, event) {
+    event.stopPropagation();
+    const item = cartItems.find(cartItem => cartItem.name === productName);
+    if (item) {
+        item.qty += 1;
     }
     updateCart();
 }
