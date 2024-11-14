@@ -610,270 +610,6 @@ button:hover {
 </style>
 
 <style> /* Lightbox Product */
-.lightboxATC {
-    display: none; /* Hidden by default */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(15px);
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-}
-
-.lightbox-contentATC {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(15px);
-    padding: 10px;
-    max-width: 500px;
-    width: 90%;
-    text-align: center;
-    border-radius: 8px;
-    position: relative;
-    max-height: 60vh;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-	overflow-y: auto;
-	animation: slideIn 0.5s forwards;
-}
-
-.lightboxATC-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    border-bottom: 5px solid #FF5722;
-    
-
-}
-
-.lightboxATC img {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 8px;
-    padding:5px;
-}
-
-
-.lightbox-detailsATC h2, .lightbox-detailsATC p {
-    margin: 10px 0;color:#000;
-}
-
-/* Styling for left-aligned description and enlarged price */
-#lightbox-titleATC {
-    font-size: 18px;
-    margin: 0;
-    color: #333;
-}
-
-#lightbox-priceATC {
-    font-size: 14px;
-    color: #FF5722;
-    font-weight: bold;
-}
-
-/* Styling for left-aligned description and enlarged price */
-#lightbox-descriptionATC {
-    text-align: justify;
-    font-size:14px;
-}
-
-
-   .atc-btn {
-        display: block;
-        width: 100%;
-        padding: 5px; /* 12px setara dengan 0.75rem */
-        border-radius: 30px;
-        background-color: orange;
-        color: #000;
-        text-align: center;
-        border: none;
-        cursor: pointer;
-        font-weight: bold;
-        margin-top: 10px; /* 15px setara dengan 0.9375rem */
-        font-size: 12px; /* 16px setara dengan 1rem */
-        transition: background-color 0.3s ease;
-    }
-
-    .atc-btn:hover {
-        background-color: #cc00cc;
-    }
-
-
-    /* Media Queries untuk responsive */
-@media (max-width: 768px) {
-.lightbox-contentATC {
-    max-width: 250px;
-}}
-
-
-/* Popup Content */
-.popup-content3 {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    padding: 20px;
-    max-width: 350px;
-    width: 90%;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    font-family: Arial, sans-serif;
-    overflow-y: auto;
-    text-align: left;
-    max-height: 80vh;
-    /* Menambahkan centering dengan transform */
-    transform: translate(-50%, -50%);
-    position: absolute; /* Letakkan konten di tengah menggunakan position absolute */
-    top: 50%;
-    left: 50%;
-}
-
-/* Close Button */
-.close-btnATC {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 16px;
-    cursor: pointer;
-    background:red;
-    width: 20px;
-    height: 20px;
-    object-fit: cover;
-    border-radius: 100%;
-    padding:0;
-    color: #fff;
-}
-
-/* Popup Header */
-.popup-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.popup-image {
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.popup-info h2 {
-    font-size: 20px;
-    margin: 0;
-    color: #333;
-}
-
-.popup-price {
-    font-size: 18px;
-    color: #FF5722;
-    font-weight: bold;
-}
-
-.popup-discount {
-    font-size: 12px;
-    color: #999;
-    text-decoration: line-through;
-    margin-left: 5px;
-}
-
-.popup-stock {
-    font-size: 12px;
-    color: #666;
-    margin-top: 5px;
-}
-
-/* Options Section */
-.option-group {
-    margin-top: 10px;
-}
-
-.option-group label {
-    font-size: 14px;
-    font-weight: bold;
-    text-align:left;
-    color:#000;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.options .active {
-    background-color: #FF5722;
-    color: white;
-}
-
-.option1,.option2 {
-    padding: 5px 10px;
-    background: #f5f5f5;
-    border-radius: 5px;
-    cursor: pointer;
-    border: 1px solid transparent;
-    color: #333;
-    font-size: 13px;
-}
-
-/* Quantity Selector */
-.popup-footer {
-    border-top: 5px solid #FF5722;
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.quantity-selector {
-    margin-top: 5px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.quantity-selector button {
-    width: 30px;
-    height: 30px;
-    border: none;
-    background: #FF5722;
-    color: white;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 5px;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-}
-
-.quantity-selector input {
-    width: 50px;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    padding: 7px;
-}
-
-/* Add to Cart Button */
-.add-to-cart-button {
-    margin-top: 5px;
-    flex: 1;
-    padding: 10px;
-    background: #FF5722;
-    color: white;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    font-weight: bold;
-}
-</style>
-
-<style> /* Lightbox Product */
 .lightboxPL {
     display: none; /* Hidden by default */
     position: fixed;
@@ -2738,7 +2474,7 @@ line-height:1;
     <!-- Header Section -->
     <header class="header">
         <div class="logo">
-        	<a href="https://digitalprintingind.github.io/dsidegraphia/application/"><img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" /></a>
+        	<a href="https://digitalprintingind.github.io/dsidegraphia/aplikasiberbasisweb.html"><img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" /></a>
 		</div>
         
         <!-- Icons Section -->
@@ -2793,34 +2529,6 @@ line-height:1;
     </div>
 </div>
 
-
-<!-- Popup Lightbox ATC -->
-<div id="lightboxATC" class="lightboxATC">
-    <div class="lightbox-contentATC">
-        <span class="close-btnATC">×</span>
-        <div class="lightboxATC-header">
-            <img id="lightbox-imgATC" src="" alt="Product Image">
-            <div class="lightbox-detailsATC">
-                <h2 id="lightbox-titleATC"></h2>
-                <p id="lightbox-priceATC"></p>
-            </div>
-        </div>
-
-        <!-- Dynamic Option Group -->
-        <div class="popup-options"></div> <!-- Dynamic content will be added here -->
-
-        <!-- Popup Footer with Quantity Selector -->
-        <div class="popup-footer">
-            <div class="quantity-selector">
-                <button>-</button>
-                <input type="number" value="1">
-                <button>+</button>
-            </div>
-            <button class="add-to-cart-button">Add to Cart</button>
-        </div>
-    </div>
-</div>
-
 <div class="menu-show-left"><div class="logo-icon" id="icon"><i class="fas fa-bars"></i></div></div>
 
 <div class="tab-container">
@@ -2845,7 +2553,7 @@ line-height:1;
 </div>
 
 <div class="card2-container">
-<!-- Product card 1 -->
+    <!-- Product card2 1 -->
     <div class="product-card2"  data-category="jersey">
         <div class="card2-header">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAh7b9wMDVsomFhYbnDApcZxrVc59jQ3CILlhk31JD9-Xfb5ZzESNUyaZ3&s=10" alt="Smart Watch">
@@ -2868,26 +2576,10 @@ line-height:1;
                     </tbody>
                 </table>
                 
-        <div class="option-group">
-            <label>Stiker Indoor:</label>
-            <div class="options">
-                <div class="option1" add-price="0">Vinil A3</div>
-                <div class="option1" add-price="2000">Transparant</div>
-                <div class="option1" add-price="-3000">Cromo</div>
-                <div class="option1" add-price="5000">Hologram</div>
-            </div>
-        </div>          
-        <div class="option-group">
-            <label>Laminasi:</label>
-            <div class="options">
-                <div class="option1" add-price="5000">Glossy</div>
-                <div class="option1" add-price="7000">Doff</div>
-            </div>
-        </div>
             </div>
         </div>
     </div>
-    <button class="atc-btn">ADD TO CART</button>
+    <button class="add-btn">ADD TO CART</button>
 </div>
 
     <!-- Product card2 2 -->
@@ -2899,28 +2591,11 @@ line-height:1;
         <div class="card2-body">
             <div class="card2-left">
                 <div class="card2-title">Grade B</div>
-                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                
-        <div class="option-group">
-            <label>Stiker Outdoor:</label>
-            <div class="options">
-                <div class="option2" add-price="0">Vinil Meteran</div>
-                <div class="option2" add-price="17000">OneWay</div>
-            </div>
-        </div>          
-        <div class="option-group">
-            <label>Finishing:</label>
-            <div class="options">
-                <div class="option2" add-price="3000">Potong</div>
-                <div class="option2" add-price="0">Tanpa Potong</div>
+                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
             </div>
         </div>
-        
-            </div>
-        </div>
+        <button class="add-btn">ADD TO CART</button>
     </div>
-    <button class="atc-btn">ADD TO CART</button>
-</div>
 
     <!-- Product card2 3 -->
     <div class="product-card2"  data-category="jersey">
@@ -4140,239 +3815,10 @@ tabs.forEach(tab => {
 document.querySelector('.tab[data-category="jersey"]').click();
 </script>
 
-<!-- LIGHTBOX ATC -->
-<script>
-// Ambil elemen keranjang dan checkout
-const cartItemsContainer = document.getElementById('cart-items');
-const checkoutBtn = document.getElementById('checkout-btn');
-const subtotalElement = document.getElementById('subtotal');
-const cartCount = document.getElementById('cart-count');
-const cartIcon = document.getElementById('cart-icon');
-const cartPopup = document.getElementById('cart-popup');
-const paymentPopup = document.getElementById('payment-popup');
-
-// Ambil elemen lightbox
-const qtyInput = document.querySelector('.popup-footer input');
-const lightboxTitle = document.getElementById('lightbox-titleATC');
-const lightboxImg = document.getElementById('lightbox-imgATC');
-const lightboxPrice = document.getElementById('lightbox-priceATC');
-
-let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-// Toggle visibility of cart popup
-cartIcon.addEventListener('click', function() {
-    cartPopup.classList.toggle('popup-hidden');
-});
-
-// Function to add item to cart
-function addToCart(productName, productPrice, productImg, quantity, selectedOptions, event) {
-    event.stopPropagation();
-    const item = cartItems.find(cartItem => cartItem.name === productName && cartItem.options === selectedOptions.join(', '));
-    if (item) {
-        item.qty += quantity;
-    } else {
-        cartItems.push({
-            name: productName,
-            price: productPrice,
-            img: productImg,
-            qty: quantity,
-            options: selectedOptions.join(', ')
-        });
-    }
-    updateCart();
-}
-
-// Function to remove item from cart
-function removeFromCart(productName, options, event) {
-    event.stopPropagation();
-    cartItems = cartItems.filter(cartItem => !(cartItem.name === productName && cartItem.options === options));
-    updateCart();
-}
-
-// Update cart display and save to local storage
-function updateCart() {
-    cartItemsContainer.innerHTML = '';
-    let subtotal = 0;
-    let itemCount = 0;
-    cartItems.forEach(item => {
-        subtotal += item.price * item.qty;
-        itemCount += item.qty;
-        const cartItem = document.createElement('div');
-        cartItem.classList.add('cart-item');
-        cartItem.innerHTML = `
-            <div class="item-image">
-                <img src="${item.img}" alt="${item.name}">
-            </div>
-            <div class="item-details">
-                <span>${item.name}</span>
-                <span class="item-options">${item.options}</span> <!-- Menampilkan opsi yang dipilih -->
-                <span>Rp ${(item.price * item.qty).toLocaleString('id-ID')}</span>
-            </div>
-            <div class="item-controls">
-                <button class="decrease-btn" onclick="decreaseQty('${item.name}', '${item.options}', event)">-</button>
-                ${item.qty}
-                <button class="increase-btn" onclick="addToCart('${item.name}', ${item.price}, '${item.img}', 1, ['${item.options}'], event)">+</button>
-                <button class="remove-btn" onclick="removeFromCart('${item.name}', '${item.options}', event)">X</button>
-            </div>
-        `;
-        cartItemsContainer.appendChild(cartItem);
-    });
-    subtotalElement.innerText = subtotal.toLocaleString('id-ID');
-    cartCount.innerText = itemCount;
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-}
-
-// Function to decrease quantity
-function decreaseQty(productName, options, event) {
-    event.stopPropagation();
-    const item = cartItems.find(cartItem => cartItem.name === productName && cartItem.options === options);
-    if (item && item.qty > 1) {
-        item.qty -= 1;
-    } else if (item) {
-        cartItems = cartItems.filter(cartItem => !(cartItem.name === productName && cartItem.options === options));
-    }
-    updateCart();
-}
-
-// Fungsi untuk menampilkan lightbox ATC dan memilih opsi
-document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
-    card.addEventListener('click', function() {
-        const productCard = this.closest('.product-card2');
-
-        // Ambil detail produk dari lightbox
-        const imgSrc = productCard.querySelector('.card2-header img').src;
-        const title = productCard.querySelector('.card2-title').textContent;
-        const basePrice = parseInt(productCard.querySelector('.card2-price').textContent.replace(/Rp |[.]/g, '')); // Harga dasar tanpa tambahan opsi
-
-        // Atur konten lightbox
-        lightboxImg.src = imgSrc;
-        lightboxTitle.textContent = title;
-        lightboxPrice.textContent = `Rp ${basePrice.toLocaleString('id-ID')}`;
-
-        let totalPrice = basePrice; // Inisialisasi total harga
-
-        // Bersihkan opsi yang ada sebelumnya
-        const optionsContainer = document.querySelector('.popup-options');
-        optionsContainer.innerHTML = '';
-
-        // Ambil dan tambahkan grup opsi secara dinamis dari product card
-        const optionGroups = productCard.querySelectorAll('.option-group');
-        optionGroups.forEach(group => {
-            const labelText = group.querySelector('label').textContent;
-            const options = group.querySelectorAll('.options .option1, .options .option2');
-
-            const optionGroupElement = document.createElement('div');
-            optionGroupElement.classList.add('option-group');
-            const labelElement = document.createElement('label');
-            labelElement.textContent = labelText;
-            optionGroupElement.appendChild(labelElement);
-
-            const optionsContainerInGroup = document.createElement('div');
-            optionsContainerInGroup.classList.add('options');
-
-            options.forEach(option => {
-                const optionElement = document.createElement('div');
-                optionElement.classList.add(option.classList[0]);
-                optionElement.textContent = option.textContent;
-
-                const addPrice = parseInt(option.getAttribute('add-price')) || 0;
-
-                // Event listener untuk memilih atau membatalkan opsi
-                optionElement.addEventListener('click', function() {
-                    if (optionElement.classList.contains('active')) {
-                        optionElement.classList.remove('active');
-                        totalPrice -= addPrice; // Kurangi harga tambahan saat opsi dibatalkan
-                    } else {
-                        optionsContainerInGroup.querySelectorAll('.active').forEach(activeOption => {
-                            const activeAddPrice = parseInt(activeOption.getAttribute('add-price')) || 0;
-                            totalPrice -= activeAddPrice; // Kurangi harga tambahan sebelumnya
-                            activeOption.classList.remove('active');
-                        });
-                        optionElement.classList.add('active');
-                        totalPrice += addPrice; // Tambahkan harga tambahan saat opsi dipilih
-                    }
-
-                    // Update tampilan harga total di lightbox
-                    lightboxPrice.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
-                });
-
-                optionsContainerInGroup.appendChild(optionElement);
-            });
-
-            optionGroupElement.appendChild(optionsContainerInGroup);
-            optionsContainer.appendChild(optionGroupElement);
-        });
-
-        document.getElementById('lightboxATC').style.display = 'flex';
-
-        // Reset quantity
-        qtyInput.value = 1;
-    });
-});
-
-// Fungsi tombol tambah dan kurang quantity
-document.querySelector('.popup-footer button:nth-child(1)').addEventListener('click', function() {
-    if (qtyInput.value > 1) {
-        qtyInput.value = parseInt(qtyInput.value) - 1;
-    }
-});
-
-document.querySelector('.popup-footer button:nth-child(3)').addEventListener('click', function() {
-    qtyInput.value = parseInt(qtyInput.value) + 1;
-});
-
-// Tambah produk ke cart dari lightbox dengan opsi tambahan
-document.querySelector('.add-to-cart-button').addEventListener('click', function(event) {
-    const productName = lightboxTitle.textContent;
-    const productImg = lightboxImg.src;
-    const quantity = parseInt(qtyInput.value);
-
-    // Gunakan total harga yang sudah diperbarui sesuai opsi yang dipilih
-    const finalPrice = parseInt(lightboxPrice.textContent.replace(/Rp |[.]/g, ''));
-    
-    // Ambil opsi yang dipilih
-    const selectedOptions = [];
-    document.querySelectorAll('.options .active').forEach(option => {
-        selectedOptions.push(option.textContent);
-    });
-
-    // Tambahkan produk ke keranjang dengan opsi dan harga akhir yang dipilih
-    addToCart(productName, finalPrice, productImg, quantity, selectedOptions, event);
-
-    // Tutup lightbox
-    document.getElementById('lightboxATC').style.display = 'none';
-    document.querySelector('.popup-options').innerHTML = '';
-});
-
-// Fungsi tombol tutup
-document.querySelector('.close-btnATC').addEventListener('click', function() {
-    document.getElementById('lightboxATC').style.display = 'none';
-    document.querySelector('.popup-options').innerHTML = '';
-});
-
-// Tutup lightbox saat mengklik di luar area
-window.addEventListener('click', function(event) {
-    if (event.target === document.getElementById('lightboxATC')) {
-        document.getElementById('lightboxATC').style.display = 'none';
-        document.querySelector('.popup-options').innerHTML = '';
-    }
-});
-
-// Tutup cart popup saat mengklik di luar area
-window.addEventListener('click', function(event) {
-    if (!cartPopup.classList.contains('popup-hidden') && !cartIcon.contains(event.target) && !cartPopup.contains(event.target)) {
-        cartPopup.classList.add('popup-hidden');
-    }
-});
-
-// Call updateCart to load items from local storage on page load
-updateCart();
-</script>
-
 <!--LIGHTBOX DETAIL PRODUCT-->
 <script>
 // JavaScript for opening and closing the lightbox
-document.querySelectorAll('.product-card2 .card2-header').forEach(card => {
+document.querySelectorAll('.product-card2 .card2-header, .product-card2 .card2-body').forEach(card => {
     card.addEventListener('click', function() {
         const productCard = this.closest('.product-card2');
 
@@ -4430,12 +3876,29 @@ const cartIcon = document.getElementById('cart-icon');
 const cartPopup = document.getElementById('cart-popup');
 const paymentPopup = document.getElementById('payment-popup');
 
-// Hapus cartItems karena sudah ada di JavaScript 2
+let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
 // Toggle visibility of cart popup
 cartIcon.addEventListener('click', function() {
     cartPopup.classList.toggle('popup-hidden');
 });
+
+// Function to add item to cart
+function addToCart(productName, productPrice, productImg, event) {
+    event.stopPropagation();
+    const item = cartItems.find(cartItem => cartItem.name === productName);
+    if (item) {
+        item.qty += 1;
+    } else {
+        cartItems.push({
+            name: productName,
+            price: productPrice,
+            img: productImg,
+            qty: 1
+        });
+    }
+    updateCart();
+}
 
 // Update cart display and save to local storage
 function updateCart() {
@@ -4458,7 +3921,7 @@ function updateCart() {
             <div class="item-controls">
                 <button class="decrease-btn" onclick="decreaseQty('${item.name}', event)">-</button>
                 ${item.qty}
-                <button class="increase-btn" onclick="increaseQty('${item.name}', event)">+</button>
+                <button class="increase-btn" onclick="addToCart('${item.name}', ${item.price}, '${item.img}', event)">+</button>
                 <button class="remove-btn" onclick="removeFromCart('${item.name}', event)">X</button>
             </div>
         `;
@@ -4469,7 +3932,18 @@ function updateCart() {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
 
-// Functions for increasing, decreasing, and removing items
+// Function to add product from button click
+document.querySelectorAll('.add-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+        const productCard = btn.closest('.product-card2');
+        const productName = productCard.querySelector('.card2-title').innerText;
+        const productPrice = parseInt(productCard.querySelector('.card2-price').innerText.replace(/Rp |[.]/g, ''));
+        const productImg = productCard.querySelector('.card2-header img').src;
+        addToCart(productName, productPrice, productImg, event);
+    });
+});
+
+// Functions for increasing, decreasing and removing items
 function decreaseQty(productName, event) {
     event.stopPropagation();
     const item = cartItems.find(cartItem => cartItem.name === productName);
@@ -4477,15 +3951,6 @@ function decreaseQty(productName, event) {
         item.qty -= 1;
     } else if (item) {
         cartItems = cartItems.filter(cartItem => cartItem.name !== productName);
-    }
-    updateCart();
-}
-
-function increaseQty(productName, event) {
-    event.stopPropagation();
-    const item = cartItems.find(cartItem => cartItem.name === productName);
-    if (item) {
-        item.qty += 1;
     }
     updateCart();
 }
