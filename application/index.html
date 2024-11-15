@@ -878,6 +878,46 @@ button:hover {
     cursor: pointer;
     font-weight: bold;
 }
+
+/* Popup hidden secara default */
+#notif-popup-cart.popup-hidden-cart {
+    display: none;
+}
+
+/* Tampilan dasar popup */
+#notif-popup-cart {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Konten popup */
+#notif-popup-cart .popup-content-cart {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+}
+
+/* Gaya tombol OK */
+#notif-popup-cart #close-popup-btn-cart {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 </style>
 
 <style> /* Lightbox Product */
@@ -2668,6 +2708,13 @@ line-height:1;
 </head>
 <body>
 
+<div id="notif-popup-cart" class="popup-hidden-cart">
+    <div class="popup-content-cart">
+        <p>Silakan pilih salah satu opsi pada setiap grup sebelum menambah ke keranjang.</p>
+        <button id="close-popup-btn-cart">OK</button>
+    </div>
+</div>
+
 <!-- Pooup Maintenance -->
     <div class="popup-overlayMT" id="maintenance-popupMT">
         <div class="popup-contentMT">
@@ -4169,10 +4216,13 @@ document.querySelector('.add-to-cart-button').addEventListener('click', function
         }
     });
 
-    if (!allOptionsSelected) {
-        alert('Silakan pilih salah satu opsi pada setiap grup sebelum menambah ke keranjang.');
-        return; // Batalkan penambahan ke keranjang jika ada grup yang belum dipilih
-    }
+// Gantikan peringatan dengan menampilkan popup
+if (!allOptionsSelected) {
+    const popupCart = document.getElementById('notif-popup-cart');
+    popupCart.classList.remove('popup-hidden-cart'); // Tampilkan popup
+    return; // Batalkan penambahan ke keranjang jika ada grup yang belum dipilih
+}
+
 
     // Gunakan total harga yang sudah diperbarui sesuai opsi yang dipilih
     const finalPrice = parseInt(lightboxPrice.textContent.replace(/Rp |[.]/g, ''));
@@ -4258,6 +4308,12 @@ function sendOrderToWhatsApp() {
     updateCart();
     hidePaymentPopup();
 }
+
+// Event listener untuk menutup popup saat tombol OK diklik
+document.getElementById('close-popup-btn-cart').addEventListener('click', function() {
+    const popupCart = document.getElementById('notif-popup-cart');
+    popupCart.classList.add('popup-hidden-cart'); // Sembunyikan popup
+});
 
 // Event listener untuk tombol checkout
 checkoutBtn.addEventListener('click', checkout);
