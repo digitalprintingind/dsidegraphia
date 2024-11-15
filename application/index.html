@@ -2929,7 +2929,8 @@ line-height:1;
 				</div>
 				<div class="option-group"><label>Laminasi:</label>
     	        	<div class="options">
-    	            	<div class="option selected" add-price="5000">Glossy</div>
+    	            	<div class="option" add-price="0">Tanpa Laminasi</div>
+    	            	<div class="option" add-price="5000">Glossy</div>
     	            	<div class="option disabled" add-price="7000">Doff</div>
     	        	</div>
 				</div>
@@ -4150,18 +4151,12 @@ document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
 
                 // Event listener untuk memilih atau membatalkan opsi
                 optionElement.addEventListener('click', function() {
-                    if (optionElement.classList.contains('active')) {
-                        optionElement.classList.remove('active');
-                        totalPrice -= addPrice; // Kurangi harga tambahan saat opsi dibatalkan
-                    } else {
-                        optionsContainerInGroup.querySelectorAll('.active').forEach(activeOption => {
-                            const activeAddPrice = parseInt(activeOption.getAttribute('add-price')) || 0;
-                            totalPrice -= activeAddPrice; // Kurangi harga tambahan sebelumnya
-                            activeOption.classList.remove('active');
-                        });
-                        optionElement.classList.add('active');
-                        totalPrice += addPrice; // Tambahkan harga tambahan saat opsi dipilih
-                    }
+                    totalPrice = basePrice; // Reset harga ke base price setiap kali ada perubahan pada opsi
+                    optionsContainerInGroup.querySelectorAll('.active').forEach(activeOption => {
+                        activeOption.classList.remove('active');
+                    });
+                    optionElement.classList.add('active');
+                    totalPrice += addPrice;
 
                     // Update tampilan harga total di lightbox
                     lightboxPrice.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
@@ -4174,7 +4169,7 @@ document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
             optionsContainer.appendChild(optionGroupElement);
         });
 
-        // Set harga awal lightbox (base price + harga tambahan dari opsi selected)
+        // Set harga awal lightbox
         lightboxPrice.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
         document.getElementById('lightboxATC').style.display = 'flex';
 
