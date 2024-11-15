@@ -820,6 +820,13 @@ button:hover {
     font-size: 13px;
 }
 
+/* Tambahkan highlight pada grup opsi yang tidak lengkap */
+.option-group.highlight {
+    border: 1px solid #FF5722;
+    padding: 5px;
+    border-radius: 5px;
+}
+
 /* Quantity Selector */
 .popup-footer {
     border-top: 5px solid #FF5722;
@@ -2845,20 +2852,18 @@ line-height:1;
 </div>
 
 <div class="card2-container">
+	
 <!-- Product card 1 -->
-    <div class="product-card2"  data-category="jersey">
-        <div class="card2-header">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAh7b9wMDVsomFhYbnDApcZxrVc59jQ3CILlhk31JD9-Xfb5ZzESNUyaZ3&s=10" alt="Smart Watch">
-        </div>
-        <div class="card2-price">Rp 135.000</div>
-        <div class="card2-body">
-            <div class="card2-left">
-                <div class="card2-title">Grade A</div>
-                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                <!-- Hidden Note Guide Table -->
-                <table class="note-guide">
-                    <thead>
-                        <tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
+<div class="product-card2" data-category="jersey">
+	<div class="card2-header"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStmjlxToDjJjgCrIcNdVnHCFxJiCH8egls6f33UqXXBSrvq-B1hx7psVzI" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 9.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Stiker</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<table class="note-guide">
+					<thead>
+						<tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
                     </thead>
                     <tbody>
                         <tr><td>S</td><td>90</td><td>65</td></tr>
@@ -2867,384 +2872,55 @@ line-height:1;
                         <tr><td>XL</td><td>90</td><td>65</td></tr>
                     </tbody>
                 </table>
-                
-        <div class="option-group">
-            <label>Stiker Indoor:</label>
-            <div class="options">
-                <div class="option" add-price="0">Vinil A3</div>
-                <div class="option" add-price="2000">Transparant</div>
-                <div class="option" add-price="-3000">Cromo</div>
-                <div class="option" add-price="5000">Hologram</div>
-            </div>
-        </div>          
-        <div class="option-group">
-            <label>Laminasi:</label>
-            <div class="options">
-                <div class="option" add-price="5000">Glossy</div>
-                <div class="option" add-price="7000">Doff</div>
-            </div>
-        </div>
-            </div>
-        </div>
+				<div class="option-group"><label>Stiker Indoor:</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Cromo A3+</div>
+    	            	<div class="option" add-price="2000">Transparant A3+</div>
+    	            	<div class="option disabled" add-price="3000">Vinyl A3+</div>
+    	            	<div class="option" add-price="5000">Hologram A3+</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Laminasi:</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="5000">Glossy</div>
+    	            	<div class="option disabled" add-price="7000">Doff</div>
+    	        	</div>
+				</div>
+				
+			</div>
+		</div>
     </div>
     <button class="atc-btn">ADD TO CART</button>
 </div>
 
-    <!-- Product card2 2 -->
-    <div class="product-card2"  data-category="jersey">
-        <div class="card2-header">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGPuAagReq0wrv5z8oy9I1nIFoT6cDd1eWy3qMzUH3XbSL5fjkeGSQgM&s=10" alt="Headphones">
-        </div>
-        <div class="card2-price">Rp 110.000</div>
-        <div class="card2-body">
-            <div class="card2-left">
-                <div class="card2-title">Grade B</div>
-                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                
-        <div class="option-group">
-            <label>Stiker Outdoor:</label>
-            <div class="options">
-                <div class="option" add-price="0">Vinil Meteran</div>
-                <div class="option" add-price="17000">OneWay</div>
-            </div>
-        </div>          
-        <div class="option-group">
-            <label>Finishing:</label>
-            <div class="options">
-                <div class="option" add-price="3000">Potong</div>
-                <div class="option" add-price="0">Tanpa Potong</div>
-            </div>
-        </div>
-        
-            </div>
-        </div>
+<!-- Product card 1 -->
+<div class="product-card2" data-category="jersey">
+	<div class="card2-header"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAh7b9wMDVsomFhYbnDApcZxrVc59jQ3CILlhk31JD9-Xfb5ZzESNUyaZ3&s=10" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 110.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Grade B</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<div class="option-group"><label>Stiker Indoor:</label>
+    	        	<div class="options">
+    	            	<div class="option" add-price="0">Vinil Meteran</div>
+    	            	<div class="option" add-price="17000">OneWay</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Laminasi:</label>
+    	        	<div class="options">
+    	            	<div class="option" add-price="3000">Potong</div>
+    	            	<div class="option" add-price="0">Tanpa Potong</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
     </div>
     <button class="atc-btn">ADD TO CART</button>
 </div>
 
 
 
-    <!-- Product card2 2 -->
-    <div class="product-card2"  data-category="jersey">
-        <div class="card2-header">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGPuAagReq0wrv5z8oy9I1nIFoT6cDd1eWy3qMzUH3XbSL5fjkeGSQgM&s=10" alt="Headphones">
-        </div>
-        <div class="card2-price">Rp 110.000</div>
-        <div class="card2-body">
-            <div class="card2-left">
-                <div class="card2-title">Grade B</div>
-                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                
-        <div class="option-group">
-            <label>Stiker Outdoor:</label>
-            <div class="options">
-                <div class="option" add-price="0">Vinil Meteran</div>
-                <div class="option" add-price="17000">OneWay</div>
-            </div>
-        </div>          
-        <div class="option-group">
-            <label>Finishing:</label>
-            <div class="options">
-                <div class="option" add-price="3000">Potong</div>
-                <div class="option" add-price="0">Tanpa Potong</div>
-            </div>
-        </div>
-        
-            </div>
-        </div>
-    </div>
-    <button class="atc-btn">ADD TO CART</button>
-</div>
-
-
-
-    <!-- Product card2 2 -->
-    <div class="product-card2"  data-category="jersey">
-        <div class="card2-header">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGPuAagReq0wrv5z8oy9I1nIFoT6cDd1eWy3qMzUH3XbSL5fjkeGSQgM&s=10" alt="Headphones">
-        </div>
-        <div class="card2-price">Rp 110.000</div>
-        <div class="card2-body">
-            <div class="card2-left">
-                <div class="card2-title">Grade B</div>
-                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                
-        <div class="option-group">
-            <label>Stiker Outdoor:</label>
-            <div class="options">
-                <div class="option" add-price="0">Vinil Meteran</div>
-                <div class="option" add-price="17000">OneWay</div>
-            </div>
-        </div>          
-        <div class="option-group">
-            <label>Finishing:</label>
-            <div class="options">
-                <div class="option" add-price="3000">Potong</div>
-                <div class="option" add-price="0">Tanpa Potong</div>
-            </div>
-        </div>
-        
-            </div>
-        </div>
-    </div>
-    <button class="atc-btn">ADD TO CART</button>
-</div>
-
-    <!-- Product card2 2 -->
-    <div class="product-card2"  data-category="jersey">
-        <div class="card2-header">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGPuAagReq0wrv5z8oy9I1nIFoT6cDd1eWy3qMzUH3XbSL5fjkeGSQgM&s=10" alt="Headphones">
-        </div>
-        <div class="card2-price">Rp 110.000</div>
-        <div class="card2-body">
-            <div class="card2-left">
-                <div class="card2-title">Grade B</div>
-                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                
-        <div class="option-group">
-            <label>Stiker Outdoor:</label>
-            <div class="options">
-                <div class="option" add-price="0">Vinil Meteran</div>
-                <div class="option" add-price="17000">OneWay</div>
-            </div>
-        </div>          
-        <div class="option-group">
-            <label>Finishing:</label>
-            <div class="options">
-                <div class="option" add-price="3000">Potong</div>
-                <div class="option" add-price="0">Tanpa Potong</div>
-            </div>
-        </div>
-        
-            </div>
-        </div>
-    </div>
-    <button class="atc-btn">ADD TO CART</button>
-</div>
-
-    <!-- Product card2 2 -->
-    <div class="product-card2"  data-category="jersey">
-        <div class="card2-header">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGPuAagReq0wrv5z8oy9I1nIFoT6cDd1eWy3qMzUH3XbSL5fjkeGSQgM&s=10" alt="Headphones">
-        </div>
-        <div class="card2-price">Rp 110.000</div>
-        <div class="card2-body">
-            <div class="card2-left">
-                <div class="card2-title">Grade B</div>
-                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                
-        <div class="option-group">
-            <label>Stiker Outdoor:</label>
-            <div class="options">
-                <div class="option" add-price="0">Vinil Meteran</div>
-                <div class="option" add-price="17000">OneWay</div>
-            </div>
-        </div>          
-        <div class="option-group">
-            <label>Finishing:</label>
-            <div class="options">
-                <div class="option" add-price="3000">Potong</div>
-                <div class="option" add-price="0">Tanpa Potong</div>
-            </div>
-        </div>
-        
-            </div>
-        </div>
-    </div>
-    <button class="atc-btn">ADD TO CART</button>
-</div>
-
-    <!-- Product card2 2 -->
-    <div class="product-card2"  data-category="jersey">
-        <div class="card2-header">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGPuAagReq0wrv5z8oy9I1nIFoT6cDd1eWy3qMzUH3XbSL5fjkeGSQgM&s=10" alt="Headphones">
-        </div>
-        <div class="card2-price">Rp 110.000</div>
-        <div class="card2-body">
-            <div class="card2-left">
-                <div class="card2-title">Grade B</div>
-                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                
-        <div class="option-group">
-            <label>Stiker Outdoor:</label>
-            <div class="options">
-                <div class="option" add-price="0">Vinil Meteran</div>
-                <div class="option" add-price="17000">OneWay</div>
-            </div>
-        </div>          
-        <div class="option-group">
-            <label>Finishing:</label>
-            <div class="options">
-                <div class="option" add-price="3000">Potong</div>
-                <div class="option" add-price="0">Tanpa Potong</div>
-            </div>
-        </div>
-        
-            </div>
-        </div>
-    </div>
-    <button class="atc-btn">ADD TO CART</button>
-</div>
-
-    <!-- Product card2 2 -->
-    <div class="product-card2"  data-category="jersey">
-        <div class="card2-header">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGPuAagReq0wrv5z8oy9I1nIFoT6cDd1eWy3qMzUH3XbSL5fjkeGSQgM&s=10" alt="Headphones">
-        </div>
-        <div class="card2-price">Rp 110.000</div>
-        <div class="card2-body">
-            <div class="card2-left">
-                <div class="card2-title">Grade B</div>
-                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                
-        <div class="option-group">
-            <label>Stiker Outdoor:</label>
-            <div class="options">
-                <div class="option" add-price="0">Vinil Meteran</div>
-                <div class="option" add-price="17000">OneWay</div>
-            </div>
-        </div>          
-        <div class="option-group">
-            <label>Finishing:</label>
-            <div class="options">
-                <div class="option" add-price="3000">Potong</div>
-                <div class="option" add-price="0">Tanpa Potong</div>
-            </div>
-        </div>
-        
-            </div>
-        </div>
-    </div>
-    <button class="atc-btn">ADD TO CART</button>
-</div>
-
-    <!-- Product card2 2 -->
-    <div class="product-card2"  data-category="jersey">
-        <div class="card2-header">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGPuAagReq0wrv5z8oy9I1nIFoT6cDd1eWy3qMzUH3XbSL5fjkeGSQgM&s=10" alt="Headphones">
-        </div>
-        <div class="card2-price">Rp 110.000</div>
-        <div class="card2-body">
-            <div class="card2-left">
-                <div class="card2-title">Grade B</div>
-                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                
-        <div class="option-group">
-            <label>Stiker Outdoor:</label>
-            <div class="options">
-                <div class="option" add-price="0">Vinil Meteran</div>
-                <div class="option" add-price="17000">OneWay</div>
-            </div>
-        </div>          
-        <div class="option-group">
-            <label>Finishing:</label>
-            <div class="options">
-                <div class="option" add-price="3000">Potong</div>
-                <div class="option" add-price="0">Tanpa Potong</div>
-            </div>
-        </div>
-        
-            </div>
-        </div>
-    </div>
-    <button class="atc-btn">ADD TO CART</button>
-</div>
-
-    <!-- Product card2 2 -->
-    <div class="product-card2"  data-category="jersey">
-        <div class="card2-header">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGPuAagReq0wrv5z8oy9I1nIFoT6cDd1eWy3qMzUH3XbSL5fjkeGSQgM&s=10" alt="Headphones">
-        </div>
-        <div class="card2-price">Rp 110.000</div>
-        <div class="card2-body">
-            <div class="card2-left">
-                <div class="card2-title">Grade B</div>
-                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                
-        <div class="option-group">
-            <label>Stiker Outdoor:</label>
-            <div class="options">
-                <div class="option" add-price="0">Vinil Meteran</div>
-                <div class="option" add-price="17000">OneWay</div>
-            </div>
-        </div>          
-        <div class="option-group">
-            <label>Finishing:</label>
-            <div class="options">
-                <div class="option" add-price="3000">Potong</div>
-                <div class="option" add-price="0">Tanpa Potong</div>
-            </div>
-        </div>
-        
-            </div>
-        </div>
-    </div>
-    <button class="atc-btn">ADD TO CART</button>
-</div>
-
-    <!-- Product card2 2 -->
-    <div class="product-card2"  data-category="jersey">
-        <div class="card2-header">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGPuAagReq0wrv5z8oy9I1nIFoT6cDd1eWy3qMzUH3XbSL5fjkeGSQgM&s=10" alt="Headphones">
-        </div>
-        <div class="card2-price">Rp 110.000</div>
-        <div class="card2-body">
-            <div class="card2-left">
-                <div class="card2-title">Grade B</div>
-                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                
-        <div class="option-group">
-            <label>Stiker Outdoor:</label>
-            <div class="options">
-                <div class="option" add-price="0">Vinil Meteran</div>
-                <div class="option" add-price="17000">OneWay</div>
-            </div>
-        </div>          
-        <div class="option-group">
-            <label>Finishing:</label>
-            <div class="options">
-                <div class="option" add-price="3000">Potong</div>
-                <div class="option" add-price="0">Tanpa Potong</div>
-            </div>
-        </div>
-        
-            </div>
-        </div>
-    </div>
-    <button class="atc-btn">ADD TO CART</button>
-</div>
-
-    <!-- Product card2 2 -->
-    <div class="product-card2"  data-category="jersey">
-        <div class="card2-header">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaGPuAagReq0wrv5z8oy9I1nIFoT6cDd1eWy3qMzUH3XbSL5fjkeGSQgM&s=10" alt="Headphones">
-        </div>
-        <div class="card2-price">Rp 110.000</div>
-        <div class="card2-body">
-            <div class="card2-left">
-                <div class="card2-title">Grade B</div>
-                <div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                
-        <div class="option-group">
-            <label>Stiker Outdoor:</label>
-            <div class="options">
-                <div class="option" add-price="0">Vinil Meteran</div>
-                <div class="option" add-price="17000">OneWay</div>
-            </div>
-        </div>          
-        <div class="option-group">
-            <label>Finishing:</label>
-            <div class="options">
-                <div class="option" add-price="3000">Potong</div>
-                <div class="option" add-price="0">Tanpa Potong</div>
-            </div>
-        </div>
-        
-            </div>
-        </div>
-    </div>
-    <button class="atc-btn">ADD TO CART</button>
-</div>
 
 </div>
 <div class="bottom" ></div>
@@ -3305,8 +2981,8 @@ line-height:1;
             <!-- Column 3 -->
             <div class="footer-columnFTR">
                 <h3>Hubungi Kami</h3>
-                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0856-888-6990</div>
-                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0838-2550-2972</div>
+                <div class="contact-infoFTR"><i class="fas fa-phone"></i> (0234) 7301966</div>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> +62 87838333993</div>
                 <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
             </div>
             <!-- Column 4 (Hak Cipta) -->
@@ -3568,8 +3244,8 @@ line-height:1;
             <!-- Column 3 -->
             <div class="footer-columnFTR">
                 <h3>Hubungi Kami</h3>
-                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0856-888-6990</div>
-                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0838-2550-2972</div>
+                <div class="contact-infoFTR"><i class="fas fa-phone"></i> (0234) 7301966</div>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> +62 87838333993</div>
                 <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
             </div>
             <!-- Column 4 (Hak Cipta) -->
@@ -3887,8 +3563,8 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
             <!-- Column 3 -->
             <div class="footer-columnFTR">
                 <h3>Hubungi Kami</h3>
-                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0856-888-6990</div>
-                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0838-2550-2972</div>
+                <div class="contact-infoFTR"><i class="fas fa-phone"></i> (0234) 7301966</div>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> +62 87838333993</div>
                 <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
             </div>
             <!-- Column 4 (Hak Cipta) -->
@@ -3913,8 +3589,8 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
         </div>
         <div class="office-infoCU1">
             <h3>Head Office</h3>
-            <p>Jl. Waru 3 No.26, Jatimulya, Kec. Tambun Sel., Kabupaten Bekasi, Jawa Barat 17510</p>
-            <p><i class="fas fa-phone"></i> 087-838-333-993</p>
+            <p>Jl. By Pass Cadangpinggan - Kertasemaya, Cadangpinggan, Kec. Sukagumiwang, Kabupaten Indramayu, Jawa Barat 45274</p>
+            <p><i class="fas fa-phone"></i> +62 87838333993</p>
             <p><i class="fas fa-phone"></i> 08517-2288-904</p>
             <p><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</p>
         </div>
@@ -3981,13 +3657,6 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
                     <li><i class="fas fa-briefcase"></i> Portofolio</li>
                     <li onclick="activateTabH3(this, 'content-contactusH3')"><i class="fas fa-phone-alt"></i> Contact Us</li>
                 </ul>
-            </div>
-            <!-- Column 3 -->
-            <div class="footer-columnFTR">
-                <h3>Hubungi Kami</h3>
-                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0856-888-6990</div>
-                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0838-2550-2972</div>
-                <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
             </div>
             <!-- Column 4 (Hak Cipta) -->
             <div class="copyrightFTR">
@@ -4128,8 +3797,8 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
             <!-- Column 3 -->
             <div class="footer-columnFTR">
                 <h3>Hubungi Kami</h3>
-                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0856-888-6990</div>
-                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> 0838-2550-2972</div>
+                <div class="contact-infoFTR"><i class="fas fa-phone"></i> (0234) 7301966</div>
+                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> +62 87838333993</div>
                 <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
             </div>
             <!-- Column 4 (Hak Cipta) -->
@@ -4391,9 +4060,7 @@ document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
         // Atur konten lightbox
         lightboxImg.src = imgSrc;
         lightboxTitle.textContent = title;
-        lightboxPrice.textContent = `Rp ${basePrice.toLocaleString('id-ID')}`;
-
-        let totalPrice = basePrice; // Inisialisasi total harga
+        let totalPrice = basePrice;
 
         // Bersihkan opsi yang ada sebelumnya
         const optionsContainer = document.querySelector('.popup-options');
@@ -4416,10 +4083,23 @@ document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
 
             options.forEach(option => {
                 const optionElement = document.createElement('div');
-                optionElement.classList.add(option.classList[0]);
+                optionElement.classList.add('option');
                 optionElement.textContent = option.textContent;
 
                 const addPrice = parseInt(option.getAttribute('add-price')) || 0;
+                
+                // Jika option memiliki class "disabled", tambahkan style dan blokir aksi klik
+                if (option.classList.contains('disabled')) {
+                    optionElement.classList.add('disabled');
+                    optionElement.style.pointerEvents = 'none';
+                    optionElement.style.opacity = '0.5';
+                }
+
+                // Jika option memiliki class "selected", aktifkan dan tambahkan harga secara otomatis
+                if (option.classList.contains('selected')) {
+                    optionElement.classList.add('active');
+                    totalPrice += addPrice;
+                }
 
                 // Event listener untuk memilih atau membatalkan opsi
                 optionElement.addEventListener('click', function() {
@@ -4447,6 +4127,8 @@ document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
             optionsContainer.appendChild(optionGroupElement);
         });
 
+        // Set harga awal lightbox (base price + harga tambahan dari opsi selected)
+        lightboxPrice.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
         document.getElementById('lightboxATC').style.display = 'flex';
 
         // Reset quantity
@@ -4471,14 +4153,29 @@ document.querySelector('.add-to-cart-button').addEventListener('click', function
     const productImg = lightboxImg.src;
     const quantity = parseInt(qtyInput.value);
 
+    // Validasi: pastikan setiap grup opsi memiliki setidaknya satu opsi yang aktif
+    const optionGroups = document.querySelectorAll('.popup-options .option-group');
+    let allOptionsSelected = true;
+    const selectedOptions = [];
+
+    optionGroups.forEach(group => {
+        const activeOption = group.querySelector('.option.active');
+        if (!activeOption) {
+            allOptionsSelected = false;
+            group.classList.add('highlight'); // Tambahkan kelas highlight untuk grup yang tidak lengkap
+        } else {
+            selectedOptions.push(activeOption.textContent); // Tambahkan opsi yang dipilih
+            group.classList.remove('highlight'); // Hilangkan highlight jika sudah dipilih
+        }
+    });
+
+    if (!allOptionsSelected) {
+        alert('Silakan pilih salah satu opsi pada setiap grup sebelum menambah ke keranjang.');
+        return; // Batalkan penambahan ke keranjang jika ada grup yang belum dipilih
+    }
+
     // Gunakan total harga yang sudah diperbarui sesuai opsi yang dipilih
     const finalPrice = parseInt(lightboxPrice.textContent.replace(/Rp |[.]/g, ''));
-    
-    // Ambil opsi yang dipilih
-    const selectedOptions = [];
-    document.querySelectorAll('.options .active').forEach(option => {
-        selectedOptions.push(option.textContent);
-    });
 
     // Tambahkan produk ke keranjang dengan opsi dan harga akhir yang dipilih
     addToCart(productName, finalPrice, productImg, quantity, selectedOptions, event);
