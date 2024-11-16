@@ -2929,7 +2929,7 @@ line-height:1;
 				</div>
 				<div class="option-group"><label>Laminasi:</label>
     	        	<div class="options">
-    	            	<div class="option" add-price="0">Tanpa Laminasi</div>
+    	            	<div class="option selected" add-price="0">Tanpa Laminasi</div>
     	            	<div class="option" add-price="5000">Glossy</div>
     	            	<div class="option disabled" add-price="7000">Doff</div>
     	        	</div>
@@ -4095,26 +4095,27 @@ function decreaseQty(productName, options, event) {
     updateCart();
 }
 
-// Fungsi untuk menampilkan lightbox ATC dan memilih opsi
+// Fungsi untuk menampilkan lightbox ATC dan mengatur opsi
 document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
-    card.addEventListener('click', function() {
+    card.addEventListener('click', function () {
         const productCard = this.closest('.product-card2');
 
-        // Ambil detail produk dari lightbox
+        // Ambil detail produk dari product card
         const imgSrc = productCard.querySelector('.card2-header img').src;
         const title = productCard.querySelector('.card2-title').textContent;
-        const basePrice = parseInt(productCard.querySelector('.card2-price').textContent.replace(/Rp |[.]/g, '')); // Harga dasar tanpa tambahan opsi
+        const basePrice = parseInt(productCard.querySelector('.card2-price').textContent.replace(/Rp |[.]/g, '')); 
 
         // Atur konten lightbox
         lightboxImg.src = imgSrc;
         lightboxTitle.textContent = title;
-        let totalPrice = basePrice;
+        const lightboxPrice = document.querySelector('#lightbox-priceATC');
+        lightboxPrice.textContent = `Rp ${basePrice.toLocaleString('id-ID')}`;
 
-        // Bersihkan opsi yang ada sebelumnya
+        // Bersihkan opsi sebelumnya
         const optionsContainer = document.querySelector('.popup-options');
         optionsContainer.innerHTML = '';
 
-        // Ambil dan tambahkan grup opsi secara dinamis dari product card
+        // Ambil grup opsi dari product card
         const optionGroups = productCard.querySelectorAll('.option-group');
         optionGroups.forEach(group => {
             const labelText = group.querySelector('label').textContent;
@@ -4134,32 +4135,23 @@ document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
                 optionElement.classList.add('option');
                 optionElement.textContent = option.textContent;
 
+                // Tambahkan atribut harga tambahan
                 const addPrice = parseInt(option.getAttribute('add-price')) || 0;
-                
-                // Jika option memiliki class "disabled", tambahkan style dan blokir aksi klik
-                if (option.classList.contains('disabled')) {
-                    optionElement.classList.add('disabled');
-                    optionElement.style.pointerEvents = 'none';
-                    optionElement.style.opacity = '0.5';
-                }
+                optionElement.setAttribute('add-price', addPrice);
 
-                // Jika option memiliki class "selected", aktifkan dan tambahkan harga secara otomatis
+                // Aktifkan opsi yang dipilih sebelumnya jika ada
                 if (option.classList.contains('selected')) {
                     optionElement.classList.add('active');
-                    totalPrice += addPrice;
                 }
 
-                // Event listener untuk memilih atau membatalkan opsi
-                optionElement.addEventListener('click', function() {
-                    totalPrice = basePrice; // Reset harga ke base price setiap kali ada perubahan pada opsi
-                    optionsContainerInGroup.querySelectorAll('.active').forEach(activeOption => {
-                        activeOption.classList.remove('active');
-                    });
-                    optionElement.classList.add('active');
-                    totalPrice += addPrice;
-
-                    // Update tampilan harga total di lightbox
-                    lightboxPrice.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+                // Event Listener untuk klik opsi
+                optionElement.addEventListener('click', function () {
+                    // Nonaktifkan semua opsi dalam grup
+                    optionsContainerInGroup.querySelectorAll('.option').forEach(opt => opt.classList.remove('active'));
+                    // Aktifkan opsi yang diklik
+                    this.classList.add('active');
+                    // Perbarui harga total
+                    updatePrice(basePrice);
                 });
 
                 optionsContainerInGroup.appendChild(optionElement);
@@ -4169,24 +4161,45 @@ document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
             optionsContainer.appendChild(optionGroupElement);
         });
 
-        // Set harga awal lightbox
-        lightboxPrice.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+        // Tampilkan lightbox
         document.getElementById('lightboxATC').style.display = 'flex';
 
         // Reset quantity
         qtyInput.value = 1;
+        updatePrice(basePrice);
     });
 });
 
-// Fungsi tombol tambah dan kurang quantity
-document.querySelector('.popup-footer button:nth-child(1)').addEventListener('click', function() {
+// Fungsi untuk memperbarui harga total
+function updatePrice(basePrice) {
+    const qty = parseInt(qtyInput.value) || 1; // Ambil nilai quantity
+    let totalPrice = basePrice * qty; // Harga dasar * jumlah
+
+    // Iterasi setiap grup opsi
+    document.querySelectorAll('.popup-options .option-group').forEach(group => {
+        const activeOption = group.querySelector('.option.active');
+        if (activeOption) {
+            const addPrice = parseInt(activeOption.getAttribute('add-price')) || 0;
+            totalPrice += addPrice * qty; // Tambahkan harga tambahan * jumlah
+        }
+    });
+
+    // Perbarui harga di lightbox
+    const lightboxPrice = document.querySelector('#lightbox-priceATC');
+    lightboxPrice.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+}
+
+// Fungsi untuk tombol tambah dan kurang quantity
+document.querySelector('.popup-footer button:nth-child(1)').addEventListener('click', function () {
     if (qtyInput.value > 1) {
         qtyInput.value = parseInt(qtyInput.value) - 1;
+        updatePrice(basePrice);
     }
 });
 
-document.querySelector('.popup-footer button:nth-child(3)').addEventListener('click', function() {
+document.querySelector('.popup-footer button:nth-child(3)').addEventListener('click', function () {
     qtyInput.value = parseInt(qtyInput.value) + 1;
+    updatePrice(basePrice);
 });
 
 // Tambah produk ke cart dari lightbox dengan opsi tambahan
