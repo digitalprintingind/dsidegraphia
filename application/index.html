@@ -2715,7 +2715,7 @@ line-height:1;
     </div>
 </div>
 
-<!-- Pooup Maintenance -->
+<!-- Pooup Maintenance
     <div class="popup-overlayMT" id="maintenance-popupMT">
         <div class="popup-contentMT">
             <i class="fas fa-cogs icon"></i>
@@ -2725,7 +2725,7 @@ line-height:1;
             <button class="close-btn" id="close-popupMT"><i class="fas fa-times"></i></button>
         </div>
     </div>
-
+Pooup Maintenance -->
 
 <!-- Floating WhatsApp Card -->
 <div class="whatsapp-card" id="whatsappCard">
@@ -2879,7 +2879,11 @@ line-height:1;
 
 <div class="tab-container">
     <div id="tabs"> <!-- Kontainer untuk tab -->
-        <button class="tab active-tab" data-category="jersey">
+        <button class="tab" data-category="all">
+            <i class="fas fa-th-large"></i>
+            <span>Semua Product</span>
+        </button>
+        <button class="tab" data-category="jersey">
             <i class="fas fa-tshirt"></i>
             <span>Jersey</span>
         </button>
@@ -2901,7 +2905,7 @@ line-height:1;
 <div class="card2-container">
 	
 <!-- Product card 1 -->
-<div class="product-card2" data-category="jersey">
+<div class="product-card2" data-category="stiker">
 	<div class="card2-header"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStmjlxToDjJjgCrIcNdVnHCFxJiCH8egls6f33UqXXBSrvq-B1hx7psVzI" alt="Smart Watch"></div>
 	<div class="card2-price">Rp 9.000</div>
 	<div class="card2-body">
@@ -3989,16 +3993,22 @@ tabs.forEach(tab => {
 
         // Tampilkan produk berdasarkan kategori yang dipilih
         const category = tab.getAttribute('data-category');
-        products.forEach(product => {
-            if (product.getAttribute('data-category') === category) {
-                product.style.display = 'block'; // Tampilkan produk yang cocok
-            }
-        });
+        if (category === 'all') {
+            // Jika kategori "All", tampilkan semua produk
+            products.forEach(product => product.style.display = 'block');
+        } else {
+            // Jika kategori tertentu, tampilkan hanya produk yang sesuai
+            products.forEach(product => {
+                if (product.getAttribute('data-category') === category) {
+                    product.style.display = 'block';
+                }
+            });
+        }
     });
 });
 
-// Menampilkan produk kategori pertama saat halaman dimuat
-document.querySelector('.tab[data-category="jersey"]').click();
+// Menampilkan semua produk saat halaman dimuat
+document.querySelector('.tab[data-category="all"]').click();
 </script>
 
 <!-- LIGHTBOX ATC -->
