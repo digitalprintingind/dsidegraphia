@@ -2610,108 +2610,140 @@ line-height:1;
 </style>
 
 
-    <style>     /* Popup Maintenance */
-        .popup-overlayMT {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: none;
-            z-index: 2000;
-            backdrop-filter: blur(8px);
-            opacity: 0;
-            transition: opacity 0.5s ease, backdrop-filter 0.5s ease;
-        }
+<style>
+/* Popup Maintenance */
+.popup-overlayMT {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    z-index: 2000;
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.5s ease, backdrop-filter 0.5s ease;
+}
 
-        .popup-overlayMT.activeMT {
-            display: block;
-            opacity: 1;
-            backdrop-filter: blur(15px); /* Blur semakin kuat ketika popup muncul */
-        }
+.popup-overlayMT.activeMT {
+    display: block;
+    opacity: 1;
+    backdrop-filter: blur(15px); /* Blur semakin kuat ketika popup muncul */
+}
 
-        .popup-contentMT {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            background: linear-gradient(135deg, #ff7e5f, #feb47b);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            width: 80%;
-            max-width: 650px;
-            animation: popUp 0.7s ease-out forwards, shadowPulse 1s infinite alternate;
-            color: #fff;
-        }
+.popup-contentMT {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 80%;
+    max-width: 650px;
+    animation: popUp 0.7s ease-out forwards, shadowPulse 1s infinite alternate;
+    color: #fff;
+}
 
-        /* Animasi untuk popup */
-        @keyframes popUp {
-            0% {
-                transform: translate(-50%, -50%) scale(0.8);
-                opacity: 0;
-            }
-            60% {
-                transform: translate(-50%, -50%) scale(1.1);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-        }
+/* Animasi untuk popup */
+@keyframes popUp {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+    }
+    60% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
 
-        /* Animasi untuk shadow pulsing */
-        @keyframes shadowPulse {
-            0% {
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            }
-            100% {
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            }
-        }
+/* Animasi untuk shadow pulsing */
+@keyframes shadowPulse {
+    0% {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+    100% {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+}
 
-        .popup-contentMT p {
-            font-size: 20px;
-            margin: 15px 0;
-            font-weight: 500;
-        }
+.popup-contentMT p {
+    font-size: 20px;
+    margin: 15px 0;
+    font-weight: 500;
+}
 
-        .popup-contentMT .icon {
-            font-size: 70px;
-            margin-bottom: 25px;
-            animation: rotateIcon 2s linear infinite;
-        }
+.popup-contentMT .close-btnMT {
+    font-size: 28px;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
 
-        /* Animasi rotasi ikon */
-        @keyframes rotateIcon {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
+.popup-contentMT .close-btnMT:hover {
+    color: #ff6347;
+    transform: rotate(180deg);
+}
 
-        .popup-contentMT .close-btn {
-            font-size: 28px;
-            background: none;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
+/* List petunjuk */
+.guide-listMT {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
 
-        .popup-contentMT .close-btn:hover {
-            color: #ff6347;
-            transform: rotate(180deg);
-        }
-    </style>
+.guide-listMT li {
+    font-size: 18px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.guide-listMT li i {
+    font-size: 24px;
+    color: #48ef80;
+    animation: bounceMT 1.5s infinite ease;
+}
+
+.guide-listMT li span {
+    color: #fff;
+}
+
+.guide-listMT li:hover {
+    background: linear-gradient(90deg, #48ef80, #1f80c0);
+    color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(72, 239, 128, 0.5);
+}
+
+/* Footer Text */
+.popup-footerMT {
+    margin-top: 20px;
+    font-size: 14px;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.8);
+}
+</style>
     
     
 </head>
@@ -2724,17 +2756,24 @@ line-height:1;
     </div>
 </div>
 
-<!-- Pooup Maintenance
-    <div class="popup-overlayMT" id="maintenance-popupMT">
-        <div class="popup-contentMT">
-            <i class="fas fa-cogs icon"></i>
-            <h2>Website Sedang dalam Pengembangan</h2>
-            <p>Proses pengembangan website kami sedang berlangsung, dan kami akan segera kembali dengan fitur-fitur baru yang lebih menarik dan lebih baik.</p>
-            <p>Silahkan Close Informasi ini. Untuk melanjutkan</p>
-            <button class="close-btn" id="close-popupMT"><i class="fas fa-times"></i></button>
-        </div>
+<!-- Pooup Maintenance -->
+<div class="popup-overlayMT" id="maintenance-popupMT">
+    <div class="popup-contentMT">
+        <h2 class="popup-titleMT">Website Sedang dalam Pengembangan</h2>
+        <p class="popup-subtitleMT">List Petunjuk</p>
+        <ul class="guide-listMT">
+            <li><i class="fas fa-home"></i> Beranda</li>
+            <li><i class="fas fa-box"></i> Product</li>
+            <li><i class="fas fa-expand"></i> Full Screen</li>
+            <li><i class="fas fa-shopping-cart"></i> Shopping Cart</li>
+        </ul>
+        <p class="popup-footerMT">Silahkan Close Informasi ini untuk melanjutkan</p>
+        <button class="close-btnMT" id="close-popupMT">
+            <i class="fas fa-times"></i>
+        </button>
     </div>
-Pooup Maintenance -->
+</div>
+
 
 <!-- Floating WhatsApp Card -->
 <div class="whatsapp-card" id="whatsappCard">
@@ -5160,27 +5199,44 @@ setInterval(showNextSlide, 10000);
     }
   </script>
 
- <!--POPUP MAINTENANCE --> 
-    <script>
-        // Menampilkan popup saat halaman dimuat
-        window.addEventListener("load", function() {
-            const popup = document.getElementById('maintenance-popupMT');
+<!--POPUP MAINTENANCE--> 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Ambil elemen popup dan tombol close
+        const popup = document.getElementById('maintenance-popupMT');
+        const closeButton = document.getElementById('close-popupMT');
+
+        // Tampilkan popup saat halaman dimuat
+        if (popup) {
             popup.classList.add('activeMT');
-        });
+        }
 
-        // Menutup popup saat tombol close diklik
-        document.getElementById('close-popupMT').addEventListener('click', function() {
-            const popup = document.getElementById('maintenance-popupMT');
-            popup.classList.remove('activeMT');
-        });
-
-        // Menutup popup jika diklik di luar area popup
-        document.getElementById('maintenance-popupMT').addEventListener('click', function(event) {
-            if (event.target === this) {
-                this.classList.remove('activeMT');
+        // Fungsi untuk menutup popup
+        function closePopup() {
+            if (popup) {
+                popup.classList.remove('activeMT');
             }
-        });
-    </script>
+        }
+
+        // Event listener untuk tombol close
+        if (closeButton) {
+            closeButton.addEventListener('click', function (event) {
+                event.stopPropagation(); // Cegah event bubbling
+                closePopup();
+            });
+        }
+
+        // Event listener untuk klik di luar area popup
+        if (popup) {
+            popup.addEventListener('click', function (event) {
+                // Hanya tutup jika yang diklik adalah overlay, bukan kontennya
+                if (event.target === popup) {
+                    closePopup();
+                }
+            });
+        }
+    });
+</script>
     
 </body>
 </html>
