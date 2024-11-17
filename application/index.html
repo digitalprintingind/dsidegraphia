@@ -2618,7 +2618,6 @@ line-height:1;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
     display: none;
     z-index: 2000;
     backdrop-filter: blur(8px);
@@ -2709,8 +2708,6 @@ line-height:1;
     font-size: 18px;
     margin: 15px 0;
     display: flex;
-    align-items: center;
-    justify-content: center;
     gap: 15px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
@@ -2743,6 +2740,12 @@ line-height:1;
     font-style: italic;
     color: rgba(255, 255, 255, 0.8);
 }
+
+    /* Media Queries untuk responsive */
+@media (max-width: 768px) {
+.popup-contentMT {
+    max-width: 70%;
+}}
 </style>
     
     
@@ -2765,6 +2768,7 @@ line-height:1;
             <li><i class="fas fa-home"></i> Beranda</li>
             <li><i class="fas fa-box"></i> Product</li>
             <li><i class="fas fa-expand"></i> Full Screen</li>
+            <li><i class="fas fa-list"></i> Katalog</li>
             <li><i class="fas fa-shopping-cart"></i> Shopping Cart</li>
         </ul>
         <p class="popup-footerMT">Silahkan Close Informasi ini untuk melanjutkan</p>
