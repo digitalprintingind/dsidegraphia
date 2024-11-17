@@ -666,11 +666,12 @@ button:hover {
     font-size: 18px;
     margin: 0;
     color: #333;
+    text-align:left;
 }
 
 #lightbox-priceATC {
-    font-size: 14px;
-    color: #FF5722;
+    font-size: 20px;
+    color: #fff;
     font-weight: bold;
 }
 
@@ -705,7 +706,7 @@ button:hover {
     /* Media Queries untuk responsive */
 @media (max-width: 768px) {
 .lightbox-contentATC {
-    max-width: 250px;
+    max-width: 90%;
 }}
 
 
@@ -808,6 +809,13 @@ button:hover {
 .options .active {
     background-color: #FF5722;
     color: white;
+}
+
+.option.disabled {
+    color: #333;
+    cursor: not-allowed;
+    pointer-events: none;
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .option {
@@ -2883,21 +2891,29 @@ Pooup Maintenance -->
             <i class="fas fa-th-large"></i>
             <span>Semua Product</span>
         </button>
-        <button class="tab" data-category="jersey">
+        <button class="tab" data-category="tshirt">
             <i class="fas fa-tshirt"></i>
-            <span>Jersey</span>
+            <span>Baju / Kaos</span>
         </button>
         <button class="tab" data-category="stiker">
             <i class="fas fa-sticky-note"></i>
             <span>Stiker</span>
         </button>
         <button class="tab" data-category="nota">
-            <i class="fas fa-receipt"></i> <!-- Ikon Nota -->
+            <i class="fas fa-receipt"></i>
             <span>Nota</span>
         </button>
         <button class="tab" data-category="sablon">
-            <i class="fas fa-print"></i> <!-- Ikon Sablon -->
+            <i class="fas fa-print"></i>
             <span>Sablon</span>
+        </button>
+        <button class="tab" data-category="book">
+            <i class="fas fa-book"></i>
+            <span>Buku</span>
+        </button>
+        <button class="tab" data-category="undangan">
+            <i class="fas fa-envelope"></i>
+            <span>Blanko Undangan</span>
         </button>
     </div>
 </div>
@@ -2910,7 +2926,42 @@ Pooup Maintenance -->
 	<div class="card2-price">Rp 9.000</div>
 	<div class="card2-body">
 		<div class="card2-left">
-			<div class="card2-title">Stiker</div>
+			<div class="card2-title">Cetak Stiker Laser A3+</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<div class="option-group"><label>Stiker Indoor:</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Cromo A3+</div>
+    	            	<div class="option " add-price="2000">Transparant A3+</div>
+    	            	<div class="option " add-price="2000">Vinyl A3+</div>
+    	            	<div class="option disabled" add-price="5000">Hologram A3+</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Laminasi:</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Tanpa Laminasi</div>
+    	            	<div class="option " add-price="5000">Glossy</div>
+    	            	<div class="option " add-price="5000">Doff</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Finishing :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Tanpa Potong</div>
+    	            	<div class="option " add-price="3000">Potong</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">ADD TO CART</button>
+</div>
+
+<!-- Product card 2 -->
+<div class="product-card2" data-category="tshirt">
+	<div class="card2-header"><img src="https://i.imgur.com/CVYGUMr.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 85.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Jersey Atasan</div>
 			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 				<table class="note-guide">
 					<thead>
@@ -2923,46 +2974,409 @@ Pooup Maintenance -->
                         <tr><td>XL</td><td>90</td><td>65</td></tr>
                     </tbody>
                 </table>
-				<div class="option-group"><label>Stiker Indoor:</label>
+				<div class="option-group"><label>Pengguna</label>
     	        	<div class="options">
-    	            	<div class="option selected" add-price="0">Cromo A3+</div>
-    	            	<div class="option" add-price="2000">Transparant A3+</div>
-    	            	<div class="option disabled" add-price="3000">Vinyl A3+</div>
-    	            	<div class="option" add-price="5000">Hologram A3+</div>
+    	            	<div class="option " add-price="-20000">Anak-anak</div>
+    	            	<div class="option selected" add-price="0">Dewasa</div>
     	        	</div>
 				</div>
-				<div class="option-group"><label>Laminasi:</label>
+				<div class="option-group"><label>Bahan :</label>
     	        	<div class="options">
-    	            	<div class="option selected" add-price="0">Tanpa Laminasi</div>
-    	            	<div class="option" add-price="5000">Glossy</div>
-    	            	<div class="option disabled" add-price="7000">Doff</div>
+    	            	<div class="option selected" add-price="0">Milano</div>
+    	            	<div class="option " add-price="10000">Serat Embos</div>
     	        	</div>
 				</div>
-				
+				<div class="option-group"><label>Lengan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Pendek</div>
+    	            	<div class="option " add-price="10000">Panjang</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Ukuran :</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="0">S</div>
+    	            	<div class="option " add-price="">M</div>
+    	            	<div class="option " add-price="">L</div>
+    	            	<div class="option " add-price="">XL</div>
+    	            	<div class="option " add-price="10000">XXL</div>
+    	            	<div class="option " add-price="20000">XXXL</div>
+    	        	</div>
+				</div>
 			</div>
 		</div>
     </div>
     <button class="atc-btn">ADD TO CART</button>
 </div>
 
-<!-- Product card 1 -->
-<div class="product-card2" data-category="jersey">
-	<div class="card2-header"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAh7b9wMDVsomFhYbnDApcZxrVc59jQ3CILlhk31JD9-Xfb5ZzESNUyaZ3&s=10" alt="Smart Watch"></div>
+<!-- Product card 3 -->
+<div class="product-card2" data-category="tshirt">
+	<div class="card2-header"><img src="https://i.imgur.com/7HC1BjI.png" alt="Smart Watch"></div>
 	<div class="card2-price">Rp 110.000</div>
 	<div class="card2-body">
 		<div class="card2-left">
-			<div class="card2-title">Grade B</div>
+			<div class="card2-title">Jersey (Atasan Full Printing & Celana Non Printing)</div>
 			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				<div class="option-group"><label>Stiker Indoor:</label>
+				<table class="note-guide">
+					<thead>
+						<tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>S</td><td>90</td><td>65</td></tr>
+                        <tr><td>M</td><td>90</td><td>65</td></tr>
+                        <tr><td>L</td><td>90</td><td>65</td></tr>
+                        <tr><td>XL</td><td>90</td><td>65</td></tr>
+                    </tbody>
+                </table>
+				<div class="option-group"><label>Pengguna</label>
     	        	<div class="options">
-    	            	<div class="option" add-price="0">Vinil Meteran</div>
-    	            	<div class="option" add-price="17000">OneWay</div>
+    	            	<div class="option " add-price="-20000">Anak-anak</div>
+    	            	<div class="option selected" add-price="0">Dewasa</div>
     	        	</div>
 				</div>
-				<div class="option-group"><label>Laminasi:</label>
+				<div class="option-group"><label>Bahan :</label>
     	        	<div class="options">
-    	            	<div class="option" add-price="3000">Potong</div>
-    	            	<div class="option" add-price="0">Tanpa Potong</div>
+    	            	<div class="option selected" add-price="0">Milano</div>
+    	            	<div class="option " add-price="10000">Serat Embos</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Lengan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Pendek</div>
+    	            	<div class="option " add-price="10000">Panjang</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Ukuran :</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="0">S</div>
+    	            	<div class="option " add-price="">M</div>
+    	            	<div class="option " add-price="">L</div>
+    	            	<div class="option " add-price="">XL</div>
+    	            	<div class="option " add-price="10000">XXL</div>
+    	            	<div class="option " add-price="20000">XXXL</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">ADD TO CART</button>
+</div>
+
+<!-- Product card 4 -->
+<div class="product-card2" data-category="tshirt">
+	<div class="card2-header"><img src="https://i.imgur.com/lDjPjYQ.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 125.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Jersey (Atasan & Celana Full Printing)</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<table class="note-guide">
+					<thead>
+						<tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>S</td><td>90</td><td>65</td></tr>
+                        <tr><td>M</td><td>90</td><td>65</td></tr>
+                        <tr><td>L</td><td>90</td><td>65</td></tr>
+                        <tr><td>XL</td><td>90</td><td>65</td></tr>
+                    </tbody>
+                </table>
+				<div class="option-group"><label>Pengguna</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="-20000">Anak-anak</div>
+    	            	<div class="option selected" add-price="0">Dewasa</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Bahan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Milano</div>
+    	            	<div class="option " add-price="10000">Serat Embos</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Lengan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Pendek</div>
+    	            	<div class="option " add-price="10000">Panjang</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Ukuran :</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="0">S</div>
+    	            	<div class="option " add-price="">M</div>
+    	            	<div class="option " add-price="">L</div>
+    	            	<div class="option " add-price="">XL</div>
+    	            	<div class="option " add-price="10000">XXL</div>
+    	            	<div class="option " add-price="20000">XXXL</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">ADD TO CART</button>
+</div>
+
+<!-- Product card 5 -->
+<div class="product-card2" data-category="tshirt">
+	<div class="card2-header"><img src="https://i.imgur.com/a2zY6NV.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 125.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Jersey Basket (Atasan & Celana Full Printing)</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<table class="note-guide">
+					<thead>
+						<tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>S</td><td>90</td><td>65</td></tr>
+                        <tr><td>M</td><td>90</td><td>65</td></tr>
+                        <tr><td>L</td><td>90</td><td>65</td></tr>
+                        <tr><td>XL</td><td>90</td><td>65</td></tr>
+                    </tbody>
+                </table>
+				<div class="option-group"><label>Pengguna</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="-20000">Anak-anak</div>
+    	            	<div class="option selected" add-price="0">Dewasa</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Bahan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Milano</div>
+    	            	<div class="option " add-price="10000">Serat Embos</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Ukuran :</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="0">S</div>
+    	            	<div class="option " add-price="">M</div>
+    	            	<div class="option " add-price="">L</div>
+    	            	<div class="option " add-price="">XL</div>
+    	            	<div class="option " add-price="10000">XXL</div>
+    	            	<div class="option " add-price="20000">XXXL</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">ADD TO CART</button>
+</div>
+
+<!-- Product card 6 -->
+<div class="product-card2" data-category="tshirt">
+	<div class="card2-header"><img src="https://i.imgur.com/a2zY6NV.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 100.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Kaos Polo</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<table class="note-guide">
+					<thead>
+						<tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>S</td><td>90</td><td>65</td></tr>
+                        <tr><td>M</td><td>90</td><td>65</td></tr>
+                        <tr><td>L</td><td>90</td><td>65</td></tr>
+                        <tr><td>XL</td><td>90</td><td>65</td></tr>
+                    </tbody>
+                </table>
+				<div class="option-group"><label>Pengguna</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="-20000">Anak-anak</div>
+    	            	<div class="option selected" add-price="0">Dewasa</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Bahan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Milano</div>
+    	            	<div class="option " add-price="10000">Serat Embos</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Ukuran :</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="0">S</div>
+    	            	<div class="option " add-price="">M</div>
+    	            	<div class="option " add-price="">L</div>
+    	            	<div class="option " add-price="">XL</div>
+    	            	<div class="option " add-price="10000">XXL</div>
+    	            	<div class="option " add-price="20000">XXXL</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">ADD TO CART</button>
+</div>
+
+<!-- Product card 7 -->
+<div class="product-card2" data-category="tshirt">
+	<div class="card2-header"><img src="https://i.imgur.com/a2zY6NV.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 65.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Kaos Sablon</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<table class="note-guide">
+					<thead>
+						<tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>S</td><td>90</td><td>65</td></tr>
+                        <tr><td>M</td><td>90</td><td>65</td></tr>
+                        <tr><td>L</td><td>90</td><td>65</td></tr>
+                        <tr><td>XL</td><td>90</td><td>65</td></tr>
+                    </tbody>
+                </table>
+				<div class="option-group"><label>Pengguna</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="-20000">Anak-anak</div>
+    	            	<div class="option selected" add-price="0">Dewasa</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Bahan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Milano</div>
+    	            	<div class="option " add-price="10000">Serat Embos</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Ukuran :</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="0">S</div>
+    	            	<div class="option " add-price="">M</div>
+    	            	<div class="option " add-price="">L</div>
+    	            	<div class="option " add-price="">XL</div>
+    	            	<div class="option " add-price="10000">XXL</div>
+    	            	<div class="option " add-price="20000">XXXL</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">ADD TO CART</button>
+</div>
+
+<!-- Product card 8 -->
+<div class="product-card2" data-category="tshirt">
+	<div class="card2-header"><img src="https://i.imgur.com/1zZqFi1.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 65.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Bendera / Umbul-umbul</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<table class="note-guide">
+					<thead>
+						<tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>S</td><td>90</td><td>65</td></tr>
+                        <tr><td>M</td><td>90</td><td>65</td></tr>
+                        <tr><td>L</td><td>90</td><td>65</td></tr>
+                        <tr><td>XL</td><td>90</td><td>65</td></tr>
+                    </tbody>
+                </table>
+				<div class="option-group"><label>Pengguna</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="-20000">Anak-anak</div>
+    	            	<div class="option selected" add-price="0">Dewasa</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Bahan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Milano</div>
+    	            	<div class="option " add-price="10000">Serat Embos</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Ukuran :</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="0">S</div>
+    	            	<div class="option " add-price="">M</div>
+    	            	<div class="option " add-price="">L</div>
+    	            	<div class="option " add-price="">XL</div>
+    	            	<div class="option " add-price="10000">XXL</div>
+    	            	<div class="option " add-price="20000">XXXL</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">ADD TO CART</button>
+</div>
+
+<!-- Product card 9 -->
+<div class="product-card2" data-category="undangan">
+	<div class="card2-header"><img src="https://i.imgur.com/a2zY6NV.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 1.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Blangko Undangan</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<div class="option-group"><label>Pengguna</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="-20000">Anak-anak</div>
+    	            	<div class="option selected" add-price="0">Dewasa</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Bahan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Milano</div>
+    	            	<div class="option " add-price="10000">Serat Embos</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Ukuran :</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="0">S</div>
+    	            	<div class="option " add-price="">M</div>
+    	            	<div class="option " add-price="">L</div>
+    	            	<div class="option " add-price="">XL</div>
+    	            	<div class="option " add-price="10000">XXL</div>
+    	            	<div class="option " add-price="20000">XXXL</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">ADD TO CART</button>
+</div>
+
+<!-- Product card 10 -->
+<div class="product-card2" data-category="book">
+	<div class="card2-header"><img src="https://i.imgur.com/a2zY6NV.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 10.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Buku Yasin</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<table class="note-guide">
+					<thead>
+						<tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>S</td><td>90</td><td>65</td></tr>
+                        <tr><td>M</td><td>90</td><td>65</td></tr>
+                        <tr><td>L</td><td>90</td><td>65</td></tr>
+                        <tr><td>XL</td><td>90</td><td>65</td></tr>
+                    </tbody>
+                </table>
+				<div class="option-group"><label>Pengguna</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="-20000">Anak-anak</div>
+    	            	<div class="option selected" add-price="0">Dewasa</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Bahan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Milano</div>
+    	            	<div class="option " add-price="10000">Serat Embos</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Ukuran :</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="0">S</div>
+    	            	<div class="option " add-price="">M</div>
+    	            	<div class="option " add-price="">L</div>
+    	            	<div class="option " add-price="">XL</div>
+    	            	<div class="option " add-price="10000">XXL</div>
+    	            	<div class="option " add-price="20000">XXXL</div>
     	        	</div>
 				</div>
 			</div>
@@ -4156,6 +4570,11 @@ document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
                 const addPrice = parseInt(option.getAttribute('add-price')) || 0;
                 optionElement.setAttribute('add-price', addPrice);
 
+                // Tambahkan kelas `disabled` jika opsi memiliki kelas tersebut
+                if (option.classList.contains('disabled')) {
+                    optionElement.classList.add('disabled');
+                }
+
                 // Aktifkan opsi yang dipilih sebelumnya jika ada
                 if (option.classList.contains('selected')) {
                     optionElement.classList.add('active');
@@ -4163,6 +4582,11 @@ document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
 
                 // Event Listener untuk klik opsi
                 optionElement.addEventListener('click', function () {
+                    // Cegah interaksi jika opsi dikunci (disabled)
+                    if (this.classList.contains('disabled')) {
+                        return; // Abaikan klik
+                    }
+
                     // Nonaktifkan semua opsi dalam grup
                     optionsContainerInGroup.querySelectorAll('.option').forEach(opt => opt.classList.remove('active'));
                     // Aktifkan opsi yang diklik
@@ -4300,11 +4724,12 @@ function showPaymentPopup() {
     const paymentDetails = paymentPopup.querySelector('.payment-details');
     paymentDetails.innerHTML = `
         <p><strong><h1 style="margin-top:-10px;margin-bottom:30px;">Rp ${subtotal.toLocaleString('id-ID')}</h1></strong></p> <!-- Pemisah ribuan -->
-        <p>Pilih metode pembayaran:</p>
+        <p>Metode pembayaran:</p>
         <ul>
             <li><h3>a.n <b>PT. DSAIN KREASI MANDIRI</h3></b></li>
             <li>Bank Mandiri</li>
-            <li><b><h1 style="margin-top:-3px;margin-bottom:50px;">1340020180971<h1></b></li>
+            <li><b><h1 style="margin-top:-3px;">1340020180971<h1></b></li>
+        <p>Biaya pengiriman barang (BAYAR DITEMPAT) </p>
         </ul>
     `;
 }
