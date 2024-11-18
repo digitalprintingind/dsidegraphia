@@ -1079,13 +1079,13 @@ button:hover {
         justify-content: center;
         align-items: center;
         width: 100%;
-        margin-top: -20px;
+        margin-top: -10px;
         margin-left: -20px;
     }
 
     .card2-header img {
         width: 140px;
-        height: 135px;
+        height: 140px;
         border-radius: 0 0 15px 15px;
     }
 
@@ -1094,7 +1094,9 @@ button:hover {
         position: absolute;
         top: 10px; /* 10px setara dengan 0.625rem */
         right: 0; /* 10px setara dengan 0.625rem */
-        background-color: rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         color: #fff;
         padding: 5px 15px; /* 5px 15px setara dengan 0.3125rem 0.9375rem */
         border-radius: 20px 0 0 20px;
@@ -2770,6 +2772,125 @@ line-height:1;
 }
 </style>
     
+
+    <style>
+        /* Wrapper utama untuk memusatkan galeri di tengah layar */
+        .gallery-wrapperKT {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh; /* Tinggi penuh layar */
+            width: 100vw; /* Lebar penuh layar */
+    margin: 70px 0 80px 0; 
+        }
+
+        /* Container galeri */
+        .gallery-containerKT {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Pastikan gambar selalu di tengah */
+            width: auto;
+            max-width: 90%;
+            height: 75%; /* Menggunakan 80% dari tinggi layar */
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        /* Barisan gambar di dalam galeri */
+.galleryKT {
+    display: flex;
+    align-items: center;
+    overflow-x: auto; /* Memungkinkan gulir horizontal */
+    scroll-snap-type: x mandatory; /* Mengaktifkan snap saat menggulir */
+    transition: none; /* Nonaktifkan animasi transform */
+}
+
+.slideKT {
+    scroll-snap-align: center; /* Snap elemen di tengah */
+    min-width: 100%; /* Setiap slide tetap penuh lebar */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+        /* Gaya untuk gambar utama */
+        .slideKT img {
+            max-width: 100%; /* Gambar tidak lebih lebar dari container */
+            max-height: 100%; /* Gambar tidak lebih tinggi dari container */
+            object-fit: contain; /* Gambar proporsional tanpa dipotong */
+            margin: auto; /* Pusatkan gambar dalam container */
+            transition: transform 0.8s ease-in-out; /* Animasi saat hover */
+        }
+
+        /* Efek hover pada gambar */
+        .slideKT img:hover {
+            transform: scale(1.05); /* Zoom in pada hover */
+        }
+
+        /* Kontainer untuk thumbnail */
+        .thumbnail-scrollKT {
+            display: flex;
+            justify-content: flex-start; /* Thumbnail mulai dari kiri */
+            align-items: center;
+            width: 90%;
+            margin-top: 10px; /* Jarak dengan galeri utama */
+            overflow-x: auto; /* Gulir horizontal */
+            padding-bottom: 5px;
+            gap: 10px; /* Jarak antar thumbnail */
+            white-space: nowrap; /* Prevent thumbnails from wrapping */
+        }
+
+        /* Gaya untuk thumbnail */
+        .thumbnail-containerKT {
+            display: inline-flex;
+            gap: 10px;
+        }
+
+        .thumbnailKT {
+            flex-shrink: 0;
+            width: 50px; /* Ukuran tetap untuk thumbnail */
+            height: 70px; /* Ukuran tetap untuk thumbnail */
+            border: 2px solid transparent;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .thumbnailKT img {
+            width: 100%;
+            height: auto; /* Proporsi tetap */
+            object-fit: cover; /* Isi thumbnail secara rapi */
+        }
+
+        .thumbnailKT:hover {
+            transform: scale(1.1);
+            border-color: white;
+        }
+
+        .thumbnailKT.active {
+            border-color: #00ff00; /* Indikasi thumbnail aktif */
+        }
+
+        /* Gaya scrollbar pada thumbnail */
+        .thumbnail-scrollKT::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .thumbnail-scrollKT::-webkit-scrollbar-thumb {
+            background-color: #555;
+            border-radius: 4px;
+        }
+
+        .thumbnail-scrollKT::-webkit-scrollbar-thumb:hover {
+            background-color: #999;
+        }
+        
+    </style>
     
 </head>
 <body>
@@ -2988,7 +3109,7 @@ line-height:1;
 	
 <!-- Product card 1 -->
 <div class="product-card2" data-category="stiker">
-	<div class="card2-header"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStmjlxToDjJjgCrIcNdVnHCFxJiCH8egls6f33UqXXBSrvq-B1hx7psVzI" alt="Smart Watch"></div>
+	<div class="card2-header"><img src="https://i.imgur.com/eaSQKGi.jpg" alt="Smart Watch"></div>
 	<div class="card2-price">Rp 9.000</div>
 	<div class="card2-body">
 		<div class="card2-left">
@@ -3373,31 +3494,33 @@ line-height:1;
 <!-- Product card 10 -->
 <div class="product-card2" data-category="book">
 	<div class="card2-header"><img src="https://i.imgur.com/Ue8qtrs.png" alt="Smart Watch"></div>
-	<div class="card2-price">Rp 10.000</div>
+	<div class="card2-price">Rp 11.000</div>
 	<div class="card2-body">
 		<div class="card2-left">
 			<div class="card2-title">Buku Yasin</div>
 			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				<div class="option-group"><label>Pengguna</label>
+				<div class="option-group"><label>Lembar Halaman</label>
     	        	<div class="options">
-    	            	<div class="option " add-price="-20000">Anak-anak</div>
-    	            	<div class="option selected" add-price="0">Dewasa</div>
+    	            	<div class="option selected" add-price="">128 Halaman</div>
+    	            	<div class="option " add-price="3000">196 Halaman</div>
+    	            	<div class="option " add-price="3000">216 Halaman</div>
+    	            	<div class="option " add-price="3000">224 Halaman</div>
+    	            	<div class="option " add-price="3000">256 Halaman</div>
+    	            	<div class="option " add-price="3000">480 Halaman</div>
     	        	</div>
 				</div>
 				<div class="option-group"><label>Bahan :</label>
     	        	<div class="options">
-    	            	<div class="option selected" add-price="0">Milano</div>
-    	            	<div class="option " add-price="10000">Serat Embos</div>
+    	            	<div class="option selected" add-price="">HVS</div>
+    	            	<div class="option " add-price="5500">ArtPaper</div>
     	        	</div>
 				</div>
-				<div class="option-group"><label>Ukuran :</label>
+				<div class="option-group"><label>Cover</label>
     	        	<div class="options">
-    	            	<div class="option " add-price="0">S</div>
-    	            	<div class="option " add-price="">M</div>
-    	            	<div class="option " add-price="">L</div>
-    	            	<div class="option " add-price="">XL</div>
-    	            	<div class="option " add-price="10000">XXL</div>
-    	            	<div class="option " add-price="20000">XXXL</div>
+    	            	<div class="option selected" add-price="">BC Print</div>
+    	            	<div class="option " add-price="1000">Embos Emas</div>
+    	            	<div class="option " add-price="">Hard Aksesoris Std</div>
+    	            	<div class="option " add-price="">Hard Full Aksesoris</div>
     	        	</div>
 				</div>
 			</div>
@@ -4383,36 +4506,32 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
 </div>
 
 <div class="contentH3" id="content-katalogH3"> <!--MENU TAB KATALOG-->
-<!-- Container khusus untuk Image Viewer -->
-<div class="image-viewer-containerKT">
-    <!-- Thumbnail with data-image attribute holding image URL -->
-    <img class="thumbnailKT" src="https://imgur.com/ycn3yPo.png" alt="Thumbnail" onclick="openPopup(0)">
-</div>
 
-<!-- Hidden images (not displayed) -->
-<img class="hidden-imageKT" src="https://imgur.com/ycn3yPo.png" />
-<img class="hidden-imageKT" src="https://imgur.com/T8NfegK.png" />
-<img class="hidden-imageKT" src="https://imgur.com/wXuRRuH.png" />
-<img class="hidden-imageKT" src="https://imgur.com/q2wI4BM.png" />
-<img class="hidden-imageKT" src="https://imgur.com/WwpPOA7.png" />
-<img class="hidden-imageKT" src="https://imgur.com/mMSVv69.png" />
-<img class="hidden-imageKT" src="https://imgur.com/oKjMPKE.png" />
-<img class="hidden-imageKT" src="https://imgur.com/7VWFo57.png" />
-<img class="hidden-imageKT" src="https://imgur.com/1zEB5qv.png" />
-<img class="hidden-imageKT" src="https://imgur.com/ZUUwgmp.png" />
-<img class="hidden-imageKT" src="https://imgur.com/2vR9ZQl.png" />
-<img class="hidden-imageKT" src="https://imgur.com/jbiwCml.png" />
-<img class="hidden-imageKT" src="https://imgur.com/hljVWB3.png" />
-<img class="hidden-imageKT" src="https://imgur.com/YGzQspS.png" />
-
-<!-- Overlay Popup -->
-<div class="overlayKT" id="overlayKT" onclick="closePopup()">
-    <div class="popup-containerKT" onclick="event.stopPropagation();">
-        <button class="nav-buttonKT prev-buttonKT" onclick="prevImage()"></button>
-        <img id="popupImageKT" class="popup-imageKT" src="" alt="Popup Image">
-        <button class="nav-buttonKT next-buttonKT" onclick="nextImage()"></button>
+    <div class="gallery-wrapperKT">
+        <div class="gallery-containerKT">
+            <button class="nav-buttonKT prevKT" onclick="moveSlide(-1)">&#10094;</button>
+            <div class="galleryKT">
+<div class="slideKT"><img src="https://imgur.com/ycn3yPo.png"></div>
+<div class="slideKT"><img src="https://imgur.com/T8NfegK.png"></div>
+<div class="slideKT"><img src="https://imgur.com/wXuRRuH.png"></div>
+<div class="slideKT"><img src="https://imgur.com/q2wI4BM.png"></div>
+<div class="slideKT"><img src="https://imgur.com/WwpPOA7.png"></div>
+<div class="slideKT"><img src="https://imgur.com/mMSVv69.png"></div>
+<div class="slideKT"><img src="https://imgur.com/oKjMPKE.png"></div>
+<div class="slideKT"><img src="https://imgur.com/7VWFo57.png"></div>
+<div class="slideKT"><img src="https://imgur.com/1zEB5qv.png"></div>
+<div class="slideKT"><img src="https://imgur.com/ZUUwgmp.png"></div>
+<div class="slideKT"><img src="https://imgur.com/2vR9ZQl.png"></div>
+<div class="slideKT"><img src="https://imgur.com/jbiwCml.png"></div>
+<div class="slideKT"><img src="https://imgur.com/hljVWB3.png"></div>
+<div class="slideKT"><img src="https://imgur.com/YGzQspS.png"></div>
+            </div>
+            <button class="nav-buttonKT nextKT" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+        <div class="thumbnail-scrollKT">
+            <div class="thumbnail-containerKT"></div>
+        </div>
     </div>
-</div>
 
 </div>
 
@@ -5018,53 +5137,54 @@ window.addEventListener('click', function(event) {
 
  <!-- Katalog --> 
 <script>
-    const hiddenImages = document.querySelectorAll('.hidden-imageKT');
-    let currentIndex = 0;
+let currentIndex = 0;
 
-    function openPopup(index) {
-        const imageUrl = hiddenImages[index].src;
-        document.getElementById('popupImageKT').src = imageUrl;
+document.addEventListener('DOMContentLoaded', () => {
+    const gallery = document.querySelector('.galleryKT');
+    const slides = document.querySelectorAll('.slideKT');
+    const thumbnailContainer = document.querySelector('.thumbnail-containerKT');
 
-        const overlay = document.getElementById('overlayKT');
-        overlay.style.display = 'flex';
-        setTimeout(() => {
-            overlay.style.opacity = 1;
-        }, 10);
+    // Generate thumbnails dynamically
+    slides.forEach((slide, index) => {
+        const imgSrc = slide.querySelector('img').src;
+        const thumb = document.createElement('div');
+        thumb.classList.add('thumbnailKT');
+        thumb.innerHTML = `<img src="${imgSrc}" alt="Thumbnail ${index + 1}">`;
+        thumb.addEventListener('click', () => {
+            gallery.scrollLeft = index * gallery.offsetWidth; // Gulir ke slide terkait
+        });
+        thumbnailContainer.appendChild(thumb);
+    });
 
-        const popupContainer = document.querySelector('.popup-containerKT');
-        setTimeout(() => {
-            popupContainer.style.opacity = 1;
-            popupContainer.style.transform = 'scale(1)';
-        }, 10);
+    // Perbarui thumbnail saat galeri digulir
+    gallery.addEventListener('scroll', updateThumbnails);
 
-        currentIndex = index;
+    // Panggil sinkronisasi awal
+    updateThumbnails();
+});
 
-        document.querySelector('.prev-buttonKT').style.display = 'block';
-        document.querySelector('.next-buttonKT').style.display = 'block';
+function updateThumbnails() {
+    const gallery = document.querySelector('.galleryKT');
+    const thumbnails = document.querySelectorAll('.thumbnailKT');
+    const slides = document.querySelectorAll('.slideKT');
+
+    // Hitung indeks slide aktif berdasarkan scroll posisi
+    const currentIndex = Math.round(gallery.scrollLeft / gallery.offsetWidth);
+
+    // Perbarui status thumbnail
+    thumbnails.forEach((thumb, index) => {
+        thumb.classList.toggle('active', index === currentIndex);
+    });
+
+    // Opsional: Fokuskan thumbnail aktif ke tengah
+    if (thumbnails[currentIndex]) {
+        const thumbnailScroll = document.querySelector('.thumbnail-scrollKT');
+        const thumb = thumbnails[currentIndex];
+        const thumbOffset = thumb.offsetLeft + thumb.offsetWidth / 2;
+        const scrollOffset = thumbnailScroll.offsetWidth / 2;
+        thumbnailScroll.scrollLeft = thumbOffset - scrollOffset;
     }
-
-    function closePopup() {
-        const overlay = document.getElementById('overlayKT');
-        const popupContainer = document.querySelector('.popup-containerKT');
-
-        overlay.style.opacity = 0;
-        popupContainer.style.opacity = 0;
-        popupContainer.style.transform = 'scale(0.9)';
-        
-        setTimeout(() => {
-            overlay.style.display = 'none';
-        }, 300);
-    }
-
-    function prevImage() {
-        currentIndex = (currentIndex === 0) ? hiddenImages.length - 1 : currentIndex - 1;
-        document.getElementById('popupImageKT').src = hiddenImages[currentIndex].src;
-    }
-
-    function nextImage() {
-        currentIndex = (currentIndex === hiddenImages.length - 1) ? 0 : currentIndex + 1;
-        document.getElementById('popupImageKT').src = hiddenImages[currentIndex].src;
-    }
+}
 </script>
 
 
