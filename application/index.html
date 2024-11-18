@@ -1280,6 +1280,22 @@ button:hover {
     margin-left: auto;
 }
 
+.item-name {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1; /* Batasi ke 1 baris */
+        overflow: hidden;
+        text-overflow: ellipsis;
+}
+
+.item.options {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2; /* Batasi ke  baris */
+        overflow: hidden;
+        text-overflow: ellipsis;
+}
+
 .decrease-btn, .increase-btn, .remove-btn {
     background-color: #4CAF50;
     color: white;
@@ -4590,7 +4606,7 @@ function updateCart() {
                 <img src="${item.img}" alt="${item.name}">
             </div>
             <div class="item-details">
-                <span>${item.name}</span>
+                <span class="item-name">${item.name}</span>
                 <span class="item-options">${item.options}</span> <!-- Menampilkan opsi yang dipilih -->
                 <span>Rp ${(item.price * item.qty).toLocaleString('id-ID')}</span>
             </div>
