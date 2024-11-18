@@ -2782,7 +2782,7 @@ line-height:1;
             align-items: center;
             height: 80vh; /* Tinggi penuh layar */
             width: 100vw; /* Lebar penuh layar */
-    margin: 70px 0 80px 0; 
+    margin: 60px 0 80px 0; 
         }
 
         /* Container galeri */
@@ -2793,7 +2793,7 @@ line-height:1;
             align-items: center; /* Pastikan gambar selalu di tengah */
             width: auto;
             max-width: 90%;
-            height: 75%; /* Menggunakan 80% dari tinggi layar */
+            height: 80%; /* Menggunakan 80% dari tinggi layar */
             overflow: hidden;
             border-radius: 15px;
         }
@@ -2826,18 +2826,13 @@ line-height:1;
             transition: transform 0.8s ease-in-out; /* Animasi saat hover */
         }
 
-        /* Efek hover pada gambar */
-        .slideKT img:hover {
-            transform: scale(1.05); /* Zoom in pada hover */
-        }
-
         /* Kontainer untuk thumbnail */
         .thumbnail-scrollKT {
             display: flex;
             justify-content: flex-start; /* Thumbnail mulai dari kiri */
             align-items: center;
             width: 90%;
-            margin-top: 10px; /* Jarak dengan galeri utama */
+            margin-top: 5px; /* Jarak dengan galeri utama */
             overflow-x: auto; /* Gulir horizontal */
             padding-bottom: 5px;
             gap: 10px; /* Jarak antar thumbnail */
@@ -2853,7 +2848,7 @@ line-height:1;
         .thumbnailKT {
             flex-shrink: 0;
             width: 50px; /* Ukuran tetap untuk thumbnail */
-            height: 70px; /* Ukuran tetap untuk thumbnail */
+            height: 50px; /* Ukuran tetap untuk thumbnail */
             border: 2px solid transparent;
             border-radius: 5px;
             overflow: hidden;
@@ -2895,13 +2890,6 @@ line-height:1;
 </head>
 <body>
 
-<div id="notif-popup-cart" class="popup-hidden-cart">
-    <div class="popup-content-cart">
-        <p>Silakan pilih salah satu opsi pada setiap grup sebelum menambah ke keranjang.</p>
-        <button id="close-popup-btn-cart">OK</button>
-    </div>
-</div>
-
 <!-- Popup Maintenance -->
 <div class="popup-overlayMT" id="maintenance-popupMT">
     <div class="popup-contentMT">
@@ -2929,7 +2917,6 @@ line-height:1;
     <!-- Icons Section -->
     <div class="icon-container">
         <i id="fullscreen-icon" class="fas fa-expand"></i>
-        <i class="fas fa-list" onclick="activateTabH3(this, 'content-katalogH3')"></i> <!-- Icon Katalog -->
         <div id="cart-icon">
             <i class="fas fa-shopping-cart"></i> <!-- Icon Keranjang -->
             <span id="cart-count">0</span>
@@ -2980,26 +2967,6 @@ line-height:1;
         </div>
     </div>
 </div>
-	
-  <!-- Elemen-elemen notifikasi
-  <button onclick="showNotif('notif1')">Tampilkan Notifikasi (Atas)</button>
-  <button onclick="showNotif('notif2')">Tampilkan Notifikasi (Bawah)</button>
-  <button onclick="showNotif('notif3')">Tampilkan Notifikasi (Kanan)</button>
-  <button onclick="showNotif('notif4')">Tampilkan Notifikasi (Kiri)</button>
-  <button onclick="showNotif('notif5')">Tampilkan Notifikasi (Sudut)</button>
-
-  
-  <div id="notif1" class="notifNT top-leftNT">Notifikasi Atas</div>
-  <div id="notif2" class="notifNT bottom-leftNT">Notifikasi Bawah</div>
-  <div id="notif3" class="notifNT top-rightNT">Notifikasi Kanan</div>
-  <div id="notif4" class="notifNT bottom-rightNT">Notifikasi Kiri</div>
-  <div id="notif5" class="notifNT top-rightNT">Notifikasi Sudut</div>
-  
-  Elemen-elemen notifikasi -->
-  	
-  <!-- Notifikasi yang selalu muncul dan tidak hilang (Standby) -->
-  <div id="notif1" class="notifNT top-rightNT" style="display: block;">Katalog</div>
-
 
 <!-- HTML for Payment Popup -->
 <div id="payment-popup" class="popup-hidden">
@@ -3021,6 +2988,13 @@ line-height:1;
             <strong style="color:#fff;">Subtotal: Rp <span id="subtotal">0</span></strong>
         </div>
         <button id="checkout-btn">Checkout</button>
+</div>
+
+<div id="notif-popup-cart" class="popup-hidden-cart">
+    <div class="popup-content-cart">
+        <p>Silakan lengkapi pilihan sebelum menambah ke keranjang.</p>
+        <button id="close-popup-btn-cart">OK</button>
+    </div>
 </div>
 
 <!-- Content sections for each tab -->
@@ -3625,323 +3599,39 @@ line-height:1;
     </div>
 </div>
 
-    <footer class="footerFTR">
-        <!-- Header Section -->
-        <div class="headerFTR">
-            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
-            <p>D'Side Graphia melayani jasa Penempatan Media Outdoor dengan lingkup Nasional. Billboard, Videotron, Spanduk, Baliho, Umbul-Umbul, T-Banner, Neon Box, Letter Sign, Signage, Pylon Sign, Signboard.</p>
-        </div>
-
-        <!-- Social Icons -->
-        <div class="social-iconsFTR">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-        </div>
-
-        <!-- Footer Columns -->
-        <div class="footer-columnsFTR">
-            <!-- Column 1 -->
-            <div class="footer-columnFTR">
-                <h3>Our Services</h3>
-                <ul>
-                    <li><i class="fas fa-bullhorn"></i> Outdoor Advertising</li>
-                    <li><i class="fas fa-ad"></i> Pemasangan Iklan</li>
-                    <li><i class="fas fa-file-signature"></i> Perizinan Iklan</li>
-                    <li><i class="fas fa-print"></i> Digital Printing</li>
-                    <li><i class="fas fa-comments"></i> Konsultasi Gratis</li>
-                </ul>
-            </div>
-            <!-- Column 2 -->
-            <div class="footer-columnFTR">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><i class="fas fa-info-circle"></i> About Us</li>
-                    <li><i class="fas fa-video"></i> Productions</li>
-                    <li><i class="fas fa-images"></i> Gallery</li>
-                    <li><i class="fas fa-briefcase"></i> Portofolio</li>
-                    <li onclick="activateTabH3(this, 'content-contactusH3')"><i class="fas fa-phone-alt"></i> Contact Us</li>
-                </ul>
-            </div>
-            <!-- Column 3 -->
-            <div class="footer-columnFTR">
-                <h3>Hubungi Kami</h3>
-                <div class="contact-infoFTR"><i class="fas fa-phone"></i> (0234) 7301966</div>
-                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> +62 87838333993</div>
-                <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
-            </div>
-            <!-- Column 4 (Hak Cipta) -->
-            <div class="copyrightFTR">
-                <p>&copy; 2024 D'Side Graphia. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+<div class="footer"></div>
 
 <div class="bottom" ></div>
 </div>
 
-<div class="contentH3" id="content-portofolioH3"><!--MENU TAB PAYMENT-->
+<div class="contentH3" id="content-katalogH3"> <!--MENU TAB KATALOG-->
 
-<div class="containerA2">
-    <div class="articlesA2">
-        <!-- Daftar artikel tentang D'Side Graphia dan percetakan -->
-<div class="article-cardA2" data-media="https://www.youtube.com/watch?v=example20" data-type="video">
-    <div class="article-headerA2">
-        <div class="profile-picA2"></div>
-        <div>
-            <h2>Teknik D'Side Graphia yang Efisien</h2>
-            <div class="authorA2">Penulis: Admin</div>
-        </div>
-    </div>
-    <p class="contentA2">D'Side Graphia menggunakan teknik D'Side Graphia yang efisien untuk menghasilkan produk berkualitas.</p>
-</div>
-<div class="article-cardA2" data-media="https://example.com/image19.jpg" data-type="image">
-    <div class="article-headerA2">
-        <div class="profile-picA2"></div>
-        <div>
-            <h2>Memahami Proses Cetak Digital</h2>
-            <div class="authorA2">Penulis: Admin</div>
-        </div>
-    </div>
-    <p class="contentA2">Proses cetak digital di D'Side Graphia mencakup berbagai tahap untuk memastikan kualitas.</p>
-</div>
-<div class="article-cardA2" data-media="https://www.youtube.com/watch?v=example23" data-type="video">
-    <div class="article-headerA2">
-        <div class="profile-picA2"></div>
-        <div>
-            <h2>Peran Desain dalam Percetakan Digital</h2>
-            <div class="authorA2">Penulis: Admin</div>
-        </div>
-    </div>
-    <p class="contentA2">Desain yang baik adalah kunci untuk hasil cetak yang memuaskan. D'Side Graphia memahami pentingnya desain.</p>
-</div>
-<div class="article-cardA2" data-media="https://example.com/image21.jpg" data-type="image">
-    <div class="article-headerA2">
-        <div class="profile-picA2"></div>
-        <div>
-            <h2>D'Side Graphia untuk Branding yang Kuat</h2>
-            <div class="authorA2">Penulis: Admin</div>
-        </div>
-    </div>
-    <p class="contentA2">D'Side Graphia menawarkan solusi D'Side Graphia untuk memperkuat branding Anda.</p>
-</div>
-<div class="article-cardA2" data-media="https://example.com/image22.jpg" data-type="image">
-    <div class="article-headerA2">
-        <div class="profile-picA2"></div>
-        <div>
-            <h2>Bahan Baku untuk Percetakan Digital</h2>
-            <div class="authorA2">Penulis: Admin</div>
-        </div>
-    </div>
-    <p class="contentA2">Pilihan bahan baku sangat mempengaruhi hasil cetakan. D'Side Graphia selalu memilih yang terbaik.</p>
-</div>
-<div class="article-cardA2" data-media="https://www.youtube.com/watch?v=example26" data-type="video">
-    <div class="article-headerA2">
-        <div class="profile-picA2"></div>
-        <div>
-            <h2>Cetak Bahan Pemasaran yang Efektif</h2>
-            <div class="authorA2">Penulis: Admin</div>
-        </div>
-    </div>
-    <p class="contentA2">Pelajari bagaimana D'Side Graphia mencetak bahan pemasaran yang efektif untuk berbagai bisnis.</p>
-</div>
-<div class="article-cardA2" data-media="https://example.com/image24.jpg" data-type="image">
-    <div class="article-headerA2">
-        <div class="profile-picA2"></div>
-        <div>
-            <h2>Inovasi dalam Finishing Produk Cetak</h2>
-            <div class="authorA2">Penulis: Admin</div>
-        </div>
-    </div>
-    <p class="contentA2">Finishing produk cetak adalah tahap akhir yang krusial. D'Side Graphia memiliki berbagai opsi finishing.</p>
-</div>
-<div class="article-cardA2" data-media="https://example.com/image25.jpg" data-type="image">
-    <div class="article-headerA2">
-        <div class="profile-picA2"></div>
-        <div>
-            <h2>Kreativitas dalam Desain Packaging</h2>
-            <div class="authorA2">Penulis: Admin</div>
-        </div>
-    </div>
-    <p class="contentA2">D'Side Graphia membantu menciptakan desain kemasan yang menarik dan fungsional.</p>
-</div>
-<div class="article-cardA2" data-media="https://www.youtube.com/watch?v=example29" data-type="video">
-    <div class="article-headerA2">
-        <div class="profile-picA2"></div>
-        <div>
-            <h2>Mengatasi Tantangan dalam D'Side Graphia</h2>
-            <div class="authorA2">Penulis: Admin</div>
-        </div>
-    </div>
-    <p class="contentA2">Pelajari cara D'Side Graphia mengatasi berbagai tantangan dalam D'Side Graphia.</p>
-</div>
-<div class="article-cardA2" data-media="https://example.com/image27.jpg" data-type="image">
-    <div class="article-headerA2">
-        <div class="profile-picA2"></div>
-        <div>
-            <h2>Mengenal Percetakan 3D</h2>
-            <div class="authorA2">Penulis: Admin</div>
-        </div>
-    </div>
-    <p class="contentA2">D'Side Graphia juga menjelajahi percetakan 3D untuk memenuhi permintaan pasar yang terus berkembang.</p>
-</div>
-<div class="article-cardA2" data-media="https://example.com/image28.jpg" data-type="image">
-    <div class="article-headerA2">
-        <div class="profile-picA2"></div>
-        <div>
-            <h2>Perkembangan Percetakan di Era Digital</h2>
-            <div class="authorA2">Penulis: Admin</div>
-        </div>
-    </div>
-    <p class="contentA2">D'Side Graphia mengikuti perkembangan percetakan di era digital untuk tetap relevan.</p>
-</div>
-<div class="article-cardA2" data-media="https://example.com/image30.jpg" data-type="image">
-    <div class="article-headerA2">
-        <div class="profile-picA2"></div>
-        <div>
-            <h2>Cetakan Berkualitas untuk Event Khusus</h2>
-            <div class="authorA2">Penulis: Admin</div>
-        </div>
-    </div>
-    <p class="contentA2">D'Side Graphia menyediakan cetakan berkualitas tinggi untuk berbagai acara khusus.</p>
-</div>
-<div class="article-cardA2" data-media="https://example.com/image31.jpg" data-type="image">
-    <div class="article-headerA2">
-        <div class="profile-picA2"></div>
-        <div>
-            <h2>Keunggulan D'Side Graphia dalam Bisnis Kecil</h2>
-            <div class="authorA2">Penulis: Admin</div>
-        </div>
-    </div>
-    <p class="contentA2">D'Side Graphia memberikan banyak keuntungan bagi bisnis kecil. D'Side Graphia membantu Anda memanfaatkannya.</p>
-</div>
-<div class="article-cardA2" data-media="https://www.youtube.com/watch?v=example31" data-type="video">
-    <div class="article-headerA2">
-        <div class="profile-picA2"></div>
-        <div>
-            <h2>Masa Depan Percetakan dengan Teknologi AI</h2>
-            <div class="authorA2">Penulis: Admin</div>
-        </div>
-    </div>
-    <p class="contentA2">D'Side Graphia menjelajahi bagaimana teknologi AI dapat mengubah industri percetakan.</p>
-</div>
-<div class="article-cardA2" data-media="https://example.com/image32.jpg" data-type="image">
-    <div class="article-headerA2">
-        <div class="profile-picA2"></div>
-        <div>
-            <h2>Kustomisasi dalam D'Side Graphia</h2>
-            <div class="authorA2">Penulis: Admin</div>
-        </div>
-    </div>
-    <p class="contentA2">D'Side Graphia menawarkan berbagai opsi kustomisasi untuk produk cetakan Anda.</p>
-</div>
-<div class="article-cardA2" data-media="https://example.com/image33.jpg" data-type="image">
-    <div class="article-headerA2">
-        <div class="profile-picA2"></div>
-        <div>
-            <h2>Manfaat D'Side Graphia untuk Event dan Promosi</h2>
-            <div class="authorA2">Penulis: Admin</div>
-        </div>
-    </div>
-    <p class="contentA2">D'Side Graphia membantu Anda mendapatkan manfaat maksimal dari D'Side Graphia untuk event dan promosi.</p>
-</div>
-<div class="article-cardA2" data-media="https://example.com/image34.jpg" data-type="image">
-    <div class="article-headerA2">
-        <div class="profile-picA2"></div>
-        <div>
-            <h2>Solusi D'Side Graphia untuk Kebutuhan Spesifik</h2>
-            <div class="authorA2">Penulis: Admin</div>
-        </div>
-    </div>
-    <p class="contentA2">D'Side Graphia memberikan solusi D'Side Graphia yang disesuaikan untuk memenuhi kebutuhan spesifik Anda.</p>
-</div>
-
-    </div>
-</div>
-
-<!-- Popup Lightbox -->
-<div class="lightboxA2" id="lightboxA2">
-    <div class="lightbox-contentA2">
-        <button class="close-btnA2" id="close-btnA2">Tutup</button>
-        <h2 id="popup-titleA2">Judul Artikel</h2>
-        <div id="popup-authorA2">Penulis: Admin</div>
-        <p id="popup-contentA2">Detail artikel akan ditampilkan di sini.</p>
-        <img id="popup-imageA2" class="mediaA2" style="display: none;" alt="Media" />
-        <iframe id="popup-videoA2" class="mediaA2" width="100%" height="315" style="display: none;" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    </div>
-</div>
-
-<div class="bottom" ></div>
-
-<div class="banner-wrapperKY">
-	<div class="bannercontactKY">
-		<!-- Kolom Pertama (Logo + Caption, Bersebelahan di Desktop) -->
-		<div class="columnKY column-logo-captionKY">
-			<div class="logoKY">📢</div>
-            <div class="captionKY">
-             Konsultasikan kebutuhan Advertising dan Promosi Anda sekarang juga! Tim customer service kami siap membantu.
-			</div>
-            <div class="columnKY button-columnKY"><button class="buttonKY" onclick="toggleWhatsAppCard(event)">Hubungi Kami</button>
+    <div class="gallery-wrapperKT">
+        <div class="gallery-containerKT">
+            <button class="nav-buttonKT prevKT" onclick="moveSlide(-1)">&#10094;</button>
+            <div class="galleryKT">
+<div class="slideKT"><img src="https://imgur.com/ycn3yPo.png"></div>
+<div class="slideKT"><img src="https://imgur.com/T8NfegK.png"></div>
+<div class="slideKT"><img src="https://imgur.com/wXuRRuH.png"></div>
+<div class="slideKT"><img src="https://imgur.com/q2wI4BM.png"></div>
+<div class="slideKT"><img src="https://imgur.com/WwpPOA7.png"></div>
+<div class="slideKT"><img src="https://imgur.com/mMSVv69.png"></div>
+<div class="slideKT"><img src="https://imgur.com/oKjMPKE.png"></div>
+<div class="slideKT"><img src="https://imgur.com/7VWFo57.png"></div>
+<div class="slideKT"><img src="https://imgur.com/1zEB5qv.png"></div>
+<div class="slideKT"><img src="https://imgur.com/ZUUwgmp.png"></div>
+<div class="slideKT"><img src="https://imgur.com/2vR9ZQl.png"></div>
+<div class="slideKT"><img src="https://imgur.com/jbiwCml.png"></div>
+<div class="slideKT"><img src="https://imgur.com/hljVWB3.png"></div>
+<div class="slideKT"><img src="https://imgur.com/YGzQspS.png"></div>
             </div>
+            <button class="nav-buttonKT nextKT" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+        <div class="thumbnail-scrollKT">
+            <div class="thumbnail-containerKT"></div>
         </div>
     </div>
-</div>
 
-    <footer class="footerFTR">
-        <!-- Header Section -->
-        <div class="headerFTR">
-            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
-            <p>D'Side Graphia melayani jasa Penempatan Media Outdoor dengan lingkup Nasional. Billboard, Videotron, Spanduk, Baliho, Umbul-Umbul, T-Banner, Neon Box, Letter Sign, Signage, Pylon Sign, Signboard.</p>
-        </div>
-
-        <!-- Social Icons -->
-        <div class="social-iconsFTR">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-        </div>
-
-        <!-- Footer Columns -->
-        <div class="footer-columnsFTR">
-            <!-- Column 1 -->
-            <div class="footer-columnFTR">
-                <h3>Our Services</h3>
-                <ul>
-                    <li><i class="fas fa-bullhorn"></i> Outdoor Advertising</li>
-                    <li><i class="fas fa-ad"></i> Pemasangan Iklan</li>
-                    <li><i class="fas fa-file-signature"></i> Perizinan Iklan</li>
-                    <li><i class="fas fa-print"></i> Digital Printing</li>
-                    <li><i class="fas fa-comments"></i> Konsultasi Gratis</li>
-                </ul>
-            </div>
-            <!-- Column 2 -->
-            <div class="footer-columnFTR">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><i class="fas fa-info-circle"></i> About Us</li>
-                    <li><i class="fas fa-video"></i> Productions</li>
-                    <li><i class="fas fa-images"></i> Gallery</li>
-                    <li><i class="fas fa-briefcase"></i> Portofolio</li>
-                    <li onclick="activateTabH3(this, 'content-contactusH3')"><i class="fas fa-phone-alt"></i> Contact Us</li>
-                </ul>
-            </div>
-            <!-- Column 3 -->
-            <div class="footer-columnFTR">
-                <h3>Hubungi Kami</h3>
-                <div class="contact-infoFTR"><i class="fas fa-phone"></i> (0234) 7301966</div>
-                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> +62 87838333993</div>
-                <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
-            </div>
-            <!-- Column 4 (Hak Cipta) -->
-            <div class="copyrightFTR">
-                <p>&copy; 2024 D'Side Graphia. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-<div class="bottom" ></div>
 </div>
 
 <div class="contentH3 activeH3" id="content-homeH3"><!--MENU TAB HOME-->
@@ -4207,58 +3897,7 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
     </div>
 </div>
 
-    <footer class="footerFTR">
-        <!-- Header Section -->
-        <div class="headerFTR">
-            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
-            <p>D'Side Graphia melayani jasa Penempatan Media Outdoor dengan lingkup Nasional. Billboard, Videotron, Spanduk, Baliho, Umbul-Umbul, T-Banner, Neon Box, Letter Sign, Signage, Pylon Sign, Signboard.</p>
-        </div>
-
-        <!-- Social Icons -->
-        <div class="social-iconsFTR">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-        </div>
-
-        <!-- Footer Columns -->
-        <div class="footer-columnsFTR">
-            <!-- Column 1 -->
-            <div class="footer-columnFTR">
-                <h3>Our Services</h3>
-                <ul>
-                    <li><i class="fas fa-bullhorn"></i> Outdoor Advertising</li>
-                    <li><i class="fas fa-ad"></i> Pemasangan Iklan</li>
-                    <li><i class="fas fa-file-signature"></i> Perizinan Iklan</li>
-                    <li><i class="fas fa-print"></i> Digital Printing</li>
-                    <li><i class="fas fa-comments"></i> Konsultasi Gratis</li>
-                </ul>
-            </div>
-            <!-- Column 2 -->
-            <div class="footer-columnFTR">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><i class="fas fa-info-circle"></i> About Us</li>
-                    <li><i class="fas fa-video"></i> Productions</li>
-                    <li><i class="fas fa-images"></i> Gallery</li>
-                    <li><i class="fas fa-briefcase"></i> Portofolio</li>
-                    <li onclick="activateTabH3(this, 'content-contactusH3')"><i class="fas fa-phone-alt"></i> Contact Us</li>
-                </ul>
-            </div>
-            <!-- Column 3 -->
-            <div class="footer-columnFTR">
-                <h3>Hubungi Kami</h3>
-                <div class="contact-infoFTR"><i class="fas fa-phone"></i> (0234) 7301966</div>
-                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> +62 87838333993</div>
-                <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
-            </div>
-            <!-- Column 4 (Hak Cipta) -->
-            <div class="copyrightFTR">
-                <p>&copy; 2024 D'Side Graphia. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+<div class="footer"></div>
 
 <div class="bottom" ></div>
 </div>
@@ -4448,92 +4087,12 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
     </div>
 </div>
 
-    <footer class="footerFTR">
-        <!-- Header Section -->
-        <div class="headerFTR">
-            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
-            <p>D'Side Graphia melayani jasa Penempatan Media Outdoor dengan lingkup Nasional. Billboard, Videotron, Spanduk, Baliho, Umbul-Umbul, T-Banner, Neon Box, Letter Sign, Signage, Pylon Sign, Signboard.</p>
-        </div>
-
-        <!-- Social Icons -->
-        <div class="social-iconsFTR">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-        </div>
-
-        <!-- Footer Columns -->
-        <div class="footer-columnsFTR">
-            <!-- Column 1 -->
-            <div class="footer-columnFTR">
-                <h3>Our Services</h3>
-                <ul>
-                    <li><i class="fas fa-bullhorn"></i> Outdoor Advertising</li>
-                    <li><i class="fas fa-ad"></i> Pemasangan Iklan</li>
-                    <li><i class="fas fa-file-signature"></i> Perizinan Iklan</li>
-                    <li><i class="fas fa-print"></i> Digital Printing</li>
-                    <li><i class="fas fa-comments"></i> Konsultasi Gratis</li>
-                </ul>
-            </div>
-            <!-- Column 2 -->
-            <div class="footer-columnFTR">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><i class="fas fa-info-circle"></i> About Us</li>
-                    <li><i class="fas fa-video"></i> Productions</li>
-                    <li><i class="fas fa-images"></i> Gallery</li>
-                    <li><i class="fas fa-briefcase"></i> Portofolio</li>
-                    <li onclick="activateTabH3(this, 'content-contactusH3')"><i class="fas fa-phone-alt"></i> Contact Us</li>
-                </ul>
-            </div>
-            <!-- Column 3 -->
-            <div class="footer-columnFTR">
-                <h3>Hubungi Kami</h3>
-                <div class="contact-infoFTR"><i class="fas fa-phone"></i> (0234) 7301966</div>
-                <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> +62 87838333993</div>
-                <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
-            </div>
-            <!-- Column 4 (Hak Cipta) -->
-            <div class="copyrightFTR">
-                <p>&copy; 2024 D'Side Graphia. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+<div class="footer"></div>
 
 <!--END MENU TAB PROFILE-->
 <div class="bottom" ></div>
 </div>
 
-<div class="contentH3" id="content-katalogH3"> <!--MENU TAB KATALOG-->
-
-    <div class="gallery-wrapperKT">
-        <div class="gallery-containerKT">
-            <button class="nav-buttonKT prevKT" onclick="moveSlide(-1)">&#10094;</button>
-            <div class="galleryKT">
-<div class="slideKT"><img src="https://imgur.com/ycn3yPo.png"></div>
-<div class="slideKT"><img src="https://imgur.com/T8NfegK.png"></div>
-<div class="slideKT"><img src="https://imgur.com/wXuRRuH.png"></div>
-<div class="slideKT"><img src="https://imgur.com/q2wI4BM.png"></div>
-<div class="slideKT"><img src="https://imgur.com/WwpPOA7.png"></div>
-<div class="slideKT"><img src="https://imgur.com/mMSVv69.png"></div>
-<div class="slideKT"><img src="https://imgur.com/oKjMPKE.png"></div>
-<div class="slideKT"><img src="https://imgur.com/7VWFo57.png"></div>
-<div class="slideKT"><img src="https://imgur.com/1zEB5qv.png"></div>
-<div class="slideKT"><img src="https://imgur.com/ZUUwgmp.png"></div>
-<div class="slideKT"><img src="https://imgur.com/2vR9ZQl.png"></div>
-<div class="slideKT"><img src="https://imgur.com/jbiwCml.png"></div>
-<div class="slideKT"><img src="https://imgur.com/hljVWB3.png"></div>
-<div class="slideKT"><img src="https://imgur.com/YGzQspS.png"></div>
-            </div>
-            <button class="nav-buttonKT nextKT" onclick="moveSlide(1)">&#10095;</button>
-        </div>
-        <div class="thumbnail-scrollKT">
-            <div class="thumbnail-containerKT"></div>
-        </div>
-    </div>
-
-</div>
 
 
 <!-- Bottom menu bar -->
@@ -4542,9 +4101,9 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
     <i class="fas fa-box-open"></i>
     <span>Product</span>
   </div>
-  <div class="tab-itemH3" onclick="activateTabH3(this, 'content-portofolioH3')">
-    <i class="fas fa-sync-alt fa-spin"></i>
-    <span>Portofolio</span>
+  <div class="tab-itemH3" onclick="activateTabH3(this, 'content-katalogH3')">
+    <i class="fas fa-list"></i>
+    <span>Katalog</span>
   </div>
   <div class="tab-itemH3 homeH3" onclick="activateTabH3(this, 'content-homeH3')">
     <i class="fas fa-home"></i>
@@ -5187,54 +4746,6 @@ function updateThumbnails() {
 }
 </script>
 
-
- <!--MENU TAB PROTOFOLIO --> 
-<script>
-    // Menampilkan thumbnail dan popup lightbox saat card diklik
-    document.querySelectorAll('.article-cardA2').forEach(card => {
-        const mediaUrl = card.getAttribute('data-media');
-        const mediaType = card.getAttribute('data-type');
-
-        card.addEventListener('click', () => {
-            document.getElementById('lightboxA2').style.display = 'flex';
-            document.getElementById('popup-titleA2').innerText = card.querySelector('h2').innerText;
-            document.getElementById('popup-authorA2').innerText = card.querySelector('.authorA2').innerText;
-            document.getElementById('popup-contentA2').innerText = card.querySelector('.contentA2').innerText;
-
-            if (mediaType === 'image') {
-                const image = document.getElementById('popup-imageA2');
-                image.src = mediaUrl;
-                image.style.display = 'block';
-                document.getElementById('popup-videoA2').style.display = 'none';
-            } else if (mediaType === 'video') {
-                const video = document.getElementById('popup-videoA2');
-                video.src = mediaUrl;
-                video.style.display = 'block';
-                document.getElementById('popup-imageA2').style.display = 'none';
-            }
-        });
-    });
-
-    // Menutup lightbox saat tombol close diklik
-    document.getElementById('close-btnA2').addEventListener('click', () => {
-        closeLightbox();
-    });
-
-    // Menutup lightbox saat mengklik di luar konten
-    document.getElementById('lightboxA2').addEventListener('click', (event) => {
-        if (event.target === event.currentTarget) {
-            closeLightbox();
-        }
-    });
-
-    // Fungsi untuk menutup lightbox
-    function closeLightbox() {
-        document.getElementById('lightboxA2').style.display = 'none';
-        document.getElementById('popup-imageA2').style.display = 'none';
-        document.getElementById('popup-videoA2').style.display = 'none';
-    }
-</script>
-
 <!--Banner Utama-->
 <script>
     let currentSlide = 0;
@@ -5305,55 +4816,7 @@ setInterval(showNextSlide, 10000);
     setInterval(clientMoveToNextSlide, 3000);
 </script>
 
-
-<!--Team-->
-    <script>
-        // JavaScript untuk transisi mobile
-        if (window.innerWidth <= 768) {
-            let currentIndex = 0;
-            const cards = document.querySelectorAll('.team-card');
-            const totalCards = cards.length;
-
-            function showNextCard() {
-                // Hilangkan class active dari card saat ini
-                cards[currentIndex].classList.remove('active');
-
-                // Hitung index card berikutnya
-                currentIndex = (currentIndex + 1) % totalCards;
-
-                // Tambahkan class active ke card berikutnya
-                cards[currentIndex].classList.add('active');
-            }
-
-            // Interval untuk mengubah card setiap 4 detik
-            setInterval(showNextCard, 4000);
-        }
-    </script>
     
- <!--CONTACT FORM --> 
-    <script>
-        document.querySelector(".contact-formCF").addEventListener("submit", function(event) {
-            event.preventDefault();
-            alert("Message Sent!");
-        });
-    </script>
-
- <!--NOTIF MENGAMBANG --> 
-  <script>
-    // Menampilkan notifikasi berdasarkan ID
-    function showNotif(id) {
-      const notifNT = document.getElementById(id);
-      
-      // Tampilkan notifikasi
-      notifNT.style.display = 'block';
-
-      // Setelah 3 detik, sembunyikan notifikasi
-      setTimeout(() => {
-        notifNT.style.display = 'none';
-      }, 3000);
-    }
-  </script>
-
 <!--POPUP MAINTENANCE--> 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -5392,6 +4855,70 @@ setInterval(showNextSlide, 10000);
         }
     });
 </script>
-    
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const footerHTML = `
+        <footer class="footerFTR">
+            <!-- Header Section -->
+            <div class="headerFTR">
+                <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
+                <p>D'Side Graphia melayani jasa Penempatan Media Outdoor dengan lingkup Nasional. Billboard, Videotron, Spanduk, Baliho, Umbul-Umbul, T-Banner, Neon Box, Letter Sign, Signage, Pylon Sign, Signboard.</p>
+            </div>
+
+            <!-- Social Icons -->
+            <div class="social-iconsFTR">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+
+            <!-- Footer Columns -->
+            <div class="footer-columnsFTR">
+                <!-- Column 1 -->
+                <div class="footer-columnFTR">
+                    <h3>Our Services</h3>
+                    <ul>
+                        <li><i class="fas fa-bullhorn"></i> Outdoor Advertising</li>
+                        <li><i class="fas fa-ad"></i> Pemasangan Iklan</li>
+                        <li><i class="fas fa-file-signature"></i> Perizinan Iklan</li>
+                        <li><i class="fas fa-print"></i> Digital Printing</li>
+                        <li><i class="fas fa-comments"></i> Konsultasi Gratis</li>
+                    </ul>
+                </div>
+                <!-- Column 2 -->
+                <div class="footer-columnFTR">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><i class="fas fa-info-circle"></i> About Us</li>
+                        <li><i class="fas fa-video"></i> Productions</li>
+                        <li><i class="fas fa-images"></i> Gallery</li>
+                        <li><i class="fas fa-briefcase"></i> Portofolio</li>
+                        <li onclick="activateTabH3(this, 'content-contactusH3')"><i class="fas fa-phone-alt"></i> Contact Us</li>
+                    </ul>
+                </div>
+                <!-- Column 3 -->
+                <div class="footer-columnFTR">
+                    <h3>Hubungi Kami</h3>
+                    <div class="contact-infoFTR"><i class="fas fa-phone"></i> (0234) 7301966</div>
+                    <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> +62 87838333993</div>
+                    <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
+                </div>
+                <!-- Column 4 (Hak Cipta) -->
+                <div class="copyrightFTR">
+                    <p>&copy; 2024 D'Side Graphia. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    `;
+
+    // Cari semua elemen dengan class "footer" dan tambahkan HTML footer
+    const footerElements = document.querySelectorAll('.footer');
+    footerElements.forEach(footerElement => {
+        footerElement.innerHTML = footerHTML;
+    });
+});
+</script>
 </body>
 </html>
