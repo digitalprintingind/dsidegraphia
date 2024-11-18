@@ -2684,7 +2684,7 @@ line-height:1;
     font-size: 28px;
     background: none;
     border: none;
-    color: #fff;
+    color: red;
     cursor: pointer;
     position: absolute;
     top: 10px;
@@ -2709,7 +2709,7 @@ line-height:1;
     margin: 15px 0;
     display: flex;
     gap: 5px;
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(90deg, #48ef80, #1f80c0);
     border-radius: 8px;
     padding: 10px 10px;
     transition: all 0.3s ease;
@@ -2718,7 +2718,7 @@ line-height:1;
 
 .guide-listMT li i {
     font-size: 24px;
-    color: #48ef80;
+    color: #fff;
     animation: bounceMT 1.5s infinite ease;
 }
 
@@ -2762,17 +2762,17 @@ line-height:1;
     </div>
 </div>
 
-<!-- Pooup Maintenance -->
+<!-- Popup Maintenance -->
 <div class="popup-overlayMT" id="maintenance-popupMT">
     <div class="popup-contentMT">
         <p class="popup-titleMT">Website Sedang dalam Pengembangan</p>
         <p class="popup-subtitleMT">List Petunjuk</p>
         <ul class="guide-listMT">
-            <li><i class="fas fa-home"></i> Beranda</li>
-            <li><i class="fas fa-box"></i> Product</li>
-            <li><i class="fas fa-expand"></i> Full Screen</li>
-            <li><i class="fas fa-list"></i> Katalog</li>
-            <li><i class="fas fa-shopping-cart"></i> Shopping Cart</li>
+            <li onclick="activateTabH3(this, 'content-homeH3')"><i class="fas fa-home"></i> Beranda</li>
+            <li onclick="activateTabH3(this, 'content-productH3')"><i class="fas fa-box"></i> Product</li>
+            <li id="popup-fullscreen-icon"><i class="fas fa-expand"></i> Full Screen</li>
+            <li onclick="activateTabH3(this, 'content-katalogH3')"><i class="fas fa-list"></i> Katalog</li>
+            <li id="cart-icon"><i class="fas fa-shopping-cart"></i> <div  style="font-size: 18px;">Shopping Cart</div></li>
         </ul>
         <p class="popup-footerMT">Silahkan Close Informasi ini untuk melanjutkan</p>
         <button class="close-btnMT" id="close-popupMT">
@@ -2780,6 +2780,22 @@ line-height:1;
         </button>
     </div>
 </div>
+
+<!-- Header Section -->
+<header class="header">
+    <div class="logo">
+        <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
+    </div>
+    <!-- Icons Section -->
+    <div class="icon-container">
+        <i id="fullscreen-icon" class="fas fa-expand"></i>
+        <i class="fas fa-list" onclick="activateTabH3(this, 'content-katalogH3')"></i> <!-- Icon Katalog -->
+        <div id="cart-icon">
+            <i class="fas fa-shopping-cart"></i> <!-- Icon Keranjang -->
+            <span id="cart-count">0</span>
+        </div>
+    </div>
+</header>
 
 
 <!-- Floating WhatsApp Card -->
@@ -2844,22 +2860,6 @@ line-height:1;
   <!-- Notifikasi yang selalu muncul dan tidak hilang (Standby) -->
   <div id="notif1" class="notifNT top-rightNT" style="display: block;">Katalog</div>
 
-    <!-- Header Section -->
-    <header class="header">
-        <div class="logo">
-        	<img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
-		</div>
-        
-        <!-- Icons Section -->
-        <div class="icon-container">
-    		<i id="fullscreen-icon" class="fas fa-expand"></i>
-            <i class="fas fa-list" onclick="activateTabH3(this, 'content-katalogH3')"></i>           <!-- Icon Katalog -->
-            <div id="cart-icon">
-            	<i class="fas fa-shopping-cart"></i> <!-- Icon Keranjang -->
-    			<span id="cart-count">0</span>
-			</div>
-        </div>
-    </header>
 
 <!-- HTML for Payment Popup -->
 <div id="payment-popup" class="popup-hidden">
@@ -4429,36 +4429,51 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
 </div>
 
 
- <!--TOMBOL FULLSCREEN --> 
-    <script>
-        const fullscreenIcon = document.getElementById("fullscreen-icon");
+<!-- SCRIPT FULLSCREEN -->
+<script>
+    const fullscreenIconHeader = document.getElementById("fullscreen-icon");
+    const fullscreenIconPopup = document.getElementById("popup-fullscreen-icon");
 
-        // Fungsi untuk toggle full screen
-        function toggleFullScreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen(); // Masuk full screen
-                fullscreenIcon.classList.remove("fa-expand"); // Ubah ikon
-                fullscreenIcon.classList.add("fa-compress");
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen(); // Keluar dari full screen
-                    fullscreenIcon.classList.remove("fa-compress"); // Kembali ke ikon awal
-                    fullscreenIcon.classList.add("fa-expand");
-                }
+    // Fungsi untuk toggle full screen
+    function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen(); // Masuk full screen
+            syncFullscreenIcons(true); // Sinkronkan ikon
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen(); // Keluar dari full screen
+                syncFullscreenIcons(false); // Sinkronkan ikon
             }
         }
+    }
 
-        // Event listener untuk ikon
-        fullscreenIcon.addEventListener("click", toggleFullScreen);
+    // Fungsi untuk sinkronisasi ikon fullscreen
+    function syncFullscreenIcons(isFullscreen) {
+        if (isFullscreen) {
+            fullscreenIconHeader.classList.remove("fa-expand");
+            fullscreenIconHeader.classList.add("fa-compress");
+            fullscreenIconPopup.querySelector("i").classList.remove("fa-expand");
+            fullscreenIconPopup.querySelector("i").classList.add("fa-compress");
+        } else {
+            fullscreenIconHeader.classList.remove("fa-compress");
+            fullscreenIconHeader.classList.add("fa-expand");
+            fullscreenIconPopup.querySelector("i").classList.remove("fa-compress");
+            fullscreenIconPopup.querySelector("i").classList.add("fa-expand");
+        }
+    }
 
-        // Event listener untuk deteksi perubahan status full screen
-        document.addEventListener("fullscreenchange", () => {
-            if (!document.fullscreenElement) {
-                fullscreenIcon.classList.remove("fa-compress");
-                fullscreenIcon.classList.add("fa-expand");
-            }
-        });
-    </script>
+    // Event listener untuk ikon pada header
+    fullscreenIconHeader.addEventListener("click", toggleFullScreen);
+
+    // Event listener untuk ikon pada popup
+    fullscreenIconPopup.addEventListener("click", toggleFullScreen);
+
+    // Event listener untuk deteksi perubahan status full screen
+    document.addEventListener("fullscreenchange", () => {
+        const isFullscreen = !!document.fullscreenElement;
+        syncFullscreenIcons(isFullscreen); // Sinkronkan status ikon
+    });
+</script>
 
 <!--MENU TAB PRODUCT-->
 <script>
