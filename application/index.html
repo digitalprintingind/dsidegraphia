@@ -829,6 +829,29 @@ button:hover {
     font-size: 13px;
 }
 
+/* Style untuk input dimensi */
+.dimension-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.dimension-input {
+    width: 100%;
+    max-width: 120px;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.dimension-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
 /* Tambahkan highlight pada grup opsi yang tidak lengkap */
 .option-group.highlight {
     border: 1px solid #FF5722;
@@ -3423,6 +3446,9 @@ line-height:1;
     	            	<div class="option selected" add-price="0">Satin Polyester</div>
     	        	</div>
 				</div>
+				<div class="option-group dimension-group">
+						<label>Ukuran Bendera</label>
+				</div>
 			</div>
 		</div>
     </div>
@@ -4324,7 +4350,7 @@ document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
         // Ambil detail produk dari product card
         const imgSrc = productCard.querySelector('.card2-header img').src;
         const title = productCard.querySelector('.card2-title').textContent;
-        const basePrice = parseInt(productCard.querySelector('.card2-price').textContent.replace(/Rp |[.]/g, '')); 
+        const basePrice = parseInt(productCard.querySelector('.card2-price').textContent.replace(/Rp |[.]/g, ''));
 
         // Atur konten lightbox
         lightboxImg.src = imgSrc;
@@ -4348,47 +4374,86 @@ document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
             labelElement.textContent = labelText;
             optionGroupElement.appendChild(labelElement);
 
-            const optionsContainerInGroup = document.createElement('div');
-            optionsContainerInGroup.classList.add('options');
+            // Cek apakah grup ini adalah input dimensi (khusus untuk produk seperti spanduk)
+            if (group.classList.contains('dimension-group')) {
+                const inputWidth = document.createElement('input');
+                inputWidth.type = 'number';
+                inputWidth.placeholder = 'Lebar (cm)';
+                inputWidth.classList.add('dimension-input', 'width');
 
-            options.forEach(option => {
-                const optionElement = document.createElement('div');
-                optionElement.classList.add('option');
-                optionElement.textContent = option.textContent;
+                const inputHeight = document.createElement('input');
+                inputHeight.type = 'number';
+                inputHeight.placeholder = 'Tinggi (cm)';
+                inputHeight.classList.add('dimension-input', 'height');
 
-                // Tambahkan atribut harga tambahan
-                const addPrice = parseInt(option.getAttribute('add-price')) || 0;
-                optionElement.setAttribute('add-price', addPrice);
+                const dimensionContainer = document.createElement('div');
+                dimensionContainer.classList.add('dimension-container');
+                dimensionContainer.appendChild(inputWidth);
+                dimensionContainer.appendChild(inputHeight);
 
-                // Tambahkan kelas `disabled` jika opsi memiliki kelas tersebut
-                if (option.classList.contains('disabled')) {
-                    optionElement.classList.add('disabled');
-                }
+                // Event listener untuk menghitung dimensi
+                const calculateDimensionPrice = () => {
+                    const width = parseFloat(inputWidth.value) || 0;
+                    const height = parseFloat(inputHeight.value) || 0;
+                    const area = (width * height) / 10000; // Konversi cm² ke m²
+                    const addPrice = area * basePrice; // Mengalikan area dengan basePrice untuk harga tambahan
 
-                // Aktifkan opsi yang dipilih sebelumnya jika ada
-                if (option.classList.contains('selected')) {
-                    optionElement.classList.add('active');
-                }
+                    // Update atribut harga tambahan
+                    dimensionContainer.setAttribute('add-price', addPrice);
 
-                // Event Listener untuk klik opsi
-                optionElement.addEventListener('click', function () {
-                    // Cegah interaksi jika opsi dikunci (disabled)
-                    if (this.classList.contains('disabled')) {
-                        return; // Abaikan klik
+                    // Update harga total
+                    updatePrice(basePrice); 
+                };
+
+                // Tambahkan event listener ke input lebar dan tinggi
+                inputWidth.addEventListener('input', calculateDimensionPrice);
+                inputHeight.addEventListener('input', calculateDimensionPrice);
+
+                optionGroupElement.appendChild(dimensionContainer);
+            } else {
+                const optionsContainerInGroup = document.createElement('div');
+                optionsContainerInGroup.classList.add('options');
+
+                options.forEach(option => {
+                    const optionElement = document.createElement('div');
+                    optionElement.classList.add('option');
+                    optionElement.textContent = option.textContent;
+
+                    // Tambahkan atribut harga tambahan
+                    const addPrice = parseInt(option.getAttribute('add-price')) || 0;
+                    optionElement.setAttribute('add-price', addPrice);
+
+                    // Tambahkan kelas `disabled` jika opsi memiliki kelas tersebut
+                    if (option.classList.contains('disabled')) {
+                        optionElement.classList.add('disabled');
                     }
 
-                    // Nonaktifkan semua opsi dalam grup
-                    optionsContainerInGroup.querySelectorAll('.option').forEach(opt => opt.classList.remove('active'));
-                    // Aktifkan opsi yang diklik
-                    this.classList.add('active');
-                    // Perbarui harga total
-                    updatePrice(basePrice);
+                    // Aktifkan opsi yang dipilih sebelumnya jika ada
+                    if (option.classList.contains('selected')) {
+                        optionElement.classList.add('active');
+                    }
+
+                    // Event Listener untuk klik opsi
+                    optionElement.addEventListener('click', function () {
+                        // Cegah interaksi jika opsi dikunci (disabled)
+                        if (this.classList.contains('disabled')) {
+                            return; // Abaikan klik
+                        }
+
+                        // Nonaktifkan semua opsi dalam grup
+                        optionsContainerInGroup.querySelectorAll('.option').forEach(opt => opt.classList.remove('active'));
+                        // Aktifkan opsi yang diklik
+                        this.classList.add('active');
+                        // Perbarui harga total
+                        updatePrice(basePrice);
+                    });
+
+                    optionsContainerInGroup.appendChild(optionElement);
                 });
 
-                optionsContainerInGroup.appendChild(optionElement);
-            });
+                optionGroupElement.appendChild(optionsContainerInGroup);
+            }
 
-            optionGroupElement.appendChild(optionsContainerInGroup);
             optionsContainer.appendChild(optionGroupElement);
         });
 
@@ -4410,8 +4475,15 @@ function updatePrice(basePrice) {
     document.querySelectorAll('.popup-options .option-group').forEach(group => {
         const activeOption = group.querySelector('.option.active');
         if (activeOption) {
-            const addPrice = parseInt(activeOption.getAttribute('add-price')) || 0;
+            const addPrice = parseFloat(activeOption.getAttribute('add-price')) || 0;
             totalPrice += addPrice * qty; // Tambahkan harga tambahan * jumlah
+        }
+
+        // Periksa atribut `add-price` untuk dimensi
+        const dimensionContainer = group.querySelector('.dimension-container');
+        if (dimensionContainer) {
+            const dimensionAddPrice = parseFloat(dimensionContainer.getAttribute('add-price')) || 0;
+            totalPrice += dimensionAddPrice * qty; // Tambahkan harga dimensi * jumlah
         }
     });
 
