@@ -3103,10 +3103,33 @@ line-height:1;
 </div>
 
 <div class="card2-container">
-	
+
+<!-- Product card  -->
+<div class="product-card2" data-category="tshirt">
+	<div class="card2-header"><img src="https://i.imgur.com/1r7KfEa.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 21.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Banner / Spanduk</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<div class="option-group"><label>Bahan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Flexy 300gsm</div>
+    	            	<div class="option " add-price="17000">Korcin 440gsm</div>
+    	        	</div>
+				</div>
+				<div class="option-group dimension-group">
+						<label>Ukuran :</label>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">ADD TO CART</button>
+</div>
+
 <!-- Product card 1 -->
 <div class="product-card2" data-category="stiker">
-	<div class="card2-header"><img src="https://i.imgur.com/eaSQKGi.jpg" alt="Smart Watch"></div>
+	<div class="card2-header"><img src="https://i.imgur.com/s1edbSl.png" alt="Smart Watch"></div>
 	<div class="card2-price">Rp 9.000</div>
 	<div class="card2-body">
 		<div class="card2-left">
@@ -3443,11 +3466,11 @@ line-height:1;
 			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 				<div class="option-group"><label>Bahan :</label>
     	        	<div class="options">
-    	            	<div class="option selected" add-price="0">Satin Polyester</div>
+    	            	<div class="option disabled" add-price="0">Satin Polyester</div>
     	        	</div>
 				</div>
 				<div class="option-group dimension-group">
-						<label>Ukuran Bendera</label>
+						<label>Ukuran </label>
 				</div>
 			</div>
 		</div>
@@ -4395,8 +4418,10 @@ document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
                 const calculateDimensionPrice = () => {
                     const width = parseFloat(inputWidth.value) || 0;
                     const height = parseFloat(inputHeight.value) || 0;
-                    const area = (width * height) / 10000; // Konversi cm² ke m²
-                    const addPrice = area * basePrice; // Mengalikan area dengan basePrice untuk harga tambahan
+                    const area = width * height; // Hitung area dalam cm²
+
+                    const areaInSquareMeter = area / 10000; // Konversi ke m²
+                    const addPrice = areaInSquareMeter * basePrice; // Kalikan dengan basePrice untuk harga tambahan
 
                     // Update atribut harga tambahan
                     dimensionContainer.setAttribute('add-price', addPrice);
