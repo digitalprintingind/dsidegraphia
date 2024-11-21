@@ -4421,7 +4421,8 @@ document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
                     const area = width * height; // Hitung area dalam cm²
 
                     const areaInSquareMeter = area / 10000; // Konversi ke m²
-                    const addPrice = areaInSquareMeter * basePrice; // Kalikan dengan basePrice untuk harga tambahan
+                    const priceBeforeRound = areaInSquareMeter * basePrice - basePrice;
+					const addPrice = Math.ceil(priceBeforeRound / 500) * 500; // Kalikan dengan basePrice untuk harga tambahan
 
                     // Update atribut harga tambahan
                     dimensionContainer.setAttribute('add-price', addPrice);
