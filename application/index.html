@@ -3114,12 +3114,19 @@ line-height:1;
 			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 				<div class="option-group"><label>Bahan :</label>
     	        	<div class="options">
-    	            	<div class="option selected" add-price="0">Flexy 300gsm</div>
+    	            	<div class="option selected" add-price="">Flexy 300gsm</div>
     	            	<div class="option " add-price="17000">Korcin 440gsm</div>
     	        	</div>
 				</div>
 				<div class="option-group dimension-group">
 						<label>Ukuran :</label>
+				</div>
+				<div class="option-group"><label>Finishing :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="">Polos</div>
+    	            	<div class="option " add-price="">Hanya Lipat</div>
+    	            	<div class="option " add-price="">Lubang / Matik</div>
+    	        	</div>
 				</div>
 			</div>
 		</div>
@@ -4296,9 +4303,14 @@ cartIcon.addEventListener('click', function() {
 });
 
 // Function to add item to cart
-function addToCart(productName, productPrice, productImg, quantity, selectedOptions, event) {
+function addToCart(productName, productPrice, productImg, quantity, selectedOptions, event, dimensions = '') {
     event.stopPropagation();
-    const item = cartItems.find(cartItem => cartItem.name === productName && cartItem.options === selectedOptions.join(', '));
+    const item = cartItems.find(cartItem => 
+        cartItem.name === productName && 
+        cartItem.options === selectedOptions.join(', ') &&
+        cartItem.dimensions === dimensions
+    );
+
     if (item) {
         item.qty += quantity;
     } else {
@@ -4307,6 +4319,7 @@ function addToCart(productName, productPrice, productImg, quantity, selectedOpti
             price: productPrice,
             img: productImg,
             qty: quantity,
+            dimensions: dimensions, // Tambahkan data dimensi ke item
             options: selectedOptions.join(', ')
         });
     }
@@ -4538,20 +4551,36 @@ document.querySelector('.add-to-cart-button').addEventListener('click', function
     const quantity = parseInt(qtyInput.value);
 
     // Validasi: pastikan setiap grup opsi memiliki setidaknya satu opsi yang aktif
-    const optionGroups = document.querySelectorAll('.popup-options .option-group');
-    let allOptionsSelected = true;
-    const selectedOptions = [];
+const optionGroups = document.querySelectorAll('.popup-options .option-group');
+let allOptionsSelected = true;
+const selectedOptions = [];
 
     optionGroups.forEach(group => {
-        const activeOption = group.querySelector('.option.active');
-        if (!activeOption) {
-            allOptionsSelected = false;
-            group.classList.add('highlight'); // Tambahkan kelas highlight untuk grup yang tidak lengkap
+    const activeOption = group.querySelector('.option.active');
+    
+    // Periksa apakah grup adalah grup dimensi
+    const dimensionContainer = group.querySelector('.dimension-container');
+    if (dimensionContainer) {
+        const widthInput = dimensionContainer.querySelector('.dimension-input.width');
+        const heightInput = dimensionContainer.querySelector('.dimension-input.height');
+        const width = parseFloat(widthInput.value) || 0;
+        const height = parseFloat(heightInput.value) || 0;
+
+        // Validasi input dimensi
+        if (width > 0 && height > 0) {
+            selectedOptions.push(`Dimensi: ${width} x ${height} cm`);
         } else {
-            selectedOptions.push(activeOption.textContent); // Tambahkan opsi yang dipilih
-            group.classList.remove('highlight'); // Hilangkan highlight jika sudah dipilih
+            allOptionsSelected = false; // Jika dimensi tidak valid
+            group.classList.add('highlight'); // Tambahkan highlight pada grup
         }
-    });
+    } else if (!activeOption) {
+        allOptionsSelected = false; // Grup opsi biasa tidak memiliki opsi aktif
+        group.classList.add('highlight');
+    } else {
+        selectedOptions.push(activeOption.textContent); // Tambahkan opsi yang dipilih
+        group.classList.remove('highlight'); // Hilangkan highlight jika sudah dipilih
+    }
+});
 
 // Gantikan peringatan dengan menampilkan popup
 if (!allOptionsSelected) {
@@ -4565,7 +4594,8 @@ if (!allOptionsSelected) {
     const finalPrice = parseInt(lightboxPrice.textContent.replace(/Rp |[.]/g, ''));
 
     // Tambahkan produk ke keranjang dengan opsi dan harga akhir yang dipilih
-    addToCart(productName, finalPrice, productImg, quantity, selectedOptions, event);
+const dimensions = selectedOptions.find(opt => opt.startsWith('Dimensi:')) || '';
+addToCart(productName, finalPrice, productImg, quantity, selectedOptions, event, dimensions);
 
     // Tutup lightbox
     document.getElementById('lightboxATC').style.display = 'none';
