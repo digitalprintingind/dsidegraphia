@@ -3088,6 +3088,7 @@ line-height:1;
 
 <div class="tab-container">
     <div id="tabs"> <!-- Kontainer untuk tab -->
+    	<button id="close-btn" class="close-cart-popup-btn" style="z-index:2000;padding-top:5px;color:red;"><i class="fas fa-times"></i></button>
         <button class="tab" data-category="all">
             <i class="fas fa-th-large"></i>
             <span>Semua Product</span>
@@ -4256,7 +4257,9 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
 // Toggle untuk menampilkan dan menyembunyikan tab dengan efek fade in dan fade out
 const toggleIcon = document.getElementById('icon');
 const tabsContainer = document.getElementById('tabs');
+const closeButton = document.getElementById('close-btn');
 
+// Toggle untuk menampilkan dan menyembunyikan tab dengan efek fade in dan fade out
 toggleIcon.addEventListener('click', (event) => {
     event.stopPropagation(); // Menghentikan propagasi klik agar tidak menutup tabs
     if (tabsContainer.classList.contains('show')) {
@@ -4271,6 +4274,11 @@ document.addEventListener('click', (event) => {
     if (!tabsContainer.contains(event.target) && !toggleIcon.contains(event.target)) {
         tabsContainer.classList.remove('show'); // Sembunyikan tab dengan efek fade out
     }
+});
+
+// Tutup tabs jika tombol close diklik
+closeButton.addEventListener('click', () => {
+    tabsContainer.classList.remove('show'); // Sembunyikan tab dengan efek fade out
 });
 
 // Ambil semua tab dan produk
