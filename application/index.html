@@ -4694,6 +4694,20 @@ function showPaymentPopup() {
     `;
 }
 
+function generateTransactionNumber() {
+    const now = new Date();
+    // Format: YYMMDD-HHmmSS-XXXX (YYYY-MM-DD HH:MM:SS-Serial)
+    const datePart = now.toISOString().slice(2, 10).replace(/-/g, ''); // Format YYMMDD
+    const timePart = now.toTimeString().slice(0, 8).replace(/:/g, ''); // Format HHMMSS
+    let serial = parseInt(localStorage.getItem('transactionSerial')) || 0;
+
+    // Increment serial number and save it back
+    serial += 1;
+    localStorage.setItem('transactionSerial', serial);
+
+    return `#${datePart}-${timePart}-${serial}`;
+}
+
 // Hide payment popup
 function hidePaymentPopup() {
     paymentPopup.classList.remove('popup-show'); // Hapus kelas animasi
@@ -4702,18 +4716,25 @@ function hidePaymentPopup() {
 
 // Send order to WhatsApp
 function sendOrderToWhatsApp() {
-    let message = "Pesanan Anda:\n--------------------------------------\n";
+    // Generate transaction number
+    const transactionNumber = generateTransactionNumber();
+
+    // Buat pesan untuk WhatsApp
+    let message = `--------------------------------------\nNomor Transaksi: ${transactionNumber}\n`;
+    message += "--------------------------------------\n\nPesanan Anda:\n--------------------------------------\n";
     cartItems.forEach(item => {
         message += `${item.name} - Qty: ${item.qty} - Rp ${(item.price * item.qty).toLocaleString('id-ID')}\nDetail : ${item.options}\n--------------------------------------\n`; // Pemisah ribuan
     });
     message += `Subtotal: Rp ${cartItems.reduce((total, item) => total + item.price * item.qty, 0).toLocaleString('id-ID')}`; // Pemisah ribuan
 
+    // Encode message and send to WhatsApp
     const encodedMessage = encodeURIComponent(message);
     const phoneNumber = '6285172288904';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
     window.open(whatsappUrl, '_blank');
 
+    // Kosongkan keranjang dan update
     cartItems = [];
     updateCart();
     hidePaymentPopup();
