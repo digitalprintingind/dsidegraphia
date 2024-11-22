@@ -1382,6 +1382,22 @@ button:hover {
         cursor: pointer;
         width: 100%;
     }
+    
+    .close-cart-popup-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.close-cart-popup-btn:hover {
+    color: red;
+}
+
     #subtotal-container{margin-bottom:5px;}
 </style>
 
@@ -3004,6 +3020,7 @@ line-height:1;
 <!-- Cart Popup -->
 <div id="cart-popup" class="popup-hidden">
 <div class="header-cart" onclick="activateTabH3(this, 'content-productH3')"><i class="fas fa-shopping-cart"></i>
+        <button id="close-cart-popup" class="close-cart-popup-btn"><i class="fas fa-times"></i></button>
         <h3>Keranjang Belanja</h3>
 </div>
         <div id="cart-items"></div>
@@ -3026,7 +3043,7 @@ line-height:1;
 <!-- Popup Lightbox -->
 <div id="lightboxPL" class="lightboxPL">
     <div class="lightbox-contentPL">
-        <span class="close-btnPL"></span>
+        <span class="close-btnPL close-cart-popup-btn" style="padding-right:10px;"><i class="fas fa-times"></i></span>
         <img id="lightbox-imgPL" src="" alt="Product Image">
         <div class="lightbox-detailsPL">
             <h2 id="lightbox-titlePL"></h2>
@@ -4389,6 +4406,11 @@ function decreaseQty(productName, options, event) {
     }
     updateCart();
 }
+
+document.getElementById('close-cart-popup').addEventListener('click', function() {
+    const cartPopup = document.getElementById('cart-popup');
+    cartPopup.classList.add('popup-hidden'); // Menutup popup
+});
 
 // Fungsi untuk menampilkan lightbox ATC dan mengatur opsi
 document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
