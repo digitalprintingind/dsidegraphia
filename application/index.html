@@ -4331,7 +4331,7 @@ function addToCart(productName, productPrice, productImg, quantity, selectedOpti
             price: productPrice,
             img: productImg,
             qty: quantity,
-            dimensions: dimensions, // Tambahkan data dimensi ke item
+            dimensions: dimensions,
             options: selectedOptions.join(', ')
         });
     }
@@ -4361,13 +4361,13 @@ function updateCart() {
             </div>
             <div class="item-details">
                 <span class="item-name">${item.name}</span>
-                <span class="item-options">${item.options}</span> <!-- Menampilkan opsi yang dipilih -->
+                <span class="item-options">${item.options}</span>
                 <span>Rp ${(item.price * item.qty).toLocaleString('id-ID')}</span>
             </div>
             <div class="item-controls">
                 <button class="decrease-btn" onclick="decreaseQty('${item.name}', '${item.options}', event)">-</button>
                 ${item.qty}
-                <button class="increase-btn" onclick="addToCart('${item.name}', ${item.price}, '${item.img}', 1, ['${item.options}'], event)">+</button>
+                <button class="increase-btn" onclick="addToCart('${item.name}', ${item.price}, '${item.img}', 1, ['${item.options}'], event, '${item.dimensions}')">+</button>
                 <button class="remove-btn" onclick="removeFromCart('${item.name}', '${item.options}', event)">X</button>
             </div>
         `;
