@@ -381,6 +381,7 @@ body {
 	    color: #fff;
 	    cursor: pointer;
 	    font-size: 12px;
+		width:100px;
 	    transition: color 0.3s ease;
 	    position: relative;
 	  }
@@ -1071,27 +1072,16 @@ button:hover {
     }
 
     /* Gradients untuk setiap card2 */
-    .product-card2:nth-child(1) .card2-header {background: radial-gradient(circle at 50% 50%, #009cff, #004a80);}
-    .product-card2:nth-child(2) .card2-header {background: radial-gradient(circle at 50% 50%, #bf00ff, #6a009b);}
-    .product-card2:nth-child(3) .card2-header {background: radial-gradient(circle at 50% 50%, #ff6600, #993200);}
-    .product-card2:nth-child(4) .card2-header {background: radial-gradient(circle at 50% 50%, #009cff, #004a80);}
-    .product-card2:nth-child(5) .card2-header {background: radial-gradient(circle at 50% 50%, #bf00ff, #6a009b);}
-    .product-card2:nth-child(6) .card2-header {background: radial-gradient(circle at 50% 50%, #ff6600, #993200);}
-    .product-card2:nth-child(7) .card2-header {background: radial-gradient(circle at 50% 50%, #009cff, #004a80);}
-    .product-card2:nth-child(8) .card2-header {background: radial-gradient(circle at 50% 50%, #bf00ff, #6a009b);}
-    .product-card2:nth-child(9) .card2-header {background: radial-gradient(circle at 50% 50%, #ff6600, #993200);}
-    .product-card2:nth-child(10) .card2-header {background: radial-gradient(circle at 50% 50%, #009cff, #004a80);}
-    .product-card2:nth-child(11) .card2-header {background: radial-gradient(circle at 50% 50%, #bf00ff, #6a009b);}
-    .product-card2:nth-child(12) .card2-header {background: radial-gradient(circle at 50% 50%, #ff6600, #993200);}
-    .product-card2:nth-child(13) .card2-header {background: radial-gradient(circle at 50% 50%, #009cff, #004a80);}
-    .product-card2:nth-child(14) .card2-header {background: radial-gradient(circle at 50% 50%, #bf00ff, #6a009b);}
-    .product-card2:nth-child(15) .card2-header {background: radial-gradient(circle at 50% 50%, #ff6600, #993200);}
-    .product-card2:nth-child(16) .card2-header {background: radial-gradient(circle at 50% 50%, #009cff, #004a80);}
-    .product-card2:nth-child(17) .card2-header {background: radial-gradient(circle at 50% 50%, #bf00ff, #6a009b);}
-    .product-card2:nth-child(18) .card2-header {background: radial-gradient(circle at 50% 50%, #ff6600, #993200);}
-    .product-card2:nth-child(19) .card2-header {background: radial-gradient(circle at 50% 50%, #009cff, #004a80);}
-    .product-card2:nth-child(20) .card2-header {background: radial-gradient(circle at 50% 50%, #bf00ff, #6a009b);}
-    .product-card2:nth-child(21) .card2-header {background: radial-gradient(circle at 50% 50%, #ff6600, #993200);}
+.product-card2:nth-child(1n) .card2-header {background: radial-gradient(circle at 50% 50%, #009cff, #004a80); /* Biru Laut */}
+.product-card2:nth-child(2n) .card2-header {background: radial-gradient(circle at 50% 50%, #bf00ff, #6a009b); /* Ungu */}
+.product-card2:nth-child(3n) .card2-header {background: radial-gradient(circle at 50% 50%, #ff6600, #993200); /* Oranye */}
+.product-card2:nth-child(4n) .card2-header {background: radial-gradient(circle at 50% 50%, #00b3b3, #006666); /* Biru Hijau */}
+.product-card2:nth-child(5n) .card2-header {background: radial-gradient(circle at 50% 50%, #ff00cc, #99004d); /* Pink */}
+.product-card2:nth-child(6n) .card2-header {background: radial-gradient(circle at 50% 50%, #ffcc00, #b38b00); /* Kuning */}
+.product-card2:nth-child(7n) .card2-header {background: radial-gradient(circle at 50% 50%, #66cc66, #006600); /* Hijau */}
+.product-card2:nth-child(8n) .card2-header {background: radial-gradient(circle at 50% 50%, #ff3333, #b20000); /* Merah */}
+.product-card2:nth-child(9n) .card2-header {background: radial-gradient(circle at 50% 50%, #ffd700, #b8860b); /* Emas */}
+.product-card2:nth-child(10n) .card2-header {background: radial-gradient(circle at 50% 50%, #8a2be2, #4b0082); /* Violet */}
 
     .card2-header {
         font-family: 'Arial', sans-serif;
@@ -2813,117 +2803,91 @@ line-height:1;
     
 
     <style>
-        /* Wrapper utama untuk memusatkan galeri di tengah layar */
-        .gallery-wrapperKT {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 80vh; /* Tinggi penuh layar */
-            width: 100vw; /* Lebar penuh layar */
-    margin:0; 
-        }
-
-        /* Container galeri */
-        .gallery-containerKT {
+        /* Slider utama */
+        .sliderKT {
             position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center; /* Pastikan gambar selalu di tengah */
-            width: auto;
-            max-width: 90%;
-            height: 80%; /* Menggunakan 80% dari tinggi layar */
-            overflow: hidden;
-            border-radius: 15px;
-        }
-
-        /* Barisan gambar di dalam galeri */
-.galleryKT {
-    display: flex;
-    align-items: center;
-    overflow-x: auto; /* Memungkinkan gulir horizontal */
-    scroll-snap-type: x mandatory; /* Mengaktifkan snap saat menggulir */
-    transition: none; /* Nonaktifkan animasi transform */
-}
-
-.slideKT {
-    scroll-snap-align: center; /* Snap elemen di tengah */
-    min-width: 100%; /* Setiap slide tetap penuh lebar */
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-        /* Gaya untuk gambar utama */
-        .slideKT img {
-            max-width: 100%; /* Gambar tidak lebih lebar dari container */
-            max-height: 100%; /* Gambar tidak lebih tinggi dari container */
-            object-fit: contain; /* Gambar proporsional tanpa dipotong */
-            margin: auto; /* Pusatkan gambar dalam container */
-            transition: transform 0.8s ease-in-out; /* Animasi saat hover */
-        }
-
-        /* Kontainer untuk thumbnail */
-        .thumbnail-scrollKT {
-            display: flex;
-            justify-content: flex-start; /* Thumbnail mulai dari kiri */
-            align-items: center;
             width: 90%;
-            margin-top: 5px; /* Jarak dengan galeri utama */
-            overflow-x: auto; /* Gulir horizontal */
-            padding-bottom: 5px;
-            gap: 10px; /* Jarak antar thumbnail */
-            white-space: nowrap; /* Prevent thumbnails from wrapping */
+            max-width: 600px;
+            margin: auto;
+            overflow: hidden;
+            margin-top:70px;
+            margin-bottom:100px;
         }
 
-        /* Gaya untuk thumbnail */
-        .thumbnail-containerKT {
-            display: inline-flex;
+        .slidesKT {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slideKT {
+            min-width: 100%;
+            box-sizing: border-box;
+            display: none; /* Menyembunyikan semua slide */
+        }
+
+        .slideKT.activeKT {
+            display: block; /* Menampilkan slide yang aktif */
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Tombol navigasi */
+        .navKT {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .prevKT {
+            left: 10px;
+        }
+
+        .nextKT {
+            right: 10px;
+        }
+
+        /* Indikator thumbnail */
+        .indicatorsKT {
+            display: flex;
+            justify-content: flex-start;
+            overflow-x: auto; /* Menambahkan kemampuan scroll */
+            margin-top: 10px; /* Jarak antara gambar utama dan thumbnail */
+            padding-bottom: 10px; /* Ruang ekstra untuk scroll */
             gap: 10px;
         }
 
-        .thumbnailKT {
-            flex-shrink: 0;
-            width: 50px; /* Ukuran tetap untuk thumbnail */
-            height: 50px; /* Ukuran tetap untuk thumbnail */
-            border: 2px solid transparent;
-            border-radius: 5px;
-            overflow: hidden;
+        .indicatorKT {
+            background-color: transparent;
+            border: none;
+            padding: 5px;
             cursor: pointer;
-            transition: transform 0.3s, border-color 0.3s;
+            transition: opacity 0.3s;
         }
 
-        .thumbnailKT img {
-            width: 100%;
-            height: auto; /* Proporsi tetap */
-            object-fit: cover; /* Isi thumbnail secara rapi */
+        .indicatorKT img {
+            width: 60px; /* Ukuran thumbnail */
+            height: auto;
+            opacity: 0.5;
+            border: 2px solid transparent;
+            transition: opacity 0.3s, border-color 0.3s;
         }
 
-        .thumbnailKT:hover {
-            transform: scale(1.1);
-            border-color: white;
+        .indicatorKT.activeKT img {
+            opacity: 1;
+            border-color: #fff; /* Sorot border ketika aktif */
         }
 
-        .thumbnailKT.active {
-            border-color: #00ff00; /* Indikasi thumbnail aktif */
+        .indicatorKT:hover img {
+            opacity: 0.7;
         }
-
-        /* Gaya scrollbar pada thumbnail */
-        .thumbnail-scrollKT::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .thumbnail-scrollKT::-webkit-scrollbar-thumb {
-            background-color: #555;
-            border-radius: 4px;
-        }
-
-        .thumbnail-scrollKT::-webkit-scrollbar-thumb:hover {
-            background-color: #999;
-        }
-        
     </style>
     
 </head>
@@ -3124,7 +3088,7 @@ line-height:1;
 <!-- Product card  -->
 <div class="product-card2" data-category="tshirt">
 	<div class="card2-header"><img src="https://i.imgur.com/1r7KfEa.png" alt="Smart Watch"></div>
-	<div class="card2-price">Rp 21.000</div>
+	<div class="card2-price" min-qty="" min-price="50000" new-price="15000">Rp 21.000</div>
 	<div class="card2-body">
 		<div class="card2-left">
 			<div class="card2-title">Banner / Spanduk</div>
@@ -3160,7 +3124,7 @@ line-height:1;
 <!-- Product card 1 -->
 <div class="product-card2" data-category="stiker">
 	<div class="card2-header"><img src="https://i.imgur.com/s1edbSl.png" alt="Smart Watch"></div>
-	<div class="card2-price">Rp 9.000</div>
+	<div class="card2-price" min-qty="5" min-price="" new-price="5000">Rp 9.000</div>
 	<div class="card2-body">
 		<div class="card2-left">
 			<div class="card2-title">Cetak Stiker Laser A3+</div>
@@ -3691,29 +3655,29 @@ line-height:1;
 
 <div class="contentH3" id="content-katalogH3"> <!--MENU TAB KATALOG-->
 
-    <div class="gallery-wrapperKT">
-        <div class="gallery-containerKT">
-            <button class="nav-buttonKT prevKT" onclick="moveSlide(-1)">&#10094;</button>
-            <div class="galleryKT">
-			<div class="slideKT"><img src="https://imgur.com/ycn3yPo.png"></div>
-			<div class="slideKT"><img src="https://imgur.com/T8NfegK.png"></div>
-			<div class="slideKT"><img src="https://imgur.com/wXuRRuH.png"></div>
-			<div class="slideKT"><img src="https://imgur.com/q2wI4BM.png"></div>
-			<div class="slideKT"><img src="https://imgur.com/WwpPOA7.png"></div>
-			<div class="slideKT"><img src="https://imgur.com/mMSVv69.png"></div>
-			<div class="slideKT"><img src="https://imgur.com/oKjMPKE.png"></div>
-			<div class="slideKT"><img src="https://imgur.com/7VWFo57.png"></div>
-			<div class="slideKT"><img src="https://imgur.com/1zEB5qv.png"></div>
-			<div class="slideKT"><img src="https://imgur.com/ZUUwgmp.png"></div>
-			<div class="slideKT"><img src="https://imgur.com/2vR9ZQl.png"></div>
-			<div class="slideKT"><img src="https://imgur.com/jbiwCml.png"></div>
-			<div class="slideKT"><img src="https://imgur.com/hljVWB3.png"></div>
-			<div class="slideKT"><img src="https://imgur.com/YGzQspS.png"></div>
-            </div>
-            <button class="nav-buttonKT nextKT" onclick="moveSlide(1)">&#10095;</button>
+    <div class="sliderKT">
+        <div class="slidesKT">
+            <div class="slideKT activeKT"><img src="https://imgur.com/ycn3yPo.png" alt="Slide 1"></div>
+            <div class="slideKT"><img src="https://imgur.com/T8NfegK.png" alt="Slide 2"></div>
+            <div class="slideKT"><img src="https://imgur.com/wXuRRuH.png" alt="Slide 3"></div>
+            <div class="slideKT"><img src="https://imgur.com/q2wI4BM.png" alt="Slide 4"></div>
+            <div class="slideKT"><img src="https://imgur.com/WwpPOA7.png" alt="Slide 5"></div>
+            <div class="slideKT"><img src="https://imgur.com/mMSVv69.png" alt="Slide 6"></div>
+            <div class="slideKT"><img src="https://imgur.com/oKjMPKE.png" alt="Slide 7"></div>
+            <div class="slideKT"><img src="https://imgur.com/7VWFo57.png" alt="Slide 8"></div>
+            <div class="slideKT"><img src="https://imgur.com/1zEB5qv.png" alt="Slide 9"></div>
+            <div class="slideKT"><img src="https://imgur.com/ZUUwgmp.png" alt="Slide 10"></div>
+            <div class="slideKT"><img src="https://imgur.com/2vR9ZQl.png" alt="Slide 11"></div>
+            <div class="slideKT"><img src="https://imgur.com/jbiwCml.png" alt="Slide 12"></div>
+            <div class="slideKT"><img src="https://imgur.com/hljVWB3.png" alt="Slide 13"></div>
+            <div class="slideKT"><img src="https://imgur.com/YGzQspS.png" alt="Slide 14"></div>
         </div>
-        <div class="thumbnail-scrollKT">
-            <div class="thumbnail-containerKT"></div>
+
+        <button class="navKT prevKT">&lt;</button>
+        <button class="navKT nextKT">&gt;</button>
+
+        <div class="indicatorsKT">
+            <!-- Thumbnail buttons will be added here dynamically -->
         </div>
     </div>
 
@@ -4196,11 +4160,11 @@ Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
   </div>
   <div class="tab-itemH3" onclick="activateTabH3(this, 'content-contactusH3')">
     <i class="fas fa-phone"></i>
-    <span>Contact Us</span>
+    <span>Contact</span>
   </div>
   <div class="tab-itemH3" onclick="activateTabH3(this, 'content-aboutmeH3')">
     <i class="fas fa-user"></i>
-    <span>About Me</span>
+    <span>Profile</span>
   </div>
 </div>
 
@@ -4885,56 +4849,81 @@ window.addEventListener('click', function(event) {
 </script>
 
  <!-- Katalog --> 
-<script>
-let currentIndex = 0;
+    <script>
+        const slidesKT = document.querySelectorAll('.slideKT');
+        const indicatorsContainerKT = document.querySelector('.indicatorsKT');
+        const prevButtonKT = document.querySelector('.prevKT');
+        const nextButtonKT = document.querySelector('.nextKT');
+        let currentSlideKT = 0;
 
-document.addEventListener('DOMContentLoaded', () => {
-    const gallery = document.querySelector('.galleryKT');
-    const slides = document.querySelectorAll('.slideKT');
-    const thumbnailContainer = document.querySelector('.thumbnail-containerKT');
+        // Menambahkan thumbnail ke indikator
+        slidesKT.forEach((slide, index) => {
+            const imgSrc = slide.querySelector('img').src;
 
-    // Generate thumbnails dynamically
-    slides.forEach((slide, index) => {
-        const imgSrc = slide.querySelector('img').src;
-        const thumb = document.createElement('div');
-        thumb.classList.add('thumbnailKT');
-        thumb.innerHTML = `<img src="${imgSrc}" alt="Thumbnail ${index + 1}">`;
-        thumb.addEventListener('click', () => {
-            gallery.scrollLeft = index * gallery.offsetWidth; // Gulir ke slide terkait
+            const indicatorButtonKT = document.createElement('button');
+            indicatorButtonKT.classList.add('indicatorKT');
+            indicatorButtonKT.setAttribute('data-index', index);
+
+            const imgElementKT = document.createElement('img');
+            imgElementKT.src = imgSrc;
+            imgElementKT.alt = `Thumbnail ${index + 1}`; // Menambahkan alt untuk aksesibilitas
+            indicatorButtonKT.appendChild(imgElementKT);
+
+            indicatorsContainerKT.appendChild(indicatorButtonKT);
         });
-        thumbnailContainer.appendChild(thumb);
-    });
 
-    // Perbarui thumbnail saat galeri digulir
-    gallery.addEventListener('scroll', updateThumbnails);
+        // Fungsi untuk memperbarui slider dan indikator
+        function updateSliderKT() {
+            // Menyembunyikan semua slide
+            slidesKT.forEach((slide, index) => {
+                slide.classList.remove('activeKT');
+                if (index === currentSlideKT) {
+                    slide.classList.add('activeKT');
+                }
+            });
 
-    // Panggil sinkronisasi awal
-    updateThumbnails();
-});
+            // Menyembunyikan semua indikator dan menandai indikator yang aktif
+            const indicatorsKT = document.querySelectorAll('.indicatorKT');
+            indicatorsKT.forEach((indicator, index) => {
+                indicator.classList.remove('activeKT');
+                if (index === currentSlideKT) {
+                    indicator.classList.add('activeKT');
+                }
+            });
 
-function updateThumbnails() {
-    const gallery = document.querySelector('.galleryKT');
-    const thumbnails = document.querySelectorAll('.thumbnailKT');
-    const slides = document.querySelectorAll('.slideKT');
+            // Menyelaraskan thumbnail yang aktif ke tengah
+            const activeIndicatorKT = document.querySelector('.indicatorKT.activeKT');
+            if (activeIndicatorKT) {
+                activeIndicatorKT.scrollIntoView({
+                    behavior: 'smooth',
+                    inline: 'center' // Pastikan thumbnail yang aktif berada di tengah
+                });
+            }
+        }
 
-    // Hitung indeks slide aktif berdasarkan scroll posisi
-    const currentIndex = Math.round(gallery.scrollLeft / gallery.offsetWidth);
+        // Menavigasi ke slide berikutnya
+        nextButtonKT.addEventListener('click', () => {
+            currentSlideKT = (currentSlideKT + 1) % slidesKT.length;
+            updateSliderKT();
+        });
 
-    // Perbarui status thumbnail
-    thumbnails.forEach((thumb, index) => {
-        thumb.classList.toggle('active', index === currentIndex);
-    });
+        // Menavigasi ke slide sebelumnya
+        prevButtonKT.addEventListener('click', () => {
+            currentSlideKT = (currentSlideKT - 1 + slidesKT.length) % slidesKT.length;
+            updateSliderKT();
+        });
 
-    // Opsional: Fokuskan thumbnail aktif ke tengah
-    if (thumbnails[currentIndex]) {
-        const thumbnailScroll = document.querySelector('.thumbnail-scrollKT');
-        const thumb = thumbnails[currentIndex];
-        const thumbOffset = thumb.offsetLeft + thumb.offsetWidth / 2;
-        const scrollOffset = thumbnailScroll.offsetWidth / 2;
-        thumbnailScroll.scrollLeft = thumbOffset - scrollOffset;
-    }
-}
-</script>
+        // Menavigasi berdasarkan klik pada indikator
+        indicatorsContainerKT.addEventListener('click', (event) => {
+            if (event.target.closest('.indicatorKT')) {
+                currentSlideKT = parseInt(event.target.closest('.indicatorKT').getAttribute('data-index'));
+                updateSliderKT();
+            }
+        });
+
+        // Memulai slider dengan gambar pertama yang ditampilkan
+        updateSliderKT();
+    </script>
 
 <!--Banner Utama-->
 <script>
