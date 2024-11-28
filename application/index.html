@@ -1062,7 +1062,7 @@ button:hover {
         min-width: 160px; /* Menyusun semua card2 dengan lebar 100% secara default */
         max-width: 160px; /* Maksimal lebar setiap card2 */
         background-color: #292929;
-        border-radius: 20px;
+        border-radius: 10px;
         color: #fff;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         overflow: hidden;
@@ -3088,9 +3088,9 @@ line-height:1;
 <div class="card2-container">
 
 <!-- Product card  -->
-<div class="product-card2" data-category="tshirt">
+<div class="product-card2" data-category="tshirt"  data-qty="1" data-min-qty="" data-min-price="21000" data-new-price="">
 	<div class="card2-header"><img src="https://i.imgur.com/1r7KfEa.png" alt="Smart Watch"></div>
-	<div class="card2-price" min-qty="" min-price="50000" new-price="15000">Rp 21.000</div>
+	<div class="card2-price">Rp 21.000</div>
 	<div class="card2-body">
 		<div class="card2-left">
 			<div class="card2-title">Banner / Spanduk</div>
@@ -3124,9 +3124,9 @@ line-height:1;
 </div>
 
 <!-- Product card 1 -->
-<div class="product-card2" data-category="stiker">
+<div class="product-card2" data-category="stiker" data-qty="5" data-min-qty="5" data-min-price="" data-new-price="-3000">
 	<div class="card2-header"><img src="https://i.imgur.com/s1edbSl.png" alt="Smart Watch"></div>
-	<div class="card2-price" min-qty="5" min-price="" new-price="5000">Rp 9.000</div>
+	<div class="card2-price">Rp 9.000</div>
 	<div class="card2-body">
 		<div class="card2-left">
 			<div class="card2-title">Cetak Stiker Laser A3+</div>
@@ -3481,33 +3481,29 @@ line-height:1;
 </div>
 
 <!-- Product card 9 -->
-<div class="product-card2" data-category="undangan">
-	<div class="card2-header"><img src="https://i.imgur.com/6s7EmsL.png" alt="Smart Watch"></div>
+<div class="product-card2" data-category="undangan" data-qty="300">
+	<div class="card2-header">
+		<div class="list-image">
+			<img src="https://i.imgur.com/6s7EmsL.png" data-type="BU 001">
+			<!-- <img src="https://i.imgur.com/1zZqFi1.png" data-type="BU 002"> -->
+		</div>
+	</div>
 	<div class="card2-price">Rp 1.000</div>
 	<div class="card2-body">
 		<div class="card2-left">
 			<div class="card2-title">Blangko Undangan</div>
-			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+			<div class="card2-description">Minimal Pembelian 300pcs, +Plastik +Stiker Label
 				<div class="option-group"><label>Pengguna</label>
     	        	<div class="options">
-    	            	<div class="option " add-price="-20000">Anak-anak</div>
-    	            	<div class="option selected" add-price="0">Dewasa</div>
+    	            	<div class="option selected" add-price="">Tanpa Foto</div>
+    	            	<div class="option " add-price="200">Foto 1 Sisi</div>
+    	            	<div class="option " add-price="400">Foto 2 Sisi</div>
     	        	</div>
 				</div>
-				<div class="option-group"><label>Bahan :</label>
+				<div class="option-group"><label>Type :</label>
     	        	<div class="options">
-    	            	<div class="option selected" add-price="0">Milano</div>
-    	            	<div class="option " add-price="10000">Serat Embos</div>
-    	        	</div>
-				</div>
-				<div class="option-group"><label>Ukuran :</label>
-    	        	<div class="options">
-    	            	<div class="option " add-price="0">S</div>
-    	            	<div class="option " add-price="">M</div>
-    	            	<div class="option " add-price="">L</div>
-    	            	<div class="option " add-price="">XL</div>
-    	            	<div class="option " add-price="10000">XXL</div>
-    	            	<div class="option " add-price="20000">XXXL</div>
+    	            	<div class="option selected" add-price="0">BU 001</div>
+    	            	<div class="option " add-price="500">BU 002</div>
     	        	</div>
 				</div>
 			</div>
@@ -4545,8 +4541,8 @@ function showPaymentPopup() {
         <ul>
             <li><h3>a.n <b>PT. DSAIN KREASI MANDIRI</h3></b></li>
             <li>Bank Mandiri</li>
-            <li><b><h1 style="margin-top:-3px;">1340020180971<h1></b></li>
-        <p>Biaya pengiriman barang (BAYAR DITEMPAT) </p>
+            <li><b><h1 style="margin-top:-3px;">WEBSITE INI MASIH DALAM PENGEMBANGAN<h1></b></li>
+        <p>Catatan Minimal DP/LUNAS</p>
         </ul>
     `;
 }
