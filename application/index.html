@@ -1330,15 +1330,16 @@ button:hover {
 
     /* Gaya untuk popup cart-container */
     #cart-popup {
-    font-family: 'Arial', sans-serif;
+  	  font-family: 'Arial', sans-serif;
         position: fixed;
         top: 55px;
         right:0;
         width: 340px;
         max-height: 400px;
+		margin-right:5px;
         overflow-y: auto;animation: slideIn 0.5s forwards;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(15px);
+    	background: rgba(255, 255, 255, 0.2);
+    	backdrop-filter: blur(15px);
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         border-radius: 8px;
         padding: 10px;
@@ -1390,6 +1391,10 @@ button:hover {
 }
 
     #subtotal-container{margin-bottom:5px;}
+    /* Media Queries untuk responsive */
+@media (max-width: 768px) {
+	#cart-popup {width:90%;margin-right:5px;}
+}
 </style>
 
 
@@ -2977,8 +2982,8 @@ line-height:1;
     <div class="payment-content">
         <h3>Total Tagihan</h3>
         <div class="payment-details"></div>
-        <button id="cancel-btn">Cancel</button>
-        <button id="next-btn">Next</button>
+        <button id="cancel-btn">Batal</button>
+        <button id="next-btn">Kirim ke Whatsapp</button>
     </div>
 </div>
 
@@ -3038,7 +3043,7 @@ line-height:1;
         <div class="popup-footer">
             <div class="quantity-selector">
                 <button>-</button>
-                <input type="number" value="1">
+                <input type="number" value="1" min="1" step="1">
                 <button>+</button>
             </div>
             <button class="add-to-cart-button">Add to Cart</button>
@@ -3481,11 +3486,10 @@ line-height:1;
 </div>
 
 <!-- Product card 9 -->
-<div class="product-card2" data-category="undangan" data-qty="300">
+<div class="product-card2" data-category="undangan" min-qty="300" multi-qty="100">
 	<div class="card2-header">
 		<div class="list-image">
-			<img src="https://i.imgur.com/6s7EmsL.png" data-type="BU 001">
-			<!-- <img src="https://i.imgur.com/1zZqFi1.png" data-type="BU 002"> -->
+			<img src="https://i.imgur.com/6s7EmsL.png">
 		</div>
 	</div>
 	<div class="card2-price">Rp 1.000</div>
@@ -4536,13 +4540,13 @@ function showPaymentPopup() {
     paymentPopup.classList.add('popup-show'); // Tambahkan kelas animasi
     const paymentDetails = paymentPopup.querySelector('.payment-details');
     paymentDetails.innerHTML = `
-        <p><strong><h1 style="margin-top:-10px;margin-bottom:30px;">Rp ${subtotal.toLocaleString('id-ID')}</h1></strong></p> <!-- Pemisah ribuan -->
-        <p>Metode pembayaran:</p>
+        <p><strong><h1 style="margin-top:-10px;margin-bottom:30px;color:#fff;">Rp ${subtotal.toLocaleString('id-ID')}</h1></strong></p> <!-- Pemisah ribuan -->
+        <p></p>
         <ul>
-            <li><h3>a.n <b>PT. DSAIN KREASI MANDIRI</h3></b></li>
-            <li>Bank Mandiri</li>
-            <li><b><h1 style="margin-top:-3px;">WEBSITE INI MASIH DALAM PENGEMBANGAN<h1></b></li>
-        <p>Catatan Minimal DP/LUNAS</p>
+            <li><h3><b></h3></b></li>
+            <li>KLIK TOMBOL KIRIM<br/>untuk mengirimkan rincian pesanan anda</li>
+            <li><b><h2 style="margin-top:-3px;">ADMIN akan segera mengonfirmasi untuk pembuatan INVOICE-nya<h2></b></li>
+        <p style="color:#fff;">Terima kasih telah berkunjung di Website kami<br/><b>PT. DSAIN KREASI MANDIRI ^.-</b></p>
         </ul>
     `;
 }
