@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PT. DSAIN KREASI MANDIRI | V-Card Digital</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="https://lokercirebon.com/wp-content/uploads/2022/10/Dside-Graphia.jpg" type="image/jpeg">
+  <meta name="theme-color" content="#1f1f1f" />
   <style>
     :root {
       --bg: #1f1f1f;
@@ -30,7 +33,7 @@
       align-items: center;
       min-height: 100vh;
       flex-direction: column;
-      padding: 20px;
+      padding: 10px;
       animation: fadeIn 1s ease;
     }
 
@@ -42,8 +45,8 @@
 	.card {
 	  background-color: var(--card-bg);
 	  border-radius: 15px;
-	  padding: 30px;
-	  margin: 0 20px; /* kasih margin samping */
+	  padding: 10px;
+	  margin: 0;
 	  max-width: 400px;
 	  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 	  text-align: center;
@@ -249,15 +252,7 @@
       return `TEL;TYPE=${type}:${number}`;
     });
 
-    const vcardData = `BEGIN:VCARD
-VERSION:3.0
-FN:${name}
-TITLE:${title}
-ORG:${org}
-${tels.join('\n')}
-${emails.join('\n')}
-ADR:;;${adr}
-END:VCARD`;
+    const vcardData = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTITLE:${title}\nORG:${org}\n${tels.join('\n')}\n${emails.join('\n')}\nADR:;;${adr}\nEND:VCARD`;
 
     const filename = infoGroup.getAttribute("title") || "contact";
     const blob = new Blob([vcardData], { type: "text/vcard" });
@@ -267,6 +262,11 @@ END:VCARD`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  }
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(() => console.log("Service Worker Registered"));
   }
 
   window.onload = () => {
