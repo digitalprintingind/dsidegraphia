@@ -141,6 +141,13 @@
       font-size: 1.2em;
     }
 
+    .card h2 span {
+      display: block;
+      font-size: 0.7em;
+      font-weight: normal;
+      color: #aaa;
+    }
+
     @media print {
       body * {
         visibility: hidden;
@@ -168,7 +175,7 @@
     <img class="company-logo" src="https://lokercirebon.com/wp-content/uploads/2022/10/Dside-Graphia.jpg" alt="Company Logo" />
   </a>
 
-  <h2>Ridwan Virga Septiawan</h2>
+  <h2>Ridwan Virga Septiawan<span>NIK. 3271052211900002</span></h2>
   <p class="title">Paper Printing Staff</p>
 
   <div class="info-group" title="RekkyDwiPahlawan">
@@ -181,6 +188,7 @@
 
   <div class="btn-group">
     <button onclick="downloadVCF()"><i class="fas fa-download"></i> Download vCard</button>
+    <button onclick="window.print()"><i class="fas fa-print"></i> Print</button>
   </div>
 </div>
 
@@ -220,7 +228,7 @@
           href = `https://www.google.com/search?q=${encodeURIComponent(text)}`;
           break;
         case "ADR":
-          href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(text)}`;
+          href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(text)}`;
           break;
         default:
           return;
