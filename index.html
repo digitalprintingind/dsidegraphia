@@ -1,0 +1,5011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>D'Side Graphia</title>
+	<link rel="icon" href="https://i.imgur.com/RHbQRX3.png" type="image/x-icon">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+body {
+		margin:0;
+    	font-family: 'Poppins', sans-serif;
+		padding: 0;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    animation: gradientAnimation 15s ease infinite;
+}
+
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.bottom{margin-bottom:70px;}
+.bottom-content{margin-bottom:20px;}
+</style>
+
+
+  <style>
+
+    buttonNT {
+      margin: 10px;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .notifNT {
+      position: fixed;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+      color: white;
+      padding: 5px 20px;
+      border-radius: 10px;
+      display: none;
+      z-index: 1005;
+    }
+    
+        /* Posisi untuk panah segitiga */
+    .notifNT:after {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+		backdrop-filter: blur(15px);
+      transform: translateX(-50%);  /* Penyesuaian untuk benar-benar rata tengah */
+    }
+    
+        /* Posisi untuk panah segitiga */
+    .top-rightNT:after {
+      content: '';
+      border-bottom: 8px solid rgba(255, 255, 255, 0.2); /* Panah mengarah ke atas */
+      top: -8px; /* Tempatkan panah di atas notifikasi */
+      right: 10px;  /* Di tengah-tengah secara horizontal */
+    }
+
+    .top-leftNT {
+      top: 72px;
+      left: 45px;
+      font-size:16px;
+    }
+
+    .bottom-leftNT {
+      bottom: 20px;
+      left: 20px;
+    }
+
+    .top-rightNT {
+      top: 47px;
+      right: 47px;
+    }
+
+    .bottom-rightNT {
+      bottom: 20px;
+      right: 20px;
+    }
+
+    .top-leftNT, .top-rightNT {
+      animation: slideInFromTop 0.5s ease-in-out;
+    }
+
+    .bottom-leftNT, .bottom-rightNT {
+      animation: slideInFromBottom 0.5s ease-in-out;
+    }
+
+    @keyframes slideInFromTop {
+      from {
+        transform: translateY(-100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInFromBottom {
+      from {
+        transform: translateY(100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInFromRight {
+      from {
+        transform: translateX(100%);
+      }
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInFromLeft {
+      from {
+        transform: translateX(-100%);
+      }
+      to {
+        transform: translateX(0);
+      }
+    }
+  </style>
+
+<style> /* Floating button container */
+    .whatsapp-float-container {
+        position: fixed;
+        bottom: 100px;
+        right: 25px;
+        display: flex;
+        align-items: center;
+        z-index: 99; /* Pastikan z-index lebih rendah dari kartu */
+        transition: opacity 0.4s ease; /* Transisi untuk opacity */
+    }
+
+    /* Floating button */
+    .whatsapp-float {
+        color: white;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        font-size: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 0.3s ease;
+    }
+
+    .whatsapp-float img {
+        width: 45px;
+        height: 45px;
+        transition: transform 0.4s ease; /* Transition for icon rotation */
+    }
+
+    .whatsapp-float.hidden {
+        opacity: 0; /* Sembunyikan ikon dengan mengubah opacity */
+        pointer-events: none; /* Nonaktifkan interaksi saat tersembunyi */
+    }
+
+    .whatsapp-card {
+        position: fixed;
+        bottom: 100px;
+        right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 320px;
+        opacity: 0;
+        transform: translateY(20px); /* Geser sedikit ke bawah */
+        z-index: 100; /* Pastikan z-index lebih tinggi */
+        transition: all 0.4s ease; /* Smooth transition */
+        display: none;
+    }
+
+    .whatsapp-card.active {
+        opacity: 1;
+        transform: translateY(0); /* Kembali ke posisi semula */
+    }
+
+    .whatsapp-header {
+        background-color: #075E54;
+        color: white;
+        padding: 15px;
+        border-radius: 8px 8px 0 0;
+        font-size: 18px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        text-align: left;
+    }
+
+    .whatsapp-header img {
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+    }
+
+    .whatsapp-content {
+        padding: 10px;
+        text-align: left;
+    }
+
+    .whatsapp-content p {
+        margin: 10px 0;
+        font-size: 14px;
+        color: #000;
+    }
+
+    .contact-box {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    .contact-box img {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+    }
+
+    .contact-info {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        line-height:1.5;
+    }
+
+    .contact-info .admin-name1 {
+        font-weight: bold;
+        font-size: 16px;
+        color: #000;
+    }
+
+    .contact-info .admin-description {
+        font-size: 12px;
+        color: #000;
+    }
+
+.whatsapp-icon {
+    width: 40px;
+    height: 40px;
+        align-items: center;
+    max-width: 40px; /* Ukuran maksimum */
+    max-height: 40px; /* Ukuran maksimum */
+    min-width: 40px; /* Ukuran minimum */
+    min-height: 40px; /* Ukuran minimum */
+    object-fit: cover; /* Pastikan gambar tidak terdistorsi */
+    color: #25D366; /* Warna ikon WhatsApp */
+}
+
+
+    .powered-by {
+        text-align: left;
+        font-size: 12px;
+        color: #000;
+        padding: 10px 5px;
+    }
+
+.help-text {
+    left: -5px; /* Memberikan jarak antara ikon dan teks */
+    font-size: 14px;
+    color: #333; /* Warna teks */
+    background-color: #f1f1f1; /* Warna latar belakang bubble */
+    border-radius: 10px; /* Sudut bulat untuk bubble */
+    padding: 10px; /* Padding dalam bubble */
+    display: block; /* Sembunyikan teks secara default */
+    position: relative; /* Untuk efek bubble */
+    white-space: nowrap; /* Mencegah teks membungkus */
+
+    /* Tambahkan animasi */
+    animation: waveBubble 1.5s ease-in-out infinite;
+}
+
+/* Definisi keyframes untuk animasi wave */
+@keyframes waveBubble {
+    0% {
+        transform: translateY(0); /* Posisi awal */
+    }
+    25% {
+        transform: translateY(-5px); /* Bergerak ke atas */
+    }
+    50% {
+        transform: translateY(0); /* Kembali ke posisi awal */
+    }
+    75% {
+        transform: translateY(5px); /* Bergerak ke bawah */
+    }
+    100% {
+        transform: translateY(0); /* Kembali ke posisi awal */
+    }
+}
+
+
+    .whatsapp-float.active + .help-text {
+        display: block; /* Tampilkan teks saat ikon aktif */
+    }
+</style>
+
+<style> /* Styling Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 55px;
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+    		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+    		transition: transform 0.3s ease, background 0.3s ease;
+            z-index: 1000;
+        }
+
+        /* Styling Logo */
+        .logo img{
+            height:30px;
+            width:auto;
+            font-weight: bold;
+            margin-left: 0;
+        }
+
+        /* Styling Icon Container */
+        .icon-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .icon-container i {
+            font-size: 20px;
+            color: #fff;
+            margin-right: 40px;
+            margin-left: -20px;
+            cursor: pointer;
+        }
+        
+       .fullscreen-icon {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+    </style>
+
+<style>    /* Menu bottom bar container */
+.bottom-barH3 {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #6a11cb, #2575fc, #6a11cb);
+    border-radius: 20px 20px 0 0;
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 3);
+    padding: 0;
+	z-index:1000;
+	  }
+
+	  /* Style setiap tab */
+	  .tab-itemH3 {
+	    flex-grow: 1;
+	    text-align: center;
+	    color: #fff;
+	    cursor: pointer;
+	    font-size: 12px;
+		width:100px;
+	    transition: color 0.3s ease;
+	    position: relative;
+	  }
+
+	  .tab-itemH3 i {
+	    font-size: 24px;
+	    color: #fff;
+	    transition: color 1s;
+	  }
+
+	  .tab-itemH3.homeH3 i {
+	    font-size: 24px;
+	    color: #fff;
+	    transition: color 1s;
+	  }
+
+	  /* Efek hover dan tab aktif */
+	  .tab-itemH3:hover, .tab-itemH3.activeH3 {
+	    color: red;
+	    transform: scale(1.1);
+	  }
+
+	  .tab-itemH3:hover i, .tab-itemH3.activeH3 i {
+	    color: red;
+	    transform: scale(1.1);
+	  }
+
+	  .tab-itemH3.homeH3:hover i, .tab-itemH3.homeH3.activeH3 i {
+	    color: #fff;
+	  }
+
+	  /* Desain khusus untuk tab tengah */
+	  .tab-itemH3.homeH3 {
+	    position: relative;
+	    top: 0;
+	    background: blue;
+	max-width:70px;
+	    border-radius: 50%;
+	    padding: 15px;
+	    color: #fff;
+	    font-size: 16px;
+	    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+	    transition: transform 0.3s ease;
+	  }
+
+	  .tab-itemH3.homeH3:hover {
+	    transform: scale(1.1);
+	  }
+	
+
+	  .tab-itemH3 span {
+	    display: block;
+	    margin-top: 5px;
+	    font-size: 12px;
+	  }
+
+	  /* Content display */
+	  .contentH3 {
+	    margin-top: 20px;
+	    text-align: center;
+	    font-size: 20px;
+	    color: blue;
+	    display: none;
+	  }
+
+	  .contentH3.activeH3 {
+	    display: block;
+	  }
+</style>
+
+<style> /* Style for popup payment animation */
+.popup-hidden {
+    display: none;
+}
+#payment-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    width: 340px;
+    text-align: center;
+    z-index: 1100;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+#payment-popup.popup-show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+.payment-content h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #fff;
+}
+.payment-details ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+.payment-details li {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #fff;
+}
+button {
+    margin: 0;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+#cancel-btn {
+    background-color: #e74c3c;
+    color: #fff;
+}
+#next-btn {
+    background-color: #3498db;
+    color: white;
+}
+button:hover {
+    opacity: 0.8;
+}
+</style>
+
+<style> /* Menu Category Product*/
+.tab-container {
+    position: fixed;
+    border-radius: 15px;
+    overflow: hidden;
+    z-index: 1006;
+}
+
+/* Styling untuk Tab */
+.tab.hidden {
+    display: none;
+}
+
+.tab {
+    position: relative;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0px -5px; /* Kurangi margin di sisi vertikal */
+    font-family: 'Arial', sans-serif;
+    text-align: left;
+}
+
+.tab i{
+    font-size:26px;padding:0px 10px 0px; 5px;
+}
+
+.tab:hover {
+    background-color: blue;
+    color: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.active-tab {
+    background-color: blue;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.tab span {
+	position:fixed;
+	margin-left:50px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Container untuk semua Tab */
+#tabs {
+    position: fixed; /* Posisi tetap untuk menghindari pengaruh pada tata letak lainnya */
+    top: 50px; /* Jarak dari atas */
+    padding:5px 5px 0px 5px;
+    width: 100%; /* Lebar kontainer */
+    background: rgba(30, 144, 255, 0.3); /* Warna blue dengan transparansi 0.8 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bayangan untuk efek kedalaman */
+    z-index: 999; /* Pastikan berada di atas elemen lainnya */
+    opacity: 0; /* Mulai dengan tidak terlihat */
+    visibility: hidden; /* Tersembunyi secara default */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transisi untuk opacity dan visibility */
+}
+
+/* Tambahkan kelas untuk menampilkan tabs */
+#tabs.show {
+    opacity: 1; /* Tampilkan slider */
+    visibility: visible; /* Ubah visibility menjadi terlihat */
+	animation: slideIn 0.5s forwards;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+}
+
+.menu-show-left {
+		position: fixed;
+		top:70px;
+		width:55px;height: 35px;
+		color:#fff;
+	    display: flex;
+	    overflow: hidden;
+    	margin-left:15px;
+		z-index:10;}
+
+.logo-icon {
+		object-fit: contain;
+            color: #fff;
+            font-size: 30px;
+            cursor: pointer;
+            margin:0;
+            transition: transform 0.4s ease, color 0.3s ease;
+        }
+        
+.logo-icon:hover {
+            color: blue;
+            transform: rotate(90deg); /* Rotate effect on hover */
+        }
+</style>
+
+<style> /* Lightbox Product */
+.lightboxATC {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.lightbox-contentATC {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    padding: 10px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    border-radius: 8px;
+    position: relative;
+    max-height: 80vh;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+	overflow-y: auto;
+	animation: slideIn 0.5s forwards;
+}
+
+.lightboxATC-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 5px solid #FF5722;
+    
+
+}
+
+.lightboxATC img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    padding:5px;
+}
+
+
+.lightbox-detailsATC h2, .lightbox-detailsATC p {
+    margin: 10px 0;color:#000;
+}
+
+/* Styling for left-aligned description and enlarged price */
+#lightbox-titleATC {
+    font-size: 18px;
+    margin: 0;
+    color: #333;
+    text-align:left;
+}
+
+#lightbox-priceATC {
+    font-size: 20px;
+    color: #fff;
+    font-weight: bold;
+    text-align:left;
+}
+
+/* Styling for left-aligned description and enlarged price */
+#lightbox-descriptionATC {
+    text-align: justify;
+    font-size:14px;
+}
+
+
+   .atc-btn {
+        display: block;
+        width: 100%;
+        padding: 5px; /* 12px setara dengan 0.75rem */
+        border-radius: 30px;
+        background-color: #FF5722;
+        color: #fff;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 10px; /* 15px setara dengan 0.9375rem */
+        font-size: 12px; /* 16px setara dengan 1rem */
+        transition: background-color 0.3s ease;
+    }
+
+    .atc-btn:hover {
+        background-color: #cc00cc;
+    }
+
+
+    /* Media Queries untuk responsive */
+@media (max-width: 768px) {
+.lightbox-contentATC {
+    max-width: 85%;
+}}
+
+
+/* Popup Content */
+.popup-content3 {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    max-width: 350px;
+    width: 90%;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    font-family: Arial, sans-serif;
+    overflow-y: auto;
+    text-align: left;
+    max-height: 90vh;
+    /* Menambahkan centering dengan transform */
+    transform: translate(-50%, -50%);
+    position: absolute; /* Letakkan konten di tengah menggunakan position absolute */
+    top: 50%;
+    left: 50%;
+}
+
+/* Close Button */
+.close-btnATC {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    background:red;
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    border-radius: 100%;
+    padding:0;
+    color: #fff;
+}
+
+/* Popup Header */
+.popup-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.popup-image {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.popup-info h2 {
+    font-size: 20px;
+    margin: 0;
+    color: #333;
+}
+
+.popup-price {
+    font-size: 18px;
+    color: #FF5722;
+    font-weight: bold;
+}
+
+.popup-discount {
+    font-size: 12px;
+    color: #999;
+    text-decoration: line-through;
+    margin-left: 5px;
+}
+
+.popup-stock {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Options Section */
+.option-group {
+    margin-top: 10px;
+}
+
+.option-group label {
+    font-size: 14px;
+    font-weight: bold;
+    text-align:left;
+    color:#000;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.options .active {
+    background-color: #FF5722;
+    color: white;
+}
+
+.option.disabled {
+    color: #333;
+    cursor: not-allowed;
+    pointer-events: none;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.option {
+    padding: 5px 10px;
+    background: #f5f5f5;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    color: #333;
+    font-size: 13px;
+}
+
+/* Style untuk input dimensi */
+.dimension-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.dimension-input {
+    width: 100%;
+    max-width: 120px;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.dimension-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Tambahkan highlight pada grup opsi yang tidak lengkap */
+.option-group.highlight {
+    border: 1px solid #FF5722;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Quantity Selector */
+.popup-footer {
+    border-top: 5px solid #FF5722;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-selector {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.quantity-selector button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: #FF5722;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.quantity-selector input {
+    width: 50px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 7px;
+}
+
+/* Add to Cart Button */
+.add-to-cart-button {
+    margin-top: 5px;
+    flex: 1;
+    padding: 10px;
+    background: #FF5722;
+    color: white;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Popup hidden secara default */
+#notif-popup-cart.popup-hidden-cart {
+    display: none;
+}
+
+/* Tampilan dasar popup */
+#notif-popup-cart {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Konten popup */
+#notif-popup-cart .popup-content-cart {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+}
+
+/* Gaya tombol OK */
+#notif-popup-cart #close-popup-btn-cart {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+</style>
+
+<style> /* Lightbox Product */
+.lightboxPL {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.lightbox-contentPL {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    padding: 10px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    border-radius: 8px;
+    position: relative;
+    max-height: 60vh;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+	overflow-y: auto;
+	animation: slideIn 0.5s forwards;
+}
+
+.lightboxPL img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+
+.lightbox-detailsPL h2, .lightbox-detailsPL p {
+    margin: 10px 0;color:#000;
+}
+
+/* Styling for left-aligned description and enlarged price */
+#lightbox-titlePL {
+    text-align: center;
+    font-size:20px;
+}
+
+#lightbox-pricePL {
+    font-size: 1.5em; /* Adjust the font size as needed */
+    font-weight: bold;
+}
+
+/* Styling for left-aligned description and enlarged price */
+#lightbox-descriptionPL {
+    text-align: justify;
+    font-size:14px;
+}
+
+/* Styles for improved appearance of the note guide table */
+.note-guide {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.note-guide th, .note-guide td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.note-guide th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+.note-guide tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.note-guide tr:hover {
+    background-color: #ddd;
+}
+
+    /* Media Queries untuk responsive */
+@media (max-width: 768px) {
+.lightbox-contentPL {
+    max-width: 85%;
+}}
+</style>
+
+<style> /*Card Product*/
+    .card2-container {
+        display: flex;
+        flex-wrap: wrap; /* Membuat kolom dapat membungkus ke baris baru */
+        justify-content: center;align-items: center;
+        gap: 20px;
+        margin-top:100px;
+    }
+
+    .product-card2 {
+    display: none;
+        min-width: 160px; /* Menyusun semua card2 dengan lebar 100% secara default */
+        max-width: 160px; /* Maksimal lebar setiap card2 */
+        background-color: #292929;
+        border-radius: 10px;
+        color: #fff;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        position: relative;
+        padding: 10px;
+        flex: 1 1 calc(25% - 20px); /* 4 kolom di desktop */
+        box-sizing: border-box; /* Menghitung padding dalam lebar total */
+    }
+
+    /* Gradients untuk setiap card2 */
+.product-card2:nth-child(1n) .card2-header {background: radial-gradient(circle at 50% 50%, #009cff, #004a80); /* Biru Laut */}
+.product-card2:nth-child(2n) .card2-header {background: radial-gradient(circle at 50% 50%, #bf00ff, #6a009b); /* Ungu */}
+.product-card2:nth-child(3n) .card2-header {background: radial-gradient(circle at 50% 50%, #ff6600, #993200); /* Oranye */}
+.product-card2:nth-child(4n) .card2-header {background: radial-gradient(circle at 50% 50%, #00b3b3, #006666); /* Biru Hijau */}
+.product-card2:nth-child(5n) .card2-header {background: radial-gradient(circle at 50% 50%, #ff00cc, #99004d); /* Pink */}
+.product-card2:nth-child(6n) .card2-header {background: radial-gradient(circle at 50% 50%, #ffcc00, #b38b00); /* Kuning */}
+.product-card2:nth-child(7n) .card2-header {background: radial-gradient(circle at 50% 50%, #66cc66, #006600); /* Hijau */}
+.product-card2:nth-child(8n) .card2-header {background: radial-gradient(circle at 50% 50%, #ff3333, #b20000); /* Merah */}
+.product-card2:nth-child(9n) .card2-header {background: radial-gradient(circle at 50% 50%, #ffd700, #b8860b); /* Emas */}
+.product-card2:nth-child(10n) .card2-header {background: radial-gradient(circle at 50% 50%, #8a2be2, #4b0082); /* Violet */}
+
+    .card2-header {
+        font-family: 'Arial', sans-serif;
+        padding: 20px; /* Padding 20px setara dengan 1.25rem */
+        text-align: center;
+        height: 85px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: -10px;
+        margin-left: -20px;
+    }
+
+    .card2-header img {
+        width: 140px;
+        height: 140px;
+        border-radius: 0 0 15px 15px;
+    }
+
+    .card2-price {
+        font-family: 'Arial', sans-serif;
+        position: absolute;
+        top: 10px; /* 10px setara dengan 0.625rem */
+        right: 0; /* 10px setara dengan 0.625rem */
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        color: #fff;
+        padding: 5px 15px; /* 5px 15px setara dengan 0.3125rem 0.9375rem */
+        border-radius: 20px 0 0 20px;
+        font-weight: bold;
+        font-size: 14px; /* 18px setara dengan 1.125rem */
+    }
+
+    .card2-body {
+        display: flex;
+        line-height: 1.5;
+        justify-content: space-between;
+        align-items: flex-start;
+        font-family: 'Arial', sans-serif;
+        margin-top: 18px;
+        text-align:left;
+    }
+
+    .card2-left {
+        width: 100%;
+    }
+
+    .card2-title {
+        font-size: 14px; /* 18px setara dengan 1.125rem */
+        font-weight: bold;
+        margin-bottom: 10px; /* 10px setara dengan 0.625rem */
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1; /* Batasi ke 1 baris */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .card2-description {
+        font-size: 14px; /* 14px setara dengan 0.875rem */
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2; /* Batasi ke 2 baris */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #ccc;
+        line-height: 1.5;
+        margin-bottom: 10px;
+    }
+
+    .add-btn {
+        display: block;
+        width: 100%;
+        padding: 5px; /* 12px setara dengan 0.75rem */
+        border-radius: 30px;
+        background-color: orange;
+        color: #000;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 10px; /* 15px setara dengan 0.9375rem */
+        font-size: 12px; /* 16px setara dengan 1rem */
+        transition: background-color 0.3s ease;
+    }
+
+    .add-btn:hover {
+        background-color: #cc00cc;
+    }
+
+    /* Media Queries untuk responsive */
+    @media (max-width: 768px) {
+        .product-card2 {
+            flex: 1 1 100%; /* 1 kolom di mobile */
+        }
+    }
+</style>
+
+
+<style>/* Daftar item di keranjang */
+#cart-items {
+    max-height: 260px; /* Sesuaikan tinggi maksimum sesuai keinginan */
+    overflow-y: auto; /* Aktifkan scroll vertikal */
+    margin-bottom: 10px; /* Jarak di bawah untuk elemen lainnya */
+}
+
+    /* Posisi dan gaya ikon keranjang belanja */
+    #cart-icon {
+        font-size: 30px;
+        color:white;
+    }
+
+    /* Gaya untuk jumlah item di ikon keranjang */
+    #cart-count {position:fixed;
+        font-family: 'Arial', sans-serif;
+        width: 20px;
+        height: 10px;
+        top: 5px;
+        right: 5px;
+        background-color: red;
+        color: white;
+        border-radius: 7px;
+        padding: 3px;
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+.header-cart{
+    	margin-top: -10px;
+        display: grid;
+        grid-template-columns: 20px 1fr;
+        align-items: center;
+}
+
+.header-cart i{
+        display: grid;
+        color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+        grid-template-columns: 20px 1fr;
+        align-items: center;
+}
+
+.header-cart h3{
+    display: flex;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    margin-left: 20px;
+}
+
+    /* Gaya untuk item di keranjang */
+    .cart-item {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        align-items: center;
+        margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+        padding: 10px;
+        border-radius: 5px;
+        color:#000;
+    }
+
+    .item-image img {
+        max-width: 50px;
+    }
+
+/* Style untuk elemen cart-item */
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+/* Gambar produk */
+.item-image img {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+/* Elemen detail produk (nama dan harga) diatur secara vertikal */
+.item-details {
+    display: flex;
+    flex-direction: column; /* Menjadikan harga berada di bawah nama */
+    align-items: flex-start; /* Penyesuaian agar konten tetap rata kiri */
+}
+
+/* Nama produk */
+.product-name {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* Harga produk */
+.product-price {
+    color: #888;
+    font-size: 16px;
+    margin-top: 5px; /* Jarak antara nama produk dan harga */
+}
+
+/* Tombol kontrol (increase, decrease, remove) */
+.item-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: auto;
+}
+
+.item-name {
+    	font-size: 18px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1; /* Batasi ke 1 baris */
+        overflow: hidden;
+        text-overflow: ellipsis;
+}
+
+.item-options {
+    	font-size: 12px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2; /* Batasi ke  baris */
+        overflow: hidden;
+        text-overflow: ellipsis;
+}
+
+.decrease-btn, .increase-btn, .remove-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.remove-btn {
+    background-color: #f44336; /* Warna merah untuk tombol hapus */
+}
+
+    /* Gaya untuk popup cart-container */
+    #cart-popup {
+  	  font-family: 'Arial', sans-serif;
+        position: fixed;
+        top: 55px;
+        right:0;
+        width: 340px;
+        max-height: 400px;
+		margin-right:5px;
+        overflow-y: auto;animation: slideIn 0.5s forwards;
+    	background: rgba(255, 255, 255, 0.2);
+    	backdrop-filter: blur(15px);
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        padding: 10px;
+        z-index: 1007;
+        transition: opacity 0.3s ease-in-out;
+    }
+    /* Sembunyikan popup secara default */
+    .popup-hidden {
+        display: none;
+    }
+    
+    /* Scroll bar untuk popup */
+    #cart-popup::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #cart-popup::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 10px;
+    }
+
+    #cart-popup::-webkit-scrollbar-thumb:hover {
+        background-color: #555;
+    }
+
+    #checkout-btn {
+        background-color: orange;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+    }
+    
+    .close-cart-popup-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.close-cart-popup-btn:hover {
+    color: red;
+}
+
+    #subtotal-container{margin-bottom:5px;}
+    /* Media Queries untuk responsive */
+@media (max-width: 768px) {
+	#cart-popup {width:90%;margin-right:5px;}
+}
+</style>
+
+
+<style> /*Banner Utama*/
+    .slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    height: 500px;
+    overflow: hidden;
+    margin: 0 auto;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+    .slider {
+        display: flex;
+        transition: transform 1s ease-in-out;
+    }
+
+    .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center; /* Center secara horizontal */
+    align-items: center; /* Center secara vertikal */
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+    .slide.active {
+        opacity: 1; /* Fade-in aktif */
+    }
+
+    /* Overlay dengan pola titik */
+.content-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Hitam transparan */
+    z-index: 1;
+}
+
+
+    .content {
+    width: 80%;
+    max-width: 100%;
+    text-align: center;
+line-height:1.5;
+    color: white;
+    z-index: 2;
+    opacity: 0; /* Efek fade */
+    transform: none; /* Hilangkan transform jika tidak diperlukan */
+    transition: opacity 1s ease-in-out;
+}
+
+    .slide.active .content {
+        opacity: 1;
+        transform: translateX(0); /* Konten bergerak dari kiri ke tengah */
+    }
+
+    .content h2 {
+        font-size: 50px;
+        margin-bottom: 30px;
+        line-height:1.2;
+        font-weight:bold;
+    }
+
+    .content p {
+        font-size: 25px;
+        margin-bottom: 20px;
+        font-weight:bold;
+    }
+.content h2, .content p, .content a {
+    opacity: 0;
+    transform: translateX(-100px); /* Mulai dari posisi di sebelah kiri */
+    animation: slide-left 1s forwards; /* Gunakan animasi slide-left */
+}
+
+/* Animasi bergerak dari kiri */
+@keyframes slide-left {
+    to {
+        opacity: 1;
+        transform: translateX(0); /* Berakhir di posisi normal */
+    }
+}
+
+    .content a {
+        background: linear-gradient(135deg, #ff7e00, #ffb733); /* Gradasi oranye */
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        transition: background 0.3s ease;
+    }
+
+    .content a:hover {
+        background-color: #ff7f50;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+        transition: all 0.3s ease;
+    }
+
+/* Atur posisi dan tampilan dots */
+.dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 12px; /* Jarak antar dots */
+    z-index: 11; /* Pastikan dots di atas elemen lain */
+}
+
+/* Style untuk setiap tombol dots dengan border */
+.dots button {
+    background-color: transparent; /* Warna dalam transparan */
+    border: 2px solid rgba(255, 255, 255, 0.6); /* Garis pinggir berwarna putih transparan */
+    border-radius: 50%; /* Membuat dots berbentuk lingkaran */
+    width: 12px; /* Lebar titik */
+    height: 12px; /* Tinggi titik */
+    padding: 5px; /* Jarak antara titik dan border */
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease; /* Transisi untuk efek smooth */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* Bayangan halus */
+}
+
+/* Efek ketika tombol dots aktif */
+.dots button.active {
+    background-color: orange; /* Isi titik saat aktif */
+    border-color: orange; /* Garis pinggir berwarna oranye */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Tambahkan bayangan saat aktif */
+}
+
+/* Efek hover pada dots */
+.dots button:hover {
+    transform: scale(1.2); /* Memperbesar ukuran saat hover */
+    border-color: #ff7f50; /* Ubah warna garis pinggir saat hover */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4); /* Efek bayangan lebih kuat */
+    transition: all 0.3s ease; /* Transisi untuk memperhalus efek hover */
+}
+
+
+
+    /* Progress bar */
+    .progress-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        z-index: 10;
+        height: 5px;
+        background-color: orange;
+        animation: progress 10s linear infinite;
+    }
+
+    @keyframes progress {
+        0% { width: 0; }
+        100% { width: 100%; }
+    }
+
+    @media (max-width: 600px) {
+        .slider-container {
+            height: 300px;
+        }
+
+        .content h2 {
+            font-size: 20px;
+        }
+
+        .content p {
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .content a {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+    }
+</style>
+
+<style> /* Client */
+.client-banner {
+    display: flex;
+    max-width: 1024px;
+    flex-wrap: wrap; /* Membuat item responsif */
+    justify-content: center; /* Memusatkan konten */
+}
+
+/* Styling for the banner layout */
+.client-banner-layout {
+    background: linear-gradient(135deg, #ff8a00, #e52e71); /* Gradient background */
+    border-radius: 10px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1); /* Initial box shadow */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Memusatkan gambar secara vertikal */
+    align-items: center; /* Memusatkan gambar secara horizontal */
+    background: var(--post-one-color);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(205, 222, 247, 0.08);
+    width: calc(20% - 10px); /* Set each item to take 20% of the width, so 5 items fit per row */
+    margin: 5px;
+    box-sizing: border-box;
+}
+
+/* Styling untuk gambar */
+.client-banner-layout img {
+    width: 50%; /* Semua gambar akan memiliki lebar yang sama */
+    height: auto; /* Tinggi menyesuaikan dengan proporsi gambar */
+    object-fit: contain; /* Menjaga rasio gambar agar tidak terdistorsi */
+    border-radius: 5px; /* Membuat gambar dengan sudut melengkung */
+}
+
+/* Slider Container */
+.client-slider-container {
+    overflow: hidden;
+    max-width: 100%;
+    position: relative;
+}
+
+/* Slider Track */
+.client-slider-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 300%; /* Since we have 3 slides, we set the width to 300% */
+}
+
+/* Arrow buttons */
+.client-slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.client-prev-btn {
+    left: 0;
+}
+
+.client-next-btn {
+    right: 0;
+}
+
+@media (max-width: 768px) {
+    .client-banner-layout img {
+        width: 100%;
+    }
+}
+
+    </style>
+    
+<style> /* Layanan Product */
+        .layanan2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2px;
+            padding: 2px;
+            max-width: 1700px;
+        }
+
+        .grid-layanan2 {
+            position: relative;
+            text-align: center;
+            color: white;
+            width: 100%;
+            padding-top: 100%; /* Menjaga aspek rasio 1:1 (persegi) */
+            overflow: hidden; /* Agar gambar tidak melampaui batas */
+        }
+
+        .grid-layanan2 img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Menjaga gambar agar selalu fit dalam kotak persegi */
+            transition: transform 0.3s ease; /* Animasi saat di-hover */
+        }
+
+        .grid-layanan2:hover img {
+            transform: scale(1.1); /* Gambar diperbesar saat di-hover */
+        }
+
+        .overlay2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease; /* Animasi perubahan warna overlay2 */
+        }
+
+        .grid-layanan2:hover .overlay2 {
+            background-color: rgba(0, 0, 0, 0.7); /* overlay2 lebih gelap saat di-hover */
+        }
+
+        .overlay2-content {
+            position: absolute;
+            top: 35px;
+            left: 35px;
+            right: 35px;
+            bottom: 35px;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .grid-layanan2:hover .overlay2-content {
+            opacity: 1; /* Konten overlay2 muncul saat di-hover */
+            border-color: yellow; /* Border muncul saat di-hover */
+            transform: scale(1.05); /* Animasi scale agar terlihat hidup */
+        }
+
+    .animated-border:before, 
+    .animated-border:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        border: 2px solid transparent;
+        box-sizing: border-box;
+    }
+
+    .animated-border:before {
+        border-top: 2px solid yellow;
+        border-bottom: 2px solid yellow;
+        animation: border-horizontal 2s ease-in-out infinite;
+    }
+
+    .animated-border:after {
+        border-left: 2px solid yellow;
+        border-right: 2px solid yellow;
+        animation: border-vertical 2s ease-in-out infinite;
+    }
+
+    @keyframes border-horizontal {
+        0%, 100% {
+            width: 0%;
+        }
+        50% {
+            width: 100%;
+        }
+    }
+
+    @keyframes border-vertical {
+        0%, 100% {
+            height: 0%;
+        }
+        50% {
+            height: 100%;
+        }
+    }
+
+
+        .overlay2-text {
+            font-size: 2.5rem;
+            font-weight: bold;
+line-height:1;
+            transition: transform 0.5s ease, color 0.5s ease; /* Animasi untuk ukuran dan warna */
+        }
+
+        .grid-layanan2:hover .overlay2-text {
+            transform: scale(1.1); /* Teks diperbesar saat di-hover */
+            color: white; /* Teks berubah warna menjadi emas saat di-hover */
+            transform: translateY(-15px); /* Animasi teks naik saat muncul */
+        }
+
+        .detail-text {
+            font-size: 1rem;
+            font-weight: normal;
+			color:yellow;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .grid-layanan2:hover .detail-text {
+            opacity: 1; /* Teks "Lihat Detail" muncul saat di-hover */
+            transform: translateY(40px); /* Animasi teks naik saat muncul */
+        }
+
+        @media (max-width: 600px) {
+            .layanan2 {
+                grid-template-columns: repeat(2, 1fr); /* Minimal 2 kolom pada tampilan mobile */
+            }
+
+            .overlay2-text {
+                font-size: 1.5rem;
+            }
+
+            .detail-text {
+                font-size: 0.8rem;
+            }
+
+        .grid-layanan2:hover .detail-text {
+            opacity: 1; /* Teks "Lihat Detail" muncul saat di-hover */
+            transform: translateY(20px); /* Animasi teks naik saat muncul */
+        }
+        }
+    </style>
+
+<style>  /* MENU TAB ARTIKEL */
+    .containerA2 {
+        display: flex;
+        flex-wrap: wrap; /* Membuat kolom dapat membungkus ke baris baru */
+        justify-content: center;
+		align-items: center;
+        gap: 10px;
+        font-family: Arial, sans-serif;
+        margin: auto;
+        text-align: center;
+    }
+
+    .articlesA2 {
+        margin-top: 55px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 15px;
+    }
+
+    .article-cardA2 {
+        background: linear-gradient(135deg, #e0f7fa, #e1bee7);
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+        overflow: hidden;
+        position: relative;
+        text-align: left;
+        border: 1px solid transparent;
+        height: auto;
+    }
+
+    .article-cardA2:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        border: 1px solid #7e57c2;
+    }
+
+    .article-headerA2 {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .profile-picA2 {
+        width: 50px;
+        height: 50px;
+        background-image: url('https://i.imgur.com/RHbQRX3.png');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .authorA2 {
+        font-size: 14px;
+        color: #555;
+    }
+
+    .article-cardA2 h2 {
+        margin: 0;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .contentA2 {
+        color: #666;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2; /* Batasi menjadi 2 baris */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 14px;
+        line-height: 1.4;
+        margin-top: 15px;
+    }
+
+    .lightboxA2 {
+        display: none;
+        position: fixed;
+        text-align: left;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 99;
+        backdrop-filter: blur(5px);
+        animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .lightbox-contentA2 {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        max-width: 600px;
+        max-height: 70vh;
+        overflow-y: auto;
+        animation: slideIn 0.5s forwards;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .close-btnA2 {
+        background: #ff6b6b;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        float: right;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .close-btnA2:hover {
+        background: #ff4d4d;
+        transform: scale(1.05);
+    }
+
+    #popup-titleA2 {
+        margin: 0;
+        font-size: 0.9em;
+        color: #333;
+    }
+
+    #popup-authorA2 {
+        color: #777;
+        font-size: 0.8em;
+        margin-top: 5px;
+    }
+
+    #popup-contentA2 {
+        color: #666;
+        font-size: 0.8em;
+        line-height: 1.5;
+        margin-top: 10px;
+    }
+
+    /* Gaya untuk media (foto atau video) */
+    .mediaA2 {
+        width: 100%;
+        max-height: 300px;
+        margin-top: 15px;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+    .thumbnailA2 {
+        width: 100%;
+        max-height: 200px;
+        border-radius: 10px;
+        margin-top: 10px;
+        object-fit: cover;
+    }
+</style>
+
+
+
+
+<style>
+    /* Katalog */
+    .image-viewer-containerKT {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Centered vertically */
+        width: 100%; 
+        margin: 0;
+    }
+
+    /* Thumbnail Style */
+    .thumbnailKT {
+        width: 320px;
+        cursor: pointer;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        
+    }
+
+    .thumbnailKT:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Popup Overlay Style */
+    .overlayKT {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(5px);
+        background: rgba(0, 0, 0, 0.2);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+        opacity: 0;
+    }
+
+/* Popup Image Container */
+.popup-containerKT {
+    position: relative;
+    max-width:600px;
+    width: calc(100vw - 40px); /* Lebar penuh dengan jarak kiri-kanan 10px */
+    height: calc(100vh - 200px); /* Tinggi penuh dikurangi margin atas-bawah */
+    margin-top: 55px;
+    margin-bottom: 75px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Popup Image */
+.popup-imageKT {
+    max-width: 100%; /* Membatasi lebar maksimal sesuai kontainer */
+    max-height: 100%; /* Membatasi tinggi maksimal sesuai kontainer */
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+    /* Navigation Buttons */
+    .nav-buttonKT {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 5em;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.2);
+        color: white;
+        border: none;
+        cursor: pointer;
+        z-index: 2;
+        display: none;
+    }
+
+    .nav-buttonKT:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    /* Positioning of navigation buttons inside the image */
+    .prev-buttonKT {
+        left: 0;
+    }
+
+    .next-buttonKT {
+        right: 0;
+    }
+
+    /* Hidden images (not displayed) */
+    .hidden-imageKT {
+        display: none;
+    }
+</style>
+
+    <style> /* Footer */
+.footerFTR {
+	top:55px;
+    background-color: #2b2e38;
+    color: #e3e3e3;
+    padding: 15px; /* Menggunakan px */
+    text-align: center;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.footerFTR img {
+    height: 30px;
+    width: auto;
+    justify-content: center;
+    item-align: center;
+    margin-bottom: 16px; /* Menggunakan px */
+}
+
+.footerFTR p {
+    color: #b0b0b0;
+    margin-bottom: 16px; /* Menggunakan px */
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.headerFTR p {
+    	font-family: 'Poppins', sans-serif;
+	font-size: 14px;
+    margin-bottom: 16px; /* Menggunakan px */
+}
+
+/* Social Icons */
+.social-iconsFTR {
+    display: flex;
+    justify-content: center;
+    gap: 24px; /* Menggunakan px */
+    margin-bottom: 32px; /* Menggunakan px */
+}
+
+.social-iconsFTR a {
+    color: #ffffff;
+    font-size: 28px; /* Menggunakan px */
+    transition: transform 0.3s ease;
+}
+
+.social-iconsFTR a:hover {
+    color: #ff4949;
+    transform: scale(1.2);
+}
+
+/* Columns for Services and Links */
+.footer-columnsFTR {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px; /* Menggunakan px */
+    max-width: 1200px;
+    margin: 32px auto; /* Menggunakan px */
+}
+
+.footer-columnFTR {
+    flex: 1 1 22%;
+    padding: 0 16px; /* Menggunakan px */
+    background-color: #343845;
+    border-radius: 10px;
+    text-align: left;
+    min-width: 220px;
+}
+
+.footer-columnFTR h3 {
+    margin-bottom: 8px; /* Menggunakan px */
+    font-size: 22px; /* Menggunakan px */
+    text-align: center;
+}
+
+.footer-columnFTR p {
+    text-align: center;
+}
+
+.footer-columnFTR ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-columnFTR ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px; /* Menggunakan px */
+    font-size: 16px; /* Menggunakan px */
+}
+
+.footer-columnFTR ul li i {
+    margin-right: 8px; /* Menggunakan px */
+    color: #3ac7ff;
+}
+
+/* Contact Section */
+.contact-infoFTR {
+    background-color: #ffb742;
+    color: #333;
+    padding: 12px; /* Menggunakan px */
+    text-align: center;
+    border-radius: 5px;
+    margin: 8px 0; /* Menggunakan px */
+    font-size: 18px;
+}
+
+/* Copyright Section */
+.copyrightFTR {
+    background-color: #2b2e38;
+    color: #b0b0b0;
+    padding-top: 16px; /* Menggunakan px */
+    text-align: center;
+    font-size: 16px; /* Menggunakan px */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-columnsFTR {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-columnFTR {
+        width: 90%; /* Menggunakan px */
+        margin: 8px 0; /* Menggunakan px */
+    }
+
+    .footer-columnFTR:nth-child(1),
+    .footer-columnFTR:nth-child(2),
+    .footer-columnFTR:nth-child(3),
+    .copyrightFTR:nth-child(4) {
+        order: unset;
+    }
+}
+    </style>
+    
+<style>   /* Konsulsati Layanan */
+        .banner-wrapperKY {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: linear-gradient(45deg, #ffcc00, #ff6699, #66ccff);
+            background-size: 400% 400%;
+            animation: gradientBGKY 10s ease infinite;
+        }
+
+        /* Banner utama dengan kolom */
+        .bannercontactKY {
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            flex-wrap: wrap;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 100%;
+            padding: 10px;
+        }
+
+        /* Gaya kolom umum */
+        .columnKY {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* Kolom logo dan caption bersebelahan di desktop */
+        .column-logo-captionKY {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: row;
+            width: 100%;
+        }
+
+        /* Gaya logo */
+        .logoKY {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+            color: white;
+            margin-right: 10px;
+            border-radius: 50%;
+            animation: bounceKY 2s infinite;
+        }
+
+        /* Gaya caption */
+        .captionKY {
+            text-align: left;
+            font-weight: bold;
+            font-size: 20px;
+            color: #333;
+            line-height: 1.5;
+            flex-grow: 2; /* Caption mengambil lebih banyak ruang */
+        }
+
+        /* Gaya button */
+        .button-columnKY {
+            flex-basis: 250px; /* Lebar kolom button */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .buttonKY {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0 auto;
+            animation: pulseKY 2s infinite;
+        }
+
+        .buttonKY:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive untuk mobile */
+        @media (max-width: 768px) {
+            /* Kolom berubah menjadi satu baris di mobile */
+            .columnKY {
+                flex-basis: 100%;
+                margin: 0;
+                padding: 5px;
+            }
+
+            /* Kolom logo dan caption menjadi vertikal */
+            .column-logo-captionKY {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            /* Posisi logo dan caption di tengah pada mobile */
+            .logoKY {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            .captionKY {
+                text-align: center;
+                padding-left: 0;
+            }
+
+            /* Button di tengah pada tampilan mobile */
+            .button-columnKY {
+                flex-basis: 100%;
+            }
+
+            .buttonKY {
+                display: block;
+                margin: 10px auto 0 auto;
+            }
+        }
+
+        /* Animasi untuk background */
+        @keyframes gradientBGKY {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Animasi bounce untuk logo */
+        @keyframes bounceKY {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        /* Animasi pulse untuk button */
+        @keyframes pulseKY {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+
+
+<style>     /* Contact Us */
+
+    .containerCU1 {
+        display: flex;
+        justify-content: center;
+        align-items: stretch; /* Membuat tinggi elemen sama */
+        padding: 20px;
+        gap: 20px;
+        background-color: #f4f4f9;
+        flex-wrap: wrap;
+        font-family: 'Poppins', sans-serif;
+        margin:0;
+    }
+
+    /* Contact Card dan Contact Section */
+    .contact-cardCU1, .contact-sectionCU1 {
+        background-color: #1c2947;
+        color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        width: 100%;
+        max-width: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .contact-sectionCU1 {
+        background-color: #ffffff;
+        color: #1c2947;
+    }
+
+    /* Bagian Logo */
+    .logo-sectionCU1 img {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 40px;
+        width: auto;
+        margin-bottom: 10px;
+    }
+
+    .logoCU1 {
+        width: 50px;
+    }
+
+    /* Informasi Kantor */
+    .office-infoCU1 h3 {
+        margin: 0 0 10px 0;
+        font-size: 18px;
+        font-weight: 600;
+        text-align: left;
+    }
+
+    .office-infoCU1 p {
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 5px 0; /* Jarak spasi yang konsisten */
+        display: flex;
+        align-items: center;
+        text-align: left;
+    }
+
+    .office-infoCU1 p i {
+        margin-right: 8px;
+    }
+
+    /* Contact Us */
+    .contact-sectionCU1 h2 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        margin-top: 0;
+    }
+
+    .contact-sectionCU1 p {
+        font-size: 14px;
+        color: #333333;
+        margin-bottom: 20px;
+        text-align: justify;
+        line-height: 1.5;
+    }
+
+    /* Tombol Admin */
+    .admin-contactCU1 {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .admin-btnCU1 {
+        background-color: #e6f0ff;
+        color: #1c2947;
+        border: none;
+        border-radius: 8px;
+        padding: 10px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .admin-btnCU1 span {
+        display: block;
+        background-color: #1c2947;
+        color: #ffffff;
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+    
+    .admin-btnCU1 span:hover {
+    	background-color: green;
+    }
+</style>
+
+
+<style> /* About Me */
+.containerAU {
+    font-family: 'Poppins', sans-serif;
+    width: 95%;
+    margin: 0 auto;
+    border-radius: 15px;
+}
+
+/* Deskripsi Utama */
+.main-descriptionAU {
+    background-color:#1c2947;
+    padding: 10px 10px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.main-descriptionAU img {
+	height:40px;
+	width:auto;
+}
+
+/* Visi & Misi */
+.vision-mission {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.vision, .mission {
+    background-color:#1c2947;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex: 1 1 30%; /* Buat tiga kolom di desktop */
+}
+
+.vision h3, .mission h3, .main-descriptionAU h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.vision p, .mission p, .main-descriptionAU p {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.vision li, .mission li {
+    font-size: 14px;
+    color: #fff;
+    text-align:left;
+    left:-20px;
+    margin-bottom: 15px;
+}
+
+/* Nilai / Budaya */
+.values-culture {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.values-culture h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.value-card {
+    background: linear-gradient(135deg, #ffd700, #ffbb33);
+    padding: 10px;
+    border-radius: 12px;
+    width: 100%; /* Lima kolom di desktop */
+    max-width: 15%;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.value-card i {
+    font-size: 35px;
+    color: #2c3e50;
+    margin-bottom: -20px;
+}
+
+.value-card h5 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.value-card p {
+    font-size: 14px;
+    color: #2c3e50;
+    line-height: 1.4;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    .main-descriptionAU, .vision, .mission {
+        flex: 1 1 100%; /* Jadikan satu kolom pada tampilan mobile */
+    }
+    
+    .values {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .value-card {
+        width: 80%; /* Lebar penuh pada tampilan mobile */
+        max-width: 300px;
+    }
+}
+</style>
+
+
+<style>
+/* Popup Maintenance */
+.popup-overlayMT {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    z-index: 1006;
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.5s ease, backdrop-filter 0.5s ease;
+}
+
+.popup-overlayMT.activeMT {
+    display: block;
+    opacity: 1;
+    backdrop-filter: blur(15px); /* Blur semakin kuat ketika popup muncul */
+}
+
+.popup-contentMT {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 80%;
+    max-width: 650px;
+    animation: popUp 0.7s ease-out forwards, shadowPulse 1s infinite alternate;
+    color: #fff;
+}
+
+/* Animasi untuk popup */
+@keyframes popUp {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+    }
+    60% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Animasi untuk shadow pulsing */
+@keyframes shadowPulse {
+    0% {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+    100% {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+}
+
+.popup-contentMT p {
+    font-size: 20px;
+    margin: 15px 0;
+    font-weight: 500;
+}
+
+.popup-contentMT .close-btnMT {
+    font-size: 28px;
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.popup-contentMT .close-btnMT:hover {
+    color: #ff6347;
+    transform: rotate(180deg);
+}
+
+/* List petunjuk */
+.guide-listMT {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: #000;
+}
+
+.guide-listMT li {
+    font-size: 18px;
+    margin: 15px 0;
+    display: flex;
+    gap: 5px;
+    background: linear-gradient(90deg, #48ef80, #1f80c0);
+    border-radius: 8px;
+    padding: 10px 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.guide-listMT li i {
+    font-size: 24px;
+    color: #000;
+    animation: bounceMT 1.5s infinite ease;
+}
+
+.guide-listMT li span {
+    color: #;
+}
+
+.guide-listMT li:hover {
+    background: linear-gradient(90deg, #48ef80, #1f80c0);
+    color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(72, 239, 128, 0.5);
+}
+
+/* Footer Text */
+.popup-footerMT {
+    margin-top: 10px;
+    font-size: 14px;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+    /* Media Queries untuk responsive */
+@media (max-width: 768px) {
+.popup-contentMT {
+    max-width: 70%;
+}
+
+.popup-contentMT p {font-size: 16px;}
+}
+</style>
+    
+
+    <style>
+        /* Slider utama */
+        .sliderKT {
+            position: relative;
+            width: 90%;
+            max-width: 600px;
+            margin: auto;
+            overflow: hidden;
+            margin-top:70px;
+            margin-bottom:100px;
+        }
+
+        .slidesKT {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slideKT {
+            min-width: 100%;
+            box-sizing: border-box;
+            display: none; /* Menyembunyikan semua slide */
+        }
+
+        .slideKT.activeKT {
+            display: block; /* Menampilkan slide yang aktif */
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Tombol navigasi */
+        .navKT {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .prevKT {
+            left: 10px;
+        }
+
+        .nextKT {
+            right: 10px;
+        }
+
+        /* Indikator thumbnail */
+        .indicatorsKT {
+            display: flex;
+            justify-content: flex-start;
+            overflow-x: auto; /* Menambahkan kemampuan scroll */
+            margin-top: 10px; /* Jarak antara gambar utama dan thumbnail */
+            padding-bottom: 10px; /* Ruang ekstra untuk scroll */
+            gap: 10px;
+        }
+
+        .indicatorKT {
+            background-color: transparent;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .indicatorKT img {
+            width: 60px; /* Ukuran thumbnail */
+            height: auto;
+            opacity: 0.5;
+            border: 2px solid transparent;
+            transition: opacity 0.3s, border-color 0.3s;
+        }
+
+        .indicatorKT.activeKT img {
+            opacity: 1;
+            border-color: #fff; /* Sorot border ketika aktif */
+        }
+
+        .indicatorKT:hover img {
+            opacity: 0.7;
+        }
+    </style>
+    
+</head>
+<body>
+
+<!-- Popup Maintenance 
+<div class="popup-overlayMT" id="maintenance-popupMT">
+    <div class="popup-contentMT">
+        <p class="popup-titleMT">Website Sedang dalam Pengembangan</p>
+        <p class="popup-subtitleMT">List Petunjuk</p>
+        <ul class="guide-listMT">
+            <li onclick="activateTabH3(this, 'content-homeH3')"><i class="fas fa-home"></i> Beranda</li>
+            <li onclick="activateTabH3(this, 'content-productH3')"><i class="fas fa-box"></i> Product</li>
+            <li id="popup-fullscreen-icon"><i class="fas fa-expand"></i> Full Screen</li>
+            <li onclick="activateTabH3(this, 'content-katalogH3')"><i class="fas fa-list"></i> Katalog</li>
+        </ul>
+        <p class="popup-footerMT">Silahkan Close Informasi ini untuk melanjutkan</p>
+        <button class="close-btnMT" id="close-popupMT">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
+-->
+
+<!-- Header Section -->
+<header class="header">
+    <div class="logo">
+        <a href=""><img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" /></a>
+    </div>
+    <!-- Icons Section -->
+    <div class="icon-container">
+        <i id="fullscreen-icon" class="fas fa-expand"></i>
+        <div id="cart-icon">
+            <i class="fas fa-cart-arrow-down"></i> <!-- Icon Keranjang -->
+            <span id="cart-count">0</span>
+        </div>
+    </div>
+</header>
+
+
+<!-- Floating WhatsApp Card -->
+<div class="whatsapp-card" id="whatsappCard">
+    <div class="whatsapp-header">
+        <img src="https://ouch-cdn2.icons8.com/1oizdSHZL50V6Q9nrhAoQ1yymCfuay57pGsUUgpdOKo/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTY0/L2U0NTdjYWFlLWMy/MWUtNDU5Yi1iMzcy/LTQ4OWIwM2U5ZDgw/OC5wbmc.png" alt="WhatsApp Icon" />
+        Konsultasi Gratis!
+    </div>
+    <div class="whatsapp-content">
+        <p>Klik salah satu team kami untuk berkonsultasi via WhatsApp.</p>
+
+        <!-- Admin 1 -->
+        <div class="contact-box">
+            <img src="https://i.imgur.com/RHbQRX3.png" alt="WhatsApp Icon" />
+            <div class="contact-info">
+                <div>
+                    <span class="admin-name1">Admin</span><br />
+                    <span class="admin-description">Office D'Side Graphia</span>
+                </div>
+                <a href="https://wa.me/6287838333993?text=Hallo,%20*D'Side%20Graphia*%0ASaya%20mau%20konsultasi,%20bisa?" target="_blank">
+                    <img class="whatsapp-icon" src="https://ouch-cdn2.icons8.com/1oizdSHZL50V6Q9nrhAoQ1yymCfuay57pGsUUgpdOKo/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTY0/L2U0NTdjYWFlLWMy/MWUtNDU5Yi1iMzcy/LTQ4OWIwM2U5ZDgw/OC5wbmc.png" alt="WhatsApp Icon" />
+                </a>
+            </div>
+        </div>
+
+        <!-- Admin 2 -->
+        <div class="contact-box">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRjiu7YrDulEiHgcvyxUqfqUQkD6ZBPr6gCQ&amp;usqp=CAU" alt="WhatsApp Icon" />
+            <div class="contact-info">
+                <div>
+                    <span class="admin-name1">Customer Service</span><br />
+                    <span class="admin-description">Marketing Online</span>
+                </div>
+                <a href="https://wa.me/6285172288904?text=Hallo,%20*D'Side%20Graphia*%0ASaya%20mau%20konsultasi,%20bisa?" target="_blank">
+                    <img class="whatsapp-icon" src="https://ouch-cdn2.icons8.com/1oizdSHZL50V6Q9nrhAoQ1yymCfuay57pGsUUgpdOKo/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTY0/L2U0NTdjYWFlLWMy/MWUtNDU5Yi1iMzcy/LTQ4OWIwM2U5ZDgw/OC5wbmc.png" alt="WhatsApp Icon" />
+                </a>
+            </div>
+        </div>
+
+        <div class="powered-by">
+            <i>Powered By </i>: Digital Printing
+        </div>
+    </div>
+</div>
+
+<!-- HTML for Payment Popup -->
+<div id="payment-popup" class="popup-hidden">
+    <div class="payment-content">
+        <h3>Total Tagihan</h3>
+        <div class="payment-details"></div>
+        <button id="cancel-btn">Batal</button>
+        <button id="next-btn">Kirim ke Whatsapp</button>
+    </div>
+</div>
+
+<!-- Cart Popup -->
+<div id="cart-popup" class="popup-hidden">
+<div class="header-cart" onclick="activateTabH3(this, 'content-productH3')"><i class="fas fa-shopping-cart"></i>
+        <button id="close-cart-popup" class="close-cart-popup-btn"><i class="fas fa-times"></i></button>
+        <h3>Keranjang Belanja</h3>
+</div>
+        <div id="cart-items"></div>
+        <div id="subtotal-container">
+            <strong style="color:#fff;">Subtotal: Rp <span id="subtotal">0</span></strong>
+        </div>
+        <button id="checkout-btn">Checkout</button>
+</div>
+
+<div id="notif-popup-cart" class="popup-hidden-cart">
+    <div class="popup-content-cart">
+        <p>Silakan lengkapi pilihan sebelum menambah ke keranjang.</p>
+        <button id="close-popup-btn-cart">OK</button>
+    </div>
+</div>
+
+<!-- Popup Lightbox -->
+<div id="lightboxPL" class="lightboxPL">
+    <div class="lightbox-contentPL">
+        <span class="close-btnPL close-cart-popup-btn" style="padding-right:10px;"><i class="fas fa-times"></i></span>
+        <img id="lightbox-imgPL" src="" alt="Product Image">
+        <div class="lightbox-detailsPL">
+            <h2 id="lightbox-titlePL"></h2>
+            <p id="lightbox-pricePL"></p>
+            <p id="lightbox-descriptionPL"></p>
+            
+            <!-- Placeholder for Note Guide Table -->
+            <div id="lightbox-guidePL"></div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Popup Lightbox ATC -->
+<div id="lightboxATC" class="lightboxATC">
+    <div class="lightbox-contentATC">
+        <span class="close-btnATC">×</span>
+        <div class="lightboxATC-header">
+            <img id="lightbox-imgATC" src="" alt="Product Image">
+            <div class="lightbox-detailsATC">
+                <h2 id="lightbox-titleATC"></h2>
+                <p id="lightbox-priceATC"></p>
+            </div>
+        </div>
+
+        <!-- Dynamic Option Group -->
+        <div class="popup-options"></div> <!-- Dynamic content will be added here -->
+
+        <!-- Popup Footer with Quantity Selector -->
+        <div class="popup-footer">
+            <div class="quantity-selector">
+                <button>-</button>
+                <input type="number" value="1" min="1" step="1">
+                <button>+</button>
+            </div>
+            <button class="add-to-cart-button">Add to Cart</button>
+        </div>
+    </div>
+</div>
+	
+<!-- Content sections for each tab -->
+<div class="contentH3 activeH3" id="content-productH3"><!--MENU TAB PRODUCT-->
+
+<div class="menu-show-left"><div class="logo-icon" id="icon"><i class="fas fa-bars"></i></div></div>
+
+<div class="tab-container">
+    <div id="tabs"> <!-- Kontainer untuk tab -->
+    	<button id="close-btn" class="close-cart-popup-btn" style="z-index:2000;padding-top:5px;color:red;"><i class="fas fa-times"></i></button>
+        <button class="tab" data-category="all">
+            <i class="fas fa-th-large"></i>
+            <span>Semua Product</span>
+        </button>
+        <button class="tab" data-category="tshirt">
+            <i class="fas fa-tshirt"></i>
+            <span>Baju / Kaos</span>
+        </button>
+        <button class="tab" data-category="stiker">
+            <i class="fas fa-sticky-note"></i>
+            <span>Stiker</span>
+        </button>
+        <button class="tab" data-category="nota">
+            <i class="fas fa-receipt"></i>
+            <span>Nota</span>
+        </button>
+        <button class="tab" data-category="sablon">
+            <i class="fas fa-print"></i>
+            <span>Sablon</span>
+        </button>
+        <button class="tab" data-category="book">
+            <i class="fas fa-book"></i>
+            <span>Buku</span>
+        </button>
+        <button class="tab" data-category="undangan">
+            <i class="fas fa-envelope"></i>
+            <span>Blanko Undangan</span>
+        </button>
+    </div>
+</div>
+
+<div class="card2-container">
+
+<!-- Product card  -->
+<div class="product-card2" data-category="tshirt"  data-qty="1" data-min-qty="" data-min-price="21000" data-new-price="">
+	<div class="card2-header"><img src="https://i.imgur.com/1r7KfEa.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 21.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Banner / Spanduk</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<div class="option-group"><label>Bahan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="">Flexy 300gsm</div>
+    	            	<div class="option " add-price="17000">Korcin 440gsm</div>
+    	        	</div>
+				</div>
+				<div class="option-group dimension-group">
+						<label>Ukuran :</label>
+				</div>
+				<div class="option-group"><label>Finishing :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="">Polos</div>
+    	            	<div class="option " add-price="">Hanya Lipat</div>
+    	            	<div class="option " add-price="">Lubang / Matik</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>File :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="">File Sendiri</div>
+    	            	<div class="option " add-price="10000">Konsep Desain</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">BELI SEKARANG</button>
+</div>
+
+<!-- Product card 1 -->
+<div class="product-card2" data-category="stiker" data-qty="5" data-min-qty="5" data-min-price="" data-new-price="-3000">
+	<div class="card2-header"><img src="https://i.imgur.com/s1edbSl.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 9.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Cetak Stiker Laser A3+</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<div class="option-group"><label>Stiker Indoor:</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Cromo A3+</div>
+    	            	<div class="option " add-price="2000">Transparant A3+</div>
+    	            	<div class="option " add-price="2000">Vinyl A3+</div>
+    	            	<div class="option disabled" add-price="5000">Hologram A3+</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Laminasi:</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Tanpa Laminasi</div>
+    	            	<div class="option " add-price="5000">Glossy</div>
+    	            	<div class="option " add-price="5000">Doff</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>File :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="">File Sendiri</div>
+    	            	<div class="option " add-price="10000">Konsep Desain</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Finishing :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Tanpa Potong</div>
+    	            	<div class="option " add-price="3000">Potong</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">BELI SEKARANG</button>
+</div>
+
+<!-- Product card 2 -->
+<div class="product-card2" data-category="tshirt">
+	<div class="card2-header"><img src="https://i.imgur.com/CVYGUMr.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 85.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Jersey Atasan</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<table class="note-guide">
+					<thead>
+						<tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>S</td><td>90</td><td>65</td></tr>
+                        <tr><td>M</td><td>90</td><td>65</td></tr>
+                        <tr><td>L</td><td>90</td><td>65</td></tr>
+                        <tr><td>XL</td><td>90</td><td>65</td></tr>
+                    </tbody>
+                </table>
+				<div class="option-group"><label>Pengguna</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="-20000">Anak-anak</div>
+    	            	<div class="option selected" add-price="0">Dewasa</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Bahan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Milano</div>
+    	            	<div class="option " add-price="10000">Serat Embos</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Lengan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Pendek</div>
+    	            	<div class="option " add-price="10000">Panjang</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Ukuran :</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="0">S</div>
+    	            	<div class="option " add-price="">M</div>
+    	            	<div class="option " add-price="">L</div>
+    	            	<div class="option " add-price="">XL</div>
+    	            	<div class="option " add-price="10000">XXL</div>
+    	            	<div class="option " add-price="20000">XXXL</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">BELI SEKARANG</button>
+</div>
+
+<!-- Product card 3 -->
+<div class="product-card2" data-category="tshirt">
+	<div class="card2-header"><img src="https://i.imgur.com/7HC1BjI.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 110.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Jersey (Atasan Full Printing & Celana Non Printing)</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<table class="note-guide">
+					<thead>
+						<tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>S</td><td>90</td><td>65</td></tr>
+                        <tr><td>M</td><td>90</td><td>65</td></tr>
+                        <tr><td>L</td><td>90</td><td>65</td></tr>
+                        <tr><td>XL</td><td>90</td><td>65</td></tr>
+                    </tbody>
+                </table>
+				<div class="option-group"><label>Pengguna</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="-20000">Anak-anak</div>
+    	            	<div class="option selected" add-price="0">Dewasa</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Bahan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Milano</div>
+    	            	<div class="option " add-price="10000">Serat Embos</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Lengan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Pendek</div>
+    	            	<div class="option " add-price="10000">Panjang</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Ukuran :</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="0">S</div>
+    	            	<div class="option " add-price="">M</div>
+    	            	<div class="option " add-price="">L</div>
+    	            	<div class="option " add-price="">XL</div>
+    	            	<div class="option " add-price="10000">XXL</div>
+    	            	<div class="option " add-price="20000">XXXL</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">BELI SEKARANG</button>
+</div>
+
+<!-- Product card 4 -->
+<div class="product-card2" data-category="tshirt">
+	<div class="card2-header"><img src="https://i.imgur.com/lDjPjYQ.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 125.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Jersey (Atasan & Celana Full Printing)</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<table class="note-guide">
+					<thead>
+						<tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>S</td><td>90</td><td>65</td></tr>
+                        <tr><td>M</td><td>90</td><td>65</td></tr>
+                        <tr><td>L</td><td>90</td><td>65</td></tr>
+                        <tr><td>XL</td><td>90</td><td>65</td></tr>
+                    </tbody>
+                </table>
+				<div class="option-group"><label>Pengguna</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="-20000">Anak-anak</div>
+    	            	<div class="option selected" add-price="0">Dewasa</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Bahan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Milano</div>
+    	            	<div class="option " add-price="10000">Serat Embos</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Lengan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Pendek</div>
+    	            	<div class="option " add-price="10000">Panjang</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Ukuran :</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="0">S</div>
+    	            	<div class="option " add-price="">M</div>
+    	            	<div class="option " add-price="">L</div>
+    	            	<div class="option " add-price="">XL</div>
+    	            	<div class="option " add-price="10000">XXL</div>
+    	            	<div class="option " add-price="20000">XXXL</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">BELI SEKARANG</button>
+</div>
+
+<!-- Product card 5 -->
+<div class="product-card2" data-category="tshirt">
+	<div class="card2-header"><img src="https://i.imgur.com/a2zY6NV.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 125.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Jersey Basket (Atasan & Celana Full Printing)</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<table class="note-guide">
+					<thead>
+						<tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>S</td><td>90</td><td>65</td></tr>
+                        <tr><td>M</td><td>90</td><td>65</td></tr>
+                        <tr><td>L</td><td>90</td><td>65</td></tr>
+                        <tr><td>XL</td><td>90</td><td>65</td></tr>
+                    </tbody>
+                </table>
+				<div class="option-group"><label>Pengguna</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="-20000">Anak-anak</div>
+    	            	<div class="option selected" add-price="0">Dewasa</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Bahan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Milano</div>
+    	            	<div class="option " add-price="10000">Serat Embos</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Ukuran :</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="0">S</div>
+    	            	<div class="option " add-price="">M</div>
+    	            	<div class="option " add-price="">L</div>
+    	            	<div class="option " add-price="">XL</div>
+    	            	<div class="option " add-price="10000">XXL</div>
+    	            	<div class="option " add-price="20000">XXXL</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">BELI SEKARANG</button>
+</div>
+
+<!-- Product card 6 -->
+<div class="product-card2" data-category="tshirt">
+	<div class="card2-header"><img src="https://i.imgur.com/X8tSLbH.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 100.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Kaos Polo</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<table class="note-guide">
+					<thead>
+						<tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>S</td><td>90</td><td>65</td></tr>
+                        <tr><td>M</td><td>90</td><td>65</td></tr>
+                        <tr><td>L</td><td>90</td><td>65</td></tr>
+                        <tr><td>XL</td><td>90</td><td>65</td></tr>
+                    </tbody>
+                </table>
+				<div class="option-group"><label>Pengguna</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="-20000">Anak-anak</div>
+    	            	<div class="option selected" add-price="0">Dewasa</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Ukuran :</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="0">S</div>
+    	            	<div class="option " add-price="">M</div>
+    	            	<div class="option " add-price="">L</div>
+    	            	<div class="option " add-price="">XL</div>
+    	            	<div class="option " add-price="10000">XXL</div>
+    	            	<div class="option " add-price="20000">XXXL</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">BELI SEKARANG</button>
+</div>
+
+<!-- Product card 7 -->
+<div class="product-card2" data-category="tshirt">
+	<div class="card2-header"><img src="https://i.imgur.com/CvtZj39.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 65.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Kaos Sablon</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<table class="note-guide">
+					<thead>
+						<tr><th width="10">Size</th><th width="50%">Chest (cm)</th><th width="50%">Length (cm)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>S</td><td>90</td><td>65</td></tr>
+                        <tr><td>M</td><td>90</td><td>65</td></tr>
+                        <tr><td>L</td><td>90</td><td>65</td></tr>
+                        <tr><td>XL</td><td>90</td><td>65</td></tr>
+                    </tbody>
+                </table>
+				<div class="option-group"><label>Pengguna</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="-20000">Anak-anak</div>
+    	            	<div class="option selected" add-price="0">Dewasa</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Bahan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Milano</div>
+    	            	<div class="option " add-price="10000">Serat Embos</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Ukuran :</label>
+    	        	<div class="options">
+    	            	<div class="option " add-price="0">S</div>
+    	            	<div class="option " add-price="">M</div>
+    	            	<div class="option " add-price="">L</div>
+    	            	<div class="option " add-price="">XL</div>
+    	            	<div class="option " add-price="10000">XXL</div>
+    	            	<div class="option " add-price="20000">XXXL</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">BELI SEKARANG</button>
+</div>
+
+<!-- Product card 8 -->
+<div class="product-card2" data-category="tshirt">
+	<div class="card2-header"><img src="https://i.imgur.com/1zZqFi1.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 65.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Bendera / Umbul-umbul</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<div class="option-group"><label>Bahan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Satin Polyester</div>
+    	        	</div>
+				</div>
+				<div class="option-group dimension-group">
+						<label>Ukuran </label>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">BELI SEKARANG</button>
+</div>
+
+<!-- Product card 9 -->
+<div class="product-card2" data-category="undangan" min-qty="300" multi-qty="100">
+	<div class="card2-header">
+		<div class="list-image">
+			<img src="https://i.imgur.com/6s7EmsL.png">
+		</div>
+	</div>
+	<div class="card2-price">Rp 1.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Blangko Undangan</div>
+			<div class="card2-description">Minimal Pembelian 300pcs, +Plastik +Stiker Label
+				<div class="option-group"><label>Pengguna</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="">Tanpa Foto</div>
+    	            	<div class="option " add-price="200">Foto 1 Sisi</div>
+    	            	<div class="option " add-price="400">Foto 2 Sisi</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Type :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">BU 001</div>
+    	            	<div class="option " add-price="500">BU 002</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">BELI SEKARANG</button>
+</div>
+
+<!-- Product card 10 -->
+<div class="product-card2" data-category="book">
+	<div class="card2-header"><img src="https://i.imgur.com/Ue8qtrs.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 11.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Buku Yasin</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<div class="option-group"><label>Lembar Halaman</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="">128 Halaman</div>
+    	            	<div class="option " add-price="3000">196 Halaman</div>
+    	            	<div class="option " add-price="3000">216 Halaman</div>
+    	            	<div class="option " add-price="3000">224 Halaman</div>
+    	            	<div class="option " add-price="3000">256 Halaman</div>
+    	            	<div class="option " add-price="3000">480 Halaman</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Bahan :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="">HVS</div>
+    	            	<div class="option " add-price="5500">ArtPaper</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Cover</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="">BC Print</div>
+    	            	<div class="option " add-price="1000">Embos Emas</div>
+    	            	<div class="option " add-price="">Hard Aksesoris Std</div>
+    	            	<div class="option " add-price="">Hard Full Aksesoris</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">BELI SEKARANG</button>
+</div>
+
+<!-- Product card 11 -->
+<div class="product-card2" data-category="nota">
+	<div class="card2-header"><img src="https://i.imgur.com/YQnsYZl.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 135.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Nota (RIM)</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<div class="option-group"><label>Lembar Ply :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">1 Ply</div>
+    	            	<div class="option " add-price="135000">2 Ply</div>
+    	            	<div class="option " add-price="225000">3 Ply</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Tinta :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">1 Warna</div>
+    	            	<div class="option " add-price="35000">2 Warna</div>
+    	            	<div class="option " add-price="70000">3 Warna</div>
+    	            	<div class="option " add-price="100000">CMYK</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Numerator :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Tanpa Numerator</div>
+    	            	<div class="option " add-price="35000">Numerator</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Finising :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Tanpa Porporasi</div>
+    	            	<div class="option " add-price="25000">Porporasi</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">BELI SEKARANG</button>
+</div>
+
+<!-- Product card 12 -->
+<div class="product-card2" data-category="nota">
+	<div class="card2-header"><img src="https://i.imgur.com/PEWzoLB.png" alt="Smart Watch"></div>
+	<div class="card2-price">Rp 55.000</div>
+	<div class="card2-body">
+		<div class="card2-left">
+			<div class="card2-title">Nota (Satuan)</div>
+			<div class="card2-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<div class="option-group"><label>Lembar Ply :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">1 Ply</div>
+    	            	<div class="option " add-price="0">2 Ply</div>
+    	            	<div class="option " add-price="0">3 Ply</div>
+    	            	<div class="option " add-price="0">4 Ply</div>
+    	            	<div class="option " add-price="0">5 Ply</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Numerator :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Tanpa Numerator</div>
+    	            	<div class="option " add-price="15000">Numerator</div>
+    	        	</div>
+				</div>
+				<div class="option-group"><label>Finising :</label>
+    	        	<div class="options">
+    	            	<div class="option selected" add-price="0">Tanpa Porporasi</div>
+    	            	<div class="option " add-price="10000">Porporasi</div>
+    	        	</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    <button class="atc-btn">BELI SEKARANG</button>
+</div>
+
+
+
+
+</div>
+<div class="bottom" ></div>
+
+<div class="footer"></div>
+
+<div class="bottom" ></div>
+</div>
+
+<div class="contentH3" id="content-katalogH3"> <!--MENU TAB KATALOG-->
+
+    <div class="sliderKT">
+        <div class="slidesKT">
+            <div class="slideKT activeKT"><img src="https://imgur.com/ycn3yPo.png" alt="Slide 1"></div>
+            <div class="slideKT"><img src="https://imgur.com/T8NfegK.png" alt="Slide 2"></div>
+            <div class="slideKT"><img src="https://imgur.com/wXuRRuH.png" alt="Slide 3"></div>
+            <div class="slideKT"><img src="https://imgur.com/q2wI4BM.png" alt="Slide 4"></div>
+            <div class="slideKT"><img src="https://imgur.com/WwpPOA7.png" alt="Slide 5"></div>
+            <div class="slideKT"><img src="https://imgur.com/mMSVv69.png" alt="Slide 6"></div>
+            <div class="slideKT"><img src="https://imgur.com/oKjMPKE.png" alt="Slide 7"></div>
+            <div class="slideKT"><img src="https://imgur.com/7VWFo57.png" alt="Slide 8"></div>
+            <div class="slideKT"><img src="https://imgur.com/1zEB5qv.png" alt="Slide 9"></div>
+            <div class="slideKT"><img src="https://imgur.com/ZUUwgmp.png" alt="Slide 10"></div>
+            <div class="slideKT"><img src="https://imgur.com/2vR9ZQl.png" alt="Slide 11"></div>
+            <div class="slideKT"><img src="https://imgur.com/jbiwCml.png" alt="Slide 12"></div>
+            <div class="slideKT"><img src="https://imgur.com/hljVWB3.png" alt="Slide 13"></div>
+            <div class="slideKT"><img src="https://imgur.com/YGzQspS.png" alt="Slide 14"></div>
+        </div>
+
+        <button class="navKT prevKT">&lt;</button>
+        <button class="navKT nextKT">&gt;</button>
+
+        <div class="indicatorsKT">
+            <!-- Thumbnail buttons will be added here dynamically -->
+        </div>
+    </div>
+
+</div>
+
+<div class="contentH3" id="content-homeH3"><!--MENU TAB HOME-->
+
+<!-- Floating Button Container -->
+<div class="whatsapp-float-container" id="whatsappFloatContainer" onclick="toggleWhatsAppCard(event)">
+    <span class="help-text" id="helpText">Ada yang bisa kami bantu?<br /><b>Hubungi kami<b></b></b></span>
+    <div class="whatsapp-float" id="whatsappFloat">
+        <img id="floatIcon" src="https://ouch-cdn2.icons8.com/1oizdSHZL50V6Q9nrhAoQ1yymCfuay57pGsUUgpdOKo/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9wbmcvOTY0/L2U0NTdjYWFlLWMy/MWUtNDU5Yi1iMzcy/LTQ4OWIwM2U5ZDgw/OC5wbmc.png" alt="WhatsApp Icon" />
+    </div>
+</div>
+
+    <div class="slider-container">
+        <div class="slider">
+            <!-- Slide 1 -->
+            <div class="slide active" style="background-image: url('https://semestaadvertising.id/wp-content/uploads/2023/03/slide-utama-jasa-advertising-s.jpg');">
+                <div class="content-overlay"></div>
+                <div class="content">
+                    <h2>Jasa Advertising</h2>
+                    <p>Kami Melayani Jasa Pembuatan Neon
+Box, Letter Sign, Signage, Pylon Sign.
+Videotron dan Lain-lain</p>
+                    <a onclick="toggleWhatsAppCard(event)">Klik Disini</a>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="slide" style="background-image: url('https://semestaadvertising.id/wp-content/uploads/2023/03/slide-utama-jasa-lettersign2-s.jpg');">
+                <div class="content-overlay"></div>
+                <div class="content">
+                    <h2>Jasa Pembuatan
+Letter Sign</h2>
+                    <p>Kami Melayani, Jasa Pembuatan Neon
+Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain</p>
+                    <a onclick="toggleWhatsAppCard(event)">Klik Disini</a>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="slide" style="background-image: url('https://semestaadvertising.id/wp-content/uploads/revslider/slide-utama-jasa-neonbox.gif">
+                <div class="content-overlay"></div>
+                <div class="content">
+                    <h2>Jasa Pembuatan Neon Box</h2>
+                    <p>Kami Melayani Jasa Pembuatan Neon Box, Letter Sign, Signage, Pylon Sign, Videotron dan Lain-lain.</p>
+                    <a onclick="toggleWhatsAppCard(event)">Klik Disini</a>
+                </div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="slide" style="background-image: url('https://semestaadvertising.id/wp-content/uploads/2023/03/slide-utama-jasa-umbul2b-s.jpg">
+                <div class="content-overlay"></div>
+                <div class="content">
+                    <h2>Jasa Pasang dan Perizianan Umbul Umbul/TBanner</h2>
+                    <p>Kami Melayani Jasa Cetak dan Pasang Umbul-Umbul, Spanduk, Baliho dan Billboard</p>
+                    <a onclick="toggleWhatsAppCard(event)">Klik Disini</a>
+                </div>
+            </div>
+        </div>
+        <div class="dots">
+            <button class="active"></button>
+            <button></button>
+            <button></button>
+            <button></button>
+        </div>
+        <div class="progress-bar"></div>
+    </div>
+    
+    
+<center><h5 style="font-weight: bold;margin-bottom:5px;color:#fff;">Dipercaya Ratusan Perusahaan</h5>
+    <div class="client-slider-container">
+        <div class="client-slider-track">
+            <!-- Slide 1 (5 images) -->
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjn-wElIrEh-badYyytQHAcj_TB4qHkuxATMGDcxdRM5H9zTgXdWuw8Ccq5l42dO3gcXUIjRb8tF-VWSkOeioKCMwIyVIEFqt563UUMBA9roMAp3X5H4RAy5W0nAcn_1Xm5kaQBnQiOP910T4CSAOjuLc7nboEdqAMStPGOzbpOjSEX4BsFgfL7uILpffKI/s512/client_client-03.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg2ET8dl1lc0K0MfsREEwq5hsEBto0VTxFvN9g8-StO_bOCrGvxTFBVhMeSSqjIrbHE8EzftFLADq3QsHIOPJL64i-th9YZHdpoYSpY-dgMR08BtWq3hEthyphenhyphenz4uVH1aIcK2u-E-0rNe0i2XZbyFFQHrPED5pdxTcRhcMC1aZAB_UV4n9tm9lf1Bq-jp4m9P/s512/client_client-05.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjASKhDmXrs9l3l9lOUfn47JPH88qFPZw7IA13mT6YDlMbdMT7Iyvd6veaOEYobKUAeL5eeT3x0UKIUKBgGfaEjNuvfK6swmtK1l4FN3dSAbPQojGPbuJtfN7vBMYvpzbHC7RP588EuKtOGW46tzLV77C3GKQUC9yeWF3Jbx2A3YTqTXcdzeQOEw3R1D_tk/s512/client_client-06.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhq8cNdtJoVkl0ZggO1IDgyxB6zj5k4kVFTrTXKsJnqe-nOtXMRZKJThnv6jN5eN2obUxz7zA50wSH_yfUO2qykjxetupjW6Cud1O5GyyVNBaTeh_5echfSeegeC-VZLoXNjvnAxACuuT2YQmol7_C_VsxBK-8ZMNR-mWEICAtUwJfF1exG9Qp86hiXehxC/s512/client-logo-03.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiJENMX6IvjlFHIaRUhrPl7V41Gd_nB7L_uVGH0O8kFUEv0nx4udnFfLZc4yY6mg1NEfeJromKTPN9_6-zGvyGMIxVfxDbeYgNaAwIWsB7tk336uBJTCNRFmtaDcifH00jhU2qTmk2Sh-_vo2brbEcIT0svYN1dZpnbSPiUkBVxZBs6E_2uine7O2HxP7bH/s512/client-logo-04.jpg" />
+            </div>
+
+            <!-- Slide 2 (5 images) -->
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgpTvDSaOabAaxTENSXme9rJbaoA0FYNe-my72hAInJdSrEnH_XVK2xLZKY9Qg_NaRQGO9Jt0ndgdiJYDQE3FNF9okxJpG78jCwQTbkK0LcdrhfQxuTs2p4z3BjktlwMj1mdJOh2xu1HgndOEzFjvua0L6HIkBt38meJ7xYcISmhNGdL9_wl8GQINwmjcpD/s512/client-logo-05.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiE-F6-xuHraKVxfU0FsQHNzCj-TjobXtrRbu3_Uj2DfrnDCIHvM8MxQ61Kb59Gvb3GnWR22qg2affITIgAEBtHhkEkRYKeMf2Itxsrfpc49XEj8LbtrhwaaWNjPaNMSHewO73UYRwostK-F39k3H27AeRZ8ywIcY5m0rI8XoocYur5XRb4MIUhkztB_4LG/s512/client-logo-06.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiravBj2dPC2G3zfWFZEIGQTCxP578a71JDF0TyN3w4e0e-1S0Fuy70fnme-FPtGmKwmHI38-ZqY8SSFKC3PFEv1-r6ad2sNrfAMiKn9L9cOLlfWn2c4LhPNogpBefGS2D6fBWBbEe9WeLFEJMA7OtzvI-p1_1kTlePy5JyklTYZ0JuJ5yqfLzp1WsDM31U/s512/client-logo-07.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjf9JtKlLWhJW33VPNMfnOKZvSfRgUYq6RoJo5G2ZAk1T9Sj6pFM6oTWYj5vB9KQ6N0x-h4yJ_eeHSDauKqJtym6CK8n4R1vmneWobyYjlhy2Fg5ZEpO828sGdmjv66lB99gj6raFmDRWNM063zXdBt9xxHkpR2zYXwg6Nct4slox5D12d1ThsiXPyhYNuQ/s512/client-logo-08.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjQhUhCbnmld8rsfwm_PuxCBE2FviOQMylpAJbjBxQq3BpICbXfggn_e0JSRTJ9dxSi1pP8DeXwQNPtWJ2GCFi6g1X6ubxtTRvbmM8NAmwFbKPtLKbAGxjOljzwoJtYrJVcClrgeD1EqlWmP3GnRbc2paLlIIOZX6q2lBuH7T-mf1kuI_ksPCXAU8dGtFJC/s512/client_client-01.jpg" />
+            </div>
+
+            <!-- Slide 3 (5 images) -->
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiZRMUK3DQ0OZp5ibf8gRRhwbMItCjPx8I2YRmsoJihZtczeD7aJ0yqWwei7yPYONIk-kWLkAiyCt-WOa6mtsiaToLB_-HjYSXzofznqv8f_p-hJAyDaak7pUgHiIviCLMpoXxJeGVvQq2KaG_5ltgZGa9tVR4pHuwJqusaVPFkIjwzEhbGGCBko4W9EKKd/s512/client_client-02.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhEKXgciAIru7qpoiF1f53_WgURBdqoGtjnjiUEoTy6Sfi5yjrInIbWdU6QpGc9u7t79vHglx3JGsBcnFgSTGWkGknp_yeC-YowoEXQqffCEYH_V_4S6kr5r3azfxnW0BC8KsniQqgheG96P7BETHMfykZ0walt_tTzz6Geg31vX415XgyW7yGhqukqb5mE/s512/client_client-04.jpg" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiKtlEjEO-CoIvc7RusyHrgg21sTV3Ldh9cSbTnsXHWYIeD8jH53-E2RmuDrVwBxl6dEIhH-F0mTkomlO-7IolvJXCP-raud5hI2YRWFZbJLTvmieqzKSNadnpL4uVMCutJW7kjtTZhju7G_sogrrh1QPqOPcV34w_achYzqOhbEW2S8WiEQhRt2MI6zxss/s739/images%20(2).png" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQouFV5-jsKLUFiza8B-W5yCqCzLMDzHNxk2A&usqp=CAU" />
+            </div>
+
+            <div class="client-banner-layout">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW1KvJN5d8SwYdTBfhekmCEJ1drK63D5fLcg&usqp=CAU" />
+            </div>
+        </div>
+    </div>
+</center>
+
+<div class="bottom-content" ></div>
+
+<center>
+<div class="layanan2">
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2024/08/1.jpg" alt="Neon Box" />
+        <div class="overlay2">
+            <div class="overlay2-text">Neon Box</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2024/09/21.jpg" alt="Letter Sign" />
+        <div class="overlay2">
+            <div class="overlay2-text">Letter Sign</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/videotron_thumb.jpg" alt="Videotron" />
+        <div class="overlay2">
+            <div class="overlay2-text">Videotron</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/billboard_thumb.jpg" alt="Billboard" />
+        <div class="overlay2">
+            <div class="overlay2-text">Billboard</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/spanduk_thumb.jpg" alt="Spanduk" />
+        <div class="overlay2">
+            <div class="overlay2-text">Spanduk</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2024/10/2.jpg" alt="Umbul-Umbul" />
+        <div class="overlay2">
+            <div class="overlay2-text">Umbul-Umbul</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2024/07/Desain-tanpa-judul-74.jpg" alt="Baliho" />
+        <div class="overlay2">
+            <div class="overlay2-text">Baliho</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/digital_printing13.jpg" alt="Digital Printing" />
+        <div class="overlay2">
+            <div class="overlay2-text">Digital Printing</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/pylonsign_img-01b.jpg" alt="Pylon Sign" />
+        <div class="overlay2">
+            <div class="overlay2-text">Pylon Sign</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/pole-sign_img-02.jpg" alt="Pole Sign" />
+        <div class="overlay2">
+            <div class="overlay2-text">Pole Sign</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/laser-acrylic.gif" alt="Iklan di Transportasi" />
+        <div class="overlay2">
+            <div class="overlay2-text">Iklan di Transportasi</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-layanan2">
+        <img src="https://semestaadvertising.id/wp-content/uploads/2022/08/perizinan_iklan_7b.jpg" alt="Perizinan Reklame" />
+        <div class="overlay2">
+            <div class="overlay2-text">Perizinan Reklame</div>
+            <div class="overlay2-content animated-border">
+                <a href=""><div class="detail-text">Lihat Detail</div></a>
+            </div>
+        </div>
+    </div>
+</div>
+</center>
+
+<div class="bottom" ></div>
+
+<div class="footer"></div>
+
+<div class="bottom" ></div>
+</div>
+
+<div class="contentH3" id="content-contactusH3"><!--MENU TAB CONTACT FORM-->
+
+<div class="bottom" ></div>
+
+<div class="footer"></div>
+
+<div class="bottom" ></div>
+</div>
+
+</div>
+
+<div class="contentH3" id="content-aboutmeH3"> <!--MENU TAB PROFILE-->
+
+<div class="bottom" ></div>
+<div class="containerAU">
+    <!-- Section: Deskripsi Utama -->
+    <div class="main-descriptionAU">
+        <h2>KENALI ESENSI D'SIDE GRAPHIA</h2>
+        <p>Kami akan melayani konsumen dengan ramah. Order konsumen akan dikerjakan dengan tenaga profesional dan mesin berteknologi modern. Dan order printing konsumen pasti akan selesai di waktu yang sepakati.</p>
+        <div class="image-sectionAU">
+            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Produk Contoh">
+        </div>
+    </div>
+
+    <!-- Section: Visi & Misi -->
+    <div class="vision-mission">
+        <div class="vision">
+            <h3>VISI</h3>
+            <p><strong>– BERGUNA –</strong></p>
+            <ul>
+                <li>Memenuhi Kebutuhan Pelanggan dengan memberikan solusi Printing yang terbaik.</li>
+                <li>Menjadi tempat untuk setiap TIM GUNAJAYA berkembang.</li>
+            </ul>
+            <p><strong>– BERJAYA –</strong></p>
+            <p>Menjadi Perusahaan Printing yang berdaya saing secara Nasional.</p>
+        </div>
+        <div class="mission">
+            <h3>MISI</h3>
+            <ul>
+                <li>Menjunjung Tinggi Nilai Ketuhanan.</li>
+                <li>Memberikan Kepuasan kepada Pelanggan dalam segi hasil dan ketepatan waktu.</li>
+                <li>Menambah Kemampuan dan Pengetahuan Tim secara berkesinambungan.</li>
+                <li>Taat Pada Prosedur yang ada.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Section: Nilai / Budaya -->
+    <div class="values-culture">
+        <h3>NILAI / BUDAYA</h3>
+        <div class="values">
+            <div class="value-card">
+                <i class="fas fa-arrow-up"></i>
+                <h5>Growth</h5>
+                <p>Ke tumbuh an berlandaskan inovasi, komunikasi dan loyalitas dalam perusahaan maupun pribadi.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-smile"></i>
+                <h5>Enjoy</h5>
+                <p>Menjaga Ukhwah dan Kenikmatan organisasi untuk menolong dan menjaga apa yang dititahkan masyarakat.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-hands-helping"></i>
+                <h5>Service</h5>
+                <p>Mengutamakan pelayanan terbaik melalui kolaborasi dengan semua tim.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-shield-alt"></i>
+                <h5>Integrity</h5>
+                <p>Memiliki nilai dan prinsip yang kokoh.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-users"></i>
+                <h5>Teamwork</h5>
+                <p>Mengutamakan kerjasama untuk memberikan solusi pelanggan maupun dengan rekan sejawat.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bottom" ></div>
+
+<div class="containerCU1">
+    <div class="contact-cardCU1">
+        <div class="logo-sectionCU1">
+            <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo D'Side Graphia" class="logoCU1">
+        </div>
+        <div class="office-infoCU1">
+            <h3>Head Office</h3>
+            <p>Jl. By Pass Cadangpinggan - Kertasemaya, Cadangpinggan, Kec. Sukagumiwang, Kabupaten Indramayu, Jawa Barat 45274</p>
+            <p><i class="fas fa-phone"></i> +62 87838333993</p>
+            <p><i class="fas fa-phone"></i> 08517-2288-904</p>
+            <p><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</p>
+        </div>
+    </div>
+    <div class="contact-sectionCU1">
+        <h2>Contact Us</h2>
+        <p>Jika memiliki pertanyaan mengenai jasa advertising silahkan menghubungi kontak cabang kami yang terdekat dengan lokasi Anda, Kami akan membalas setiap pesan dengan segera!</p>
+        <div class="admin-contactCU1">
+            <button class="admin-btnCU1">Admin 1<br><a target="_blank" href="https://wa.me/6287838333993?text=Hallo,%20*D'Side%20Graphia*%0ASaya%20mau%20konsultasi,%20bisa?"><span>Chat WhatsApp</span></a></button>
+            <button class="admin-btnCU1">Customer Service<br><a target="_blank" href="https://wa.me/6285172288904?text=Hallo,%20*D'Side%20Graphia*%0ASaya%20mau%20konsultasi,%20bisa?"><span>Chat WhatsApp</span></a></button>
+        </div>
+    </div>
+</div>
+
+<div class="footer"></div>
+
+<!--END MENU TAB PROFILE-->
+<div class="bottom" ></div>
+</div>
+
+
+
+<!-- Bottom menu bar -->
+<div class="bottom-barH3">
+  <div class="tab-itemH3" onclick="activateTabH3(this, 'content-productH3')">
+    <i class="fas fa-box-open"></i>
+    <span>Product</span>
+  </div>
+  <div class="tab-itemH3" onclick="activateTabH3(this, 'content-katalogH3')">
+    <i class="fas fa-list"></i>
+    <span>Katalog</span>
+  </div>
+  <div class="tab-itemH3 homeH3" onclick="activateTabH3(this, 'content-homeH3')">
+    <i class="fas fa-home"></i>
+    <span>Home</span>
+  </div>
+  <div class="tab-itemH3" onclick="activateTabH3(this, 'content-contactusH3')">
+    <i class="fas fa-phone"></i>
+    <span>Contact</span>
+  </div>
+  <div class="tab-itemH3" onclick="activateTabH3(this, 'content-aboutmeH3')">
+    <i class="fas fa-user"></i>
+    <span>Profile</span>
+  </div>
+</div>
+
+
+<!-- SCRIPT FULLSCREEN -->
+<script>
+    const fullscreenIconHeader = document.getElementById("fullscreen-icon");
+    const fullscreenIconPopup = document.getElementById("popup-fullscreen-icon");
+
+    // Fungsi untuk toggle full screen
+    function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen(); // Masuk full screen
+            syncFullscreenIcons(true); // Sinkronkan ikon
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen(); // Keluar dari full screen
+                syncFullscreenIcons(false); // Sinkronkan ikon
+            }
+        }
+    }
+
+    // Fungsi untuk sinkronisasi ikon fullscreen
+    function syncFullscreenIcons(isFullscreen) {
+        if (isFullscreen) {
+            fullscreenIconHeader.classList.remove("fa-expand");
+            fullscreenIconHeader.classList.add("fa-compress");
+            fullscreenIconPopup.querySelector("i").classList.remove("fa-expand");
+            fullscreenIconPopup.querySelector("i").classList.add("fa-compress");
+        } else {
+            fullscreenIconHeader.classList.remove("fa-compress");
+            fullscreenIconHeader.classList.add("fa-expand");
+            fullscreenIconPopup.querySelector("i").classList.remove("fa-compress");
+            fullscreenIconPopup.querySelector("i").classList.add("fa-expand");
+        }
+    }
+
+    // Event listener untuk ikon pada header
+    fullscreenIconHeader.addEventListener("click", toggleFullScreen);
+
+    // Event listener untuk ikon pada popup
+    fullscreenIconPopup.addEventListener("click", toggleFullScreen);
+
+    // Event listener untuk deteksi perubahan status full screen
+    document.addEventListener("fullscreenchange", () => {
+        const isFullscreen = !!document.fullscreenElement;
+        syncFullscreenIcons(isFullscreen); // Sinkronkan status ikon
+    });
+</script>
+
+<!--MENU TAB PRODUCT-->
+<script>
+// Toggle untuk menampilkan dan menyembunyikan tab dengan efek fade in dan fade out
+const toggleIcon = document.getElementById('icon');
+const tabsContainer = document.getElementById('tabs');
+const closeButton = document.getElementById('close-btn');
+
+// Toggle untuk menampilkan dan menyembunyikan tab dengan efek fade in dan fade out
+toggleIcon.addEventListener('click', (event) => {
+    event.stopPropagation(); // Menghentikan propagasi klik agar tidak menutup tabs
+    if (tabsContainer.classList.contains('show')) {
+        tabsContainer.classList.remove('show'); // Sembunyikan tab dengan efek fade out
+    } else {
+        tabsContainer.classList.add('show'); // Tampilkan tab dengan efek fade in
+    }
+});
+
+// Tutup tabs jika klik terjadi di luar area tabs atau icon
+document.addEventListener('click', (event) => {
+    if (!tabsContainer.contains(event.target) && !toggleIcon.contains(event.target)) {
+        tabsContainer.classList.remove('show'); // Sembunyikan tab dengan efek fade out
+    }
+});
+
+// Tutup tabs jika tombol close diklik
+closeButton.addEventListener('click', () => {
+    tabsContainer.classList.remove('show'); // Sembunyikan tab dengan efek fade out
+});
+
+// Ambil semua tab dan produk
+const tabs = document.querySelectorAll('.tab');
+const products = document.querySelectorAll('.product-card2');
+
+// Menambahkan event listener untuk setiap tab
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        // Hapus kelas aktif dari semua tab dan sembunyikan semua produk
+        tabs.forEach(t => t.classList.remove('active-tab'));
+        products.forEach(product => product.style.display = 'none');
+
+        // Tambahkan kelas aktif pada tab yang dipilih
+        tab.classList.add('active-tab');
+
+        // Tampilkan produk berdasarkan kategori yang dipilih
+        const category = tab.getAttribute('data-category');
+        if (category === 'all') {
+            // Jika kategori "All", tampilkan semua produk
+            products.forEach(product => product.style.display = 'block');
+        } else {
+            // Jika kategori tertentu, tampilkan hanya produk yang sesuai
+            products.forEach(product => {
+                if (product.getAttribute('data-category') === category) {
+                    product.style.display = 'block';
+                }
+            });
+        }
+    });
+});
+
+// Menampilkan semua produk saat halaman dimuat
+document.querySelector('.tab[data-category="all"]').click();
+</script>
+
+<!-- LIGHTBOX ATC -->
+<script>
+// Ambil elemen keranjang dan checkout
+const cartItemsContainer = document.getElementById('cart-items');
+const checkoutBtn = document.getElementById('checkout-btn');
+const subtotalElement = document.getElementById('subtotal');
+const cartCount = document.getElementById('cart-count');
+const cartIcon = document.getElementById('cart-icon');
+const cartPopup = document.getElementById('cart-popup');
+const paymentPopup = document.getElementById('payment-popup');
+
+// Ambil elemen lightbox
+const qtyInput = document.querySelector('.popup-footer input');
+const lightboxTitle = document.getElementById('lightbox-titleATC');
+const lightboxImg = document.getElementById('lightbox-imgATC');
+const lightboxPrice = document.getElementById('lightbox-priceATC');
+
+let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+// Toggle visibility of cart popup
+cartIcon.addEventListener('click', function() {
+    cartPopup.classList.toggle('popup-hidden');
+});
+
+// Function to add item to cart
+function addToCart(productName, productPrice, productImg, quantity, selectedOptions, event, dimensions = '') {
+    event.stopPropagation();
+    const item = cartItems.find(cartItem => 
+        cartItem.name === productName && 
+        cartItem.options === selectedOptions.join(', ') &&
+        cartItem.dimensions === dimensions
+    );
+
+    if (item) {
+        item.qty += quantity;
+    } else {
+        cartItems.push({
+            name: productName,
+            price: productPrice,
+            img: productImg,
+            qty: quantity,
+            dimensions: dimensions,
+            options: selectedOptions.join(', ')
+        });
+    }
+    updateCart();
+}
+
+// Function to remove item from cart
+function removeFromCart(productName, options, event) {
+    event.stopPropagation();
+    cartItems = cartItems.filter(cartItem => !(cartItem.name === productName && cartItem.options === options));
+    updateCart();
+}
+
+// Update cart display and save to local storage
+function updateCart() {
+    cartItemsContainer.innerHTML = '';
+    let subtotal = 0;
+    let itemCount = 0;
+    cartItems.forEach(item => {
+        subtotal += item.price * item.qty;
+        itemCount += item.qty;
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
+        cartItem.innerHTML = `
+            <div class="item-image">
+                <img src="${item.img}" alt="${item.name}">
+            </div>
+            <div class="item-details">
+                <span class="item-name">${item.name}</span>
+                <span class="item-options">${item.options}</span>
+                <span>Rp ${(item.price * item.qty).toLocaleString('id-ID')}</span>
+            </div>
+            <div class="item-controls">
+                <button class="decrease-btn" onclick="decreaseQty('${item.name}', '${item.options}', event)">-</button>
+                ${item.qty}
+                <button class="increase-btn" onclick="addToCart('${item.name}', ${item.price}, '${item.img}', 1, ['${item.options}'], event, '${item.dimensions}')">+</button>
+                <button class="remove-btn" onclick="removeFromCart('${item.name}', '${item.options}', event)">X</button>
+            </div>
+        `;
+        cartItemsContainer.appendChild(cartItem);
+    });
+    subtotalElement.innerText = subtotal.toLocaleString('id-ID');
+    cartCount.innerText = itemCount;
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+}
+
+// Function to decrease quantity
+function decreaseQty(productName, options, event) {
+    event.stopPropagation();
+    const item = cartItems.find(cartItem => cartItem.name === productName && cartItem.options === options);
+    if (item && item.qty > 1) {
+        item.qty -= 1;
+    } else if (item) {
+        cartItems = cartItems.filter(cartItem => !(cartItem.name === productName && cartItem.options === options));
+    }
+    updateCart();
+}
+
+document.getElementById('close-cart-popup').addEventListener('click', function() {
+    const cartPopup = document.getElementById('cart-popup');
+    cartPopup.classList.add('popup-hidden'); // Menutup popup
+});
+
+// Fungsi untuk menampilkan lightbox ATC dan mengatur opsi
+document.querySelectorAll('.product-card2 .atc-btn').forEach(card => {
+    card.addEventListener('click', function () {
+        const productCard = this.closest('.product-card2');
+
+        // Ambil detail produk dari product card
+        const imgSrc = productCard.querySelector('.card2-header img').src;
+        const title = productCard.querySelector('.card2-title').textContent;
+        const basePrice = parseInt(productCard.querySelector('.card2-price').textContent.replace(/Rp |[.]/g, ''));
+
+        // Atur konten lightbox
+        lightboxImg.src = imgSrc;
+        lightboxTitle.textContent = title;
+        const lightboxPrice = document.querySelector('#lightbox-priceATC');
+        lightboxPrice.textContent = `Rp ${basePrice.toLocaleString('id-ID')}`;
+
+        // Bersihkan opsi sebelumnya
+        const optionsContainer = document.querySelector('.popup-options');
+        optionsContainer.innerHTML = '';
+
+        // Ambil grup opsi dari product card
+        const optionGroups = productCard.querySelectorAll('.option-group');
+        optionGroups.forEach(group => {
+            const labelText = group.querySelector('label').textContent;
+            const options = group.querySelectorAll('.options .option');
+
+            const optionGroupElement = document.createElement('div');
+            optionGroupElement.classList.add('option-group');
+            const labelElement = document.createElement('label');
+            labelElement.textContent = labelText;
+            optionGroupElement.appendChild(labelElement);
+
+            // Cek apakah grup ini adalah input dimensi (khusus untuk produk seperti spanduk)
+            if (group.classList.contains('dimension-group')) {
+                const inputWidth = document.createElement('input');
+                inputWidth.type = 'number';
+                inputWidth.placeholder = 'Lebar (cm)';
+                inputWidth.classList.add('dimension-input', 'width');
+
+                const inputHeight = document.createElement('input');
+                inputHeight.type = 'number';
+                inputHeight.placeholder = 'Tinggi (cm)';
+                inputHeight.classList.add('dimension-input', 'height');
+
+                const dimensionContainer = document.createElement('div');
+                dimensionContainer.classList.add('dimension-container');
+                dimensionContainer.appendChild(inputWidth);
+                dimensionContainer.appendChild(inputHeight);
+
+                // Event listener untuk menghitung dimensi
+                const calculateDimensionPrice = () => {
+                    const width = parseFloat(inputWidth.value) || 0;
+                    const height = parseFloat(inputHeight.value) || 0;
+                    const area = width * height; // Hitung area dalam cm²
+
+                    const areaInSquareMeter = area / 10000; // Konversi ke m²
+                    const priceBeforeRound = areaInSquareMeter * basePrice - basePrice;
+					const addPrice = Math.ceil(priceBeforeRound / 500) * 500; // Kalikan dengan basePrice untuk harga tambahan
+
+                    // Update atribut harga tambahan
+                    dimensionContainer.setAttribute('add-price', addPrice);
+
+                    // Update harga total
+                    updatePrice(basePrice); 
+                };
+
+                // Tambahkan event listener ke input lebar dan tinggi
+                inputWidth.addEventListener('input', calculateDimensionPrice);
+                inputHeight.addEventListener('input', calculateDimensionPrice);
+
+                optionGroupElement.appendChild(dimensionContainer);
+            } else {
+                const optionsContainerInGroup = document.createElement('div');
+                optionsContainerInGroup.classList.add('options');
+
+                options.forEach(option => {
+                    const optionElement = document.createElement('div');
+                    optionElement.classList.add('option');
+                    optionElement.textContent = option.textContent;
+
+                    // Tambahkan atribut harga tambahan
+                    const addPrice = parseInt(option.getAttribute('add-price')) || 0;
+                    optionElement.setAttribute('add-price', addPrice);
+
+                    // Tambahkan kelas `disabled` jika opsi memiliki kelas tersebut
+                    if (option.classList.contains('disabled')) {
+                        optionElement.classList.add('disabled');
+                    }
+
+                    // Aktifkan opsi yang dipilih sebelumnya jika ada
+                    if (option.classList.contains('selected')) {
+                        optionElement.classList.add('active');
+                    }
+
+                    // Event Listener untuk klik opsi
+                    optionElement.addEventListener('click', function () {
+                        // Cegah interaksi jika opsi dikunci (disabled)
+                        if (this.classList.contains('disabled')) {
+                            return; // Abaikan klik
+                        }
+
+                        // Nonaktifkan semua opsi dalam grup
+                        optionsContainerInGroup.querySelectorAll('.option').forEach(opt => opt.classList.remove('active'));
+                        // Aktifkan opsi yang diklik
+                        this.classList.add('active');
+                        // Perbarui harga total
+                        updatePrice(basePrice);
+                    });
+
+                    optionsContainerInGroup.appendChild(optionElement);
+                });
+
+                optionGroupElement.appendChild(optionsContainerInGroup);
+            }
+
+            optionsContainer.appendChild(optionGroupElement);
+        });
+
+        // Tampilkan lightbox
+        document.getElementById('lightboxATC').style.display = 'flex';
+
+        // Reset quantity
+        qtyInput.value = 1;
+        updatePrice(basePrice);
+    });
+});
+
+// Fungsi untuk memperbarui harga total
+function updatePrice(basePrice) {
+    const qty = parseInt(qtyInput.value) || 1; // Ambil nilai quantity
+    let totalPrice = basePrice * qty; // Harga dasar * jumlah
+
+    // Iterasi setiap grup opsi
+    document.querySelectorAll('.popup-options .option-group').forEach(group => {
+        const activeOption = group.querySelector('.option.active');
+        if (activeOption) {
+            const addPrice = parseFloat(activeOption.getAttribute('add-price')) || 0;
+            totalPrice += addPrice * qty; // Tambahkan harga tambahan * jumlah
+        }
+
+        // Periksa atribut `add-price` untuk dimensi
+        const dimensionContainer = group.querySelector('.dimension-container');
+        if (dimensionContainer) {
+            const dimensionAddPrice = parseFloat(dimensionContainer.getAttribute('add-price')) || 0;
+            totalPrice += dimensionAddPrice * qty; // Tambahkan harga dimensi * jumlah
+        }
+    });
+
+    // Perbarui harga di lightbox
+    const lightboxPrice = document.querySelector('#lightbox-priceATC');
+    lightboxPrice.textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+}
+
+// Fungsi untuk tombol tambah dan kurang quantity
+document.querySelector('.popup-footer button:nth-child(1)').addEventListener('click', function () {
+    if (qtyInput.value > 1) {
+        qtyInput.value = parseInt(qtyInput.value) - 1;
+        updatePrice(basePrice);
+    }
+});
+
+document.querySelector('.popup-footer button:nth-child(3)').addEventListener('click', function () {
+    qtyInput.value = parseInt(qtyInput.value) + 1;
+    updatePrice(basePrice);
+});
+
+// Tambah produk ke cart dari lightbox dengan opsi tambahan
+document.querySelector('.add-to-cart-button').addEventListener('click', function(event) {
+    const productName = lightboxTitle.textContent;
+    const productImg = lightboxImg.src;
+    const quantity = parseInt(qtyInput.value);
+
+    // Validasi: pastikan setiap grup opsi memiliki setidaknya satu opsi yang aktif
+const optionGroups = document.querySelectorAll('.popup-options .option-group');
+let allOptionsSelected = true;
+const selectedOptions = [];
+
+    optionGroups.forEach(group => {
+    const activeOption = group.querySelector('.option.active');
+    
+    // Periksa apakah grup adalah grup dimensi
+    const dimensionContainer = group.querySelector('.dimension-container');
+    if (dimensionContainer) {
+        const widthInput = dimensionContainer.querySelector('.dimension-input.width');
+        const heightInput = dimensionContainer.querySelector('.dimension-input.height');
+        const width = parseFloat(widthInput.value) || 0;
+        const height = parseFloat(heightInput.value) || 0;
+
+        // Validasi input dimensi
+        if (width > 0 && height > 0) {
+            selectedOptions.push(`Dimensi: ${width} x ${height} cm`);
+        } else {
+            allOptionsSelected = false; // Jika dimensi tidak valid
+            group.classList.add('highlight'); // Tambahkan highlight pada grup
+        }
+    } else if (!activeOption) {
+        allOptionsSelected = false; // Grup opsi biasa tidak memiliki opsi aktif
+        group.classList.add('highlight');
+    } else {
+        selectedOptions.push(activeOption.textContent); // Tambahkan opsi yang dipilih
+        group.classList.remove('highlight'); // Hilangkan highlight jika sudah dipilih
+    }
+});
+
+// Gantikan peringatan dengan menampilkan popup
+if (!allOptionsSelected) {
+    const popupCart = document.getElementById('notif-popup-cart');
+    popupCart.classList.remove('popup-hidden-cart'); // Tampilkan popup
+    return; // Batalkan penambahan ke keranjang jika ada grup yang belum dipilih
+}
+
+
+    // Gunakan total harga yang sudah diperbarui sesuai opsi yang dipilih
+    const finalPrice = parseInt(lightboxPrice.textContent.replace(/Rp |[.]/g, ''));
+
+    // Tambahkan produk ke keranjang dengan opsi dan harga akhir yang dipilih
+const dimensions = selectedOptions.find(opt => opt.startsWith('Dimensi:')) || '';
+addToCart(productName, finalPrice, productImg, quantity, selectedOptions, event, dimensions);
+
+    // Tutup lightbox
+    document.getElementById('lightboxATC').style.display = 'none';
+    document.querySelector('.popup-options').innerHTML = '';
+});
+
+// Fungsi tombol tutup
+document.querySelector('.close-btnATC').addEventListener('click', function() {
+    document.getElementById('lightboxATC').style.display = 'none';
+    document.querySelector('.popup-options').innerHTML = '';
+});
+
+// Tutup lightbox saat mengklik di luar area
+window.addEventListener('click', function(event) {
+    if (event.target === document.getElementById('lightboxATC')) {
+        document.getElementById('lightboxATC').style.display = 'none';
+        document.querySelector('.popup-options').innerHTML = '';
+    }
+});
+
+// Tutup cart popup saat mengklik di luar area
+window.addEventListener('click', function(event) {
+    if (!cartPopup.classList.contains('popup-hidden') && !cartIcon.contains(event.target) && !cartPopup.contains(event.target)) {
+        cartPopup.classList.add('popup-hidden');
+    }
+});
+
+// Function to handle checkout
+function checkout() {
+    if (cartItems.length === 0) {
+        alert('Keranjang kosong, tambahkan produk terlebih dahulu!');
+        return;
+    }
+
+    // Tampilkan popup pembayaran
+    showPaymentPopup();
+}
+
+// Show payment popup
+function showPaymentPopup() {
+    const subtotal = cartItems.reduce((total, item) => total + item.price * item.qty, 0);
+    paymentPopup.classList.remove('popup-hidden'); // Tampilkan popup
+    paymentPopup.classList.add('popup-show'); // Tambahkan kelas animasi
+    const paymentDetails = paymentPopup.querySelector('.payment-details');
+    paymentDetails.innerHTML = `
+        <p><strong><h1 style="margin-top:-10px;margin-bottom:30px;color:#fff;">Rp ${subtotal.toLocaleString('id-ID')}</h1></strong></p> <!-- Pemisah ribuan -->
+        <p></p>
+        <ul>
+            <li><h3><b></h3></b></li>
+            <li>KLIK TOMBOL KIRIM<br/>untuk mengirimkan rincian pesanan anda</li>
+            <li><b><h2 style="margin-top:-3px;">ADMIN akan segera mengonfirmasi untuk pembuatan INVOICE-nya<h2></b></li>
+        <p style="color:#fff;">Terima kasih telah berkunjung di Website kami<br/><b>PT. DSAIN KREASI MANDIRI ^.-</b></p>
+        </ul>
+    `;
+}
+
+function generateTransactionNumber() {
+    const now = new Date();
+    // Format: YYMMDD-HHmmSS-XXXX (YYYY-MM-DD HH:MM:SS-Serial)
+    const datePart = now.toISOString().slice(2, 10).replace(/-/g, ''); // Format YYMMDD
+    const timePart = now.toTimeString().slice(0, 8).replace(/:/g, ''); // Format HHMMSS
+    let serial = parseInt(localStorage.getItem('transactionSerial')) || 0;
+
+    // Increment serial number and save it back
+    serial += 1;
+    localStorage.setItem('transactionSerial', serial);
+
+    return `#${datePart}-${timePart}-${serial}`;
+}
+
+// Hide payment popup
+function hidePaymentPopup() {
+    paymentPopup.classList.remove('popup-show'); // Hapus kelas animasi
+    paymentPopup.classList.add('popup-hidden');
+}
+
+// Send order to WhatsApp
+function sendOrderToWhatsApp() {
+    // Generate transaction number
+    const transactionNumber = generateTransactionNumber();
+
+    // Buat pesan untuk WhatsApp
+    let message = `--------------------------------------\nNomor Transaksi: ${transactionNumber}\n`;
+    message += "--------------------------------------\n\nPesanan Anda:\n--------------------------------------\n";
+    cartItems.forEach(item => {
+        message += `${item.name} - Qty: ${item.qty} - Rp ${(item.price * item.qty).toLocaleString('id-ID')}\nDetail : ${item.options}\n--------------------------------------\n`; // Pemisah ribuan
+    });
+    message += `Subtotal: Rp ${cartItems.reduce((total, item) => total + item.price * item.qty, 0).toLocaleString('id-ID')}`; // Pemisah ribuan
+
+    // Encode message and send to WhatsApp
+    const encodedMessage = encodeURIComponent(message);
+    const phoneNumber = '6285172288904';
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+    window.open(whatsappUrl, '_blank');
+
+    // Kosongkan keranjang dan update
+    cartItems = [];
+    updateCart();
+    hidePaymentPopup();
+}
+
+// Event listener untuk menutup popup saat tombol OK diklik
+document.getElementById('close-popup-btn-cart').addEventListener('click', function() {
+    const popupCart = document.getElementById('notif-popup-cart');
+    popupCart.classList.add('popup-hidden-cart'); // Sembunyikan popup
+});
+
+// Event listener untuk tombol checkout
+checkoutBtn.addEventListener('click', checkout);
+
+// Event listeners untuk tombol pada popup pembayaran
+document.getElementById('cancel-btn').addEventListener('click', hidePaymentPopup);
+document.getElementById('next-btn').addEventListener('click', sendOrderToWhatsApp);
+
+// Close cart popup when clicking outside of it
+window.addEventListener('click', function(event) {
+    if (!cartPopup.classList.contains('popup-hidden') && !cartIcon.contains(event.target) && !cartPopup.contains(event.target)) {
+        cartPopup.classList.add('popup-hidden');
+    }
+});
+
+// Call updateCart to load items from local storage on page load
+updateCart();
+</script>
+
+<!--LIGHTBOX DETAIL PRODUCT-->
+<script>
+// JavaScript for opening and closing the lightbox
+document.querySelectorAll('.product-card2 .card2-header').forEach(card => {
+    card.addEventListener('click', function() {
+        const productCard = this.closest('.product-card2');
+
+        // Get product details directly from the elements
+        const imgSrc = productCard.querySelector('.card2-header img').src;
+        const title = productCard.querySelector('.card2-title').textContent;
+        const price = productCard.querySelector('.card2-price').textContent;
+        const description = productCard.querySelector('.card2-description').childNodes[0].textContent.trim();
+
+        // Set lightbox content
+        document.getElementById('lightbox-imgPL').src = imgSrc;
+        document.getElementById('lightbox-titlePL').textContent = title;
+        document.getElementById('lightbox-pricePL').textContent = price;
+        document.getElementById('lightbox-descriptionPL').textContent = description;
+
+        // Check for note-guide table and insert it into the lightbox if it exists
+        const guideTable = productCard.querySelector('.note-guide');
+        if (guideTable) {
+            document.getElementById('lightbox-guidePL').innerHTML = guideTable.outerHTML;
+            document.querySelector('#lightbox-guidePL .note-guide').classList.add('note-guide'); // Apply styles
+            document.getElementById('lightbox-guidePL').style.display = 'block';
+        } else {
+            document.getElementById('lightbox-guidePL').style.display = 'none'; // Hide if no table
+        }
+
+        // Show lightbox
+        document.getElementById('lightboxPL').style.display = 'flex';
+    });
+});
+
+// Close button functionality
+document.querySelector('.close-btnPL').addEventListener('click', function() {
+    document.getElementById('lightboxPL').style.display = 'none';
+    document.getElementById('lightbox-guidePL').innerHTML = ''; // Clear table on close
+});
+
+// Close lightbox on outside click
+window.addEventListener('click', function(event) {
+    if (event.target === document.getElementById('lightboxPL')) {
+        document.getElementById('lightboxPL').style.display = 'none';
+        document.getElementById('lightbox-guidePL').innerHTML = ''; // Clear table on close
+    }
+});
+</script>
+
+
+
+<!--MENU BOTTOM TAB--> 
+<script>
+  // JavaScript untuk menangani aktivasi tab
+  function activateTabH3(element, contentId) {
+    const tabs = document.querySelectorAll('.tab-itemH3');
+    const contents = document.querySelectorAll('.contentH3');
+    
+    // Hapus kelas aktif dari semua tab dan konten
+    tabs.forEach(tab => tab.classList.remove('activeH3'));
+    contents.forEach(content => content.classList.remove('activeH3'));
+    
+    // Tambah kelas aktif ke tab dan konten yang dipilih
+    element.classList.add('activeH3');
+    document.getElementById(contentId).classList.add('activeH3');
+    
+    // Scroll halaman ke bagian awal
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+
+ <!-- Popup Whatsapp --> 
+<script>
+    function toggleWhatsAppCard(event) {
+        var card = document.getElementById("whatsappCard");
+        var floatIcon = document.getElementById("floatIcon");
+        var floatContainer = document.getElementById("whatsappFloatContainer");
+        var helpText = document.getElementById("helpText");
+
+        if (card.style.display === "none" || card.style.display === "") {
+            card.style.display = "block";
+            floatContainer.classList.add("hidden"); // Sembunyikan ikon saat kartu terbuka
+            helpText.style.display = "none"; // Sembunyikan teks saat kartu terbuka
+            setTimeout(function() {
+                card.classList.add("active");
+                floatIcon.style.transform = "rotate(180deg)"; // Rotasi saat kartu muncul
+            }, 10);
+        } else {
+            card.classList.remove("active");
+            floatIcon.style.transform = "rotate(0deg)"; // Kembali ke posisi semula
+            setTimeout(function() {
+                card.style.display = "none";
+                floatContainer.classList.remove("hidden"); // Tampilkan ikon saat kartu tertutup
+                helpText.style.display = "block"; // Tampilkan teks saat kartu tertutup
+            }, 400); // Sesuaikan dengan durasi transisi
+        }
+
+        event.stopPropagation(); // Mencegah event bubbling
+    }
+
+    // Menambahkan event listener untuk klik di luar card
+    document.addEventListener('click', function(event) {
+        var card = document.getElementById("whatsappCard");
+        var floatButton = document.getElementById("whatsappFloat");
+        var floatContainer = document.getElementById("whatsappFloatContainer");
+        var helpText = document.getElementById("helpText");
+
+        // Mengecek apakah klik di luar card dan tombol
+        if (!card.contains(event.target) && !floatButton.contains(event.target) && card.style.display === "block") {
+            card.classList.remove("active");
+            floatIcon.style.transform = "rotate(0deg)"; // Kembali ke posisi semula
+            setTimeout(function() {
+                card.style.display = "none";
+                floatContainer.classList.remove("hidden"); // Tampilkan ikon saat kartu tertutup
+                helpText.style.display = "block"; // Tampilkan teks saat kartu tertutup
+            }, 400); // Sesuaikan dengan durasi transisi
+        }
+    });
+</script>
+
+ <!-- Katalog --> 
+    <script>
+        const slidesKT = document.querySelectorAll('.slideKT');
+        const indicatorsContainerKT = document.querySelector('.indicatorsKT');
+        const prevButtonKT = document.querySelector('.prevKT');
+        const nextButtonKT = document.querySelector('.nextKT');
+        let currentSlideKT = 0;
+
+        // Menambahkan thumbnail ke indikator
+        slidesKT.forEach((slide, index) => {
+            const imgSrc = slide.querySelector('img').src;
+
+            const indicatorButtonKT = document.createElement('button');
+            indicatorButtonKT.classList.add('indicatorKT');
+            indicatorButtonKT.setAttribute('data-index', index);
+
+            const imgElementKT = document.createElement('img');
+            imgElementKT.src = imgSrc;
+            imgElementKT.alt = `Thumbnail ${index + 1}`; // Menambahkan alt untuk aksesibilitas
+            indicatorButtonKT.appendChild(imgElementKT);
+
+            indicatorsContainerKT.appendChild(indicatorButtonKT);
+        });
+
+        // Fungsi untuk memperbarui slider dan indikator
+        function updateSliderKT() {
+            // Menyembunyikan semua slide
+            slidesKT.forEach((slide, index) => {
+                slide.classList.remove('activeKT');
+                if (index === currentSlideKT) {
+                    slide.classList.add('activeKT');
+                }
+            });
+
+            // Menyembunyikan semua indikator dan menandai indikator yang aktif
+            const indicatorsKT = document.querySelectorAll('.indicatorKT');
+            indicatorsKT.forEach((indicator, index) => {
+                indicator.classList.remove('activeKT');
+                if (index === currentSlideKT) {
+                    indicator.classList.add('activeKT');
+                }
+            });
+
+            // Menyelaraskan thumbnail yang aktif ke tengah
+            const activeIndicatorKT = document.querySelector('.indicatorKT.activeKT');
+            if (activeIndicatorKT) {
+                activeIndicatorKT.scrollIntoView({
+                    behavior: 'smooth',
+                    inline: 'center' // Pastikan thumbnail yang aktif berada di tengah
+                });
+            }
+        }
+
+        // Menavigasi ke slide berikutnya
+        nextButtonKT.addEventListener('click', () => {
+            currentSlideKT = (currentSlideKT + 1) % slidesKT.length;
+            updateSliderKT();
+        });
+
+        // Menavigasi ke slide sebelumnya
+        prevButtonKT.addEventListener('click', () => {
+            currentSlideKT = (currentSlideKT - 1 + slidesKT.length) % slidesKT.length;
+            updateSliderKT();
+        });
+
+        // Menavigasi berdasarkan klik pada indikator
+        indicatorsContainerKT.addEventListener('click', (event) => {
+            if (event.target.closest('.indicatorKT')) {
+                currentSlideKT = parseInt(event.target.closest('.indicatorKT').getAttribute('data-index'));
+                updateSliderKT();
+            }
+        });
+
+        // Memulai slider dengan gambar pertama yang ditampilkan
+        updateSliderKT();
+    </script>
+
+<!--Banner Utama-->
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dots button');
+    const progressBar = document.querySelector('.progress-bar');
+
+    function showSlide(index) {
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    
+    // Ubah slide
+    currentSlide = index;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+
+    // Reset progress bar
+    progressBar.style.width = '0';
+    setTimeout(() => {
+        progressBar.style.width = '100%';
+    }, 100);
+
+    // Reset dan retrigger animasi teks
+    const content = slides[currentSlide].querySelectorAll('.content h2, .content p, .content a');
+    content.forEach(element => {
+        element.style.opacity = '0';  // Reset opacity ke 0
+        element.style.transform = 'translateX(-100px)';  // Reset posisi awal ke kiri
+        element.style.animation = 'none';  // Matikan animasi sebelumnya
+        setTimeout(() => {
+            element.style.animation = '';  // Aktifkan animasi kembali
+        }, 10);
+    });
+}
+
+// Fungsi untuk beralih ke slide berikutnya
+function showNextSlide() {
+    const nextSlide = (currentSlide + 1) % slides.length;
+    showSlide(nextSlide);
+}
+
+// Event listener untuk dots (indikator slide)
+dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        showSlide(index);
+    });
+});
+
+// Set interval untuk otomatis ganti slide setiap 10 detik
+setInterval(showNextSlide, 10000); 
+
+</script>
+
+
+<!--Client-->
+<script>
+    // Ganti variabel track dengan nama yang lebih unik
+    const clientTrack = document.querySelector('.client-slider-track');
+    let clientCurrentSlide = 0;
+    const clientTotalSlides = 3; // 3 slides, each containing 5 images
+
+    // Ganti fungsi moveToNextSlide dengan nama yang lebih unik
+    function clientMoveToNextSlide() {
+        clientCurrentSlide = (clientCurrentSlide + 1) % clientTotalSlides; // Cycle back to the first slide after the last
+        clientTrack.style.transform = `translateX(-${clientCurrentSlide * 100 / clientTotalSlides}%)`;
+    }
+
+    // Automatically move to the next slide every 3 seconds
+    setInterval(clientMoveToNextSlide, 3000);
+</script>
+
+    
+<!--POPUP MAINTENANCE--> 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Ambil elemen popup dan tombol close
+        const popup = document.getElementById('maintenance-popupMT');
+        const closeButton = document.getElementById('close-popupMT');
+
+        // Tampilkan popup saat halaman dimuat
+        if (popup) {
+            popup.classList.add('activeMT');
+        }
+
+        // Fungsi untuk menutup popup
+        function closePopup() {
+            if (popup) {
+                popup.classList.remove('activeMT');
+            }
+        }
+
+        // Event listener untuk tombol close
+        if (closeButton) {
+            closeButton.addEventListener('click', function (event) {
+                event.stopPropagation(); // Cegah event bubbling
+                closePopup();
+            });
+        }
+
+        // Event listener untuk klik di luar area popup
+        if (popup) {
+            popup.addEventListener('click', function (event) {
+                // Hanya tutup jika yang diklik adalah overlay, bukan kontennya
+                if (event.target === popup) {
+                    closePopup();
+                }
+            });
+        }
+    });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const footerHTML = `
+<div class="banner-wrapperKY">
+	<div class="bannercontactKY">
+		<!-- Kolom Pertama (Logo + Caption, Bersebelahan di Desktop) -->
+		<div class="columnKY column-logo-captionKY">
+			<div class="logoKY">📢</div>
+            <div class="captionKY">
+             Konsultasikan kebutuhan Advertising dan Promosi Anda sekarang juga! Tim customer service kami siap membantu.
+			</div>
+            <div class="columnKY button-columnKY"><button class="buttonKY" onclick="toggleWhatsAppCard(event)">Hubungi Kami</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <footer class="footerFTR">
+            <!-- Header Section -->
+            <div class="headerFTR">
+                <img src="https://i.imgur.com/oM4Y1hF.png" alt="Logo" />
+                <p>D'Side Graphia melayani jasa Penempatan Media Outdoor dengan lingkup Nasional. Billboard, Videotron, Spanduk, Baliho, Umbul-Umbul, T-Banner, Neon Box, Letter Sign, Signage, Pylon Sign, Signboard.</p>
+            </div>
+
+            <!-- Social Icons -->
+            <div class="social-iconsFTR">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+
+            <!-- Footer Columns -->
+            <div class="footer-columnsFTR">
+                <!-- Column 1 -->
+                <div class="footer-columnFTR">
+                    <h3>Our Services</h3>
+                    <ul>
+                        <li><i class="fas fa-bullhorn"></i> Outdoor Advertising</li>
+                        <li><i class="fas fa-ad"></i> Pemasangan Iklan</li>
+                        <li><i class="fas fa-file-signature"></i> Perizinan Iklan</li>
+                        <li><i class="fas fa-print"></i> Digital Printing</li>
+                        <li><i class="fas fa-comments"></i> Konsultasi Gratis</li>
+                    </ul>
+                </div>
+                <!-- Column 2 -->
+                <div class="footer-columnFTR">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><i class="fas fa-info-circle"></i> About Us</li>
+                        <li><i class="fas fa-video"></i> Productions</li>
+                        <li><i class="fas fa-images"></i> Gallery</li>
+                        <li><i class="fas fa-briefcase"></i> Portofolio</li>
+                        <li onclick="activateTabH3(this, 'content-contactusH3')"><i class="fas fa-phone-alt"></i> Contact Us</li>
+                    </ul>
+                </div>
+                <!-- Column 3 -->
+                <div class="footer-columnFTR">
+                    <h3>Hubungi Kami</h3>
+                    <div class="contact-infoFTR"><i class="fas fa-phone"></i> (0234) 7301966</div>
+                    <div class="contact-infoFTR"><i class="fab fa-whatsapp"></i> +62 87838333993</div>
+                    <div class="contact-infoFTR"><i class="fas fa-envelope"></i> dsidegraphia@gmail.com</div>
+                </div>
+                <!-- Column 4 (Hak Cipta) -->
+                <div class="copyrightFTR">
+                    <p>&copy; 2024 D'Side Graphia | Design by : Ridwan. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    `;
+
+    // Cari semua elemen dengan class "footer" dan tambahkan HTML footer
+    const footerElements = document.querySelectorAll('.footer');
+    footerElements.forEach(footerElement => {
+        footerElement.innerHTML = footerHTML;
+    });
+});
+</script>
+</body>
+</html>
