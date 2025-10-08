@@ -341,23 +341,7 @@ body {
         }
 
         /* Styling Icon Container */
-        .icon-container {
-            display: flex;
-            align-items: center;
-        }
 
-        .icon-container i {
-            font-size: 20px;
-            color: #fff;
-            margin-right: 40px;
-            margin-left: -20px;
-            cursor: pointer;
-        }
-        
-       .fullscreen-icon {
-            margin-right: 8px;
-            font-size: 20px;
-        }
     </style>
 
 <style>    /* Menu bottom bar container */
@@ -1192,26 +1176,48 @@ button:hover {
 }
 
     /* Posisi dan gaya ikon keranjang belanja */
-    #cart-icon {
-        font-size: 30px;
-        color:white;
-    }
+.icon-container {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* jarak antar icon */
+}
 
-    /* Gaya untuk jumlah item di ikon keranjang */
-    #cart-count {position:fixed;
-        font-family: 'Arial', sans-serif;
-        width: 20px;
-        height: 10px;
-        top: 5px;
-        right: 5px;
-        background-color: red;
-        color: white;
-        border-radius: 7px;
-        padding: 3px;
-        font-size: 12px;
-        font-weight: bold;
-        text-align: center;
-    }
+/* fullscreen tetap ikut aturan umum */
+#fullscreen-icon {
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+/* style untuk cart */
+#cart-icon {
+    font-size: 30px;
+    color: white;
+    position: relative;
+    cursor: pointer;
+}
+
+/* badge jumlah item di keranjang */
+#cart-count {
+    position: absolute;
+    top: -8px;
+    right: -12px;
+    background-color: red;
+    color: white;
+    border-radius: 7px;
+    padding: 2px 5px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* style untuk logout */
+#logout-icon i {
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
 
 .header-cart{
     	margin-top: -10px;
@@ -5017,4 +5023,5 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
