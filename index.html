@@ -1179,17 +1179,20 @@ button:hover {
 .icon-container {
     display: flex;
     align-items: center;
+    justify-content: flex-end; /* dorong semua icon ke kanan */
     gap: 20px; /* jarak antar icon */
+    width: 100%; /* biar flex bisa dorong ke ujung kanan */
+    padding-right: 15px; /* kasih sedikit ruang dari tepi layar */
 }
 
-/* fullscreen tetap ikut aturan umum */
+/* fullscreen */
 #fullscreen-icon {
     font-size: 20px;
     color: white;
     cursor: pointer;
 }
 
-/* style untuk cart */
+/* cart */
 #cart-icon {
     font-size: 20px;
     color: white;
@@ -1211,12 +1214,13 @@ button:hover {
     text-align: center;
 }
 
-/* style untuk logout */
+/* logout */
 #logout-icon i {
     font-size: 20px;
     color: white;
     cursor: pointer;
 }
+
 
 .header-cart{
     	margin-top: -10px;
@@ -5017,6 +5021,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
 
 
